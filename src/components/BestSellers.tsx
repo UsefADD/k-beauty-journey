@@ -52,9 +52,6 @@ const BestSellers = () => {
             SHOP BY SETS & ROUTINES
           </Link>
         </div>
-        <p className="section-subtitle text-center">
-          Discover our most-loved K-Beauty products, trusted by skincare enthusiasts worldwide for their remarkable results.
-        </p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {bestSellerProducts.map(product => <ProductCard key={product.id} {...product} />)}
