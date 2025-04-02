@@ -1,34 +1,69 @@
+
 import React from 'react';
 import ProductCard from './ProductCard';
-const bestSellerProducts = [{
-  id: 1,
-  name: "Rice Toner Bright & Radiant",
-  brand: "I'm From",
-  price: 28,
-  image: "/placeholder.svg"
-}, {
-  id: 2,
-  name: "Vitamin C Serum Anti-Aging",
-  brand: "KLAIRS",
-  price: 23,
-  image: "/placeholder.svg"
-}, {
-  id: 3,
-  name: "Cleansing Oil PHA Makeup Remover",
-  brand: "HANSKIN",
-  price: 28,
-  image: "/placeholder.svg"
-}, {
-  id: 4,
-  name: "Day-Light Protection Sunscreen SPF50+",
-  brand: "NEOGEN",
-  price: 32,
-  image: "/placeholder.svg"
-}];
+import { Link } from 'react-router-dom';
+
+const bestSellerProducts = [
+  {
+    id: 1,
+    name: "Rice Toner Bright & Radiant",
+    brand: "I'm From",
+    price: 28,
+    image: "/placeholder.svg"
+  },
+  {
+    id: 2,
+    name: "Vitamin C Serum Anti-Aging",
+    brand: "KLAIRS",
+    price: 23,
+    image: "/placeholder.svg"
+  },
+  {
+    id: 3,
+    name: "Cleansing Oil PHA Makeup Remover",
+    brand: "HANSKIN",
+    price: 28,
+    image: "/placeholder.svg"
+  },
+  {
+    id: 4,
+    name: "Day-Light Protection Sunscreen SPF50+",
+    brand: "NEOGEN",
+    price: 32,
+    image: "/placeholder.svg"
+  }
+];
+
 const BestSellers = () => {
-  return <div className="py-16 bg-white">
+  return (
+    <div className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="section-title text-center text-sm">SHOP BY NEWLY CURATED</h2>
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          <Link to="/shop/newly-curated" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
+            SHOP BY NEWLY CURATED
+          </Link>
+          <Link to="/shop/viral" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
+            SHOP BY VIRAL K-BEAUTY
+          </Link>
+          <Link to="/shop/best-sellers" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1 font-bold">
+            SHOP BY BEST SELLERS
+          </Link>
+          <Link to="/shop/sets" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
+            SHOP BY SETS & ROUTINES
+          </Link>
+          <Link to="/shop/skin-concern" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
+            SHOP BY SKIN CONCERN
+          </Link>
+          <Link to="/shop/brand" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
+            SHOP BY BRAND
+          </Link>
+          <Link to="/shop/product-type" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
+            SHOP BY PRODUCT TYPE
+          </Link>
+          <Link to="/shop/ingredient" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
+            SHOP BY INGREDIENT
+          </Link>
+        </div>
         <p className="section-subtitle text-center">
           Discover our most-loved K-Beauty products, trusted by skincare enthusiasts worldwide for their remarkable results.
         </p>
@@ -41,6 +76,8 @@ const BestSellers = () => {
           <button className="k-button-primary">VIEW ALL BEST SELLERS</button>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default BestSellers;
