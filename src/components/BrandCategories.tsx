@@ -1,0 +1,33 @@
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const brands = [
+  { name: 'KLAIRS', path: '/shop/brand/klairs' },
+  { name: 'COSRX', path: '/shop/brand/cosrx' },
+  { name: 'ISNTREE', path: '/shop/brand/isntree' },
+  { name: 'BEAUTY OF JOSEON', path: '/shop/brand/beauty-of-joseon' },
+  { name: 'I\'M FROM', path: '/shop/brand/im-from' },
+  { name: 'PYUNKANG YUL', path: '/shop/brand/pyunkang-yul' },
+  { name: 'NEOGEN', path: '/shop/brand/neogen' },
+  { name: 'ROVECTIN', path: '/shop/brand/rovectin' },
+];
+
+const BrandCategories = () => {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8 mb-16">
+      {brands.map((brand) => (
+        <Link
+          key={brand.name}
+          to={brand.path}
+          className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center flex flex-col items-center justify-center min-h-[150px]"
+        >
+          <h3 className="text-lg font-medium text-knude-800 mb-2">{brand.name}</h3>
+          <p className="text-sm text-knude-600">Shop All Products</p>
+        </Link>
+      ))}
+    </div>
+  );
+};
+
+export default BrandCategories;

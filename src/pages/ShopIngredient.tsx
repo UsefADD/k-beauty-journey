@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ShopCategories from '../components/ShopCategories';
-import NewProducts from '../components/NewProducts';
+import IngredientCategories from '../components/IngredientCategories';
 
 const ShopIngredient = () => {
   return (
@@ -15,7 +15,13 @@ const ShopIngredient = () => {
             SHOP BY INGREDIENT
           </h1>
           <ShopCategories />
-          <NewProducts />
+          <div className="mt-8 mb-6 text-center">
+            <p className="text-knude-700 max-w-3xl mx-auto">
+              Discover products featuring your favorite ingredients known for their effective skincare benefits. 
+              Each ingredient targets specific skin concerns for personalized results.
+            </p>
+          </div>
+          <IngredientCategories />
         </div>
       </div>
       <Footer />

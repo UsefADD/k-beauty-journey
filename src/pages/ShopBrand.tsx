@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ShopCategories from '../components/ShopCategories';
-import NewProducts from '../components/NewProducts';
+import BrandCategories from '../components/BrandCategories';
 
 const ShopBrand = () => {
   return (
@@ -15,7 +15,13 @@ const ShopBrand = () => {
             SHOP BY BRAND
           </h1>
           <ShopCategories />
-          <NewProducts />
+          <div className="mt-8 mb-6 text-center">
+            <p className="text-knude-700 max-w-3xl mx-auto">
+              Explore our carefully curated collection of premium Korean skincare brands. 
+              Each brand brings its unique approach to beauty with innovative formulations and proven results.
+            </p>
+          </div>
+          <BrandCategories />
         </div>
       </div>
       <Footer />
