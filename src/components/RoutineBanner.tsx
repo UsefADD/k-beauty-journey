@@ -11,6 +11,41 @@ const RoutineBanner = () => {
           Get started with our curated Korean Skincare Routine Sets!
         </h2>
         
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
+          <Link to="/shop/sets" className="transition-transform hover:scale-105">
+            <img 
+              src="/placeholder.svg" 
+              alt="Cleanser" 
+              className="rounded-lg shadow-md w-full h-auto"
+            />
+            <p className="mt-2 text-knude-700">Cleanser</p>
+          </Link>
+          <Link to="/shop/sets" className="transition-transform hover:scale-105">
+            <img 
+              src="/placeholder.svg" 
+              alt="Toner" 
+              className="rounded-lg shadow-md w-full h-auto"
+            />
+            <p className="mt-2 text-knude-700">Toner</p>
+          </Link>
+          <Link to="/shop/sets" className="transition-transform hover:scale-105">
+            <img 
+              src="/placeholder.svg" 
+              alt="Serum" 
+              className="rounded-lg shadow-md w-full h-auto"
+            />
+            <p className="mt-2 text-knude-700">Serum</p>
+          </Link>
+          <Link to="/shop/sets" className="transition-transform hover:scale-105">
+            <img 
+              src="/placeholder.svg" 
+              alt="Moisturizer" 
+              className="rounded-lg shadow-md w-full h-auto"
+            />
+            <p className="mt-2 text-knude-700">Moisturizer</p>
+          </Link>
+        </div>
+        
         <div className="flex justify-center gap-10 mt-4 mb-8">
           <Link to="/shop/sets" className="text-lg text-knude-700 hover:text-knude-900 font-medium underline">
             5 Step
