@@ -12,7 +12,7 @@ const Navbar = () => {
       <nav className="bg-white py-4 shadow-sm sticky top-0 z-50">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
           <Link to="/" className="text-2xl font-serif font-bold text-knude-800 mb-4 md:mb-0">
-            BLISSFUL
+            BLISSFUL.
           </Link>
           
           <div className="space-x-4 md:space-x-8 text-knude-700 text-sm font-medium mb-4 md:mb-0">
