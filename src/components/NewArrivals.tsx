@@ -22,13 +22,46 @@ const NewArrivals = () => {
               </Button>
             </Link>
           </div>
-          <div className="lg:w-1/2">
-            <div className="relative">
-              <img 
-                src="/lovable-uploads/78bb1641-521c-494d-8d63-2f0bde49efbd.png" 
-                alt="Arencia Holy Hyssop Serum 3D" 
-                className="w-full max-w-lg mx-auto rounded-lg shadow-lg"
-              />
+          <div className="lg:w-1/2 grid grid-cols-2 gap-4">
+            <div className="space-y-4">
+              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <img 
+                  src="/placeholder.svg" 
+                  alt="Mediheal Face Mask" 
+                  className="w-full h-auto rounded"
+                />
+                <h3 className="text-sm font-medium mt-2 text-knude-900">Mediheal Mask</h3>
+                <p className="text-knude-600 text-xs">$12.99</p>
+              </div>
+              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <img 
+                  src="/placeholder.svg" 
+                  alt="IOPE Serum" 
+                  className="w-full h-auto rounded"
+                />
+                <h3 className="text-sm font-medium mt-2 text-knude-900">IOPE Bio Essence</h3>
+                <p className="text-knude-600 text-xs">$49.99</p>
+              </div>
+            </div>
+            <div className="space-y-4 pt-6">
+              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <img 
+                  src="/placeholder.svg" 
+                  alt="Arencia Product" 
+                  className="w-full h-auto rounded"
+                />
+                <h3 className="text-sm font-medium mt-2 text-knude-900">Arencia Cream</h3>
+                <p className="text-knude-600 text-xs">$34.99</p>
+              </div>
+              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <img 
+                  src="/placeholder.svg" 
+                  alt="Abib Product" 
+                  className="w-full h-auto rounded"
+                />
+                <h3 className="text-sm font-medium mt-2 text-knude-900">Abib Toner</h3>
+                <p className="text-knude-600 text-xs">$28.99</p>
+              </div>
             </div>
           </div>
         </div>
