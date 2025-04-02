@@ -16,7 +16,7 @@ const Navbar = () => {
           </Link>
           
           <div className="space-x-4 md:space-x-8 text-knude-700 text-sm font-medium mb-4 md:mb-0">
-            <a className="hover:text-knude-900 transition-colors" href="#">SHOP ALL</a>
+            <Link to="/shop" className="hover:text-knude-900 transition-colors">SHOP ALL</Link>
             <a className="hover:text-knude-900 transition-colors" href="#">DISCOVER K-BEAUTY</a>
             <a className="hover:text-knude-900 transition-colors" href="#">BEST SELLERS</a>
             <Link to="/brands" className="hover:text-knude-900 transition-colors">BRANDS</Link>
