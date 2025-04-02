@@ -11,6 +11,10 @@ import ShopNewlyCurated from "./pages/ShopNewlyCurated";
 import ShopViral from "./pages/ShopViral";
 import ShopBestSellers from "./pages/ShopBestSellers";
 import ShopRoutines from "./pages/ShopRoutines";
+import ShopSkinConcern from "./pages/ShopSkinConcern";
+import ShopBrand from "./pages/ShopBrand";
+import ShopProductType from "./pages/ShopProductType";
+import ShopIngredient from "./pages/ShopIngredient";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +33,10 @@ const App = () => (
           <Route path="/shop/viral" element={<ShopViral />} />
           <Route path="/shop/best-sellers" element={<ShopBestSellers />} />
           <Route path="/shop/sets" element={<ShopRoutines />} />
+          <Route path="/shop/skin-concern" element={<ShopSkinConcern />} />
+          <Route path="/shop/brand" element={<ShopBrand />} />
+          <Route path="/shop/product-type" element={<ShopProductType />} />
+          <Route path="/shop/ingredient" element={<ShopIngredient />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
