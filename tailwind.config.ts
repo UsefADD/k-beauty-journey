@@ -25,6 +25,18 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				knude: {
+					50: '#F9F6F2', // Lightest nude - almost white with a hint of warmth
+					100: '#F5EFE8', // Very light nude
+					200: '#EFE5DB', // Light nude
+					300: '#E8D9CA', // Medium-light nude
+					400: '#DCCABA', // Medium nude
+					500: '#CABAA7', // Medium-dark nude
+					600: '#B8A695', // Dark nude
+					700: '#A69080', // Darker nude
+					800: '#8C7A6B', // Very dark nude
+					900: '#6F5F51', // Darkest nude - brownish
+				},
 				kblue: {
 					50: '#f0f7ff',
 					100: '#e4f1ff',
