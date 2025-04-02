@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 
 const NewArrivals = () => {
   return (
-    <div className="bg-knude-50 py-16">
+    <div className="bg-knude-50 py-16 mt-16">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center">
           {/* Left side - Text content */}
