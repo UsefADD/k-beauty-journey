@@ -2,6 +2,7 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 import { Link } from 'react-router-dom';
+import NewArrivals from './NewArrivals';
 
 const bestSellerProducts = [
   {
@@ -56,6 +57,8 @@ const BestSellers = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {bestSellerProducts.map(product => <ProductCard key={product.id} {...product} />)}
         </div>
+        
+        <NewArrivals />
         
         <div className="mt-12 text-center">
           <button className="k-button-primary">VIEW ALL BEST SELLERS</button>
