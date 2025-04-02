@@ -26,16 +26,16 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				knude: {
-					50: '#F9F6F2', // Lightest nude - almost white with a hint of warmth
-					100: '#F5EFE8', // Very light nude
-					200: '#EFE5DB', // Light nude
-					300: '#E8D9CA', // Medium-light nude
-					400: '#DCCABA', // Medium nude
-					500: '#CABAA7', // Medium-dark nude
-					600: '#B8A695', // Dark nude
-					700: '#A69080', // Darker nude
-					800: '#8C7A6B', // Very dark nude
-					900: '#6F5F51', // Darkest nude - brownish
+					50: '#FDF6F6', // Lightest nude pink - almost white with a hint of warmth
+					100: '#F9EFEF', // Very light nude pink
+					200: '#F5E5E5', // Light nude pink
+					300: '#EDD8D8', // Medium-light nude pink
+					400: '#E5C9C9', // Medium nude pink
+					500: '#D9B8B8', // Medium-dark nude pink
+					600: '#C6A4A4', // Dark nude pink
+					700: '#B08E8E', // Darker nude pink
+					800: '#927575', // Very dark nude pink
+					900: '#755C5C', // Darkest nude pink - brownish
 				},
 				kblue: {
 					50: '#f0f7ff',
