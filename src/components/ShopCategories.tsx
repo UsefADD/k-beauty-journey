@@ -1,17 +1,20 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const ShopCategories = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  
   const categories = [
-    { name: 'SHOP BY NEWLY CURATED', active: true, path: '/shop' },
-    { name: 'SHOP BY VIRAL K-BEAUTY', active: false, path: '/shop/viral' },
-    { name: 'SHOP BY BEST SELLERS', active: false, path: '/shop/best-sellers' },
-    { name: 'SHOP BY SETS & ROUTINES', active: false, path: '/shop/sets' },
-    { name: 'SHOP BY SKIN CONCERN', active: false, path: '/shop/skin-concern' },
-    { name: 'SHOP BY BRAND', active: false, path: '/shop/brand' },
-    { name: 'SHOP BY PRODUCT TYPE', active: false, path: '/shop/product-type' },
-    { name: 'SHOP BY INGREDIENT', active: false, path: '/shop/ingredient' },
+    { name: 'SHOP BY NEWLY CURATED', path: '/shop/newly-curated' },
+    { name: 'SHOP BY VIRAL K-BEAUTY', path: '/shop/viral' },
+    { name: 'SHOP BY BEST SELLERS', path: '/shop/best-sellers' },
+    { name: 'SHOP BY SETS & ROUTINES', path: '/shop/sets' },
+    { name: 'SHOP BY SKIN CONCERN', path: '/shop/skin-concern' },
+    { name: 'SHOP BY BRAND', path: '/shop/brand' },
+    { name: 'SHOP BY PRODUCT TYPE', path: '/shop/product-type' },
+    { name: 'SHOP BY INGREDIENT', path: '/shop/ingredient' },
   ];
 
   return (
@@ -21,7 +24,7 @@ const ShopCategories = () => {
           key={category.name}
           to={category.path}
           className={`text-sm md:text-base ${
-            category.active 
+            currentPath === category.path 
               ? 'text-knude-700 font-bold border-b-2 border-knude-500' 
               : 'text-knude-600 hover:text-knude-800 transition-colors'
           } pb-1 mb-2`}
