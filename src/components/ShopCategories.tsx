@@ -8,10 +8,14 @@ const ShopCategories = () => {
     { name: 'SHOP BY VIRAL K-BEAUTY', active: false, path: '/shop/viral' },
     { name: 'SHOP BY BEST SELLERS', active: false, path: '/shop/best-sellers' },
     { name: 'SHOP BY SETS & ROUTINES', active: false, path: '/shop/sets' },
+    { name: 'SHOP BY SKIN CONCERN', active: false, path: '/shop/skin-concern' },
+    { name: 'SHOP BY BRAND', active: false, path: '/shop/brand' },
+    { name: 'SHOP BY PRODUCT TYPE', active: false, path: '/shop/product-type' },
+    { name: 'SHOP BY INGREDIENT', active: false, path: '/shop/ingredient' },
   ];
 
   return (
-    <div className="flex flex-wrap justify-center space-x-2 md:space-x-8 mb-12">
+    <div className="flex flex-wrap justify-center gap-4 mb-12">
       {categories.map((category) => (
         <Link
           key={category.name}
