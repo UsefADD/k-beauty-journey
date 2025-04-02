@@ -51,18 +51,6 @@ const BestSellers = () => {
           <Link to="/shop/sets" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
             SHOP BY SETS & ROUTINES
           </Link>
-          <Link to="/shop/skin-concern" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
-            SHOP BY SKIN CONCERN
-          </Link>
-          <Link to="/shop/brand" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
-            SHOP BY BRAND
-          </Link>
-          <Link to="/shop/product-type" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
-            SHOP BY PRODUCT TYPE
-          </Link>
-          <Link to="/shop/ingredient" className="text-sm text-knude-600 hover:text-knude-800 transition-colors pb-1">
-            SHOP BY INGREDIENT
-          </Link>
         </div>
         <p className="section-subtitle text-center">
           Discover our most-loved K-Beauty products, trusted by skincare enthusiasts worldwide for their remarkable results.
