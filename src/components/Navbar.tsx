@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ShoppingBag, Heart, User, Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -10,15 +11,15 @@ const Navbar = () => {
       </header>
       <nav className="bg-white py-4 shadow-sm sticky top-0 z-50">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
-          <div className="text-2xl font-serif font-bold text-knude-800 mb-4 md:mb-0">
+          <Link to="/" className="text-2xl font-serif font-bold text-knude-800 mb-4 md:mb-0">
             SOKO GLAM
-          </div>
+          </Link>
           
           <div className="space-x-4 md:space-x-8 text-knude-700 text-sm font-medium mb-4 md:mb-0">
             <a className="hover:text-knude-900 transition-colors" href="#">SHOP ALL</a>
             <a className="hover:text-knude-900 transition-colors" href="#">DISCOVER K-BEAUTY</a>
             <a className="hover:text-knude-900 transition-colors" href="#">BEST SELLERS</a>
-            <a className="hover:text-knude-900 transition-colors" href="#">BRANDS</a>
+            <Link to="/brands" className="hover:text-knude-900 transition-colors">BRANDS</Link>
           </div>
           
           <div className="space-x-6 text-knude-700 flex">
