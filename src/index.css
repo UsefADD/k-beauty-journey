@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +99,28 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  .k-button {
+    @apply px-6 py-3 font-medium tracking-wide transition-colors duration-200 transform rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50;
+  }
+  
+  .k-button-primary {
+    @apply k-button bg-kblue-700 hover:bg-kblue-800 text-white focus:ring-kblue-500;
+  }
+  
+  .k-button-secondary {
+    @apply k-button bg-white hover:bg-gray-100 text-gray-900 border border-gray-300 focus:ring-kblue-500;
+  }
+  
+  .section-title {
+    @apply text-3xl font-bold text-gray-900 mb-6 font-serif;
+  }
+  
+  .section-subtitle {
+    @apply text-lg text-gray-600 mb-8 max-w-xl mx-auto;
   }
 }
