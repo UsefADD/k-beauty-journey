@@ -66,11 +66,11 @@ const RoutineBanner = () => {
           </button>
         </div>
         
-        <div className="max-w-4xl mx-auto mb-10">
-          <div className="grid grid-cols-5 gap-4 md:gap-8">
+        <div className="max-w-full mx-auto mb-10 overflow-x-auto">
+          <div className="flex space-x-8 px-4 py-2 min-w-max">
             {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
               <div key={product.id} className="flex flex-col items-center">
-                <div className="w-20 h-20 md:w-24 md:h-24 mb-2 flex items-center justify-center">
+                <div className="w-24 h-24 md:w-28 md:h-28 mb-2 flex items-center justify-center">
                   <img 
                     src={product.src} 
                     alt={product.alt} 
