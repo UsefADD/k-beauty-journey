@@ -1,11 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   const skincareProducts = [{
     id: 0,
@@ -49,6 +49,12 @@ const RoutineBanner = () => {
     src: "/lovable-uploads/b98adfac-063f-4525-9cd0-82d4b087a9ad.png"
   }];
   
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = 0;
+    }
+  }, [showAll]);
+  
   const show5Step = () => setShowAll(false);
   const show10Step = () => setShowAll(true);
   
@@ -67,20 +73,29 @@ const RoutineBanner = () => {
           </button>
         </div>
         
-        <div className="w-full max-w-6xl mx-auto mb-10 overflow-x-auto pb-4">
-          <div className="flex space-x-8 px-4 py-2 min-w-max">
-            {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
-              <div key={product.id} className="flex flex-col items-center w-24 md:w-28">
-                <div className="w-24 h-24 md:w-28 md:h-28 mb-2 flex items-center justify-center">
-                  <img 
-                    src={product.src} 
-                    alt={product.alt} 
-                    className="max-h-full max-w-full object-contain"
-                  />
+        <div className="relative w-full max-w-6xl mx-auto mb-10">
+          <div 
+            ref={scrollContainerRef}
+            className="overflow-x-auto pb-4 hide-scrollbar"
+            style={{ 
+              scrollbarWidth: 'none', 
+              msOverflowStyle: 'none'
+            }}
+          >
+            <div className="flex space-x-6 px-4 py-2" style={{ minWidth: 'max-content' }}>
+              {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
+                <div key={product.id} className="flex flex-col items-center w-20 md:w-24 shrink-0">
+                  <div className="w-20 h-20 md:w-24 md:h-24 mb-2 flex items-center justify-center">
+                    <img 
+                      src={product.src} 
+                      alt={product.alt} 
+                      className="max-h-full max-w-full object-contain"
+                    />
+                  </div>
+                  <span className="text-sm font-medium text-knude-700">Step {product.id + 1}</span>
                 </div>
-                <span className="text-sm font-medium text-knude-700">Step {product.id + 1}</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 

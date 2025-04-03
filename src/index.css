@@ -123,4 +123,13 @@
   .section-subtitle {
     @apply text-lg text-knude-700 mb-8 max-w-xl mx-auto;
   }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
