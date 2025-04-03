@@ -11,43 +11,43 @@ const RoutineBanner = () => {
   const skincareProducts = [{
     id: 0,
     alt: "Skincare serum bottle",
-    src: "/lovable-uploads/cf1bd19f-3f65-443c-84a4-2be48fe142cd.png"
+    src: "/lovable-uploads/3eec9cf5-51f5-4226-bffc-88d99d5bf83d.png"
   }, {
     id: 1,
     alt: "Skincare cream jar",
-    src: "/lovable-uploads/55aa6f6d-0a03-4365-808e-a758c3a0098f.png"
+    src: "/lovable-uploads/2b8e8981-e46b-4281-b85d-36a2136518da.png"
   }, {
     id: 2,
     alt: "Skincare bottle with dropper",
-    src: "/lovable-uploads/4a10f030-fcba-449c-98f8-58d4c7a38580.png"
+    src: "/lovable-uploads/23ac0574-5929-4097-8940-9a5d222dc69e.png"
   }, {
     id: 3,
     alt: "Skincare tube product",
-    src: "/lovable-uploads/99dbaf2d-d503-4f8a-8e98-93172fb77124.png"
+    src: "/lovable-uploads/b8a870c6-140a-445b-958f-ad9de03eb52a.png"
   }, {
     id: 4,
     alt: "Skincare ointment tube",
-    src: "/lovable-uploads/41330e03-a806-4f90-96ce-12336f3d878f.png"
+    src: "/lovable-uploads/3f8687b9-677f-4a44-9351-7ad103dcc6a3.png"
   }, {
     id: 5,
     alt: "Skincare toner bottle",
-    src: "/lovable-uploads/d27fdee5-66ef-4a44-8727-fd5143946de2.png"
+    src: "/lovable-uploads/45aa9abb-88dd-494a-b9f3-e73bc3cc5d32.png"
   }, {
     id: 6,
     alt: "Skincare cleanser bottle",
-    src: "/lovable-uploads/961cc2ff-8afd-4664-a281-148a337902b7.png"
+    src: "/lovable-uploads/bd018877-6012-48c9-aea2-701ebf7bc5dd.png"
   }, {
     id: 7,
     alt: "Skincare cream tube",
-    src: "/lovable-uploads/83c3f421-5c6c-425d-a367-f86a52a6958f.png"
+    src: "/lovable-uploads/543c8629-f480-46f4-aa40-5a0a54fefbe4.png"
   }, {
     id: 8,
     alt: "Skincare spray bottle",
-    src: "/lovable-uploads/dde91023-8691-43f3-81b2-1d31449ecf53.png"
+    src: "/lovable-uploads/2e3f0b7a-0103-4602-9efe-fabce75ae855.png"
   }, {
     id: 9,
     alt: "Skincare product box",
-    src: "/lovable-uploads/b98adfac-063f-4525-9cd0-82d4b087a9ad.png"
+    src: "/lovable-uploads/bbdb6c0f-d628-4c48-a3b8-96ec25b14d4f.png"
   }];
   
   useEffect(() => {
