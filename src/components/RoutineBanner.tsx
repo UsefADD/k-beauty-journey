@@ -6,7 +6,7 @@ const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
   
   const skincareProducts = [
-    { id: 0, alt: "Pump bottle", src: "/lovable-uploads/71c2cf9f-19cc-4c26-899e-a1839a676b78.png" },
+    { id: 0, alt: "Pump bottle", src: "/lovable-uploads/1292278f-f30e-4ca5-abce-a6576522d3a6.png" },
     { id: 1, alt: "Skincare product 1", src: "https://storage.googleapis.com/a1aa/image/5ETxBs71ZR4gMV8PwVjGn9CY-jt2DZybsHdaZ_VYKDM.jpg" },
     { id: 2, alt: "Skincare product 2", src: "https://storage.googleapis.com/a1aa/image/WFHPbQlYTD_XgBialwamWAAi4rJnGabfnmlIbeHEHGM.jpg" },
     { id: 3, alt: "Skincare product 3", src: "https://storage.googleapis.com/a1aa/image/owJX-WuFwzGxCgkWJbuwSE4jn0mmeG_sUVsbcUSQgJ4.jpg" },
