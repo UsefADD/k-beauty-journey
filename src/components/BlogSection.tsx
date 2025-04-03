@@ -33,7 +33,7 @@ const BlogSection = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1">
-            <h2 className="text-4xl font-serif font-bold text-knude-900">Blog</h2>
+            <h2 className="text-4xl font-serif font-bold text-knude-900">The Blog</h2>
             <p className="mt-4 text-lg text-knude-700">
               Your skincare guide, inspired by Korean beauty. A Soko Glam project.
             </p>
