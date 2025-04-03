@@ -11,36 +11,15 @@ import {
 interface Product {
   id: number;
   name: string;
-  image: string;
   isNew: boolean;
 }
 
 const FeaturedProducts = () => {
   const products: Product[] = [
-    { 
-      id: 1, 
-      name: 'Cleansing Balm', 
-      image: 'https://storage.googleapis.com/a1aa/image/-ihp4FfFKwhgGi50Eqwy2hh1bw4IXXx9UcikzRDKxQU.jpg',
-      isNew: true
-    },
-    { 
-      id: 2, 
-      name: 'Rice Toner', 
-      image: 'https://storage.googleapis.com/a1aa/image/dUajIEziPwFaSoTNImt_bCWzJLuWsTbJIURDZaZUUbs.jpg',
-      isNew: true
-    },
-    { 
-      id: 3, 
-      name: 'Vitamin Serum', 
-      image: 'https://storage.googleapis.com/a1aa/image/oZBjfwFVAdvhYIFnzdUyyOLUknJtBCxHn2anGCZ0qOE.jpg',
-      isNew: true
-    },
-    { 
-      id: 4, 
-      name: 'Sunscreen', 
-      image: 'https://storage.googleapis.com/a1aa/image/2g2lUDSiCVxcJvvBtbFLBmcoD4qRuRk_J2yKIY1ePDE.jpg',
-      isNew: true
-    }
+    { id: 1, name: 'Cleansing Balm', isNew: true },
+    { id: 2, name: 'Rice Toner', isNew: true },
+    { id: 3, name: 'Vitamin Serum', isNew: true },
+    { id: 4, name: 'Sunscreen', isNew: true }
   ];
 
   return (
@@ -57,12 +36,8 @@ const FeaturedProducts = () => {
           {products.map((product) => (
             <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/4">
               <div className="group relative p-1">
-                <div className="overflow-hidden rounded-lg bg-knude-100 transition-all duration-300 group-hover:opacity-90">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-64 object-cover object-center"
-                  />
+                <div className="overflow-hidden rounded-lg bg-knude-100 transition-all duration-300 group-hover:opacity-90 h-64 flex items-center justify-center">
+                  <span className="text-knude-800 text-xl font-medium">{product.name}</span>
                 </div>
                 {product.isNew && (
                   <div className="mt-2 text-center">

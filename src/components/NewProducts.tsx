@@ -13,7 +13,6 @@ interface Product {
   id: number;
   name: string;
   brand: string;
-  image: string;
   isNew: boolean;
 }
 
@@ -23,28 +22,24 @@ const NewProducts = () => {
       id: 1, 
       name: 'Electrolyte Water Cream', 
       brand: 'COCOKIND', 
-      image: 'https://storage.googleapis.com/a1aa/image/KEeZnfkfvGqIcZPeCKEIB_UHuLON72of07BQtsFCuKc.jpg',
       isNew: true
     },
     { 
       id: 2, 
       name: 'Skin Booster Ampoule Peel Pad', 
       brand: 'IOPE', 
-      image: 'https://storage.googleapis.com/a1aa/image/wrM6OnieMV5G5DxgBKcTRrF9zsAffFfFearlUNq4LYE.jpg',
       isNew: true
     },
     { 
       id: 3, 
       name: 'Power Elasticity-Boosting Plump Pad', 
       brand: 'KNOURS', 
-      image: 'https://storage.googleapis.com/a1aa/image/koxgpGdKxoJpIZX9lO26QnzEwaDkV6J3rEBUZTrQ69o.jpg',
       isNew: true
     },
     { 
       id: 4, 
       name: 'Holy Hyssop Serum 3D', 
       brand: 'ARENCIA', 
-      image: 'https://storage.googleapis.com/a1aa/image/OUbS3Wd62YOld1XNCu80POHYCTIwPKdJdomFfejv79k.jpg',
       isNew: true
     }
   ];
@@ -62,13 +57,11 @@ const NewProducts = () => {
           {products.map((product) => (
             <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/4">
               <div className="flex flex-col items-center p-2">
-                <div className="relative">
-                  <div className="overflow-hidden rounded-lg bg-white transition-all duration-300 group-hover:opacity-90">
-                    <img 
-                      src={product.image} 
-                      alt={`${product.brand} ${product.name}`} 
-                      className="w-full h-64 object-cover object-center"
-                    />
+                <div className="relative w-full">
+                  <div className="overflow-hidden rounded-lg bg-white transition-all duration-300 group-hover:opacity-90 h-64 flex items-center justify-center">
+                    <div className="text-center p-4">
+                      <h3 className="font-medium text-knude-900 text-lg">{product.name}</h3>
+                    </div>
                   </div>
                   <button className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-knude-100 transition-colors">
                     <Heart className="h-4 w-4 text-knude-700" />

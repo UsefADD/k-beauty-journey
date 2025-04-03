@@ -25,14 +25,13 @@ const NewArrivals = () => {
             </Link>
           </div>
           
-          {/* Right side - Single large photo */}
+          {/* Right side - Placeholder instead of photo */}
           <div className="lg:w-1/2">
-            <Card className="overflow-hidden border-none shadow-lg">
-              <img 
-                src="/placeholder.svg" 
-                alt="K-Beauty New Arrivals" 
-                className="w-full h-auto rounded-lg object-cover"
-              />
+            <Card className="overflow-hidden border-none shadow-lg bg-knude-100 h-64 flex items-center justify-center">
+              <div className="text-center p-6">
+                <h3 className="text-2xl font-semibold text-knude-800 mb-2">New Arrivals</h3>
+                <p className="text-knude-700">Explore our latest K-Beauty products</p>
+              </div>
             </Card>
           </div>
         </div>

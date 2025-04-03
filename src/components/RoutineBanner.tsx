@@ -44,7 +44,6 @@ const RoutineBanner = () => {
                   loading={index < 5 ? "eager" : "lazy"}
                   draggable="false"
                   style={{ 
-                    imageRendering: 'high-quality',
                     filter: index === 0 || index === 1 ? 'none' : 'contrast(1.05) brightness(1.02)'
                   }}
                 />
