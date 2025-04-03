@@ -3,7 +3,6 @@ import React from 'react';
 import ProductCard from './ProductCard';
 import { Link } from 'react-router-dom';
 import NewArrivals from './NewArrivals';
-import RoutineBanner from './RoutineBanner';
 
 const bestSellerProducts = [
   {
@@ -60,8 +59,6 @@ const BestSellers = () => {
         </div>
         
         <NewArrivals />
-        
-        <RoutineBanner />
         
         <div className="mt-12 text-center">
           <button className="k-button-primary">VIEW ALL BEST SELLERS</button>
