@@ -25,8 +25,8 @@ const ShopCategories = () => {
           to={category.path}
           className={`text-sm md:text-base ${
             currentPath === category.path 
-              ? 'text-knude-700 font-bold border-b-2 border-knude-500' 
-              : 'text-knude-600 hover:text-knude-800 transition-colors'
+              ? 'text-pink-700 font-bold border-b-2 border-pink-500' 
+              : 'text-pink-600 hover:text-pink-800 transition-colors'
           } pb-1 mb-2`}
         >
           {category.name}

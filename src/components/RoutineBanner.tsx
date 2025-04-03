@@ -61,15 +61,15 @@ const RoutineBanner = () => {
   
   return <div className="bg-white py-16 mt-8">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold text-knude-900 mb-8 font-serif leading-tight">
+        <h2 className="text-4xl font-bold text-cream-900 mb-8 font-serif leading-tight">
           Get started with our curated Korean Skincare Routine Sets!
         </h2>
         
         <div className="flex justify-center gap-10 mt-4 mb-8">
-          <button onClick={show5Step} className={`text-lg ${!showAll ? 'text-knude-900 font-bold' : 'text-knude-700'} hover:text-knude-900 font-medium underline`}>
+          <button onClick={show5Step} className={`text-lg ${!showAll ? 'text-cream-900 font-bold' : 'text-cream-700'} hover:text-cream-900 font-medium underline`}>
             5 Step
           </button>
-          <button onClick={show10Step} className={`text-lg ${showAll ? 'text-knude-900 font-bold' : 'text-knude-700'} hover:text-knude-900 font-medium underline`}>
+          <button onClick={show10Step} className={`text-lg ${showAll ? 'text-cream-900 font-bold' : 'text-cream-700'} hover:text-cream-900 font-medium underline`}>
             10 Step
           </button>
         </div>
@@ -85,7 +85,7 @@ const RoutineBanner = () => {
                     className="max-h-full max-w-full object-contain"
                   />
                 </div>
-                <span className="text-xs sm:text-sm font-medium text-knude-700">Step {product.id + 1}</span>
+                <span className="text-xs sm:text-sm font-medium text-cream-700">Step {product.id + 1}</span>
               </div>
             ))}
           </div>
@@ -93,7 +93,7 @@ const RoutineBanner = () => {
 
         <div className="mt-8">
           <Link to="/shop/sets">
-            <Button variant="default" size="lg" className="bg-knude-700 hover:bg-knude-800 text-white">
+            <Button variant="default" size="lg" className="bg-pink-700 hover:bg-pink-800 text-white">
               Shop Routine Sets
             </Button>
           </Link>

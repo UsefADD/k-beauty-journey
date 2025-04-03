@@ -36,7 +36,7 @@ const BrandsList = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {brands.map((brand) => (
           <div key={brand.id} className="group">
-            <div className="overflow-hidden rounded-lg bg-knude-100 transition-all duration-300 group-hover:opacity-90">
+            <div className="overflow-hidden rounded-lg bg-cream-100 transition-all duration-300 group-hover:opacity-90">
               <img 
                 src={brand.image} 
                 alt={`${brand.name} products`} 
@@ -44,7 +44,7 @@ const BrandsList = () => {
               />
             </div>
             <div className="mt-3 text-center">
-              <p className="font-medium text-knude-800">{brand.name}</p>
+              <p className="font-medium text-cream-800">{brand.name}</p>
             </div>
           </div>
         ))}

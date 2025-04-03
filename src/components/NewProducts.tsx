@@ -60,18 +60,18 @@ const NewProducts = () => {
                 <div className="relative w-full">
                   <div className="overflow-hidden rounded-lg bg-white transition-all duration-300 group-hover:opacity-90 h-64 flex items-center justify-center">
                     <div className="text-center p-4">
-                      <h3 className="font-medium text-knude-900 text-lg">{product.name}</h3>
+                      <h3 className="font-medium text-cream-900 text-lg">{product.name}</h3>
                     </div>
                   </div>
-                  <button className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-knude-100 transition-colors">
-                    <Heart className="h-4 w-4 text-knude-700" />
+                  <button className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-cream-100 transition-colors">
+                    <Heart className="h-4 w-4 text-cream-700" />
                   </button>
                 </div>
-                <span className="mt-3 text-sm font-bold text-knude-800">
+                <span className="mt-3 text-sm font-bold text-cream-800">
                   {product.brand}
                 </span>
                 {product.isNew && (
-                  <span className="mt-1 text-xs bg-knude-800 text-white px-3 py-1 rounded">
+                  <span className="mt-1 text-xs bg-cream-800 text-white px-3 py-1 rounded">
                     NEW
                   </span>
                 )}
@@ -79,8 +79,8 @@ const NewProducts = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="border-knude-300 text-knude-700 hover:bg-knude-200 hover:text-knude-900" />
-        <CarouselNext className="border-knude-300 text-knude-700 hover:bg-knude-200 hover:text-knude-900" />
+        <CarouselPrevious className="border-cream-300 text-cream-700 hover:bg-cream-200 hover:text-cream-900" />
+        <CarouselNext className="border-cream-300 text-cream-700 hover:bg-cream-200 hover:text-cream-900" />
       </Carousel>
     </div>
   );

@@ -19,8 +19,8 @@ const BrandSidebar = () => {
           <li key={brand.name}>
             <a 
               href="#" 
-              className={`hover:text-knude-600 transition-colors ${
-                brand.featured ? 'font-medium text-knude-800' : 'text-knude-700'
+              className={`hover:text-cream-600 transition-colors ${
+                brand.featured ? 'font-medium text-cream-800' : 'text-cream-700'
               }`}
             >
               {brand.name}

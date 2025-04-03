@@ -3,13 +3,13 @@ import React from 'react';
 
 const HeroSection = () => {
   return (
-    <div className="bg-gradient-to-b from-knude-50 to-knude-200 py-16 md:py-24">
+    <div className="bg-gradient-to-b from-cream-50 to-cream-200 py-16 md:py-24">
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
         <div className="lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0">
-          <h1 className="text-4xl md:text-5xl font-bold text-knude-900 mb-6 font-serif leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-cream-900 mb-6 font-serif leading-tight">
             THE K-BEAUTY<br />ESSENTIALS
           </h1>
-          <p className="text-lg text-knude-800 mb-8 max-w-xl">
+          <p className="text-lg text-cream-800 mb-8 max-w-xl">
             Begin your K-Beauty journey with our curated collection of essentials, 
             including best-sellers known for their ability to hydrate, refine, and
             reveal a luminous, glass skin.
