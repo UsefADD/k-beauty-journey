@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -26,40 +25,40 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				knude: {
-					50: '#FDF6F6', // Lightest nude pink - almost white with a hint of warmth
-					100: '#F9EFEF', // Very light nude pink
-					200: '#F5E5E5', // Light nude pink
-					300: '#EDD8D8', // Medium-light nude pink
-					400: '#E5C9C9', // Medium nude pink
-					500: '#D9B8B8', // Medium-dark nude pink
-					600: '#C6A4A4', // Dark nude pink
-					700: '#B08E8E', // Darker nude pink
-					800: '#927575', // Very dark nude pink
-					900: '#755C5C', // Darkest nude pink - brownish
+					50: '#FFE9EF', // Lightest blush pink
+					100: '#FFE1E9', // Very light blush pink
+					200: '#FFD9E3', // Light blush pink  
+					300: '#FFD1DC', // Blush pink (primary)
+					400: '#FFBDCD', // Medium blush pink
+					500: '#FFA9BE', // Medium-dark blush pink
+					600: '#FF95AF', // Dark blush pink
+					700: '#FF819F', // Darker blush pink
+					800: '#FF6D90', // Very dark blush pink
+					900: '#FF5981', // Darkest blush pink
 				},
 				kblue: {
-					50: '#f0f7ff',
-					100: '#e4f1ff',
-					200: '#d0e4ff',
-					300: '#b0d0ff',
-					400: '#87afff',
-					500: '#5b8aff',
-					600: '#3e6af5',
-					700: '#3253e0',
-					800: '#2e46b8',
-					900: '#2c3e91',
+					50: '#E8F4F5', // Lightest pale blue
+					100: '#DFF0F2', // Very light pale blue
+					200: '#D6ECEF', // Light pale blue
+					300: '#C3E4E9', // Medium-light pale blue
+					400: '#B0E0E6', // Pale blue (primary)
+					500: '#9DCCD3', // Medium pale blue
+					600: '#8AB8C0', // Medium-dark pale blue
+					700: '#77A5AD', // Dark pale blue
+					800: '#64919A', // Very dark pale blue
+					900: '#517E87', // Darkest pale blue
 				},
 				kpink: {
-					50: '#fdf2f8',
-					100: '#fce7f3',
-					200: '#fbcfe8',
-					300: '#f9a8d4',
-					400: '#f472b6',
-					500: '#ec4899',
-					600: '#db2777',
-					700: '#be185d',
-					800: '#9d174d',
-					900: '#831843',
+					50: '#FFF6E9', // Lightest peach
+					100: '#FFF2DE', // Very light peach
+					200: '#FFECD3', // Light peach
+					300: '#FFE5B4', // Peach (primary)
+					400: '#FFD89F', // Medium peach
+					500: '#FFCB8A', // Medium-dark peach
+					600: '#FFBE75', // Dark peach
+					700: '#FFB161', // Darker peach
+					800: '#FFA44C', // Very dark peach
+					900: '#FF9737', // Darkest peach
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
