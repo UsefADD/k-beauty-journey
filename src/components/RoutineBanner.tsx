@@ -1,55 +1,56 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
+
 const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
+  
   const skincareProducts = [{
     id: 0,
-    alt: "Pump bottle",
-    src: "/lovable-uploads/c809b1f4-410a-4cda-b9c6-ad44592c7a0f.png"
+    alt: "Skincare serum bottle",
+    src: "/lovable-uploads/cf1bd19f-3f65-443c-84a4-2be48fe142cd.png"
   }, {
     id: 1,
-    alt: "Tube product",
-    src: "/lovable-uploads/cc23b59f-9410-4652-9265-f17b0a71ef51.png"
+    alt: "Skincare cream jar",
+    src: "/lovable-uploads/55aa6f6d-0a03-4365-808e-a758c3a0098f.png"
   }, {
     id: 2,
-    alt: "Skincare product 2",
-    src: "https://storage.googleapis.com/a1aa/image/WFHPbQlYTD_XgBialwamWAAi4rJnGabfnmlIbeHEHGM.jpg"
+    alt: "Skincare bottle with dropper",
+    src: "/lovable-uploads/4a10f030-fcba-449c-98f8-58d4c7a38580.png"
   }, {
     id: 3,
-    alt: "Skincare product 3",
-    src: "https://storage.googleapis.com/a1aa/image/owJX-WuFwzGxCgkWJbuwSE4jn0mmeG_sUVsbcUSQgJ4.jpg"
+    alt: "Skincare tube product",
+    src: "/lovable-uploads/99dbaf2d-d503-4f8a-8e98-93172fb77124.png"
   }, {
     id: 4,
-    alt: "Skincare product 4",
-    src: "https://storage.googleapis.com/a1aa/image/PfIBWlMn5C9ag4fnvVtgAj4qvQoAykN5L1-XRp7XEfA.jpg"
+    alt: "Skincare ointment tube",
+    src: "/lovable-uploads/41330e03-a806-4f90-96ce-12336f3d878f.png"
   }, {
     id: 5,
-    alt: "Skincare product 5",
-    src: "https://storage.googleapis.com/a1aa/image/fqItoSTQm7Vy7C5N1CpkimOmEv9Wcw2Dho0vsoZDA6c.jpg"
+    alt: "Skincare toner bottle",
+    src: "/lovable-uploads/d27fdee5-66ef-4a44-8727-fd5143946de2.png"
   }, {
     id: 6,
-    alt: "Skincare product 6",
-    src: "https://storage.googleapis.com/a1aa/image/NS60ixinw9noq-gv1P4NA7w0MdLG-OcBiwLOVJHP65Q.jpg"
+    alt: "Skincare cleanser bottle",
+    src: "/lovable-uploads/961cc2ff-8afd-4664-a281-148a337902b7.png"
   }, {
     id: 7,
-    alt: "Skincare product 7",
-    src: "https://storage.googleapis.com/a1aa/image/n4Vn5sXfU8IspWhXCWvZocGbznFQUjS6L0KGSAFWh_0.jpg"
+    alt: "Skincare cream tube",
+    src: "/lovable-uploads/83c3f421-5c6c-425d-a367-f86a52a6958f.png"
   }, {
     id: 8,
-    alt: "Skincare product 8",
-    src: "https://storage.googleapis.com/a1aa/image/9ieMsnYtlrUvieqPJqxuXXfwWyTN8PLj8wR7p-ylYF8.jpg"
+    alt: "Skincare spray bottle",
+    src: "/lovable-uploads/dde91023-8691-43f3-81b2-1d31449ecf53.png"
   }, {
     id: 9,
-    alt: "Skincare product 9",
-    src: "https://storage.googleapis.com/a1aa/image/xAHytvKx0flYW9hv9PiJi0TdDtod_krH-97fdyvieBE.jpg"
-  }, {
-    id: 10,
-    alt: "Skincare product 10",
-    src: "https://storage.googleapis.com/a1aa/image/unuptg74CIt8JRrJmU3nZgDVtMbFCV438VSF7h6mQPM.jpg"
+    alt: "Skincare product box",
+    src: "/lovable-uploads/b98adfac-063f-4525-9cd0-82d4b087a9ad.png"
   }];
+  
   const show5Step = () => setShowAll(false);
   const show10Step = () => setShowAll(true);
+  
   return <div className="bg-white py-16 mt-8">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold text-knude-900 mb-8 font-serif leading-tight">
@@ -66,7 +67,20 @@ const RoutineBanner = () => {
         </div>
         
         <div className="max-w-4xl mx-auto mb-10">
-          
+          <div className="grid grid-cols-5 gap-4 md:gap-8">
+            {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
+              <div key={product.id} className="flex flex-col items-center">
+                <div className="w-20 h-20 md:w-24 md:h-24 mb-2 flex items-center justify-center">
+                  <img 
+                    src={product.src} 
+                    alt={product.alt} 
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                <span className="text-xs text-knude-700">Step {product.id + 1}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="mt-8">
@@ -79,4 +93,5 @@ const RoutineBanner = () => {
       </div>
     </div>;
 };
+
 export default RoutineBanner;
