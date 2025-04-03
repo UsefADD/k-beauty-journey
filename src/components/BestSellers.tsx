@@ -3,6 +3,7 @@ import React from 'react';
 import ProductCard from './ProductCard';
 import { Link } from 'react-router-dom';
 import NewArrivals from './NewArrivals';
+import { Button } from "@/components/ui/button";
 
 const bestSellerProducts = [
   {
@@ -61,7 +62,11 @@ const BestSellers = () => {
         <NewArrivals />
         
         <div className="mt-12 text-center">
-          <button className="k-button-primary">VIEW ALL BEST SELLERS</button>
+          <Link to="/shop/best-sellers">
+            <Button className="uppercase bg-white hover:bg-cream-100 text-cream-900 border border-cream-300">
+              View All Best Sellers
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
