@@ -15,7 +15,6 @@ import ShopSkinConcern from "./pages/ShopSkinConcern";
 import ShopBrand from "./pages/ShopBrand";
 import ShopProductType from "./pages/ShopProductType";
 import ShopIngredient from "./pages/ShopIngredient";
-import RoutineProduct from "./pages/RoutineProduct";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,7 +33,6 @@ const App = () => (
           <Route path="/shop/viral" element={<ShopViral />} />
           <Route path="/shop/best-sellers" element={<ShopBestSellers />} />
           <Route path="/shop/sets" element={<ShopRoutines />} />
-          <Route path="/shop/sets/product/:id" element={<RoutineProduct />} />
           <Route path="/shop/skin-concern" element={<ShopSkinConcern />} />
           <Route path="/shop/brand" element={<ShopBrand />} />
           <Route path="/shop/product-type" element={<ShopProductType />} />
