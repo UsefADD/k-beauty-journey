@@ -4,8 +4,9 @@ import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import BestSellers from '../components/BestSellers';
 import FeaturedProducts from '../components/FeaturedProducts';
-import Footer from '../components/Footer';
 import RoutineBanner from '../components/RoutineBanner';
+import BlogSection from '../components/BlogSection';
+import Footer from '../components/Footer';
 
 const Index = () => {
   return (
@@ -15,6 +16,7 @@ const Index = () => {
       <BestSellers />
       <FeaturedProducts />
       <RoutineBanner />
+      <BlogSection />
       <Footer />
     </div>
   );
