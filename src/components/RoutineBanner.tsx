@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
@@ -73,31 +74,22 @@ const RoutineBanner = () => {
           </button>
         </div>
         
-        <div className="relative w-full max-w-6xl mx-auto mb-10">
-          <div 
-            ref={scrollContainerRef}
-            className="overflow-x-auto pb-4 hide-scrollbar"
-            style={{ 
-              scrollbarWidth: 'none', 
-              msOverflowStyle: 'none'
-            }}
-          >
-            <div className="flex space-x-6 px-4 py-2" style={{ minWidth: 'max-content' }}>
-              {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
-                <div key={product.id} className="flex flex-col items-center w-20 md:w-24 shrink-0">
-                  <div className="w-20 h-20 md:w-24 md:h-24 mb-2 flex items-center justify-center">
-                    <img 
-                      src={product.src} 
-                      alt={product.alt} 
-                      className="max-h-full max-w-full object-contain"
-                    />
-                  </div>
-                  <span className="text-sm font-medium text-knude-700">Step {product.id + 1}</span>
+        <ScrollArea className="w-full max-w-6xl mx-auto mb-10">
+          <div className="flex justify-center flex-wrap gap-2 px-2 py-2">
+            {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
+              <div key={product.id} className="flex flex-col items-center w-16 sm:w-20">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 mb-1 flex items-center justify-center">
+                  <img 
+                    src={product.src} 
+                    alt={product.alt} 
+                    className="max-h-full max-w-full object-contain"
+                  />
                 </div>
-              ))}
-            </div>
+                <span className="text-xs sm:text-sm font-medium text-knude-700">Step {product.id + 1}</span>
+              </div>
+            ))}
           </div>
-        </div>
+        </ScrollArea>
 
         <div className="mt-8">
           <Link to="/shop/sets">
