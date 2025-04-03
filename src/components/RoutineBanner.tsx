@@ -29,29 +29,6 @@ const RoutineBanner = () => {
           Get started with our curated Korean Skincare Routine Sets!
         </h2>
         
-        <div className="flex justify-center flex-wrap gap-3 mb-6 max-w-4xl mx-auto">
-          {skincareProducts.map((product, index) => (
-            <Link 
-              key={product.id} 
-              to="/shop/sets" 
-              className={`transition-transform hover:scale-105 ${!showAll && index >= 5 ? 'hidden' : ''}`}
-            >
-              <div className="relative bg-white p-2 rounded-lg overflow-hidden">
-                <img 
-                  src={product.src} 
-                  alt={product.alt} 
-                  className={`object-contain ${index === 0 ? 'h-24 md:h-28' : 'h-20 md:h-24'} w-auto max-w-full`}
-                  loading={index < 5 ? "eager" : "lazy"}
-                  draggable="false"
-                  style={{ 
-                    filter: index === 0 || index === 1 ? 'none' : 'contrast(1.05) brightness(1.02)'
-                  }}
-                />
-              </div>
-            </Link>
-          ))}
-        </div>
-        
         <div className="flex justify-center gap-10 mt-4 mb-8">
           <button 
             onClick={show5Step}
