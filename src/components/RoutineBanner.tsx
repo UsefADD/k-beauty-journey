@@ -93,7 +93,7 @@ const RoutineBanner = () => {
 
         <div className="mt-8">
           <Link to="/shop/sets">
-            <Button variant="default" size="lg" className="bg-pink-700 hover:bg-pink-800 text-white">
+            <Button variant="default" size="lg" className="bg-cream-500 hover:bg-cream-600 text-cream-900">
               Shop Routine Sets
             </Button>
           </Link>
