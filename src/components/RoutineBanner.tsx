@@ -47,7 +47,7 @@ const RoutineBanner = () => {
         
         <div className="max-w-4xl mx-auto mb-10">
           <img 
-            src="https://storage.googleapis.com/a1aa/image/-KGP51-k5ck5r_OxTLgGNv0EkFJe0I7GWRvMpLVKPig.jpg" 
+            src="/lovable-uploads/97726244-b008-42e5-ac19-0fd933e93b3d.png" 
             alt="Korean Skincare Products Lineup" 
             className="w-full h-auto object-contain shadow-md rounded-lg"
           />
