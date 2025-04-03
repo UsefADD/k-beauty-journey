@@ -6,7 +6,7 @@ const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
   
   const skincareProducts = [
-    { id: 0, alt: "Pump bottle", src: "/lovable-uploads/dfec551c-93c6-4b35-8a14-3c860a4cc0b0.png" },
+    { id: 0, alt: "Pump bottle", src: "/lovable-uploads/c809b1f4-410a-4cda-b9c6-ad44592c7a0f.png" },
     { id: 1, alt: "Skincare product 1", src: "https://storage.googleapis.com/a1aa/image/5ETxBs71ZR4gMV8PwVjGn9CY-jt2DZybsHdaZ_VYKDM.jpg" },
     { id: 2, alt: "Skincare product 2", src: "https://storage.googleapis.com/a1aa/image/WFHPbQlYTD_XgBialwamWAAi4rJnGabfnmlIbeHEHGM.jpg" },
     { id: 3, alt: "Skincare product 3", src: "https://storage.googleapis.com/a1aa/image/owJX-WuFwzGxCgkWJbuwSE4jn0mmeG_sUVsbcUSQgJ4.jpg" },
@@ -45,7 +45,7 @@ const RoutineBanner = () => {
                   draggable="false"
                   style={{ 
                     imageRendering: 'high-quality',
-                    filter: 'contrast(1.05) brightness(1.02)'
+                    filter: index === 0 ? 'none' : 'contrast(1.05) brightness(1.02)'
                   }}
                 />
               </div>
