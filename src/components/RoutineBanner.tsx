@@ -67,10 +67,10 @@ const RoutineBanner = () => {
           </button>
         </div>
         
-        <ScrollArea className="w-full max-w-5xl mx-auto mb-10 h-44">
+        <div className="w-full max-w-6xl mx-auto mb-10 overflow-x-auto pb-4">
           <div className="flex space-x-8 px-4 py-2 min-w-max">
             {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
-              <div key={product.id} className="flex flex-col items-center">
+              <div key={product.id} className="flex flex-col items-center w-24 md:w-28">
                 <div className="w-24 h-24 md:w-28 md:h-28 mb-2 flex items-center justify-center">
                   <img 
                     src={product.src} 
@@ -82,7 +82,7 @@ const RoutineBanner = () => {
               </div>
             ))}
           </div>
-        </ScrollArea>
+        </div>
 
         <div className="mt-8">
           <Link to="/shop/sets">
