@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import BestSellers from '../components/BestSellers';
 import Footer from '../components/Footer';
+import RoutineBanner from '../components/RoutineBanner';
 
 const Index = () => {
   return (
@@ -11,6 +12,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <BestSellers />
+      <RoutineBanner />
       <Footer />
     </div>
   );
