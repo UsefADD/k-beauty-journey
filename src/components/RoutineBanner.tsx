@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
@@ -66,7 +67,7 @@ const RoutineBanner = () => {
           </button>
         </div>
         
-        <div className="max-w-full mx-auto mb-10 overflow-x-auto">
+        <ScrollArea className="w-full max-w-5xl mx-auto mb-10 h-44">
           <div className="flex space-x-8 px-4 py-2 min-w-max">
             {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
               <div key={product.id} className="flex flex-col items-center">
@@ -77,11 +78,11 @@ const RoutineBanner = () => {
                     className="max-h-full max-w-full object-contain"
                   />
                 </div>
-                <span className="text-xs text-knude-700">Step {product.id + 1}</span>
+                <span className="text-sm font-medium text-knude-700">Step {product.id + 1}</span>
               </div>
             ))}
           </div>
-        </div>
+        </ScrollArea>
 
         <div className="mt-8">
           <Link to="/shop/sets">
