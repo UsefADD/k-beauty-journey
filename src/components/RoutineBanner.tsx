@@ -5,27 +5,19 @@ import { Link } from 'react-router-dom';
 const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
   
-  const routineSteps = {
-    fiveStep: [
-      "Oil Cleanser",
-      "Water-Based Cleanser",
-      "Toner",
-      "Serum", 
-      "Moisturizer"
-    ],
-    tenStep: [
-      "Oil Cleanser",
-      "Water-Based Cleanser",
-      "Exfoliator",
-      "Toner",
-      "Essence",
-      "Treatments",
-      "Sheet Masks",
-      "Eye Cream",
-      "Moisturizer",
-      "Sunscreen (AM) / Sleeping Mask (PM)"
-    ]
-  };
+  const skincareProducts = [
+    { id: 0, alt: "Pump bottle", src: "/lovable-uploads/c809b1f4-410a-4cda-b9c6-ad44592c7a0f.png" },
+    { id: 1, alt: "Tube product", src: "/lovable-uploads/cc23b59f-9410-4652-9265-f17b0a71ef51.png" },
+    { id: 2, alt: "Skincare product 2", src: "https://storage.googleapis.com/a1aa/image/WFHPbQlYTD_XgBialwamWAAi4rJnGabfnmlIbeHEHGM.jpg" },
+    { id: 3, alt: "Skincare product 3", src: "https://storage.googleapis.com/a1aa/image/owJX-WuFwzGxCgkWJbuwSE4jn0mmeG_sUVsbcUSQgJ4.jpg" },
+    { id: 4, alt: "Skincare product 4", src: "https://storage.googleapis.com/a1aa/image/PfIBWlMn5C9ag4fnvVtgAj4qvQoAykN5L1-XRp7XEfA.jpg" },
+    { id: 5, alt: "Skincare product 5", src: "https://storage.googleapis.com/a1aa/image/fqItoSTQm7Vy7C5N1CpkimOmEv9Wcw2Dho0vsoZDA6c.jpg" },
+    { id: 6, alt: "Skincare product 6", src: "https://storage.googleapis.com/a1aa/image/NS60ixinw9noq-gv1P4NA7w0MdLG-OcBiwLOVJHP65Q.jpg" },
+    { id: 7, alt: "Skincare product 7", src: "https://storage.googleapis.com/a1aa/image/n4Vn5sXfU8IspWhXCWvZocGbznFQUjS6L0KGSAFWh_0.jpg" },
+    { id: 8, alt: "Skincare product 8", src: "https://storage.googleapis.com/a1aa/image/9ieMsnYtlrUvieqPJqxuXXfwWyTN8PLj8wR7p-ylYF8.jpg" },
+    { id: 9, alt: "Skincare product 9", src: "https://storage.googleapis.com/a1aa/image/xAHytvKx0flYW9hv9PiJi0TdDtod_krH-97fdyvieBE.jpg" },
+    { id: 10, alt: "Skincare product 10", src: "https://storage.googleapis.com/a1aa/image/unuptg74CIt8JRrJmU3nZgDVtMbFCV438VSF7h6mQPM.jpg" },
+  ];
   
   const show5Step = () => setShowAll(false);
   const show10Step = () => setShowAll(true);
@@ -50,30 +42,6 @@ const RoutineBanner = () => {
           >
             10 Step
           </button>
-        </div>
-        
-        <div className="max-w-2xl mx-auto bg-knude-50 p-6 rounded-lg shadow-sm">
-          <h3 className="text-xl font-semibold mb-4 text-knude-800">
-            {showAll ? '10-Step Korean Skincare Routine' : '5-Step Korean Skincare Routine'}
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {(showAll ? routineSteps.tenStep : routineSteps.fiveStep).map((step, index) => (
-              <div key={index} className="flex items-center gap-2 text-left">
-                <span className="bg-knude-200 text-knude-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-medium">
-                  {index + 1}
-                </span>
-                <span className="text-knude-700">{step}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-6">
-            <Link 
-              to="/shop/sets" 
-              className="k-button-primary inline-block"
-            >
-              SHOP ROUTINE SETS
-            </Link>
-          </div>
         </div>
       </div>
     </div>
