@@ -52,6 +52,18 @@ const RoutineBanner = () => {
             className="w-full h-auto object-contain"
           />
         </div>
+        
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
+            <div key={product.id} className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-md">
+              <img 
+                src={product.src} 
+                alt={product.alt}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
 
         <div className="mt-8">
           <Link to="/shop/sets">
