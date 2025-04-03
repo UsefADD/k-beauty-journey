@@ -33,12 +33,12 @@ const BlogSection = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1">
-            <h2 className="text-4xl font-serif font-bold text-knude-900">the klog</h2>
+            <h2 className="text-4xl font-serif font-bold text-knude-900">Blog</h2>
             <p className="mt-4 text-lg text-knude-700">
               Your skincare guide, inspired by Korean beauty. A Soko Glam project.
             </p>
             <a href="#" className="mt-4 inline-block text-knude-700 hover:text-knude-900 underline font-medium">
-              Visit The Klog
+              Visit The Blog
             </a>
           </div>
           
@@ -60,7 +60,7 @@ const BlogSection = () => {
                       href={post.link} 
                       className="mt-4 flex items-center justify-center text-knude-700 hover:text-knude-900 text-sm underline"
                     >
-                      Read On The Klog
+                      Read On The Blog
                       <ExternalLink className="ml-1 w-3 h-3" />
                     </a>
                   </CardContent>
