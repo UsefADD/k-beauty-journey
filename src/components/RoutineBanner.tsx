@@ -36,11 +36,22 @@ const RoutineBanner = () => {
               to="/shop/sets" 
               className={`transition-transform hover:scale-105 ${!showAll && index >= 5 ? 'hidden' : ''}`}
             >
-              <img 
-                src={product.src} 
-                alt={product.alt} 
-                className="h-16 md:h-20 w-auto rounded-lg shadow-md"
-              />
+              {index === 0 ? (
+                <img 
+                  src={product.src} 
+                  alt={product.alt} 
+                  className="h-20 md:h-24 w-auto object-contain rounded-lg shadow-md"
+                  loading="eager"
+                  draggable="false"
+                  style={{ imageRendering: 'high-quality' }}
+                />
+              ) : (
+                <img 
+                  src={product.src} 
+                  alt={product.alt} 
+                  className="h-16 md:h-20 w-auto rounded-lg shadow-md"
+                />
+              )}
             </Link>
           ))}
         </div>
