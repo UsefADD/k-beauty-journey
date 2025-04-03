@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
 
 const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
@@ -42,6 +43,22 @@ const RoutineBanner = () => {
           >
             10 Step
           </button>
+        </div>
+        
+        <div className="max-w-4xl mx-auto mb-10">
+          <img 
+            src="/lovable-uploads/f894655b-4318-4949-a562-6fa59d400c88.png" 
+            alt="Korean Skincare Products Lineup" 
+            className="w-full h-auto"
+          />
+        </div>
+
+        <div className="mt-8">
+          <Link to="/shop/sets">
+            <Button variant="default" size="lg" className="bg-knude-700 hover:bg-knude-800 text-white">
+              Shop Routine Sets
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
