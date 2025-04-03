@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Mail, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   return <footer className="bg-white border-t border-gray-200">
@@ -11,9 +12,9 @@ const Footer = () => {
           
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
             <input type="email" placeholder="Your email address" className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 max-w-xs w-full" />
-            <button className="px-6 py-3 bg-pink-700 hover:bg-pink-800 text-white font-medium tracking-wide transition-colors duration-200 transform rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50 whitespace-nowrap">
-              SUBSCRIBE
-            </button>
+            <Button className="uppercase bg-white hover:bg-cream-100 text-cream-900 border border-cream-300">
+              Subscribe
+            </Button>
           </div>
         </div>
       </div>
