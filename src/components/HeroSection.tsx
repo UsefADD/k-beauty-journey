@@ -12,7 +12,7 @@ const HeroSection = () => {
             LES ESSENTIELS<br />DE LA K-<br />BEAUTY
           </h1>
           <p className="mt-8 text-xl lg:text-2xl text-white">
-            Révélez votre éclat naturel avec les secrets de la beauté coréenne
+            Révélez votre éclat naturel<br />avec les secrets de la beauté coréenne
           </p>
           <Button variant="link" className="mt-8 text-white text-lg lg:text-xl flex items-center gap-2" onClick={() => document.getElementById('best-sellers')?.scrollIntoView({
             behavior: 'smooth'
