@@ -33,6 +33,16 @@ const HeroSection = () => {
               />
             </div>
           </CarouselItem>
+          <CarouselItem className="h-full">
+            <div className="relative w-full h-full">
+              <img 
+                src="/lovable-uploads/782ea606-1d8b-4892-b0d1-2de59860d6ff.png" 
+                alt="Spring K-Beauty Collection" 
+                className="w-full h-full object-contain absolute inset-0"
+                loading="lazy"
+              />
+            </div>
+          </CarouselItem>
         </CarouselContent>
         <CarouselPrevious className="absolute left-4 z-10" />
         <CarouselNext className="absolute right-4 z-10" />
