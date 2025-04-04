@@ -1,14 +1,26 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const HeroSection = () => {
   return (
     <div 
-      className="bg-gradient-to-r from-pink-100 to-pink-300 py-16 min-h-[500px]"
+      className="bg-gradient-to-r from-pink-100 to-pink-300 py-16 min-h-[500px] relative overflow-hidden"
     >
-      <div className="container mx-auto px-4 flex items-center">
-        <div className="w-full lg:w-1/2 text-left">
+      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
+        <div className="lg:w-1/2 relative z-10 mb-8 lg:mb-0">
+          <div className="w-full max-w-md mx-auto lg:mx-0">
+            <AspectRatio ratio={1/1} className="bg-transparent">
+              <img
+                src="/lovable-uploads/3a07fe99-59ed-4493-b329-82c7eee6cbcf.png"
+                alt="K-Beauty Products Collection"
+                className="w-full h-full object-contain mix-blend-multiply"
+              />
+            </AspectRatio>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/2 text-left z-10">
           <h1 className="text-6xl lg:text-8xl font-bold font-serif leading-none">
             LES ESSENTIELS<br />DE LA K-<br />BEAUTY
           </h1>
