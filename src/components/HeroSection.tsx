@@ -8,7 +8,7 @@ const HeroSection = () => {
       <img 
         src="/lovable-uploads/96bd7d31-ad5b-415b-af2a-51ec79980cad.png" 
         alt="K-Beauty Essentials Collection" 
-        className="w-full h-full object-cover absolute inset-0"
+        className="w-full h-full object-contain absolute inset-0"
         loading="eager"
       />
     </div>
