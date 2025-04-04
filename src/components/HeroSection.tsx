@@ -7,7 +7,7 @@ const HeroSection = () => {
     <div 
       className="bg-cover bg-center py-20 md:py-32 relative min-h-[500px] flex items-center"
       style={{ 
-        backgroundImage: "url('/lovable-uploads/2c6a267b-fd4d-4f73-9e9c-9dbea640bbcd.png')",
+        backgroundImage: "url('/lovable-uploads/97726244-b008-42e5-ac19-0fd933e93b3d.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}
