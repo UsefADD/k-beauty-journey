@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const HeroSection = () => {
   return (
@@ -27,13 +26,16 @@ const HeroSection = () => {
             </svg>
           </Button>
         </div>
-        <div className="lg:w-1/2 relative z-10">
-          <div className="w-full max-w-md mx-auto lg:ml-auto">
+        <div className="lg:w-1/2 relative z-10 flex justify-center items-center">
+          <div className="w-full lg:w-[120%] overflow-visible">
             <img
               src="/lovable-uploads/3a07fe99-59ed-4493-b329-82c7eee6cbcf.png"
               alt="K-Beauty Products Collection"
-              className="w-full object-contain mix-blend-multiply"
-              style={{ maxHeight: '400px' }}
+              className="w-full h-auto object-contain mix-blend-multiply scale-125"
+              style={{ 
+                filter: 'drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1))',
+                transformOrigin: 'center'
+              }}
             />
           </div>
         </div>
