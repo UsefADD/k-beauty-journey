@@ -7,7 +7,7 @@ const HeroSection = () => {
     <div className="relative w-full overflow-hidden">
       <AspectRatio ratio={16/9} className="w-full max-h-[80vh]">
         <img 
-          src="/lovable-uploads/f421cb06-a023-41f7-a1e9-43c6c2fff9cc.png" 
+          src="/lovable-uploads/96bd7d31-ad5b-415b-af2a-51ec79980cad.png" 
           alt="K-Beauty Essentials Collection" 
           className="w-full h-full object-contain"
           loading="eager"
