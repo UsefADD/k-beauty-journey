@@ -1,18 +1,31 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Circle, CircleDot } from "lucide-react";
 
 const HeroSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = 2;
+  
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gray-50">
-      <Carousel className="w-full h-full">
-        <CarouselContent className="h-full">
+      <Carousel 
+        className="w-full h-full"
+        opts={{
+          axis: "y", // Make carousel vertical
+          loop: true,
+        }}
+        onSelect={(api) => {
+          if (api) {
+            setCurrentSlide(api.selectedScrollSnap());
+          }
+        }}
+      >
+        <CarouselContent className="h-full flex-col">
           <CarouselItem className="h-full">
             <div className="relative w-full h-full flex items-center justify-center">
               <img 
@@ -34,9 +47,32 @@ const HeroSection = () => {
             </div>
           </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious className="absolute left-4 z-10" />
-        <CarouselNext className="absolute right-4 z-10" />
       </Carousel>
+      
+      {/* Pagination dots on the right side */}
+      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
+        {Array.from({ length: totalSlides }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => {
+              const carouselElement = document.querySelector("[data-embla-container]");
+              const emblaApi = carouselElement?.__emblaApi;
+              if (emblaApi) {
+                emblaApi.scrollTo(index);
+                setCurrentSlide(index);
+              }
+            }}
+            className="focus:outline-none"
+            aria-label={`Go to slide ${index + 1}`}
+          >
+            {index === currentSlide ? (
+              <CircleDot className="h-4 w-4 text-pink-600" />
+            ) : (
+              <Circle className="h-4 w-4 text-gray-400" />
+            )}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
