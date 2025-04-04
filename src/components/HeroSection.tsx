@@ -55,11 +55,14 @@ const HeroSection = () => {
           <button
             key={index}
             onClick={() => {
-              const carouselElement = document.querySelector("[data-embla-container]");
-              const emblaApi = carouselElement?.__emblaApi;
-              if (emblaApi) {
-                emblaApi.scrollTo(index);
-                setCurrentSlide(index);
+              // Get the carousel element and trigger scroll to the selected slide
+              const carousel = document.querySelector('[data-carousel]');
+              if (carousel) {
+                const api = (carousel as any)._embla;
+                if (api) {
+                  api.scrollTo(index);
+                  setCurrentSlide(index);
+                }
               }
             }}
             className="focus:outline-none"
