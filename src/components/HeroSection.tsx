@@ -7,8 +7,8 @@ const HeroSection = () => {
     <div 
       className="bg-gradient-to-r from-pink-100 to-pink-300 py-16 min-h-[500px]"
     >
-      <div className="container mx-auto px-4 flex items-center justify-center">
-        <div className="text-center max-w-3xl">
+      <div className="container mx-auto px-4 flex items-center">
+        <div className="w-full lg:w-1/2 text-left">
           <h1 className="text-6xl lg:text-8xl font-bold font-serif leading-none">
             LES ESSENTIELS<br />DE LA K-<br />BEAUTY
           </h1>
@@ -17,7 +17,7 @@ const HeroSection = () => {
           </p>
           <Button 
             variant="link" 
-            className="mt-8 text-white text-lg lg:text-xl flex items-center gap-2 mx-auto"
+            className="mt-8 text-white text-lg lg:text-xl flex items-center gap-2"
             onClick={() => document.getElementById('best-sellers')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Learn more
