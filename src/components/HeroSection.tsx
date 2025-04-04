@@ -4,6 +4,8 @@ import { Circle, CircleDot } from "lucide-react";
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [prevSlide, setPrevSlide] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   const slides = [
     {
       src: "/lovable-uploads/96bd7d31-ad5b-415b-af2a-51ec79980cad.png",
@@ -18,27 +20,70 @@ const HeroSection = () => {
   // Auto-slide functionality
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+      handleSlideChange((currentSlide + 1) % slides.length);
     }, 5000); // Change slide every 5 seconds
     
     return () => clearInterval(interval); // Clean up on unmount
-  }, [slides.length]);
+  }, [currentSlide, slides.length]);
   
   const handleSlideChange = (index: number) => {
+    if (index === currentSlide || isAnimating) return;
+    
+    setPrevSlide(currentSlide);
     setCurrentSlide(index);
+    setIsAnimating(true);
+    
+    // Reset animation state after transition completes
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 500); // Match this with CSS transition duration
+  };
+  
+  // Determine slide direction
+  const getSlideDirection = () => {
+    if (currentSlide === 0 && prevSlide === slides.length - 1) return 'slide-left';
+    if (currentSlide === slides.length - 1 && prevSlide === 0) return 'slide-right';
+    return currentSlide > prevSlide ? 'slide-left' : 'slide-right';
   };
   
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gray-50">
       <div className="w-full h-full">
-        <div className="h-full">
-          {/* Only show the current slide */}
-          <div className="relative w-full h-full flex items-center justify-center">
+        <div className="h-full relative">
+          {/* Current and previous slides */}
+          <div 
+            className={`absolute w-full h-full flex items-center justify-center transition-transform duration-500 ease-in-out ${
+              isAnimating ? `${getSlideDirection()}` : ''
+            }`}
+            style={{ 
+              transform: isAnimating ? 
+                (getSlideDirection() === 'slide-left' ? 'translateX(-100%)' : 'translateX(100%)') : 
+                'translateX(0)'
+            }}
+          >
+            <img 
+              src={slides[prevSlide].src}
+              alt={slides[prevSlide].alt}
+              className="max-w-full max-h-full object-contain"
+              loading="lazy"
+            />
+          </div>
+          
+          <div 
+            className={`absolute w-full h-full flex items-center justify-center transition-transform duration-500 ease-in-out ${
+              isAnimating ? `${getSlideDirection() === 'slide-left' ? 'entering-right' : 'entering-left'}` : ''
+            }`}
+            style={{ 
+              transform: isAnimating ? 
+                'translateX(0)' : 
+                'translateX(0)'
+            }}
+          >
             <img 
               src={slides[currentSlide].src}
               alt={slides[currentSlide].alt}
-              className="max-w-full max-h-full object-contain transition-opacity duration-500"
-              loading={currentSlide === 0 ? "eager" : "lazy"}
+              className="max-w-full max-h-full object-contain"
+              loading={currentSlide === 0 && prevSlide === 0 ? "eager" : "lazy"}
             />
           </div>
         </div>
@@ -52,6 +97,7 @@ const HeroSection = () => {
             onClick={() => handleSlideChange(index)}
             className="focus:outline-none"
             aria-label={`Go to slide ${index + 1}`}
+            disabled={isAnimating}
           >
             {index === currentSlide ? (
               <CircleDot className="h-4 w-4 text-pink-600" />
@@ -61,6 +107,41 @@ const HeroSection = () => {
           </button>
         ))}
       </div>
+      
+      <style jsx>{`
+        .slide-left {
+          animation: slideOutLeft 0.5s forwards;
+        }
+        .slide-right {
+          animation: slideOutRight 0.5s forwards;
+        }
+        .entering-right {
+          animation: slideInRight 0.5s forwards;
+        }
+        .entering-left {
+          animation: slideInLeft 0.5s forwards;
+        }
+        
+        @keyframes slideOutLeft {
+          from { transform: translateX(0); }
+          to { transform: translateX(-100%); }
+        }
+        
+        @keyframes slideOutRight {
+          from { transform: translateX(0); }
+          to { transform: translateX(100%); }
+        }
+        
+        @keyframes slideInRight {
+          from { transform: translateX(100%); }
+          to { transform: translateX(0); }
+        }
+        
+        @keyframes slideInLeft {
+          from { transform: translateX(-100%); }
+          to { transform: translateX(0); }
+        }
+      `}</style>
     </div>
   );
 };
