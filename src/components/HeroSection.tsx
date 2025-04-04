@@ -1,15 +1,9 @@
 
-import React, { useState } from 'react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
+import React, { useState, useEffect } from 'react';
 import { Circle, CircleDot } from "lucide-react";
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 2;
   const slides = [
     {
       src: "/lovable-uploads/96bd7d31-ad5b-415b-af2a-51ec79980cad.png",
@@ -20,6 +14,15 @@ const HeroSection = () => {
       alt: "Spring K-Beauty Collection"
     }
   ];
+  
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+    }, 5000); // Change slide every 5 seconds
+    
+    return () => clearInterval(interval); // Clean up on unmount
+  }, [slides.length]);
   
   const handleSlideChange = (index: number) => {
     setCurrentSlide(index);
@@ -34,7 +37,7 @@ const HeroSection = () => {
             <img 
               src={slides[currentSlide].src}
               alt={slides[currentSlide].alt}
-              className="max-w-full max-h-full object-contain"
+              className="max-w-full max-h-full object-contain transition-opacity duration-500"
               loading={currentSlide === 0 ? "eager" : "lazy"}
             />
           </div>
