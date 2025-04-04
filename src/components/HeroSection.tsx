@@ -9,11 +9,15 @@ const HeroSection = () => {
   const slides = [
     {
       src: "/lovable-uploads/96bd7d31-ad5b-415b-af2a-51ec79980cad.png",
-      alt: "K-Beauty Essentials Collection"
+      alt: "K-Beauty Essentials Collection",
+      title: "K-Beauty Essentials",
+      subtitle: "Discover the secrets to radiant skin"
     },
     {
       src: "/lovable-uploads/782ea606-1d8b-4892-b0d1-2de59860d6ff.png",
-      alt: "Spring K-Beauty Collection"
+      alt: "Spring K-Beauty Collection",
+      title: "Spring Collection",
+      subtitle: "Refresh your routine with our seasonal favorites"
     }
   ];
   
@@ -67,6 +71,12 @@ const HeroSection = () => {
               className="w-full h-full object-cover"
               loading="lazy"
             />
+            <div className="absolute inset-0 bg-black bg-opacity-30">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif">{slides[prevSlide].title}</h2>
+                <p className="text-xl md:text-2xl">{slides[prevSlide].subtitle}</p>
+              </div>
+            </div>
           </div>
           
           <div 
@@ -85,6 +95,12 @@ const HeroSection = () => {
               className="w-full h-full object-cover"
               loading={currentSlide === 0 && prevSlide === 0 ? "eager" : "lazy"}
             />
+            <div className="absolute inset-0 bg-black bg-opacity-30">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif">{slides[currentSlide].title}</h2>
+                <p className="text-xl md:text-2xl">{slides[currentSlide].subtitle}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
