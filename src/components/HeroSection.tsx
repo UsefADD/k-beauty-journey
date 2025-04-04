@@ -7,12 +7,11 @@ const HeroSection = () => {
     <div 
       className="bg-cover bg-center py-20 md:py-32 relative min-h-[500px] flex items-center"
       style={{ 
-        backgroundImage: "url('/lovable-uploads/97726244-b008-42e5-ac19-0fd933e93b3d.png')",
+        backgroundImage: "url('/lovable-uploads/33dc0b37-1739-4c1f-a70d-8e0d1e11eedd.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent"></div>
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10">
         <div className="lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0">
           <h1 className="text-4xl text-black mb-6 font-serif leading-tight md:text-5xl font-bold">
