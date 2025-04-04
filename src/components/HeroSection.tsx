@@ -11,13 +11,12 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
         <div className="lg:w-1/2 relative z-10 mb-8 lg:mb-0">
           <div className="w-full max-w-md mx-auto lg:mx-0">
-            <AspectRatio ratio={1/1} className="bg-transparent">
-              <img
-                src="/lovable-uploads/3a07fe99-59ed-4493-b329-82c7eee6cbcf.png"
-                alt="K-Beauty Products Collection"
-                className="w-full h-full object-contain mix-blend-multiply"
-              />
-            </AspectRatio>
+            <img
+              src="/lovable-uploads/3a07fe99-59ed-4493-b329-82c7eee6cbcf.png"
+              alt="K-Beauty Products Collection"
+              className="w-full object-contain mix-blend-multiply"
+              style={{ maxHeight: '400px' }}
+            />
           </div>
         </div>
         <div className="w-full lg:w-1/2 text-left z-10">
