@@ -27,11 +27,11 @@ const HeroSection = () => {
           </Button>
         </div>
         <div className="lg:w-1/2 relative z-10 flex justify-center items-center">
-          <div className="w-full lg:w-[120%] overflow-visible">
+          <div className="w-full lg:w-[100%] overflow-visible">
             <img
               src="/lovable-uploads/3a07fe99-59ed-4493-b329-82c7eee6cbcf.png"
               alt="K-Beauty Products Collection"
-              className="w-full h-auto object-contain mix-blend-multiply scale-125"
+              className="w-full h-auto object-contain mix-blend-multiply scale-110"
               style={{ 
                 filter: 'drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1))',
                 transformOrigin: 'center'
