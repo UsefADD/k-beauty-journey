@@ -9,8 +9,7 @@ const HeroSection = () => {
       style={{ 
         backgroundImage: "url('/lovable-uploads/6dbaa039-b947-4310-af2a-05ec5bc58ce9.png')",
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundColor: '#f8f4f0' // Fallback color in case image doesn't load
+        backgroundPosition: 'center'
       }}
     >
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10">
