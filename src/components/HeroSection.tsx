@@ -12,8 +12,8 @@ const HeroSection = () => {
         backgroundPosition: 'center'
       }}
     >
-      {/* Overlay semi-transparent pour améliorer la visibilité du texte */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-transparent"></div>
+      {/* Overlay moins opaque pour mieux voir l'image */}
+      <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"></div>
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10">
         <div className="lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0">
