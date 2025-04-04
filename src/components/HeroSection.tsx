@@ -64,7 +64,7 @@ const HeroSection = () => {
             <img 
               src={slides[prevSlide].src}
               alt={slides[prevSlide].alt}
-              className="max-w-full max-h-full object-contain"
+              className="w-full h-full object-cover"
               loading="lazy"
             />
           </div>
@@ -82,7 +82,7 @@ const HeroSection = () => {
             <img 
               src={slides[currentSlide].src}
               alt={slides[currentSlide].alt}
-              className="max-w-full max-h-full object-contain"
+              className="w-full h-full object-cover"
               loading={currentSlide === 0 && prevSlide === 0 ? "eager" : "lazy"}
             />
           </div>
@@ -108,7 +108,8 @@ const HeroSection = () => {
         ))}
       </div>
       
-      <style jsx>{`
+      <style>
+        {`
         .slide-left {
           animation: slideOutLeft 0.5s forwards;
         }
@@ -141,7 +142,8 @@ const HeroSection = () => {
           from { transform: translateX(-100%); }
           to { transform: translateX(0); }
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };
