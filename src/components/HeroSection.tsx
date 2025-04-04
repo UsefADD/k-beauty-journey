@@ -9,17 +9,7 @@ const HeroSection = () => {
       className="bg-gradient-to-r from-pink-100 to-pink-300 py-16 min-h-[500px] relative overflow-hidden"
     >
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
-        <div className="lg:w-1/2 relative z-10 mb-8 lg:mb-0">
-          <div className="w-full max-w-md mx-auto lg:mx-0">
-            <img
-              src="/lovable-uploads/3a07fe99-59ed-4493-b329-82c7eee6cbcf.png"
-              alt="K-Beauty Products Collection"
-              className="w-full object-contain mix-blend-multiply"
-              style={{ maxHeight: '400px' }}
-            />
-          </div>
-        </div>
-        <div className="w-full lg:w-1/2 text-left z-10">
+        <div className="w-full lg:w-1/2 text-left z-10 mb-8 lg:mb-0">
           <h1 className="text-6xl lg:text-8xl font-bold font-serif leading-none">
             LES ESSENTIELS<br />DE LA K-<br />BEAUTY
           </h1>
@@ -36,6 +26,16 @@ const HeroSection = () => {
               <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </Button>
+        </div>
+        <div className="lg:w-1/2 relative z-10">
+          <div className="w-full max-w-md mx-auto lg:ml-auto">
+            <img
+              src="/lovable-uploads/3a07fe99-59ed-4493-b329-82c7eee6cbcf.png"
+              alt="K-Beauty Products Collection"
+              className="w-full object-contain mix-blend-multiply"
+              style={{ maxHeight: '400px' }}
+            />
+          </div>
         </div>
       </div>
     </div>
