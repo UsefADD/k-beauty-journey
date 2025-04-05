@@ -68,7 +68,7 @@ const HeroSection = () => {
             <img 
               src={slides[prevSlide].src}
               alt={slides[prevSlide].alt}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain md:object-cover"
               loading="lazy"
             />
             {slides[prevSlide].title && (
@@ -94,7 +94,7 @@ const HeroSection = () => {
             <img 
               src={slides[currentSlide].src}
               alt={slides[currentSlide].alt}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain md:object-cover"
               loading={currentSlide === 0 && prevSlide === 0 ? "eager" : "lazy"}
             />
             {slides[currentSlide].title && (
