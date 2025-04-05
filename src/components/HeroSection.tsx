@@ -14,7 +14,7 @@ const HeroSection = () => {
       subtitle: ""
     },
     {
-      src: "/lovable-uploads/782ea606-1d8b-4892-b0d1-2de59860d6ff.png",
+      src: "/lovable-uploads/af567ca0-8439-426c-ab0b-4b6827528920.png",
       alt: "Spring K-Beauty Collection",
       title: "Spring Collection",
       subtitle: "Refresh your routine with our seasonal favorites"
