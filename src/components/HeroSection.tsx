@@ -118,7 +118,7 @@ const HeroSection = () => {
                 </div>
               ) : (
                 <div className="absolute inset-0 flex items-end justify-start p-12">
-                  <div className="text-center mb-16 ml-12">
+                  <div className="text-center mb-16 ml-4">
                     <Link to="/shop/best-sellers">
                       <Button 
                         variant="default" 
