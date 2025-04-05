@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Circle, CircleDot } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -97,7 +98,7 @@ const HeroSection = () => {
                 className="max-w-full max-h-full object-contain"
                 loading={currentSlide === 0 && prevSlide === 0 ? "eager" : "lazy"}
               />
-              {slides[currentSlide].title && (
+              {slides[currentSlide].title ? (
                 <div className="absolute inset-0 bg-black bg-opacity-30">
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif">{slides[currentSlide].title}</h2>
@@ -113,6 +114,20 @@ const HeroSection = () => {
                         </Button>
                       </Link>
                     )}
+                  </div>
+                </div>
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <Link to="/shop/best-sellers">
+                      <Button 
+                        variant="default" 
+                        size="lg"
+                        className="bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-md"
+                      >
+                        Craquez pour nos best-sellers
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               )}
