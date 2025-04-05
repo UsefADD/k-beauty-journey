@@ -1,6 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Circle, CircleDot } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -21,7 +22,6 @@ const HeroSection = () => {
     }
   ];
   
-  // Auto-slide functionality
   useEffect(() => {
     const interval = setInterval(() => {
       handleSlideChange((currentSlide + 1) % slides.length);
@@ -37,13 +37,11 @@ const HeroSection = () => {
     setCurrentSlide(index);
     setIsAnimating(true);
     
-    // Reset animation state after transition completes
     setTimeout(() => {
       setIsAnimating(false);
     }, 500); // Match this with CSS transition duration
   };
   
-  // Determine slide direction
   const getSlideDirection = () => {
     if (currentSlide === 0 && prevSlide === slides.length - 1) return 'slide-left';
     if (currentSlide === slides.length - 1 && prevSlide === 0) return 'slide-right';
@@ -54,7 +52,6 @@ const HeroSection = () => {
     <div className="relative w-full h-screen overflow-hidden bg-gray-50">
       <div className="w-full h-full">
         <div className="h-full relative">
-          {/* Current and previous slides */}
           <div 
             className={`absolute w-full h-full flex items-center justify-center transition-transform duration-500 ease-in-out ${
               isAnimating ? `${getSlideDirection()}` : ''
@@ -104,7 +101,18 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-black bg-opacity-30">
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif">{slides[currentSlide].title}</h2>
-                    <p className="text-xl md:text-2xl">{slides[currentSlide].subtitle}</p>
+                    <p className="text-xl md:text-2xl mb-6">{slides[currentSlide].subtitle}</p>
+                    {currentSlide === 1 && (
+                      <Link to="/shop/newly-curated">
+                        <Button 
+                          variant="default" 
+                          size="lg"
+                          className="bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-md"
+                        >
+                          Get Ready for Spring
+                        </Button>
+                      </Link>
+                    )}
                   </div>
                 </div>
               )}
@@ -113,7 +121,6 @@ const HeroSection = () => {
         </div>
       </div>
       
-      {/* Pagination dots on the right side */}
       <div className="absolute right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
         {slides.map((_, index) => (
           <button
