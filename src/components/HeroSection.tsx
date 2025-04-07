@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Circle, CircleDot } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -118,7 +117,7 @@ const HeroSection = () => {
                 </div>
               ) : (
                 <div className="absolute inset-0 flex items-end justify-start p-12">
-                  <div className="text-center mb-32 -ml-16">
+                  <div className="text-center mb-16 -ml-16">
                     <Link to="/shop/best-sellers">
                       <Button 
                         variant="default" 
