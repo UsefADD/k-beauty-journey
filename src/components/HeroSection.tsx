@@ -118,8 +118,7 @@ const HeroSection = () => {
                 </div>
               ) : (
                 <div className="absolute inset-0 flex items-end justify-start p-12">
-                  <div className="flex flex-col items-start mb-32 -ml-16">
-                    <h2 className="text-4xl font-bold text-white mb-4 font-serif">De la beauté coréenne</h2>
+                  <div className="text-center mb-32 -ml-16">
                     <Link to="/shop/best-sellers">
                       <Button 
                         variant="default" 
