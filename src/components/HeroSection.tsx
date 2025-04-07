@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Circle, CircleDot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [prevSlide, setPrevSlide] = useState(0);
@@ -17,13 +18,15 @@ const HeroSection = () => {
     title: "Spring Collection",
     subtitle: "Refresh your routine with our seasonal favorites"
   }];
+
   useEffect(() => {
     const interval = setInterval(() => {
       handleSlideChange((currentSlide + 1) % slides.length);
-    }, 5000); // Change slide every 5 seconds
+    }, 5000);
 
-    return () => clearInterval(interval); // Clean up on unmount
+    return () => clearInterval(interval);
   }, [currentSlide, slides.length]);
+
   const handleSlideChange = (index: number) => {
     if (index === currentSlide || isAnimating) return;
     setPrevSlide(currentSlide);
@@ -31,13 +34,15 @@ const HeroSection = () => {
     setIsAnimating(true);
     setTimeout(() => {
       setIsAnimating(false);
-    }, 500); // Match this with CSS transition duration
+    }, 500);
   };
+
   const getSlideDirection = () => {
     if (currentSlide === 0 && prevSlide === slides.length - 1) return 'slide-left';
     if (currentSlide === slides.length - 1 && prevSlide === 0) return 'slide-right';
     return currentSlide > prevSlide ? 'slide-left' : 'slide-right';
   };
+
   return <div className="relative w-full h-screen overflow-hidden bg-gray-50">
       <div className="w-full h-full">
         <div className="h-full relative">
@@ -71,7 +76,7 @@ const HeroSection = () => {
                       </Link>}
                   </div>
                 </div> : <div className="absolute inset-0 flex items-end justify-start p-12">
-                  <div className="text-center mb-24 -ml-16">
+                  <div className="text-center mb-20 -ml-16">
                     <Link to="/shop/best-sellers">
                       <Button variant="default" size="lg" className="bg-transparent hover:bg-white/20 text-white font-medium rounded-md border border-white py-0">
                         Craquez pour nos best-sellers
@@ -128,4 +133,5 @@ const HeroSection = () => {
       </style>
     </div>;
 };
+
 export default HeroSection;
