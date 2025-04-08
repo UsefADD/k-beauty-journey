@@ -6,6 +6,13 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <>
+      <div className="bg-pink-600 text-white py-1 overflow-hidden whitespace-nowrap relative">
+        <div className="animate-marquee inline-block">
+          <span className="mx-4">Livraison gratuite pour toute commande +500 dhs & cadeau offert</span>
+          <span className="mx-4">Livraison gratuite pour toute commande +500 dhs & cadeau offert</span>
+          <span className="mx-4">Livraison gratuite pour toute commande +500 dhs & cadeau offert</span>
+        </div>
+      </div>
       <header className="bg-cream-100 py-2 text-center text-sm text-cream-800">
         FREE U.S. SHIPPING $50+ / INT'L SHIPPING $75+
       </header>
@@ -30,6 +37,19 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-marquee {
+          animation: marquee 20s linear infinite;
+        }
+      `}</style>
     </>
   );
 };
