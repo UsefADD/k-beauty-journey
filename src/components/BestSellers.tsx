@@ -41,16 +41,16 @@ const BestSellers = () => {
     <div className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center gap-4 mb-8">
-          <Link to="/shop/newly-curated" className="text-sm text-knude-600 hover:text-pink-600 hover:font-medium transition-colors pb-1">
+          <Link to="/shop/newly-curated" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
             SHOP BY NEWLY CURATED
           </Link>
-          <Link to="/shop/viral" className="text-sm text-knude-600 hover:text-pink-600 hover:font-medium transition-colors pb-1">
+          <Link to="/shop/viral" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
             SHOP BY VIRAL K-BEAUTY
           </Link>
-          <Link to="/shop/best-sellers" className="text-sm text-knude-600 hover:text-pink-600 hover:font-medium transition-colors pb-1">
+          <Link to="/shop/best-sellers" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
             SHOP BY BEST SELLERS
           </Link>
-          <Link to="/shop/sets" className="text-sm text-knude-600 hover:text-pink-600 hover:font-medium transition-colors pb-1">
+          <Link to="/shop/sets" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
             SHOP BY SETS & ROUTINES
           </Link>
         </div>
