@@ -77,7 +77,7 @@ const HeroSection = () => {
                       </Link>}
                   </div>
                 </div> : <div className="absolute inset-0 flex items-end justify-start p-12">
-                  <div className="text-center mb-30 -ml-16">
+                  <div className="text-center mb-30 -ml-8">
                     <Link to="/shop/best-sellers">
                       <Button variant="default" size="lg" className="bg-transparent hover:bg-white/20 text-white font-medium rounded-md border border-white py-0">
                         Craquez pour nos best-sellers
