@@ -47,7 +47,7 @@ const BestSellers = () => {
           <Link to="/shop/viral" className="text-sm text-knude-600 hover:text-pink-600 hover:font-medium transition-colors pb-1">
             SHOP BY VIRAL K-BEAUTY
           </Link>
-          <Link to="/shop/best-sellers" className="text-sm text-knude-600 hover:text-pink-600 hover:font-medium transition-colors pb-1 font-bold">
+          <Link to="/shop/best-sellers" className="text-sm text-knude-600 hover:text-pink-600 hover:font-medium transition-colors pb-1">
             SHOP BY BEST SELLERS
           </Link>
           <Link to="/shop/sets" className="text-sm text-knude-600 hover:text-pink-600 hover:font-medium transition-colors pb-1">
