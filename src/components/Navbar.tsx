@@ -1,6 +1,8 @@
+
 import React from 'react';
 import { ShoppingBag, Heart, User, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
 const Navbar = () => {
   return <>
       <div className="bg-pink-600 text-white py-1 overflow-hidden whitespace-nowrap relative">
@@ -32,7 +34,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <style jsx>{`
+      <style>{`
         @keyframes marquee {
           0% {
             transform: translateX(0);
