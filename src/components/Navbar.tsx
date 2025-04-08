@@ -1,11 +1,8 @@
-
 import React from 'react';
 import { ShoppingBag, Heart, User, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 const Navbar = () => {
-  return (
-    <>
+  return <>
       <div className="bg-pink-600 text-white py-1 overflow-hidden whitespace-nowrap relative">
         <div className="animate-marquee inline-block">
           <span className="mx-4">Livraison gratuite pour toute commande +500 dhs & cadeau offert</span>
@@ -13,9 +10,7 @@ const Navbar = () => {
           <span className="mx-4">Livraison gratuite pour toute commande +500 dhs & cadeau offert</span>
         </div>
       </div>
-      <header className="bg-cream-100 py-2 text-center text-sm text-cream-800">
-        FREE U.S. SHIPPING $50+ / INT'L SHIPPING $75+
-      </header>
+      
       <nav className="bg-white py-4 shadow-sm sticky top-0 z-50">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
           <Link to="/" className="text-2xl font-serif font-bold text-cream-800 mb-4 md:mb-0">
@@ -50,8 +45,6 @@ const Navbar = () => {
           animation: marquee 20s linear infinite;
         }
       `}</style>
-    </>
-  );
+    </>;
 };
-
 export default Navbar;
