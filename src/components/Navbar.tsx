@@ -19,11 +19,13 @@ const Navbar = () => {
             BLISSFUL.
           </Link>
           
-          <div className="space-x-4 md:space-x-8 text-cream-700 text-sm font-medium mb-4 md:mb-0">
-            <Link to="/shop" className="hover:text-cream-900 transition-colors">SHOP ALL</Link>
-            <a className="hover:text-cream-900 transition-colors" href="#">DISCOVER K-BEAUTY</a>
-            <a className="hover:text-cream-900 transition-colors" href="#">BEST SELLERS</a>
-            <Link to="/brands" className="hover:text-cream-900 transition-colors">BRANDS</Link>
+          <div className="space-x-4 md:space-x-6 text-cream-700 text-sm font-medium mb-4 md:mb-0">
+            <Link to="/shop/product-type" className="hover:text-cream-900 transition-colors zigzag-underline">TYPE DE PRODUIT</Link>
+            <Link to="/shop/skin-type" className="hover:text-cream-900 transition-colors zigzag-underline">TYPE DE PEAU</Link>
+            <Link to="/shop/skin-concern" className="hover:text-cream-900 transition-colors zigzag-underline">PROBLÈMES DE PEAU</Link>
+            <a className="hover:text-cream-900 transition-colors zigzag-underline" href="#">DISCOVER K-BEAUTY</a>
+            <Link to="/shop/best-sellers" className="hover:text-cream-900 transition-colors zigzag-underline">BEST SELLERS</Link>
+            <Link to="/brands" className="hover:text-cream-900 transition-colors zigzag-underline">BRANDS</Link>
           </div>
           
           <div className="space-x-6 text-cream-700 flex">
