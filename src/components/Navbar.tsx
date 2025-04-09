@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShoppingBag, Heart, User, Search, Droplets, Brush, Flask, Sparkles, Eye, Sun, Umbrella, Scissors } from 'lucide-react';
+import { ShoppingBag, Heart, User, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
@@ -56,7 +56,7 @@ const Navbar = () => {
                                 <span>Lotions tonifiant</span>
                               </Link>
                               <Link to="/shop/product-type/traitements" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <Flask className="mr-2 h-4 w-4 text-pink-600" />
+                                <Beaker className="mr-2 h-4 w-4 text-pink-600" />
                                 <span>Traitements</span>
                               </Link>
                               <Link to="/shop/product-type/masques" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
