@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShoppingBag, Heart, User, Search } from 'lucide-react';
+import { ShoppingBag, Heart, User, Search, Droplets, Brush, Flask, Sparkles, Eye, Sun, Umbrella, Scissors } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
@@ -35,16 +35,55 @@ const Navbar = () => {
                   <NavigationMenuTrigger className="hover:text-cream-900 transition-colors bg-transparent">SHOP ALL</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4">
-                      <li>
+                      <li className="row-span-3">
                         <NavigationMenuLink asChild>
                           <Link
                             to="/shop/product-type"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600"
+                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-pink-50 to-pink-100 p-4 no-underline outline-none focus:shadow-md"
                           >
-                            <div className="text-sm font-medium leading-none">TYPE DE PRODUIT</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Shop by product categories including cleansers, toners, and more
-                            </p>
+                            <div className="text-lg font-medium text-pink-800">TYPE DE PRODUIT</div>
+                            <div className="mt-4 grid grid-cols-2 gap-2">
+                              <Link to="/shop/product-type/double-nettoyage" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Droplets className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Double nettoyage</span>
+                              </Link>
+                              <Link to="/shop/product-type/exfoliations" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Brush className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Exfoliations</span>
+                              </Link>
+                              <Link to="/shop/product-type/lotions" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Droplets className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Lotions tonifiant</span>
+                              </Link>
+                              <Link to="/shop/product-type/traitements" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Flask className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Traitements</span>
+                              </Link>
+                              <Link to="/shop/product-type/masques" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Sparkles className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Masques</span>
+                              </Link>
+                              <Link to="/shop/product-type/soin-yeux" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Eye className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Soin des yeux</span>
+                              </Link>
+                              <Link to="/shop/product-type/hydratants" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Droplets className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Hydratants</span>
+                              </Link>
+                              <Link to="/shop/product-type/protection" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Sun className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Protection solaire</span>
+                              </Link>
+                              <Link to="/shop/product-type/cheveux-corps" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Umbrella className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Cheveux & Corps</span>
+                              </Link>
+                              <Link to="/shop/product-type/maquillage" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Scissors className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>Maquillage & Outils</span>
+                              </Link>
+                            </div>
                           </Link>
                         </NavigationMenuLink>
                       </li>
