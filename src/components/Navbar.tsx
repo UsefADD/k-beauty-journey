@@ -97,6 +97,20 @@ const Navbar = () => {
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Find products specifically formulated for your skin type
                             </p>
+                            <div className="mt-3 grid grid-cols-2 gap-2">
+                              <Link to="/shop/skin-type/oily" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Grasse</span>
+                              </Link>
+                              <Link to="/shop/skin-type/dry" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Sèche</span>
+                              </Link>
+                              <Link to="/shop/skin-type/combination" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Mixte</span>
+                              </Link>
+                              <Link to="/shop/skin-type/normal" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Normal</span>
+                              </Link>
+                            </div>
                           </Link>
                         </NavigationMenuLink>
                       </li>
