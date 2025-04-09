@@ -14,6 +14,7 @@ import ShopRoutines from "./pages/ShopRoutines";
 import ShopSkinConcern from "./pages/ShopSkinConcern";
 import ShopBrand from "./pages/ShopBrand";
 import ShopProductType from "./pages/ShopProductType";
+import ShopSkinType from "./pages/ShopSkinType";
 import ShopIngredient from "./pages/ShopIngredient";
 import NotFound from "./pages/NotFound";
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/shop/best-sellers" element={<ShopBestSellers />} />
           <Route path="/shop/sets" element={<ShopRoutines />} />
           <Route path="/shop/skin-concern" element={<ShopSkinConcern />} />
+          <Route path="/shop/skin-type" element={<ShopSkinType />} />
           <Route path="/shop/brand" element={<ShopBrand />} />
           <Route path="/shop/product-type" element={<ShopProductType />} />
           <Route path="/shop/ingredient" element={<ShopIngredient />} />
