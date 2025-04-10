@@ -124,6 +124,29 @@ const Navbar = () => {
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Target specific skin concerns with specialized products
                             </p>
+                            <div className="mt-3 grid grid-cols-2 gap-2">
+                              <Link to="/shop/skin-concern/acne" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Acné</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/dehydration" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Déshydratation</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/sebum-control" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Contrôle de sébum/Pores</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/pigmentation" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Pigmentation</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/redness" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Rougeurs</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/sensitive" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Sensible</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/aging" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>Anti-âge</span>
+                              </Link>
+                            </div>
                           </Link>
                         </NavigationMenuLink>
                       </li>
