@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShoppingBag, Heart, User, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors } from 'lucide-react';
+import { ShoppingBag, Heart, User, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
@@ -11,14 +11,18 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import { useLanguage } from '../contexts/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
+  const { t } = useLanguage();
+
   return <>
       <div className="bg-pink-600 text-white py-1 overflow-hidden whitespace-nowrap relative">
         <div className="animate-marquee inline-block">
-          <span className="mx-4">Livraison gratuite pour toute commande +500 dhs & cadeau offert</span>
-          <span className="mx-4">Livraison gratuite pour toute commande +500 dhs & cadeau offert</span>
-          <span className="mx-4">Livraison gratuite pour toute commande +500 dhs & cadeau offert</span>
+          <span className="mx-4">{t('shipping.banner')}</span>
+          <span className="mx-4">{t('shipping.banner')}</span>
+          <span className="mx-4">{t('shipping.banner')}</span>
         </div>
       </div>
       
@@ -32,7 +36,7 @@ const Navbar = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="hover:text-cream-900 transition-colors bg-transparent">SHOP ALL</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="hover:text-cream-900 transition-colors bg-transparent">{t('shop.all')}</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="flex w-[900px] p-4">
                       <div className="w-1/3 pr-4">
@@ -41,47 +45,47 @@ const Navbar = () => {
                             to="/shop/product-type"
                             className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-pink-50 to-pink-100 p-4 no-underline outline-none focus:shadow-md"
                           >
-                            <div className="text-lg font-medium text-pink-800">TYPE DE PRODUIT</div>
+                            <div className="text-lg font-medium text-pink-800">{t('product.type')}</div>
                             <div className="mt-4 grid grid-cols-2 gap-2">
                               <Link to="/shop/product-type/double-nettoyage" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Droplets className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Double nettoyage</span>
+                                <span>{t('double.cleansing')}</span>
                               </Link>
                               <Link to="/shop/product-type/exfoliations" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Brush className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Exfoliations</span>
+                                <span>{t('exfoliations')}</span>
                               </Link>
                               <Link to="/shop/product-type/lotions" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Droplets className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Lotions tonifiant</span>
+                                <span>{t('toning.lotions')}</span>
                               </Link>
                               <Link to="/shop/product-type/traitements" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Beaker className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Traitements</span>
+                                <span>{t('treatments')}</span>
                               </Link>
                               <Link to="/shop/product-type/masques" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Sparkles className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Masques</span>
+                                <span>{t('masks')}</span>
                               </Link>
                               <Link to="/shop/product-type/soin-yeux" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Eye className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Soin des yeux</span>
+                                <span>{t('eye.care')}</span>
                               </Link>
                               <Link to="/shop/product-type/hydratants" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Droplets className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Hydratants</span>
+                                <span>{t('moisturizers')}</span>
                               </Link>
                               <Link to="/shop/product-type/protection" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Sun className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Protection solaire</span>
+                                <span>{t('sun.protection')}</span>
                               </Link>
                               <Link to="/shop/product-type/cheveux-corps" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Umbrella className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Cheveux & Corps</span>
+                                <span>{t('hair.body')}</span>
                               </Link>
                               <Link to="/shop/product-type/maquillage" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <Scissors className="mr-2 h-4 w-4 text-pink-600" />
-                                <span>Maquillage & Outils</span>
+                                <span>{t('makeup.tools')}</span>
                               </Link>
                             </div>
                           </Link>
@@ -93,22 +97,22 @@ const Navbar = () => {
                             to="/shop/skin-type"
                             className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
                           >
-                            <div className="text-lg font-medium leading-none text-pink-800">TYPE DE PEAU</div>
+                            <div className="text-lg font-medium leading-none text-pink-800">{t('skin.type')}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
-                              Find products specifically formulated for your skin type
+                              {t('skin.type.description')}
                             </p>
                             <div className="mt-4 grid grid-cols-2 gap-2">
                               <Link to="/shop/skin-type/oily" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Grasse</span>
+                                <span>{t('oily')}</span>
                               </Link>
                               <Link to="/shop/skin-type/dry" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Sèche</span>
+                                <span>{t('dry')}</span>
                               </Link>
                               <Link to="/shop/skin-type/combination" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Mixte</span>
+                                <span>{t('combination')}</span>
                               </Link>
                               <Link to="/shop/skin-type/normal" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Normal</span>
+                                <span>{t('normal')}</span>
                               </Link>
                             </div>
                           </Link>
@@ -120,31 +124,31 @@ const Navbar = () => {
                             to="/shop/skin-concern"
                             className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
                           >
-                            <div className="text-lg font-medium leading-none text-pink-800">PROBLÈMES DE PEAU</div>
+                            <div className="text-lg font-medium leading-none text-pink-800">{t('skin.concern')}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
-                              Target specific skin concerns with specialized products
+                              {t('skin.concern.description')}
                             </p>
                             <div className="mt-4 grid grid-cols-2 gap-2">
                               <Link to="/shop/skin-concern/acne" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Acné</span>
+                                <span>{t('acne')}</span>
                               </Link>
                               <Link to="/shop/skin-concern/dehydration" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Déshydratation</span>
+                                <span>{t('dehydration')}</span>
                               </Link>
                               <Link to="/shop/skin-concern/sebum-control" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Contrôle de sébum/Pores</span>
+                                <span>{t('sebum.control')}</span>
                               </Link>
                               <Link to="/shop/skin-concern/pigmentation" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Pigmentation</span>
+                                <span>{t('pigmentation')}</span>
                               </Link>
                               <Link to="/shop/skin-concern/redness" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Rougeurs</span>
+                                <span>{t('redness')}</span>
                               </Link>
                               <Link to="/shop/skin-concern/sensitive" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Sensible</span>
+                                <span>{t('sensitive')}</span>
                               </Link>
                               <Link to="/shop/skin-concern/aging" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
-                                <span>Anti-âge</span>
+                                <span>{t('anti.aging')}</span>
                               </Link>
                             </div>
                           </Link>
@@ -155,15 +159,20 @@ const Navbar = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <Link to="/shop/best-sellers" className="hover:text-cream-900 transition-colors zigzag-underline">BEST SELLERS</Link>
-            <Link to="/brands" className="hover:text-cream-900 transition-colors zigzag-underline">BRANDS</Link>
+            <Link to="/shop/best-sellers" className="hover:text-cream-900 transition-colors zigzag-underline">
+              {t('best.sellers')}
+            </Link>
+            <Link to="/brands" className="hover:text-cream-900 transition-colors zigzag-underline">
+              {t('brands')}
+            </Link>
           </div>
           
-          <div className="space-x-6 text-cream-700 flex">
+          <div className="space-x-6 text-cream-700 flex items-center">
             <Search className="w-5 h-5 hover:text-cream-900 cursor-pointer transition-colors" />
             <User className="w-5 h-5 hover:text-cream-900 cursor-pointer transition-colors" />
             <Heart className="w-5 h-5 hover:text-cream-900 cursor-pointer transition-colors" />
             <ShoppingBag className="w-5 h-5 hover:text-cream-900 cursor-pointer transition-colors" />
+            <LanguageSwitcher />
           </div>
         </div>
       </nav>
