@@ -155,7 +155,6 @@ const Navbar = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <a className="hover:text-cream-900 transition-colors zigzag-underline" href="#">DISCOVER K-BEAUTY</a>
             <Link to="/shop/best-sellers" className="hover:text-cream-900 transition-colors zigzag-underline">BEST SELLERS</Link>
             <Link to="/brands" className="hover:text-cream-900 transition-colors zigzag-underline">BRANDS</Link>
           </div>
