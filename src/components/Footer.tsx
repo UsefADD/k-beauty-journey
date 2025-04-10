@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   return <footer className="bg-white border-t border-gray-200">
-      <div className="bg-gray-50 py-6 text-center">
+      <div className="bg-white py-6 text-center">
         <div className="container mx-auto px-4">
           
           
