@@ -34,8 +34,8 @@ const Navbar = () => {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="hover:text-cream-900 transition-colors bg-transparent">SHOP ALL</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4">
-                      <li className="row-span-3">
+                    <div className="flex w-[900px] p-4">
+                      <div className="w-1/3 pr-4">
                         <NavigationMenuLink asChild>
                           <Link
                             to="/shop/product-type"
@@ -86,18 +86,18 @@ const Navbar = () => {
                             </div>
                           </Link>
                         </NavigationMenuLink>
-                      </li>
-                      <li>
+                      </div>
+                      <div className="w-1/3 px-4">
                         <NavigationMenuLink asChild>
                           <Link
                             to="/shop/skin-type"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600"
+                            className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
                           >
-                            <div className="text-sm font-medium leading-none">TYPE DE PEAU</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            <div className="text-lg font-medium leading-none text-pink-800">TYPE DE PEAU</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
                               Find products specifically formulated for your skin type
                             </p>
-                            <div className="mt-3 grid grid-cols-2 gap-2">
+                            <div className="mt-4 grid grid-cols-2 gap-2">
                               <Link to="/shop/skin-type/oily" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <span>Grasse</span>
                               </Link>
@@ -113,18 +113,18 @@ const Navbar = () => {
                             </div>
                           </Link>
                         </NavigationMenuLink>
-                      </li>
-                      <li>
+                      </div>
+                      <div className="w-1/3 pl-4">
                         <NavigationMenuLink asChild>
                           <Link
                             to="/shop/skin-concern"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600"
+                            className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
                           >
-                            <div className="text-sm font-medium leading-none">PROBLÈMES DE PEAU</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            <div className="text-lg font-medium leading-none text-pink-800">PROBLÈMES DE PEAU</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
                               Target specific skin concerns with specialized products
                             </p>
-                            <div className="mt-3 grid grid-cols-2 gap-2">
+                            <div className="mt-4 grid grid-cols-2 gap-2">
                               <Link to="/shop/skin-concern/acne" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
                                 <span>Acné</span>
                               </Link>
@@ -149,8 +149,8 @@ const Navbar = () => {
                             </div>
                           </Link>
                         </NavigationMenuLink>
-                      </li>
-                    </ul>
+                      </div>
+                    </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
