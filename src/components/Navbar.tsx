@@ -28,15 +28,15 @@ const Navbar = () => {
       
       <nav className="bg-white py-4 shadow-sm sticky top-0 z-50">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
-          <Link to="/" className="text-2xl font-serif font-bold text-cream-800 mb-4 md:mb-0">
+          <Link to="/" className="text-2xl font-serif font-bold text-pink-600 mb-4 md:mb-0">
             BLISSFUL.
           </Link>
           
-          <div className="space-x-4 md:space-x-6 text-cream-700 text-sm font-medium mb-4 md:mb-0 flex items-center">
+          <div className="space-x-4 md:space-x-6 text-pink-600 text-sm font-medium mb-4 md:mb-0 flex items-center">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="hover:text-cream-900 transition-colors bg-transparent">{t('shop.all')}</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="hover:text-pink-800 transition-colors bg-transparent">{t('shop.all')}</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="flex w-[900px] p-4">
                       <div className="w-1/3 pr-4">
@@ -159,19 +159,19 @@ const Navbar = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <Link to="/shop/best-sellers" className="hover:text-cream-900 transition-colors zigzag-underline">
+            <Link to="/shop/best-sellers" className="hover:text-pink-800 transition-colors zigzag-underline">
               {t('best.sellers')}
             </Link>
-            <Link to="/brands" className="hover:text-cream-900 transition-colors zigzag-underline">
+            <Link to="/brands" className="hover:text-pink-800 transition-colors zigzag-underline">
               {t('brands')}
             </Link>
           </div>
           
-          <div className="space-x-6 text-cream-700 flex items-center">
-            <Search className="w-5 h-5 hover:text-cream-900 cursor-pointer transition-colors" />
-            <User className="w-5 h-5 hover:text-cream-900 cursor-pointer transition-colors" />
-            <Heart className="w-5 h-5 hover:text-cream-900 cursor-pointer transition-colors" />
-            <ShoppingBag className="w-5 h-5 hover:text-cream-900 cursor-pointer transition-colors" />
+          <div className="space-x-6 text-pink-600 flex items-center">
+            <Search className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <User className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <Heart className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <ShoppingBag className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
             <LanguageSwitcher />
           </div>
         </div>
