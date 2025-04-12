@@ -10,7 +10,7 @@ const AlphabetNavigation = () => {
         <a 
           key={letter} 
           href={`#${letter}`} 
-          className="text-knude-800 hover:text-knude-600 transition-colors"
+          className="text-pink-600 hover:text-pink-800 transition-colors"
         >
           {letter}
         </a>
