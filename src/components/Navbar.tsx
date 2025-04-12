@@ -18,11 +18,11 @@ const Navbar = () => {
   const { t } = useLanguage();
 
   return <>
-      <div className="bg-pink-600 text-white py-1 overflow-hidden whitespace-nowrap relative">
+      <div className="bg-white text-pink-600 py-1 overflow-hidden whitespace-nowrap relative border-b border-pink-100">
         <div className="animate-marquee inline-block">
-          <span className="mx-4">{t('shipping.banner')}</span>
-          <span className="mx-4">{t('shipping.banner')}</span>
-          <span className="mx-4">{t('shipping.banner')}</span>
+          <span className="mx-4 font-medium">{t('shipping.banner')}</span>
+          <span className="mx-4 font-medium">{t('shipping.banner')}</span>
+          <span className="mx-4 font-medium">{t('shipping.banner')}</span>
         </div>
       </div>
       
