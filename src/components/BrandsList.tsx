@@ -44,7 +44,7 @@ const BrandsList = () => {
               />
             </div>
             <div className="mt-3 text-center">
-              <p className="font-medium text-cream-800">{brand.name}</p>
+              <p className="font-medium text-pink-800">{brand.name}</p>
             </div>
           </div>
         ))}

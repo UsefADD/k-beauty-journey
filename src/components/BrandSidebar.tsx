@@ -20,7 +20,7 @@ const BrandSidebar = () => {
             <a 
               href="#" 
               className={`hover:text-cream-600 transition-colors ${
-                brand.featured ? 'font-medium text-cream-800' : 'text-cream-700'
+                brand.featured ? 'font-medium text-pink-800' : 'text-cream-700'
               }`}
             >
               {brand.name}

@@ -27,10 +27,10 @@ const ProductCard = ({ id, name, brand, price, image }: ProductCardProps) => {
         <div>
           <h3 className="text-sm text-cream-700">
             <span className="font-medium text-cream-600 uppercase text-xs">{brand}</span>
-            <p className="font-medium text-cream-900 mt-1">{name}</p>
+            <p className="font-medium text-pink-800 mt-1">{name}</p>
           </h3>
         </div>
-        <p className="text-sm font-medium text-cream-900">${price.toFixed(2)}</p>
+        <p className="text-sm font-medium text-pink-800">${price.toFixed(2)}</p>
       </div>
       <button className="mt-2 w-full py-2 text-sm font-medium text-cream-700 border border-cream-300 rounded-md hover:bg-pink-700 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
         Add to Cart

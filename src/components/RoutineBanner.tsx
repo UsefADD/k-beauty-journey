@@ -61,15 +61,15 @@ const RoutineBanner = () => {
   
   return <div className="bg-white py-16 mt-8">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold text-cream-900 mb-8 font-serif leading-tight">
+        <h2 className="text-4xl font-bold text-pink-800 mb-8 font-serif leading-tight">
           Get started with our curated Korean Skincare Routine Sets!
         </h2>
         
         <div className="flex justify-center gap-10 mt-4 mb-8">
-          <button onClick={show5Step} className={`text-lg ${!showAll ? 'text-cream-900 font-bold' : 'text-cream-700'} hover:text-cream-900 font-medium underline`}>
+          <button onClick={show5Step} className={`text-lg ${!showAll ? 'text-pink-800 font-bold' : 'text-cream-700'} hover:text-pink-800 font-medium underline`}>
             5 Step
           </button>
-          <button onClick={show10Step} className={`text-lg ${showAll ? 'text-cream-900 font-bold' : 'text-cream-700'} hover:text-cream-900 font-medium underline`}>
+          <button onClick={show10Step} className={`text-lg ${showAll ? 'text-pink-800 font-bold' : 'text-cream-700'} hover:text-pink-800 font-medium underline`}>
             10 Step
           </button>
         </div>
@@ -93,7 +93,7 @@ const RoutineBanner = () => {
 
         <div className="mt-8">
           <Link to="/shop/sets">
-            <Button className="uppercase bg-white hover:bg-cream-100 text-cream-900 border border-cream-300">
+            <Button className="uppercase bg-white hover:bg-cream-100 text-pink-800 border border-cream-300">
               Shop Routine Sets
             </Button>
           </Link>

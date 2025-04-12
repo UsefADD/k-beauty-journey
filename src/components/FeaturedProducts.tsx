@@ -24,7 +24,7 @@ const FeaturedProducts = () => {
 
   return (
     <div className="mt-12">
-      <h2 className="font-serif text-2xl font-medium text-knude-900 mb-6 text-center">New Arrivals</h2>
+      <h2 className="font-serif text-2xl font-medium text-pink-800 mb-6 text-center">New Arrivals</h2>
       <Carousel 
         opts={{
           align: "start",
@@ -37,7 +37,7 @@ const FeaturedProducts = () => {
             <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/4">
               <div className="group relative p-1">
                 <div className="overflow-hidden rounded-lg bg-knude-100 transition-all duration-300 group-hover:opacity-90 h-64 flex items-center justify-center">
-                  <span className="text-knude-800 text-xl font-medium">{product.name}</span>
+                  <span className="text-pink-800 text-xl font-medium">{product.name}</span>
                 </div>
                 {product.isNew && (
                   <div className="mt-2 text-center">
