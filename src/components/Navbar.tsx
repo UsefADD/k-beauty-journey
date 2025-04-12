@@ -98,7 +98,7 @@ const Navbar = () => {
                             className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
                           >
                             <div className="text-lg font-medium leading-none text-pink-800">{t('skin.type')}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
+                            <p className="line-clamp-2 text-sm leading-snug text-pink-600 mt-2">
                               {t('skin.type.description')}
                             </p>
                             <div className="mt-4 grid grid-cols-2 gap-2">
@@ -125,7 +125,7 @@ const Navbar = () => {
                             className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
                           >
                             <div className="text-lg font-medium leading-none text-pink-800">{t('skin.concern')}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
+                            <p className="line-clamp-2 text-sm leading-snug text-pink-600 mt-2">
                               {t('skin.concern.description')}
                             </p>
                             <div className="mt-4 grid grid-cols-2 gap-2">
