@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface ProductCardProps {
   id: number;
@@ -13,25 +14,27 @@ interface ProductCardProps {
 const ProductCard = ({ id, name, brand, price, image }: ProductCardProps) => {
   return (
     <div className="group relative">
-      <div className="aspect-square w-full overflow-hidden rounded-lg bg-cream-100 transition-all duration-300 group-hover:opacity-90">
-        <img
-          src={image}
-          alt={name}
-          className="h-full w-full object-cover object-center"
-        />
-        <div className="absolute top-4 right-4 p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-          <Heart className="h-5 w-5 text-pink-500 hover:text-pink-700 cursor-pointer transition-colors" />
+      <Link to={`/product/${id}`}>
+        <div className="aspect-square w-full overflow-hidden rounded-lg bg-cream-100 transition-all duration-300 group-hover:opacity-90">
+          <img
+            src={image}
+            alt={name}
+            className="h-full w-full object-cover object-center"
+          />
+          <div className="absolute top-4 right-4 p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+            <Heart className="h-5 w-5 text-pink-500 hover:text-pink-700 cursor-pointer transition-colors" />
+          </div>
         </div>
-      </div>
-      <div className="mt-4 flex justify-between">
-        <div>
-          <h3 className="text-sm text-cream-700">
-            <span className="font-medium text-cream-600 uppercase text-xs">{brand}</span>
-            <p className="font-medium text-pink-800 mt-1">{name}</p>
-          </h3>
+        <div className="mt-4 flex justify-between">
+          <div>
+            <h3 className="text-sm text-cream-700">
+              <span className="font-medium text-cream-600 uppercase text-xs">{brand}</span>
+              <p className="font-medium text-pink-800 mt-1">{name}</p>
+            </h3>
+          </div>
+          <p className="text-sm font-medium text-pink-800">${price.toFixed(2)}</p>
         </div>
-        <p className="text-sm font-medium text-pink-800">${price.toFixed(2)}</p>
-      </div>
+      </Link>
       <button className="mt-2 w-full py-2 text-sm font-medium text-cream-700 border border-cream-300 rounded-md hover:bg-pink-700 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
         Add to Cart
       </button>

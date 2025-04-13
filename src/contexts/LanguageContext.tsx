@@ -62,6 +62,17 @@ const enTranslations: Record<string, string> = {
   'new.arrivals.description': 'Fresh drops from your favorite brands! Mediheal, IOPE, Arencia, and Abib bring you the latest in K-beauty innovation.',
   'new.arrivals.card.title': 'New Arrivals',
   'new.arrivals.card.description': 'Explore our latest K-Beauty products',
+  
+  // Product Detail Page
+  'add.to.cart': 'Add to Cart',
+  'out.of.stock': 'Out of Stock',
+  'product.description': 'Description',
+  'suitable.for': 'Suitable For',
+  'how.to.use': 'How To Use',
+  'ingredients': 'Ingredients',
+  'key.ingredients': 'Key Ingredients',
+  'reviews': 'reviews',
+  'volume': 'Volume',
 };
 
 // French translations
@@ -116,6 +127,17 @@ const frTranslations: Record<string, string> = {
   'new.arrivals.description': 'Découvrez les derniers produits de vos marques préférées ! Mediheal, IOPE, Arencia et Abib vous apportent les dernières innovations en K-beauty.',
   'new.arrivals.card.title': 'Nouveautés',
   'new.arrivals.card.description': 'Explorez nos derniers produits K-Beauty',
+  
+  // Product Detail Page
+  'add.to.cart': 'Ajouter au Panier',
+  'out.of.stock': 'Rupture de Stock',
+  'product.description': 'Description',
+  'suitable.for': 'Convient Pour',
+  'how.to.use': 'Comment Utiliser',
+  'ingredients': 'Ingrédients',
+  'key.ingredients': 'Ingrédients Clés',
+  'reviews': 'avis',
+  'volume': 'Volume',
 };
 
 interface LanguageProviderProps {

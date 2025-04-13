@@ -17,6 +17,7 @@ import ShopBrand from "./pages/ShopBrand";
 import ShopProductType from "./pages/ShopProductType";
 import ShopSkinType from "./pages/ShopSkinType";
 import ShopIngredient from "./pages/ShopIngredient";
+import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/shop/brand" element={<ShopBrand />} />
             <Route path="/shop/product-type" element={<ShopProductType />} />
             <Route path="/shop/ingredient" element={<ShopIngredient />} />
+            <Route path="/product/:productId" element={<ProductDetail />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
