@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -13,7 +12,6 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const { t } = useLanguage();
   
-  // This would typically come from an API or database
   const product = {
     id: productId,
     name: "Rice Toner Bright & Radiant",
@@ -41,9 +39,7 @@ const ProductDetail = () => {
       <Navbar />
       <div className="flex-grow py-12 bg-cream-50">
         <div className="container mx-auto px-4">
-          {/* Product Overview Section */}
           <div className="flex flex-col md:flex-row gap-10">
-            {/* Product Image */}
             <div className="md:w-1/2">
               <div className="aspect-square w-full overflow-hidden rounded-xl bg-cream-100 transition-all duration-300">
                 <img
@@ -54,14 +50,12 @@ const ProductDetail = () => {
               </div>
             </div>
             
-            {/* Product Info */}
             <div className="md:w-1/2">
               <div className="mb-2">
                 <span className="font-medium text-pink-600 uppercase text-xs">{product.brand}</span>
               </div>
               <h1 className="text-3xl font-bold text-pink-800 mb-3">{product.name}</h1>
               
-              {/* Rating */}
               <div className="flex items-center mb-4">
                 <div className="flex items-center mr-3">
                   {[...Array(5)].map((_, i) => (
@@ -76,21 +70,18 @@ const ProductDetail = () => {
                 </span>
               </div>
               
-              {/* Price */}
               <div className="text-2xl font-bold text-pink-800 mb-6">
                 ${product.price.toFixed(2)}
               </div>
               
-              {/* Volume */}
               <div className="mb-6">
                 <span className="text-cream-700">{t('volume')}: {product.volume}</span>
               </div>
               
-              {/* Add to Cart Button */}
               <div className="flex gap-3 mb-8">
                 <Button 
                   onClick={handleAddToCart} 
-                  className="flex-1 bg-pink-600 hover:bg-pink-700 text-white"
+                  className="flex-1 bg-white text-pink-600 border border-pink-600 hover:bg-pink-50"
                   disabled={!product.inStock}
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" />
@@ -101,13 +92,11 @@ const ProductDetail = () => {
                 </Button>
               </div>
               
-              {/* Description */}
               <div className="mb-6">
                 <h3 className="font-medium text-cream-900 mb-2">{t('product.description')}</h3>
                 <p className="text-cream-700">{product.description}</p>
               </div>
               
-              {/* Skin Types */}
               <div className="mb-6">
                 <h3 className="font-medium text-cream-900 mb-2">{t('suitable.for')}</h3>
                 <ul className="list-disc pl-5 text-cream-700">
@@ -119,7 +108,6 @@ const ProductDetail = () => {
             </div>
           </div>
           
-          {/* Product Details Tabs */}
           <div className="mt-16">
             <Tabs defaultValue="how-to-use" className="w-full">
               <TabsList className="w-full grid grid-cols-3 gap-2">
