@@ -22,8 +22,8 @@ const BrandCategories = () => {
           to={brand.path}
           className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center flex flex-col items-center justify-center min-h-[150px]"
         >
-          <h3 className="text-lg font-medium text-pink-800 mb-2">{brand.name}</h3>
-          <p className="text-sm text-cream-600">Shop All Products</p>
+          <h3 className="text-lg font-medium text-pink-600 mb-2">{brand.name}</h3>
+          <p className="text-sm text-pink-600">Shop All Products</p>
         </Link>
       ))}
     </div>

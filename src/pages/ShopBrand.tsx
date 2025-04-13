@@ -11,12 +11,12 @@ const ShopBrand = () => {
       <Navbar />
       <div className="flex-grow py-12 bg-knude-50">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-center mb-8 text-knude-900 font-serif">
+          <h1 className="text-3xl font-bold text-center mb-8 text-pink-800 font-serif">
             SHOP BY BRAND
           </h1>
           <ShopCategories />
           <div className="mt-8 mb-6 text-center">
-            <p className="text-knude-700 max-w-3xl mx-auto">
+            <p className="text-pink-600 max-w-3xl mx-auto">
               Explore our carefully curated collection of premium Korean skincare brands. 
               Each brand brings its unique approach to beauty with innovative formulations and proven results.
             </p>
