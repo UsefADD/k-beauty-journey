@@ -4,6 +4,7 @@ import ProductCard from './ProductCard';
 import { Link } from 'react-router-dom';
 import NewArrivals from './NewArrivals';
 import { Button } from "@/components/ui/button";
+import { useLanguage } from '../contexts/LanguageContext';
 
 const bestSellerProducts = [
   {
@@ -37,21 +38,23 @@ const bestSellerProducts = [
 ];
 
 const BestSellers = () => {
+  const { t } = useLanguage();
+  
   return (
     <div className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Link to="/shop/newly-curated" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
-            SHOP BY NEWLY CURATED
+            {t('shop.newly.curated')}
           </Link>
           <Link to="/shop/viral" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
-            SHOP BY VIRAL K-BEAUTY
+            {t('shop.viral')}
           </Link>
           <Link to="/shop/best-sellers" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
-            SHOP BY BEST SELLERS
+            {t('shop.best.sellers')}
           </Link>
           <Link to="/shop/sets" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
-            SHOP BY SETS & ROUTINES
+            {t('shop.sets')}
           </Link>
         </div>
         
@@ -64,7 +67,7 @@ const BestSellers = () => {
         <div className="mt-12 text-center">
           <Link to="/shop/best-sellers">
             <Button className="uppercase bg-white hover:bg-cream-100 text-cream-900 border border-cream-300">
-              View All Best Sellers
+              {t('view.all.best.sellers')}
             </Button>
           </Link>
         </div>

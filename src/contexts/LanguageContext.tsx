@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 type Language = 'en' | 'fr';
@@ -51,6 +50,12 @@ const enTranslations: Record<string, string> = {
   'language': 'Language',
   'english': 'English',
   'french': 'French',
+  // Best Sellers Component
+  'shop.newly.curated': 'SHOP BY NEWLY CURATED',
+  'shop.viral': 'SHOP BY VIRAL K-BEAUTY',
+  'shop.best.sellers': 'SHOP BY BEST SELLERS',
+  'shop.sets': 'SHOP BY SETS & ROUTINES',
+  'view.all.best.sellers': 'View All Best Sellers',
 };
 
 // French translations
@@ -93,6 +98,12 @@ const frTranslations: Record<string, string> = {
   'language': 'Langue',
   'english': 'Anglais',
   'french': 'Français',
+  // Best Sellers Component
+  'shop.newly.curated': 'ACHETER PAR NOUVEAUTÉS',
+  'shop.viral': 'ACHETER PAR K-BEAUTY VIRAL',
+  'shop.best.sellers': 'ACHETER PAR MEILLEURES VENTES',
+  'shop.sets': 'ACHETER PAR SETS & ROUTINES',
+  'view.all.best.sellers': 'Voir Toutes Les Meilleures Ventes',
 };
 
 interface LanguageProviderProps {
