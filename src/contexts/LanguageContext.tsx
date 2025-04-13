@@ -56,6 +56,12 @@ const enTranslations: Record<string, string> = {
   'shop.best.sellers': 'SHOP BY BEST SELLERS',
   'shop.sets': 'SHOP BY SETS & ROUTINES',
   'view.all.best.sellers': 'View All Best Sellers',
+  
+  // New Arrivals Component
+  'new.arrivals.title': 'Hot New\nK-Beauty Arrivals',
+  'new.arrivals.description': 'Fresh drops from your favorite brands! Mediheal, IOPE, Arencia, and Abib bring you the latest in K-beauty innovation.',
+  'new.arrivals.card.title': 'New Arrivals',
+  'new.arrivals.card.description': 'Explore our latest K-Beauty products',
 };
 
 // French translations
@@ -104,6 +110,12 @@ const frTranslations: Record<string, string> = {
   'shop.best.sellers': 'ACHETER PAR MEILLEURES VENTES',
   'shop.sets': 'ACHETER PAR SETS & ROUTINES',
   'view.all.best.sellers': 'Voir Toutes Les Meilleures Ventes',
+  
+  // New Arrivals Component
+  'new.arrivals.title': 'Nouveautés\nK-Beauty',
+  'new.arrivals.description': 'Découvrez les derniers produits de vos marques préférées ! Mediheal, IOPE, Arencia et Abib vous apportent les dernières innovations en K-beauty.',
+  'new.arrivals.card.title': 'Nouveautés',
+  'new.arrivals.card.description': 'Explorez nos derniers produits K-Beauty',
 };
 
 interface LanguageProviderProps {
