@@ -3,35 +3,40 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useParams } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Heart, ShoppingCart, Star, Package } from 'lucide-react';
+import { Heart, ShoppingCart, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ProductDetail = () => {
   const { productId } = useParams();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   const product = {
     id: productId,
-    name: "Rice Toner Bright & Radiant",
+    name: language === 'fr' ? "Tonique au Riz Éclaircissant & Radiant" : "Rice Toner Bright & Radiant",
     brand: "I'm From",
     price: 280,
     rating: 4.8,
     reviewCount: 124,
     image: "/placeholder.svg",
-    description: "This 77.78% rice extract toner removes impurities while brightening dull skin, leaving it smooth and radiant. Rice extract is rich in vitamins and minerals that nourish the skin.",
-    usageInstructions: "After cleansing, apply to face and neck using hands or a cotton pad. Gently pat until absorbed. Follow with serum and moisturizer.",
+    description: language === 'fr' 
+      ? "Ce tonique contenant 77,78% d'extrait de riz élimine les impuretés tout en éclaircissant la peau terne, la laissant lisse et radieuse. L'extrait de riz est riche en vitamines et minéraux qui nourrissent la peau."
+      : "This 77.78% rice extract toner removes impurities while brightening dull skin, leaving it smooth and radiant. Rice extract is rich in vitamins and minerals that nourish the skin.",
+    usageInstructions: language === 'fr'
+      ? "Après le nettoyage, appliquez sur le visage et le cou à l'aide des mains ou d'un coton. Tapotez doucement jusqu'à absorption. Suivez avec un sérum et une crème hydratante."
+      : "After cleansing, apply to face and neck using hands or a cotton pad. Gently pat until absorbed. Follow with serum and moisturizer.",
     ingredients: "Rice Extract (77.78%), Methylpropanediol, Triethylhexanoin, Hydrogenated Poly(C6-14 Olefin), Hydrogenated Polydecene, Pentaerythrityl Tetraethylhexanoate, 1,2-Hexanediol, Glycerin, Butylene Glycol, Water, Dimethicone, Cetyl Ethylhexanoate, Cetearyl Alcohol, Cetearyl Glucoside.",
     inStock: true,
     volume: "150ml",
-    skinTypes: ["All skin types", "Especially good for dry and dull skin"],
+    skinTypes: language === 'fr' 
+      ? ["Tous types de peau", "Particulièrement adapté aux peaux sèches et ternes"]
+      : ["All skin types", "Especially good for dry and dull skin"],
     keyIngredients: ["Rice Extract", "Glycerin", "Butylene Glycol"]
   };
 
   const handleAddToCart = () => {
     console.log(`Added ${product.name} to cart`);
-    // Cart functionality would be implemented here
   };
 
   return (

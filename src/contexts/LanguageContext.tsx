@@ -73,6 +73,8 @@ const enTranslations: Record<string, string> = {
   'key.ingredients': 'Key Ingredients',
   'reviews': 'reviews',
   'volume': 'Volume',
+  'payment.method': 'Payment Method',
+  'cash.on.delivery.only': 'Cash on delivery only',
 };
 
 // French translations
@@ -138,6 +140,8 @@ const frTranslations: Record<string, string> = {
   'key.ingredients': 'Ingrédients Clés',
   'reviews': 'avis',
   'volume': 'Volume',
+  'payment.method': 'Mode de Paiement',
+  'cash.on.delivery.only': 'Paiement à la livraison uniquement',
 };
 
 interface LanguageProviderProps {
