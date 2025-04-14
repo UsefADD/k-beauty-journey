@@ -75,14 +75,6 @@ const ProductDetail = () => {
               </div>
               
               <div className="mb-6">
-                <div className="flex items-center gap-2 text-pink-600 mb-2">
-                  <Package className="h-5 w-5" />
-                  <span className="font-medium">{t('payment.method')}</span>
-                </div>
-                <p className="text-cream-700">{t('cash.on.delivery.only')}</p>
-              </div>
-              
-              <div className="mb-6">
                 <span className="text-cream-700">{t('volume')}: {product.volume}</span>
               </div>
               
