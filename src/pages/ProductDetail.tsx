@@ -5,12 +5,14 @@ import { useParams } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCart } from '../contexts/CartContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const { t, language } = useLanguage();
+  const { addItem } = useCart();
   
   const product = {
     id: productId,
@@ -36,7 +38,12 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    console.log(`Added ${product.name} to cart`);
+    addItem({
+      id: productId || '0',
+      name: product.name,
+      price: product.price,
+      image: product.image,
+    });
   };
 
   return (
