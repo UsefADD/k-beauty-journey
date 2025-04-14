@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useParams } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Heart, ShoppingCart, Star } from 'lucide-react';
+import { Heart, ShoppingCart, Star, Package } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -72,6 +72,14 @@ const ProductDetail = () => {
               
               <div className="text-2xl font-bold text-pink-800 mb-6">
                 {product.price.toFixed(2)} MAD
+              </div>
+              
+              <div className="mb-6">
+                <div className="flex items-center gap-2 text-pink-600 mb-2">
+                  <Package className="h-5 w-5" />
+                  <span className="font-medium">{t('payment.method')}</span>
+                </div>
+                <p className="text-cream-700">{t('cash.on.delivery.only')}</p>
               </div>
               
               <div className="mb-6">
