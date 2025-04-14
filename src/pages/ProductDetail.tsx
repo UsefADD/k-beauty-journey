@@ -16,7 +16,7 @@ const ProductDetail = () => {
     id: productId,
     name: "Rice Toner Bright & Radiant",
     brand: "I'm From",
-    price: 28,
+    price: 280,
     rating: 4.8,
     reviewCount: 124,
     image: "/placeholder.svg",
@@ -71,7 +71,7 @@ const ProductDetail = () => {
               </div>
               
               <div className="text-2xl font-bold text-pink-800 mb-6">
-                ${product.price.toFixed(2)}
+                {product.price.toFixed(2)} MAD
               </div>
               
               <div className="mb-6">
