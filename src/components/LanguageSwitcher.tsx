@@ -11,7 +11,15 @@ import {
 import { Globe } from 'lucide-react';
 
 const LanguageSwitcher = () => {
-  const { language, changeLanguage, t } = useLanguage();
+  const { language, toggleLanguage, t } = useLanguage();
+
+  // Get the setLanguage function from context
+  const context = useLanguage();
+  const setLanguage = (lang: string) => {
+    if (context.language !== lang) {
+      context.toggleLanguage();
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -22,13 +30,13 @@ const LanguageSwitcher = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem 
-          onClick={() => changeLanguage('en')}
+          onClick={() => setLanguage('en')}
           className={language === 'en' ? 'bg-pink-50 text-pink-600 font-medium' : ''}
         >
           {t('english')}
         </DropdownMenuItem>
         <DropdownMenuItem 
-          onClick={() => changeLanguage('fr')}
+          onClick={() => setLanguage('fr')}
           className={language === 'fr' ? 'bg-pink-50 text-pink-600 font-medium' : ''}
         >
           {t('french')}
