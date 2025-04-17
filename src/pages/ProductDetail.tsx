@@ -8,6 +8,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from '../contexts/CartContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -21,7 +22,11 @@ const ProductDetail = () => {
     price: 280,
     rating: 4.8,
     reviewCount: 124,
-    image: "/placeholder.svg",
+    images: [
+      "/lovable-uploads/2e3f0b7a-0103-4602-9efe-fabce75ae855.png",
+      "/lovable-uploads/3f8687b9-677f-4a44-9351-7ad103dcc6a3.png",
+      "/lovable-uploads/41330e03-a806-4f90-96ce-12336f3d878f.png"
+    ],
     description: language === 'fr' 
       ? "Ce tonique contenant 77,78% d'extrait de riz élimine les impuretés tout en éclaircissant la peau terne, la laissant lisse et radieuse. L'extrait de riz est riche en vitamines et minéraux qui nourrissent la peau."
       : "This 77.78% rice extract toner removes impurities while brightening dull skin, leaving it smooth and radiant. Rice extract is rich in vitamins and minerals that nourish the skin.",
@@ -34,7 +39,20 @@ const ProductDetail = () => {
     skinTypes: language === 'fr' 
       ? ["Tous types de peau", "Particulièrement adapté aux peaux sèches et ternes"]
       : ["All skin types", "Especially good for dry and dull skin"],
-    keyIngredients: ["Rice Extract", "Glycerin", "Butylene Glycol"]
+    keyIngredients: ["Rice Extract", "Glycerin", "Butylene Glycol"],
+    benefits: language === 'fr'
+      ? [
+          "Éclaircit et illumine la peau",
+          "Hydrate en profondeur",
+          "Apaise et calme la peau",
+          "Améliore le teint"
+        ]
+      : [
+          "Brightens and illuminates skin",
+          "Deeply hydrates",
+          "Soothes and calms skin",
+          "Improves complexion"
+        ]
   };
 
   const handleAddToCart = () => {
@@ -42,7 +60,7 @@ const ProductDetail = () => {
       id: productId || '0',
       name: product.name,
       price: product.price,
-      image: product.image,
+      image: product.images[0],
     });
   };
 
@@ -53,13 +71,23 @@ const ProductDetail = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-10">
             <div className="md:w-1/2">
-              <div className="aspect-square w-full overflow-hidden rounded-xl bg-cream-100 transition-all duration-300">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="h-full w-full object-cover object-center"
-                />
-              </div>
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {product.images.map((image, index) => (
+                    <CarouselItem key={index}>
+                      <div className="aspect-square w-full overflow-hidden rounded-xl bg-cream-100">
+                        <img
+                          src={image}
+                          alt={`${product.name} - View ${index + 1}`}
+                          className="h-full w-full object-cover object-center"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="border-cream-300 text-cream-700 hover:bg-cream-200 hover:text-cream-900" />
+                <CarouselNext className="border-cream-300 text-cream-700 hover:bg-cream-200 hover:text-cream-900" />
+              </Carousel>
             </div>
             
             <div className="md:w-1/2">
@@ -114,6 +142,15 @@ const ProductDetail = () => {
                 <ul className="list-disc pl-5 text-cream-700">
                   {product.skinTypes.map((type, index) => (
                     <li key={index}>{type}</li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div className="mb-6">
+                <h3 className="font-medium text-cream-900 mb-2">{t('key.benefits')}</h3>
+                <ul className="list-disc pl-5 text-cream-700">
+                  {product.benefits.map((benefit, index) => (
+                    <li key={index} className="mb-2">{benefit}</li>
                   ))}
                 </ul>
               </div>
