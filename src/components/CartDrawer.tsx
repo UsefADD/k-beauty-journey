@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Trash2, X, ShoppingBag } from "lucide-react";
 import { useCart } from '@/contexts/CartContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 interface CartDrawerProps {
   open: boolean;
@@ -14,11 +15,13 @@ interface CartDrawerProps {
 const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
   const { items, removeItem, updateQuantity, totalPrice, totalItems } = useCart();
   const { t } = useLanguage();
-  
-  const handleClose = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = (path: string) => {
     onClose();
+    navigate(path);
   };
-  
+
   return (
     <Sheet open={open} onOpenChange={onClose}>
       <SheetContent className="w-full sm:max-w-md overflow-y-auto">
@@ -39,10 +42,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
             <ShoppingBag className="h-12 w-12 text-gray-300 mb-2" />
             <h3 className="text-lg font-medium">{t('cart.empty')}</h3>
             <p className="text-sm text-gray-500 mb-4">{t('cart.start.shopping')}</p>
-            <Button onClick={() => {
-              handleClose();
-              window.location.href = '/shop';
-            }}>
+            <Button onClick={() => handleNavigate('/shop')}>
               {t('continue.shopping')}
             </Button>
           </div>
@@ -90,10 +90,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                 <span>{t('subtotal')}</span>
                 <span>{totalPrice.toFixed(2)} MAD</span>
               </div>
-              <Button className="w-full mt-4" onClick={() => {
-                handleClose();
-                window.location.href = '/payment';
-              }}>
+              <Button className="w-full mt-4" onClick={() => handleNavigate('/payment')}>
                 {t('checkout')}
               </Button>
             </div>
