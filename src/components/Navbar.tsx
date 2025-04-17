@@ -1,59 +1,194 @@
-import React, { useState } from 'react';
+
+import React from 'react';
+import { ShoppingBag, Heart, User, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
+import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
-import CartIcon from './CartIcon';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  return (
-    <nav className="bg-white border-b border-gray-200">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="text-xl font-bold text-pink-600">
-            My Skincare
-          </Link>
-          
-          <div className="hidden md:flex space-x-4">
-            <Link to="/shop" className="hover:text-pink-500">Shop</Link>
-            <Link to="/brands" className="hover:text-pink-500">Brands</Link>
-            <Link to="/shop/newly-curated" className="hover:text-pink-500">Newly Curated</Link>
-            <Link to="/shop/viral" className="hover:text-pink-500">Viral</Link>
-            <Link to="/shop/best-sellers" className="hover:text-pink-500">Best Sellers</Link>
-          </div>
-
-          <div className="md:hidden">
-            <button onClick={toggleMenu} className="text-gray-500 hover:text-pink-500 focus:outline-none focus:text-pink-500">
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <LanguageSwitcher />
-            <CartIcon />
-          </div>
+  return <>
+      <div className="bg-white text-pink-600 py-1 overflow-hidden whitespace-nowrap relative border-b border-pink-100">
+        <div className="animate-marquee inline-block">
+          <span className="mx-4 font-medium">{t('shipping.banner')}</span>
+          <span className="mx-4 font-medium">{t('shipping.banner')}</span>
+          <span className="mx-4 font-medium">{t('shipping.banner')}</span>
         </div>
       </div>
-
-      {isMenuOpen && (
-        <div className="md:hidden bg-gray-50 py-2">
-          <div className="container mx-auto px-4 flex flex-col space-y-2">
-            <Link to="/shop" className="hover:text-pink-500">Shop</Link>
-            <Link to="/brands" className="hover:text-pink-500">Brands</Link>
-            <Link to="/shop/newly-curated" className="hover:text-pink-500">Newly Curated</Link>
-            <Link to="/shop/viral" className="hover:text-pink-500">Viral</Link>
-            <Link to="/shop/best-sellers" className="hover:text-pink-500">Best Sellers</Link>
+      
+      <nav className="bg-white py-4 shadow-sm sticky top-0 z-50">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
+          <Link to="/" className="text-2xl font-serif font-bold text-pink-600 mb-4 md:mb-0">
+            BLISSFUL.
+          </Link>
+          
+          <div className="space-x-4 md:space-x-6 text-pink-600 text-sm font-medium mb-4 md:mb-0 flex items-center">
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="hover:text-pink-800 transition-colors bg-transparent">{t('shop.all')}</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="flex w-[900px] p-4">
+                      <div className="w-1/3 pr-4">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/shop/product-type"
+                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-pink-50 to-pink-100 p-4 no-underline outline-none focus:shadow-md"
+                          >
+                            <div className="text-lg font-medium text-pink-800">{t('product.type')}</div>
+                            <div className="mt-4 grid grid-cols-2 gap-2">
+                              <Link to="/shop/product-type/double-nettoyage" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Droplets className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('double.cleansing')}</span>
+                              </Link>
+                              <Link to="/shop/product-type/exfoliations" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Brush className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('exfoliations')}</span>
+                              </Link>
+                              <Link to="/shop/product-type/lotions" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Droplets className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('toning.lotions')}</span>
+                              </Link>
+                              <Link to="/shop/product-type/traitements" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Beaker className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('treatments')}</span>
+                              </Link>
+                              <Link to="/shop/product-type/masques" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Sparkles className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('masks')}</span>
+                              </Link>
+                              <Link to="/shop/product-type/soin-yeux" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Eye className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('eye.care')}</span>
+                              </Link>
+                              <Link to="/shop/product-type/hydratants" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Droplets className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('moisturizers')}</span>
+                              </Link>
+                              <Link to="/shop/product-type/protection" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Sun className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('sun.protection')}</span>
+                              </Link>
+                              <Link to="/shop/product-type/cheveux-corps" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Umbrella className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('hair.body')}</span>
+                              </Link>
+                              <Link to="/shop/product-type/maquillage" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <Scissors className="mr-2 h-4 w-4 text-pink-600" />
+                                <span>{t('makeup.tools')}</span>
+                              </Link>
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                      <div className="w-1/3 px-4">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/shop/skin-type"
+                            className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
+                          >
+                            <div className="text-lg font-medium leading-none text-pink-800">{t('skin.type')}</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-pink-600 mt-2">
+                              {t('skin.type.description')}
+                            </p>
+                            <div className="mt-4 grid grid-cols-2 gap-2">
+                              <Link to="/shop/skin-type/oily" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('oily')}</span>
+                              </Link>
+                              <Link to="/shop/skin-type/dry" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('dry')}</span>
+                              </Link>
+                              <Link to="/shop/skin-type/combination" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('combination')}</span>
+                              </Link>
+                              <Link to="/shop/skin-type/normal" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('normal')}</span>
+                              </Link>
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                      <div className="w-1/3 pl-4">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/shop/skin-concern"
+                            className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
+                          >
+                            <div className="text-lg font-medium leading-none text-pink-800">{t('skin.concern')}</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-pink-600 mt-2">
+                              {t('skin.concern.description')}
+                            </p>
+                            <div className="mt-4 grid grid-cols-2 gap-2">
+                              <Link to="/shop/skin-concern/acne" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('acne')}</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/dehydration" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('dehydration')}</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/sebum-control" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('sebum.control')}</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/pigmentation" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('pigmentation')}</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/redness" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('redness')}</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/sensitive" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('sensitive')}</span>
+                              </Link>
+                              <Link to="/shop/skin-concern/aging" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
+                                <span>{t('anti.aging')}</span>
+                              </Link>
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+            <Link to="/shop/best-sellers" className="hover:text-pink-800 transition-colors zigzag-underline">
+              {t('best.sellers')}
+            </Link>
+            <Link to="/brands" className="hover:text-pink-800 transition-colors zigzag-underline">
+              {t('brands')}
+            </Link>
+          </div>
+          
+          <div className="space-x-6 text-pink-600 flex items-center">
+            <Search className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <User className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <Heart className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <ShoppingBag className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <LanguageSwitcher />
           </div>
         </div>
-      )}
-    </nav>
-  );
+      </nav>
+      <style>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-marquee {
+          animation: marquee 20s linear infinite;
+        }
+      `}</style>
+    </>;
 };
-
 export default Navbar;
