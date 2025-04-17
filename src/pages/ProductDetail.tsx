@@ -17,8 +17,8 @@ const ProductDetail = () => {
   
   const product = {
     id: productId,
-    name: language === 'fr' ? "Tonique au Riz Éclaircissant & Radiant" : "Rice Toner Bright & Radiant",
-    brand: "I'm From",
+    name: language === 'fr' ? "Bean Essence" : "Bean Essence",
+    brand: "MIXSOON",
     price: 280,
     rating: 4.8,
     reviewCount: 124,
@@ -28,18 +28,18 @@ const ProductDetail = () => {
       "/lovable-uploads/41330e03-a806-4f90-96ce-12336f3d878f.png"
     ],
     description: language === 'fr' 
-      ? "Ce tonique contenant 77,78% d'extrait de riz élimine les impuretés tout en éclaircissant la peau terne, la laissant lisse et radieuse. L'extrait de riz est riche en vitamines et minéraux qui nourrissent la peau."
-      : "This 77.78% rice extract toner removes impurities while brightening dull skin, leaving it smooth and radiant. Rice extract is rich in vitamins and minerals that nourish the skin.",
+      ? "La Bean Essence MIXSOON est une essence purifiante infusée de haricot qui aide à améliorer et à affiner la texture de la peau pour un résultat lisse et sans tache. L'extrait de haricot contenu dans la formule élimine..."
+      : "The MIXSOON Bean Essence is a purifying essence infused with bean extract that helps improve and refine skin texture for a smooth and spotless result. The bean extract in the formula eliminates...",
     usageInstructions: language === 'fr'
       ? "Après le nettoyage, appliquez sur le visage et le cou à l'aide des mains ou d'un coton. Tapotez doucement jusqu'à absorption. Suivez avec un sérum et une crème hydratante."
       : "After cleansing, apply to face and neck using hands or a cotton pad. Gently pat until absorbed. Follow with serum and moisturizer.",
-    ingredients: "Rice Extract (77.78%), Methylpropanediol, Triethylhexanoin, Hydrogenated Poly(C6-14 Olefin), Hydrogenated Polydecene, Pentaerythrityl Tetraethylhexanoate, 1,2-Hexanediol, Glycerin, Butylene Glycol, Water, Dimethicone, Cetyl Ethylhexanoate, Cetearyl Alcohol, Cetearyl Glucoside.",
+    ingredients: "Bean Extract (77.78%), Methylpropanediol, Triethylhexanoin, Hydrogenated Poly(C6-14 Olefin), Hydrogenated Polydecene, Pentaerythrityl Tetraethylhexanoate, 1,2-Hexanediol, Glycerin, Butylene Glycol, Water, Dimethicone, Cetyl Ethylhexanoate, Cetearyl Alcohol, Cetearyl Glucoside.",
     inStock: true,
     volume: "150ml",
     skinTypes: language === 'fr' 
       ? ["Tous types de peau", "Particulièrement adapté aux peaux sèches et ternes"]
       : ["All skin types", "Especially good for dry and dull skin"],
-    keyIngredients: ["Rice Extract", "Glycerin", "Butylene Glycol"],
+    keyIngredients: ["Bean Extract", "Glycerin", "Butylene Glycol"],
     benefits: language === 'fr'
       ? [
           "Éclaircit et illumine la peau",
