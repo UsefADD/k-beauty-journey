@@ -18,12 +18,17 @@ interface CartContextType {
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
+  toggleCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const { toast } = useToast();
 
   const addItem = (newItem: Omit<CartItem, 'quantity'>) => {
@@ -45,6 +50,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       title: "Added to cart",
       description: `${newItem.name} has been added to your cart.`,
     });
+    
+    // Open cart when adding an item
+    setIsCartOpen(true);
   };
 
   const removeItem = (id: string) => {
@@ -63,6 +71,18 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setItems([]);
   };
 
+  const openCart = () => {
+    setIsCartOpen(true);
+  };
+
+  const closeCart = () => {
+    setIsCartOpen(false);
+  };
+
+  const toggleCart = () => {
+    setIsCartOpen(prev => !prev);
+  };
+
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
@@ -75,6 +95,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       clearCart,
       totalItems,
       totalPrice,
+      isCartOpen,
+      openCart,
+      closeCart,
+      toggleCart,
     }}>
       {children}
     </CartContext.Provider>
