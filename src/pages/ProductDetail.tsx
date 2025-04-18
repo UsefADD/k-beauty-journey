@@ -23,6 +23,7 @@ const ProductDetail = () => {
     rating: 4.8,
     reviewCount: 124,
     images: [
+      "/lovable-uploads/b0dafd90-86ab-4723-a1c2-e63a296048e2.png",
       "/lovable-uploads/2e3f0b7a-0103-4602-9efe-fabce75ae855.png",
       "/lovable-uploads/3f8687b9-677f-4a44-9351-7ad103dcc6a3.png",
       "/lovable-uploads/41330e03-a806-4f90-96ce-12336f3d878f.png"
