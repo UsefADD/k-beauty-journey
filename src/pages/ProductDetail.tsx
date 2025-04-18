@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -28,7 +29,7 @@ const ProductDetail = () => {
       "/lovable-uploads/41330e03-a806-4f90-96ce-12336f3d878f.png"
     ],
     description: language === 'fr' 
-      ? "Complexe de 4 extraits fermentés :\n→ de fèves de soja – régénère, humidifie et affine le grain de la peau\n→ de grenade – raffermit la peau, lisse les rides et resserre les pores\n→ d'orge – hydrate et adoucit la peau\n→ de poire – lisse et régénère la peau\nproduit végan"
+      ? "La Bean Essence MIXSOON est une essence purifiante infusée de haricot qui aide à améliorer et à affiner la texture de la peau pour un résultat lisse et sans tache. L'extrait de haricot contenu dans la formule élimine..."
       : "The MIXSOON Bean Essence is a purifying essence infused with bean extract that helps improve and refine skin texture for a smooth and spotless result. The bean extract in the formula eliminates...",
     usageInstructions: language === 'fr'
       ? `Appliquez chaque jour 2 à 3 pressions de pompe de l'essence mixsoon Bean que vous étalez et tapotez sur votre peau pour bénéficier d'un visage sain. Appliquez ensuite une crème hydratante.
