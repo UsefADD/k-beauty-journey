@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -38,7 +37,9 @@ Cette essence agit également comme un peeling délicat : si vous souhaitez prof
       : `Apply 2-3 pumps of the Mixsoon Bean Essence daily, spread and pat onto your skin for a healthy complexion. Follow with a moisturizing cream.
 
 This essence also acts as a gentle peeling: if you want to enjoy an exfoliating effect, apply it on clean, dry skin, then massage using circular motions. Then use a makeup remover cotton to eliminate product residue, tone the skin, and apply a moisturizing cream.`,
-    ingredients: "Bean Extract (77.78%), Methylpropanediol, Triethylhexanoin, Hydrogenated Poly(C6-14 Olefin), Hydrogenated Polydecene, Pentaerythrityl Tetraethylhexanoate, 1,2-Hexanediol, Glycerin, Butylene Glycol, Water, Dimethicone, Cetyl Ethylhexanoate, Cetearyl Alcohol, Cetearyl Glucoside.",
+    ingredients: language === 'fr'
+      ? "Complexe de 4 extraits fermentés :\n→ de fèves de soja – régénère, humidifie et affine le grain de la peau\n→ de grenade – raffermit la peau, lisse les rides et resserre les pores\n→ d'orge – hydrate et adoucit la peau\n→ de poire – lisse et régénère la peau\nproduit végan"
+      : "Bean Extract (77.78%), Methylpropanediol, Triethylhexanoin, Hydrogenated Poly(C6-14 Olefin), Hydrogenated Polydecene, Pentaerythrityl Tetraethylhexanoate, 1,2-Hexanediol, Glycerin, Butylene Glycol, Water, Dimethicone, Cetyl Ethylhexanoate, Cetearyl Alcohol, Cetearyl Glucoside.",
     inStock: true,
     volume: "150ml",
     skinTypes: language === 'fr' 
