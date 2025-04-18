@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ShoppingBag, Heart, User, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -13,9 +12,11 @@ import {
 import { cn } from "@/lib/utils";
 import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
+import SearchDialog from './SearchDialog';
 
 const Navbar = () => {
   const { t } = useLanguage();
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return <>
       <div className="bg-white text-pink-600 py-1 overflow-hidden whitespace-nowrap relative border-b border-pink-100">
@@ -168,7 +169,10 @@ const Navbar = () => {
           </div>
           
           <div className="space-x-6 text-pink-600 flex items-center">
-            <Search className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <Search 
+              className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" 
+              onClick={() => setSearchOpen(true)}
+            />
             <User className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
             <Heart className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
             <ShoppingBag className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
@@ -176,6 +180,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
       <style>{`
         @keyframes marquee {
           0% {
