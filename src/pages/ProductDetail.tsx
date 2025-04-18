@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -34,9 +35,9 @@ const ProductDetail = () => {
       ? `Appliquez chaque jour 2 à 3 pressions de pompe de l'essence mixsoon Bean que vous étalez et tapotez sur votre peau pour bénéficier d'un visage sain. Appliquez ensuite une crème hydratante.
 
 Cette essence agit également comme un peeling délicat : si vous souhaitez profiter d'un effet exfoliant, appliquez-la sur la peau propre et sèche, puis massez en exécutant des mouvements circulaires. Utilisez ensuite un coton démaquillant pour éliminer les restes de produits, puis tonifiez la peau et appliquez une crème hydratante.`
-      : "Apply 2-3 pumps of the Mixsoon Bean Essence daily, spread and pat onto your skin for a healthy complexion. Follow with a moisturizing cream.
+      : `Apply 2-3 pumps of the Mixsoon Bean Essence daily, spread and pat onto your skin for a healthy complexion. Follow with a moisturizing cream.
 
-This essence also acts as a gentle peeling: if you want to enjoy an exfoliating effect, apply it on clean, dry skin, then massage using circular motions. Then use a makeup remover cotton to eliminate product residue, tone the skin, and apply a moisturizing cream.",
+This essence also acts as a gentle peeling: if you want to enjoy an exfoliating effect, apply it on clean, dry skin, then massage using circular motions. Then use a makeup remover cotton to eliminate product residue, tone the skin, and apply a moisturizing cream.`,
     ingredients: "Bean Extract (77.78%), Methylpropanediol, Triethylhexanoin, Hydrogenated Poly(C6-14 Olefin), Hydrogenated Polydecene, Pentaerythrityl Tetraethylhexanoate, 1,2-Hexanediol, Glycerin, Butylene Glycol, Water, Dimethicone, Cetyl Ethylhexanoate, Cetearyl Alcohol, Cetearyl Glucoside.",
     inStock: true,
     volume: "150ml",
