@@ -99,9 +99,9 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
             
             <div className="md:w-1/2">
               <div className="mb-2">
-                <span className="font-medium text-pink-600 uppercase text-xs">{product.brand}</span>
+                <span className="font-medium text-black uppercase text-xs">{product.brand}</span>
               </div>
-              <h1 className="text-3xl font-bold text-pink-800 mb-3">{product.name}</h1>
+              <h1 className="text-3xl font-bold text-black mb-3">{product.name}</h1>
               
               <div className="flex items-center mb-4">
                 <div className="flex items-center mr-3">
@@ -112,17 +112,17 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
                     />
                   ))}
                 </div>
-                <span className="text-sm text-cream-700">
+                <span className="text-sm text-black">
                   {product.rating} ({product.reviewCount} {t('reviews')})
                 </span>
               </div>
               
-              <div className="text-2xl font-bold text-pink-800 mb-6">
+              <div className="text-2xl font-bold text-black mb-6">
                 {product.price.toFixed(2)} MAD
               </div>
               
               <div className="mb-6">
-                <span className="text-cream-700">{t('volume')}: {product.volume}</span>
+                <span className="text-black">{t('volume')}: {product.volume}</span>
               </div>
               
               <div className="flex gap-3 mb-8">
@@ -140,13 +140,13 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
               </div>
               
               <div className="mb-6">
-                <h3 className="font-medium text-cream-900 mb-2">{t('product.description')}</h3>
-                <p className="text-cream-700">{product.description}</p>
+                <h3 className="font-medium text-black mb-2">{t('product.description')}</h3>
+                <p className="text-black">{product.description}</p>
               </div>
               
               <div className="mb-6">
-                <h3 className="font-medium text-cream-900 mb-2">{t('suitable.for')}</h3>
-                <ul className="list-disc pl-5 text-cream-700">
+                <h3 className="font-medium text-black mb-2">{t('suitable.for')}</h3>
+                <ul className="list-disc pl-5 text-black">
                   {product.skinTypes.map((type, index) => (
                     <li key={index}>{type}</li>
                   ))}
@@ -154,8 +154,8 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
               </div>
               
               <div className="mb-6">
-                <h3 className="font-medium text-cream-900 mb-2">{t('key.benefits')}</h3>
-                <ul className="list-disc pl-5 text-cream-700">
+                <h3 className="font-medium text-black mb-2">{t('key.benefits')}</h3>
+                <ul className="list-disc pl-5 text-black">
                   {product.benefits.map((benefit, index) => (
                     <li key={index} className="mb-2">{benefit}</li>
                   ))}
@@ -167,28 +167,28 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
           <div className="mt-16">
             <Tabs defaultValue="how-to-use" className="w-full">
               <TabsList className="w-full grid grid-cols-3 gap-2">
-                <TabsTrigger value="how-to-use">{t('how.to.use')}</TabsTrigger>
-                <TabsTrigger value="ingredients">{t('ingredients')}</TabsTrigger>
-                <TabsTrigger value="key-ingredients">{t('key.ingredients')}</TabsTrigger>
+                <TabsTrigger value="how-to-use" className="text-black">{t('how.to.use')}</TabsTrigger>
+                <TabsTrigger value="ingredients" className="text-black">{t('ingredients')}</TabsTrigger>
+                <TabsTrigger value="key-ingredients" className="text-black">{t('key.ingredients')}</TabsTrigger>
               </TabsList>
               <TabsContent value="how-to-use" className="mt-6">
                 <Card>
                   <CardContent className="pt-6">
-                    <p className="text-cream-700">{product.usageInstructions}</p>
+                    <p className="text-black">{product.usageInstructions}</p>
                   </CardContent>
                 </Card>
               </TabsContent>
               <TabsContent value="ingredients" className="mt-6">
                 <Card>
                   <CardContent className="pt-6">
-                    <p className="text-cream-700">{product.ingredients}</p>
+                    <p className="text-black">{product.ingredients}</p>
                   </CardContent>
                 </Card>
               </TabsContent>
               <TabsContent value="key-ingredients" className="mt-6">
                 <Card>
                   <CardContent className="pt-6">
-                    <ul className="list-disc pl-5 text-cream-700">
+                    <ul className="list-disc pl-5 text-black">
                       {product.keyIngredients.map((ingredient, index) => (
                         <li key={index} className="mb-2">{ingredient}</li>
                       ))}
