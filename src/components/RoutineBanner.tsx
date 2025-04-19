@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+
 const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  
   const skincareProducts = [{
     id: 0,
     alt: "Skincare serum bottle",
@@ -46,26 +48,42 @@ const RoutineBanner = () => {
     alt: "Skincare product box",
     src: "/lovable-uploads/bbdb6c0f-d628-4c48-a3b8-96ec25b14d4f.png"
   }];
+
   useEffect(() => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollLeft = 0;
     }
   }, [showAll]);
+
   const show5Step = () => setShowAll(false);
   const show10Step = () => setShowAll(true);
+
   return <div className="bg-white py-16 mt-8">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold mb-8 font-serif leading-tight text-zinc-950">
           Get started with our curated Korean Skincare Routine Sets!
         </h2>
         
-        <div className="flex justify-center gap-10 mt-4 mb-8">
-          <button onClick={show5Step} className="">
-            5 Step
-          </button>
-          <button onClick={show10Step} className="">
-            10 Step
-          </button>
+        <div className="flex justify-center gap-10 mt-4 mb-8 relative">
+          <div className="relative group">
+            <button 
+              onClick={show5Step} 
+              className="text-lg font-semibold text-zinc-900 relative group-hover:text-cream-600 transition-colors duration-300"
+            >
+              5 Step
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cream-300 origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </button>
+          </div>
+          
+          <div className="relative group">
+            <button 
+              onClick={show10Step} 
+              className="text-lg font-semibold text-zinc-900 relative group-hover:text-cream-600 transition-colors duration-300"
+            >
+              10 Step
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cream-300 origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </button>
+          </div>
         </div>
         
         <ScrollArea className="w-full max-w-6xl mx-auto mb-10">
@@ -89,4 +107,5 @@ const RoutineBanner = () => {
       </div>
     </div>;
 };
+
 export default RoutineBanner;
