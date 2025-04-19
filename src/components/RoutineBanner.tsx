@@ -1,13 +1,10 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
 const RoutineBanner = () => {
   const [showAll, setShowAll] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
   const skincareProducts = [{
     id: 0,
     alt: "Skincare serum bottle",
@@ -49,19 +46,16 @@ const RoutineBanner = () => {
     alt: "Skincare product box",
     src: "/lovable-uploads/bbdb6c0f-d628-4c48-a3b8-96ec25b14d4f.png"
   }];
-  
   useEffect(() => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollLeft = 0;
     }
   }, [showAll]);
-  
   const show5Step = () => setShowAll(false);
   const show10Step = () => setShowAll(true);
-  
   return <div className="bg-white py-16 mt-8">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold text-pink-800 mb-8 font-serif leading-tight">
+        <h2 className="text-4xl font-bold mb-8 font-serif leading-tight text-zinc-950">
           Get started with our curated Korean Skincare Routine Sets!
         </h2>
         
@@ -76,18 +70,12 @@ const RoutineBanner = () => {
         
         <ScrollArea className="w-full max-w-6xl mx-auto mb-10">
           <div className="flex justify-center flex-wrap gap-2 px-2 py-2">
-            {skincareProducts.slice(0, showAll ? 10 : 5).map((product) => (
-              <div key={product.id} className="flex flex-col items-center w-16 sm:w-20">
+            {skincareProducts.slice(0, showAll ? 10 : 5).map(product => <div key={product.id} className="flex flex-col items-center w-16 sm:w-20">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 mb-1 flex items-center justify-center">
-                  <img 
-                    src={product.src} 
-                    alt={product.alt} 
-                    className="max-h-full max-w-full object-contain"
-                  />
+                  <img src={product.src} alt={product.alt} className="max-h-full max-w-full object-contain" />
                 </div>
                 <span className="text-xs sm:text-sm font-medium text-cream-700">Step {product.id + 1}</span>
-              </div>
-            ))}
+              </div>)}
           </div>
         </ScrollArea>
 
@@ -101,5 +89,4 @@ const RoutineBanner = () => {
       </div>
     </div>;
 };
-
 export default RoutineBanner;

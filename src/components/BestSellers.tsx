@@ -1,47 +1,39 @@
-
 import React from 'react';
 import ProductCard from './ProductCard';
 import { Link } from 'react-router-dom';
 import NewArrivals from './NewArrivals';
 import { Button } from "@/components/ui/button";
 import { useLanguage } from '../contexts/LanguageContext';
-
-const bestSellerProducts = [
-  {
-    id: 1,
-    name: "Rice Toner Bright & Radiant",
-    brand: "I'm From",
-    price: 28,
-    image: "/placeholder.svg"
-  },
-  {
-    id: 2,
-    name: "Vitamin C Serum Anti-Aging",
-    brand: "KLAIRS",
-    price: 23,
-    image: "/placeholder.svg"
-  },
-  {
-    id: 3,
-    name: "Cleansing Oil PHA Makeup Remover",
-    brand: "HANSKIN",
-    price: 28,
-    image: "/placeholder.svg"
-  },
-  {
-    id: 4,
-    name: "Day-Light Protection Sunscreen SPF50+",
-    brand: "NEOGEN",
-    price: 32,
-    image: "/placeholder.svg"
-  }
-];
-
+const bestSellerProducts = [{
+  id: 1,
+  name: "Rice Toner Bright & Radiant",
+  brand: "I'm From",
+  price: 28,
+  image: "/placeholder.svg"
+}, {
+  id: 2,
+  name: "Vitamin C Serum Anti-Aging",
+  brand: "KLAIRS",
+  price: 23,
+  image: "/placeholder.svg"
+}, {
+  id: 3,
+  name: "Cleansing Oil PHA Makeup Remover",
+  brand: "HANSKIN",
+  price: 28,
+  image: "/placeholder.svg"
+}, {
+  id: 4,
+  name: "Day-Light Protection Sunscreen SPF50+",
+  brand: "NEOGEN",
+  price: 32,
+  image: "/placeholder.svg"
+}];
 const BestSellers = () => {
-  const { t } = useLanguage();
-  
-  return (
-    <div className="py-16 bg-white">
+  const {
+    t
+  } = useLanguage();
+  return <div className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Link to="/shop/newly-curated" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
@@ -66,14 +58,12 @@ const BestSellers = () => {
         
         <div className="mt-12 text-center">
           <Link to="/shop/best-sellers">
-            <Button className="uppercase bg-white hover:bg-cream-100 text-cream-900 border border-cream-300">
+            <Button className="uppercase bg-white hover:bg-cream-100 border border-cream-300 text-zinc-900">
               {t('view.all.best.sellers')}
             </Button>
           </Link>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default BestSellers;
