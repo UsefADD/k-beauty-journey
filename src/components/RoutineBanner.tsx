@@ -60,10 +60,10 @@ const RoutineBanner = () => {
         </h2>
         
         <div className="flex justify-center gap-10 mt-4 mb-8">
-          <button onClick={show5Step} className={`text-lg ${!showAll ? 'text-pink-800 font-bold' : 'text-cream-700'} hover:text-pink-800 font-medium underline`}>
+          <button onClick={show5Step} className="">
             5 Step
           </button>
-          <button onClick={show10Step} className={`text-lg ${showAll ? 'text-pink-800 font-bold' : 'text-cream-700'} hover:text-pink-800 font-medium underline`}>
+          <button onClick={show10Step} className="">
             10 Step
           </button>
         </div>
@@ -74,14 +74,14 @@ const RoutineBanner = () => {
                 <div className="w-16 h-16 sm:w-20 sm:h-20 mb-1 flex items-center justify-center">
                   <img src={product.src} alt={product.alt} className="max-h-full max-w-full object-contain" />
                 </div>
-                <span className="text-xs sm:text-sm font-medium text-cream-700">Step {product.id + 1}</span>
+                <span className="text-xs sm:text-sm font-medium text-zinc-950">Step {product.id + 1}</span>
               </div>)}
           </div>
         </ScrollArea>
 
         <div className="mt-8">
           <Link to="/shop/sets">
-            <Button className="uppercase bg-white hover:bg-cream-100 text-pink-800 border border-cream-300">
+            <Button className="uppercase bg-white hover:bg-cream-100 border border-cream-300 text-zinc-900">
               Shop Routine Sets
             </Button>
           </Link>

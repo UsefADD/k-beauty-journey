@@ -1,8 +1,6 @@
-
 import React from 'react';
 import { Mail, Instagram, Facebook, Twitter } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-
 const Footer = () => {
   return <footer className="bg-white border-t border-gray-200">
       <div className="bg-white py-6 text-center">
@@ -67,7 +65,7 @@ const Footer = () => {
                 <Mail className="h-5 w-5" />
               </a>
             </div>
-            <p className="text-sm text-cream-700">
+            <p className="text-sm text-zinc-800">
               Join our community for exclusive offers, skincare tips, and inspiration.
             </p>
           </div>
@@ -86,5 +84,4 @@ const Footer = () => {
       </div>
     </footer>;
 };
-
 export default Footer;
