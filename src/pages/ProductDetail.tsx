@@ -113,7 +113,7 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
                   ))}
                 </div>
                 <span className="text-sm text-black">
-                  {product.rating} ({product.reviewCount} {t('reviews')})
+                  {product.rating}
                 </span>
               </div>
               
