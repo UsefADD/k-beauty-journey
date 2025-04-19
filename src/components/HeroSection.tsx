@@ -1,9 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Circle, CircleDot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [prevSlide, setPrevSlide] = useState(0);
@@ -19,15 +17,12 @@ const HeroSection = () => {
     title: "Spring Collection",
     subtitle: "Refresh your routine with our seasonal favorites"
   }];
-
   useEffect(() => {
     const interval = setInterval(() => {
       handleSlideChange((currentSlide + 1) % slides.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [currentSlide, slides.length]);
-
   const handleSlideChange = (index: number) => {
     if (index === currentSlide || isAnimating) return;
     setPrevSlide(currentSlide);
@@ -37,13 +32,11 @@ const HeroSection = () => {
       setIsAnimating(false);
     }, 500);
   };
-
   const getSlideDirection = () => {
     if (currentSlide === 0 && prevSlide === slides.length - 1) return 'slide-left';
     if (currentSlide === slides.length - 1 && prevSlide === 0) return 'slide-right';
     return currentSlide > prevSlide ? 'slide-left' : 'slide-right';
   };
-
   return <div className="relative w-full h-screen overflow-hidden bg-gray-50">
       <div className="w-full h-full">
         <div className="h-full relative">
@@ -68,8 +61,8 @@ const HeroSection = () => {
               <img src={slides[currentSlide].src} alt={slides[currentSlide].alt} className="max-w-full max-h-full object-contain" loading={currentSlide === 0 && prevSlide === 0 ? "eager" : "lazy"} />
               {slides[currentSlide].title ? <div className="absolute inset-0 bg-black bg-opacity-30">
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif">{slides[currentSlide].title}</h2>
-                    <p className="text-xl md:text-2xl mb-6">{slides[currentSlide].subtitle}</p>
+                    <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif text-zinc-200">{slides[currentSlide].title}</h2>
+                    <p className="text-xl md:text-2xl mb-6 text-zinc-200">{slides[currentSlide].subtitle}</p>
                     {currentSlide === 1 && <Link to="/shop/newly-curated">
                         <Button variant="default" size="lg" className="bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-md">
                           Get Ready for Spring
@@ -134,5 +127,4 @@ const HeroSection = () => {
       </style>
     </div>;
 };
-
 export default HeroSection;
