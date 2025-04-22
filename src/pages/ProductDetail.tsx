@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -15,7 +15,8 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const { t, language } = useLanguage();
   const { addItem } = useCart();
-  
+  const navigate = useNavigate();
+
   const product = {
     id: productId,
     name: language === 'fr' ? "Bean Essence" : "Bean Essence",
@@ -69,6 +70,7 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
       price: product.price,
       image: product.images[0],
     });
+    navigate('/payment');
   };
 
   // We'll keep review local for now
