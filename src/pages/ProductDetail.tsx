@@ -21,7 +21,6 @@ const ProductDetail = () => {
     brand: "MIXSOON",
     price: 280,
     rating: 4.8,
-    reviewCount: 124,
     images: [
       "/lovable-uploads/b0dafd90-86ab-4723-a1c2-e63a296048e2.png",
       "/lovable-uploads/2e3f0b7a-0103-4602-9efe-fabce75ae855.png",
@@ -113,7 +112,7 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
                   ))}
                 </div>
                 <span className="text-sm text-black">
-                  {product.rating}
+                  {product.rating.toFixed(1)}
                 </span>
               </div>
               
