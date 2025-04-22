@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useParams } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { useCart } from '../contexts/CartContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import EditableRating from "../components/EditableRating";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -70,6 +71,15 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
     });
   };
 
+  // We'll keep review local for now
+  const [rating, setRating] = React.useState(product.rating);
+  const [review, setReview] = React.useState("");
+
+  function handleRatingChange(newRating: number, newReview: string) {
+    setRating(newRating);
+    setReview(newReview);
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -101,20 +111,9 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
                 <span className="font-medium text-black uppercase text-xs">{product.brand}</span>
               </div>
               <h1 className="text-3xl font-bold text-black mb-3">{product.name}</h1>
-              
-              <div className="flex items-center mb-4">
-                <div className="flex items-center mr-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`h-4 w-4 ${i < Math.floor(product.rating) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} 
-                    />
-                  ))}
-                </div>
-                <span className="text-sm text-black">
-                  {product.rating.toFixed(1)}
-                </span>
-              </div>
+
+              {/* Editable Rating and Review Section */}
+              <EditableRating rating={rating} review={review} onChange={handleRatingChange} />
               
               <div className="text-2xl font-bold text-black mb-6">
                 {product.price.toFixed(2)} MAD
