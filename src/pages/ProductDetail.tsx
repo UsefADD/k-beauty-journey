@@ -48,20 +48,6 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
     skinTypes: language === 'fr' 
       ? ["Tous types de peau", "Particulièrement adapté aux peaux sèches et ternes"]
       : ["All skin types", "Especially good for dry and dull skin"],
-    keyIngredients: ["Bean Extract", "Glycerin", "Butylene Glycol"],
-    benefits: language === 'fr'
-      ? [
-          "Éclaircit et illumine la peau",
-          "Hydrate en profondeur",
-          "Apaise et calme la peau",
-          "Améliore le teint"
-        ]
-      : [
-          "Brightens and illuminates skin",
-          "Deeply hydrates",
-          "Soothes and calms skin",
-          "Improves complexion"
-        ]
   };
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -150,15 +136,6 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
                 <ul className="list-disc pl-5 text-black">
                   {product.skinTypes.map((type, index) => (
                     <li key={index}>{type}</li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div className="mb-6">
-                <h3 className="font-medium text-black mb-2">{t('key.benefits')}</h3>
-                <ul className="list-disc pl-5 text-black">
-                  {product.benefits.map((benefit, index) => (
-                    <li key={index} className="mb-2">{benefit}</li>
                   ))}
                 </ul>
               </div>
