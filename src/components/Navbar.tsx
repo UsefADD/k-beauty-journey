@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ShoppingBag, Heart, User, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -14,10 +13,12 @@ import { cn } from "@/lib/utils";
 import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import SearchDialog from './SearchDialog';
+import { useCart } from '../contexts/CartContext';
 
 const Navbar = () => {
   const { t } = useLanguage();
   const [searchOpen, setSearchOpen] = useState(false);
+  const { totalItems } = useCart();
 
   return <>
       <div className="bg-white text-pink-600 py-1 overflow-hidden whitespace-nowrap relative border-b border-pink-100">
@@ -176,7 +177,14 @@ const Navbar = () => {
             />
             <User className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
             <Heart className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
-            <ShoppingBag className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <div className="relative inline-flex items-center">
+              <ShoppingBag className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow">
+                  {totalItems}
+                </span>
+              )}
+            </div>
             <LanguageSwitcher />
           </div>
         </div>

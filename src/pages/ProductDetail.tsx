@@ -10,6 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import EditableRating from "../components/EditableRating";
+import AddToCartDialog from "../components/AddToCartDialog";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -63,6 +64,8 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
         ]
   };
 
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
   const handleAddToCart = () => {
     addItem({
       id: productId || '0',
@@ -70,10 +73,9 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
       price: product.price,
       image: product.images[0],
     });
-    navigate('/payment');
+    setDialogOpen(true);
   };
 
-  // We'll keep review local for now
   const [rating, setRating] = React.useState(product.rating);
   const [review, setReview] = React.useState("");
 
@@ -114,7 +116,6 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
               </div>
               <h1 className="text-3xl font-bold text-black mb-3">{product.name}</h1>
 
-              {/* Editable Rating and Review Section */}
               <EditableRating rating={rating} review={review} onChange={handleRatingChange} />
               
               <div className="text-2xl font-bold text-black mb-6">
@@ -201,6 +202,7 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
         </div>
       </div>
       <Footer />
+      <AddToCartDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </div>
   );
 };
