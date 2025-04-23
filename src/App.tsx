@@ -20,6 +20,7 @@ import ShopIngredient from "./pages/ShopIngredient";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import Payment from "./pages/Payment";
+import CartPage from "./pages/CartPage";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
               <Route path="/shop/ingredient" element={<ShopIngredient />} />
               <Route path="/product/:productId" element={<ProductDetail />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/cart" element={<CartPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

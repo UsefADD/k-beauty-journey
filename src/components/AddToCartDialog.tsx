@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Dialog,
@@ -33,7 +32,7 @@ const AddToCartDialog: React.FC<AddToCartDialogProps> = ({ open, onOpenChange })
             className="flex-1"
             onClick={() => {
               onOpenChange(false);
-              navigate("/payment");
+              navigate("/cart");
             }}
           >
             Go to Cart
@@ -52,4 +51,3 @@ const AddToCartDialog: React.FC<AddToCartDialogProps> = ({ open, onOpenChange })
 };
 
 export default AddToCartDialog;
-
