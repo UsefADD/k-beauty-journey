@@ -1,9 +1,8 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useCart } from '../contexts/CartContext';
-import AddToCartDialog from '../components/AddToCartDialog';
 
 interface Product {
   id: number;
@@ -14,8 +13,6 @@ interface Product {
 
 const FeaturedProducts = () => {
   const { addItem } = useCart();
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
 
   const products: Product[] = [
     {
@@ -54,9 +51,6 @@ const FeaturedProducts = () => {
       price: product.price,
       image: '/placeholder.svg',
     });
-    
-    setSelectedProductId(product.id);
-    setDialogOpen(true);
   };
 
   return (
@@ -101,7 +95,6 @@ const FeaturedProducts = () => {
         <CarouselPrevious className="border-knude-300 text-knude-700 hover:bg-knude-200 hover:text-knude-900" />
         <CarouselNext className="border-knude-300 text-knude-700 hover:bg-knude-200 hover:text-knude-900" />
       </Carousel>
-      <AddToCartDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </div>
   );
 };

@@ -11,13 +11,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import EditableRating from "../components/EditableRating";
-import AddToCartDialog from "../components/AddToCartDialog";
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const { t, language } = useLanguage();
   const { addItem } = useCart();
-  const navigate = useNavigate();
 
   const product = {
     id: productId,
@@ -51,8 +49,6 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
       : ["All skin types", "Especially good for dry and dull skin"],
   };
 
-  const [dialogOpen, setDialogOpen] = useState(false);
-
   const handleAddToCart = () => {
     addItem({
       id: productId || '0',
@@ -60,7 +56,6 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
       price: product.price,
       image: product.images[0],
     });
-    setDialogOpen(true);
   };
 
   const [rating, setRating] = useState(product.rating);
@@ -168,7 +163,6 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
         </div>
       </div>
       <Footer />
-      <AddToCartDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </div>
   );
 };

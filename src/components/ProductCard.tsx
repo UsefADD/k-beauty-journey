@@ -1,9 +1,8 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
-import AddToCartDialog from '../components/AddToCartDialog';
 
 interface ProductCardProps {
   id: number | string;
@@ -21,7 +20,6 @@ const ProductCard = ({
   image
 }: ProductCardProps) => {
   const { addItem } = useCart();
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -32,7 +30,6 @@ const ProductCard = ({
       price,
       image,
     });
-    setDialogOpen(true);
   };
 
   return (
@@ -60,7 +57,6 @@ const ProductCard = ({
       >
         Add to Cart
       </button>
-      <AddToCartDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </div>
   );
 };
