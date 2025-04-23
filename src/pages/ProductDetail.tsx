@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -50,7 +51,7 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
       : ["All skin types", "Especially good for dry and dull skin"],
   };
 
-  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleAddToCart = () => {
     addItem({
@@ -62,8 +63,8 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
     setDialogOpen(true);
   };
 
-  const [rating, setRating] = React.useState(product.rating);
-  const [review, setReview] = React.useState("");
+  const [rating, setRating] = useState(product.rating);
+  const [review, setReview] = useState("");
 
   function handleRatingChange(newRating: number, newReview: string) {
     setRating(newRating);

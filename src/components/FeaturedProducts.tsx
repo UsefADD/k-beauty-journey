@@ -1,7 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { useCart } from '../contexts/CartContext';
+import AddToCartDialog from '../components/AddToCartDialog';
 
 interface Product {
   id: number;
@@ -11,6 +13,10 @@ interface Product {
 }
 
 const FeaturedProducts = () => {
+  const { addItem } = useCart();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+
   const products: Product[] = [
     {
       id: 1,
@@ -38,6 +44,21 @@ const FeaturedProducts = () => {
     }
   ];
 
+  const handleAddToCart = (product: Product, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    addItem({
+      id: product.id.toString(),
+      name: product.name,
+      price: product.price,
+      image: '/placeholder.svg',
+    });
+    
+    setSelectedProductId(product.id);
+    setDialogOpen(true);
+  };
+
   return (
     <div className="mt-12">
       <h2 className="font-serif text-2xl font-medium mb-6 text-center text-zinc-950">New Arrivals</h2>
@@ -51,8 +72,8 @@ const FeaturedProducts = () => {
         <CarouselContent>
           {products.map(product => (
             <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/4">
-              <Link to={`/product/${product.id}`} className="block">
-                <div className="group relative p-1">
+              <div className="group relative p-1">
+                <Link to={`/product/${product.id}`} className="block">
                   <div className="overflow-hidden rounded-lg bg-knude-100 transition-all duration-300 group-hover:opacity-90 h-64 flex items-center justify-center">
                     <div className="text-center p-4">
                       <span className="text-xl font-medium text-zinc-950">{product.name}</span>
@@ -66,14 +87,21 @@ const FeaturedProducts = () => {
                       </span>
                     </div>
                   )}
-                </div>
-              </Link>
+                </Link>
+                <button 
+                  onClick={(e) => handleAddToCart(product, e)}
+                  className="mt-2 w-full py-2 text-sm font-medium text-cream-700 border border-cream-300 rounded-md hover:bg-pink-700 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
+                >
+                  Add to Cart
+                </button>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
         <CarouselPrevious className="border-knude-300 text-knude-700 hover:bg-knude-200 hover:text-knude-900" />
         <CarouselNext className="border-knude-300 text-knude-700 hover:bg-knude-200 hover:text-knude-900" />
       </Carousel>
+      <AddToCartDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </div>
   );
 };
