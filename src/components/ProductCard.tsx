@@ -1,13 +1,17 @@
+
 import React from 'react';
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../contexts/CartContext';
+
 interface ProductCardProps {
-  id: number;
+  id: number | string;
   name: string;
   brand: string;
   price: number;
   image: string;
 }
+
 const ProductCard = ({
   id,
   name,
@@ -15,8 +19,22 @@ const ProductCard = ({
   price,
   image
 }: ProductCardProps) => {
-  return <div className="group relative">
-      <Link to={`/product/${id}`}>
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem({
+      id: id.toString(),
+      name,
+      price,
+      image,
+    });
+  };
+
+  return (
+    <div className="group relative">
+      <Link to={`/product/${id}`} className="block">
         <div className="aspect-square w-full overflow-hidden rounded-lg bg-cream-100 transition-all duration-300 group-hover:opacity-90">
           <img src={image} alt={name} className="h-full w-full object-cover object-center" />
           <div className="absolute top-4 right-4 p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
@@ -30,12 +48,17 @@ const ProductCard = ({
               <p className="font-medium mt-1 text-zinc-900">{name}</p>
             </h3>
           </div>
-          <p className="text-sm font-medium text-zinc-950">${price.toFixed(2)}</p>
+          <p className="text-sm font-medium text-zinc-950">{price.toFixed(2)} MAD</p>
         </div>
       </Link>
-      <button className="mt-2 w-full py-2 text-sm font-medium text-cream-700 border border-cream-300 rounded-md hover:bg-pink-700 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
+      <button 
+        onClick={handleAddToCart}
+        className="mt-2 w-full py-2 text-sm font-medium text-cream-700 border border-cream-300 rounded-md hover:bg-pink-700 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
+      >
         Add to Cart
       </button>
-    </div>;
+    </div>
+  );
 };
+
 export default ProductCard;
