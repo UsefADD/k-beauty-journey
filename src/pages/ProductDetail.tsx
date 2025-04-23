@@ -144,10 +144,9 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
           
           <div className="mt-16">
             <Tabs defaultValue="how-to-use" className="w-full">
-              <TabsList className="w-full grid grid-cols-3 gap-2">
+              <TabsList className="w-full grid grid-cols-2 gap-2">
                 <TabsTrigger value="how-to-use" className="text-black">{t('how.to.use')}</TabsTrigger>
                 <TabsTrigger value="ingredients" className="text-black">{t('ingredients')}</TabsTrigger>
-                <TabsTrigger value="key-ingredients" className="text-black">{t('key.ingredients')}</TabsTrigger>
               </TabsList>
               <TabsContent value="how-to-use" className="mt-6">
                 <Card>
@@ -160,17 +159,6 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
                 <Card>
                   <CardContent className="pt-6">
                     <p className="text-black">{product.ingredients}</p>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-              <TabsContent value="key-ingredients" className="mt-6">
-                <Card>
-                  <CardContent className="pt-6">
-                    <ul className="list-disc pl-5 text-black">
-                      {product.keyIngredients.map((ingredient, index) => (
-                        <li key={index} className="mb-2">{ingredient}</li>
-                      ))}
-                    </ul>
                   </CardContent>
                 </Card>
               </TabsContent>
