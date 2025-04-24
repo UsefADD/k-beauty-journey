@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Package } from 'lucide-react';
@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
+import { isSupabaseConfigured } from '../lib/supabaseClient';
 
 interface ShippingFormValues {
   fullName: string;
@@ -28,6 +29,17 @@ const Payment = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   
+  // Check Supabase configuration on component mount
+  useEffect(() => {
+    if (!isSupabaseConfigured()) {
+      toast({
+        variant: "destructive",
+        title: "Configuration Error",
+        description: "Supabase is not properly configured. Please set up environment variables.",
+      });
+    }
+  }, [toast]);
+  
   const form = useForm<ShippingFormValues>({
     defaultValues: {
       fullName: "",
@@ -39,6 +51,16 @@ const Payment = () => {
   });
 
   const onSubmit = async (data: ShippingFormValues) => {
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured()) {
+      toast({
+        variant: "destructive",
+        title: "Configuration Error",
+        description: "Cannot process order: Supabase is not properly configured.",
+      });
+      return;
+    }
+
     // Check if all items are in stock
     const stockCheck = items.every(item => checkStock(item.id, item.quantity));
     
