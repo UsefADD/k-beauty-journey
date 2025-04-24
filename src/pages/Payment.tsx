@@ -4,10 +4,14 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Package } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCart } from '../contexts/CartContext';
+import { useInventory } from '../hooks/useInventory';
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from 'react-router-dom';
 
 interface ShippingFormValues {
   fullName: string;
@@ -19,6 +23,10 @@ interface ShippingFormValues {
 
 const Payment = () => {
   const { t } = useLanguage();
+  const { items, totalPrice, clearCart } = useCart();
+  const { updateStock, checkStock } = useInventory();
+  const { toast } = useToast();
+  const navigate = useNavigate();
   
   const form = useForm<ShippingFormValues>({
     defaultValues: {
@@ -30,8 +38,45 @@ const Payment = () => {
     },
   });
 
-  const onSubmit = (data: ShippingFormValues) => {
-    console.log("Shipping details:", data);
+  const onSubmit = async (data: ShippingFormValues) => {
+    // Check if all items are in stock
+    const stockCheck = items.every(item => checkStock(item.id, item.quantity));
+    
+    if (!stockCheck) {
+      toast({
+        variant: "destructive",
+        title: "Out of Stock",
+        description: "Some items in your cart are no longer available in the requested quantity.",
+      });
+      return;
+    }
+
+    try {
+      // Update stock for each item
+      for (const item of items) {
+        await updateStock.mutateAsync({
+          productId: item.id,
+          quantity: item.quantity,
+        });
+      }
+
+      // Order successful
+      toast({
+        title: "Order Placed Successfully!",
+        description: "Thank you for your purchase. We'll deliver your items soon.",
+      });
+
+      // Clear the cart and redirect to home
+      clearCart();
+      navigate('/');
+      
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "There was an error processing your order. Please try again.",
+      });
+    }
   };
 
   return (
