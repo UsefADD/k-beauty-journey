@@ -32,7 +32,7 @@ export const useInventory = () => {
         throw error;
       }
       
-      return data as Product[];
+      return data as Product[] || [];
     },
   });
 

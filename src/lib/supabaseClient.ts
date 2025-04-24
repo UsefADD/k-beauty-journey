@@ -12,14 +12,29 @@ if (!supabaseUrl || !supabaseKey) {
   );
 }
 
-// Create and export the Supabase client with fallback empty strings to prevent runtime errors
-// This will still log errors but won't crash the app
-export const supabase = createClient(
-  supabaseUrl || "", 
-  supabaseKey || ""
-);
-
-// Export a helper function to check if Supabase is properly configured
+// Export the configuration status function
 export const isSupabaseConfigured = () => {
   return !!supabaseUrl && !!supabaseKey;
 };
+
+// Create a mock client that returns empty results when Supabase isn't configured
+const createMockClient = () => {
+  return {
+    from: () => ({
+      select: () => Promise.resolve({ data: [], error: null }),
+      update: () => ({
+        eq: () => ({
+          select: () => ({
+            single: () => Promise.resolve({ data: null, error: null })
+          })
+        })
+      })
+    }),
+    // Add other mock methods as needed
+  };
+};
+
+// Create and export the Supabase client or a mock client if not configured
+export const supabase = isSupabaseConfigured() 
+  ? createClient(supabaseUrl!, supabaseKey!) 
+  : createMockClient();
