@@ -43,7 +43,17 @@ const AddProductForm: React.FC = () => {
   });
 
   const onSubmit = async (values: FormValues) => {
-    addProduct.mutate(values);
+    // Ensure all required fields are present before submitting
+    const productData = {
+      name: values.name,
+      brand: values.brand,
+      price: values.price,
+      image: values.image,
+      stock_quantity: values.stock_quantity,
+      description: values.description || '', // Provide a default empty string for optional field
+    };
+    
+    addProduct.mutate(productData);
     if (!addProduct.isError) {
       form.reset();
     }

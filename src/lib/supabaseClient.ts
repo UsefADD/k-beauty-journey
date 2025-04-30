@@ -22,6 +22,11 @@ const createMockClient = () => {
   return {
     from: () => ({
       select: () => Promise.resolve({ data: [], error: null }),
+      insert: (data: any) => ({
+        select: () => ({
+          single: () => Promise.resolve({ data: null, error: null })
+        })
+      }),
       update: () => ({
         eq: () => ({
           select: () => ({
