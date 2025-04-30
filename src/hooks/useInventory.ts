@@ -1,6 +1,7 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { useToast } from '@/hooks/use-toast';
 
 export interface Product {
   id: string;
@@ -9,10 +10,12 @@ export interface Product {
   price: number;
   image: string;
   stock_quantity: number;
+  description?: string;
 }
 
 export const useInventory = () => {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const { data: products, isLoading } = useQuery({
     queryKey: ['products'],
@@ -33,6 +36,39 @@ export const useInventory = () => {
       }
       
       return data as Product[] || [];
+    },
+  });
+
+  const addProduct = useMutation({
+    mutationFn: async (product: Omit<Product, 'id'>) => {
+      // Check if Supabase is configured before attempting to add
+      if (!isSupabaseConfigured()) {
+        console.error("Supabase is not properly configured. Please set up environment variables.");
+        throw new Error("Supabase configuration is missing");
+      }
+
+      const { data, error } = await supabase
+        .from('products')
+        .insert([product])
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+      toast({
+        title: "Product Added",
+        description: "The product has been successfully added to inventory.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: `Failed to add product: ${error.message}`,
+        variant: "destructive",
+      });
     },
   });
 
@@ -70,6 +106,7 @@ export const useInventory = () => {
   return {
     products,
     isLoading,
+    addProduct,
     updateStock,
     checkStock,
   };
