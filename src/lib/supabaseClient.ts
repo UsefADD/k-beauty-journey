@@ -8,7 +8,10 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 // Check if environment variables are defined
 if (!supabaseUrl || !supabaseKey) {
   console.error(
-    "Missing Supabase environment variables. Make sure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set."
+    "Missing Supabase environment variables. Please create a .env file in the project root with the following variables:\n" +
+    "VITE_SUPABASE_URL=your_supabase_url\n" +
+    "VITE_SUPABASE_ANON_KEY=your_supabase_anon_key\n\n" +
+    "You can get these values from your Supabase project settings > API."
   );
 }
 
