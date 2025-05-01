@@ -8,7 +8,10 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 // Check if environment variables are defined
 if (!supabaseUrl || !supabaseKey) {
   console.error(
-    "Missing Supabase environment variables. Please create a .env file in the project root with the following variables:\n" +
+    "Missing Supabase environment variables. If you're using Lovable, please add these variables in:\n" +
+    "Project Settings > Environment Variables (for frontend code) or\n" +
+    "Supabase Integration > Edge Function Secrets (for backend functions)\n\n" +
+    "Variables needed:\n" +
     "VITE_SUPABASE_URL=your_supabase_url\n" +
     "VITE_SUPABASE_ANON_KEY=your_supabase_anon_key\n\n" +
     "You can get these values from your Supabase project settings > API."
