@@ -10,6 +10,7 @@ import { useCart } from '../contexts/CartContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import EditableRating from "../components/EditableRating";
 import { useProductReview } from '@/hooks/useProductReview';
 import { formatDistance } from 'date-fns';
 
@@ -25,6 +26,8 @@ const ProductDetail = () => {
   const { addItem } = useCart();
   const { getProductReviews } = useProductReview();
   
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
   const [productReviews, setProductReviews] = useState<ProductReview[]>([]);
   const [isLoadingReviews, setIsLoadingReviews] = useState(false);
   const [averageRating, setAverageRating] = useState(0);
@@ -68,6 +71,12 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
       image: product.images[0],
     });
   };
+
+  function handleRatingChange(newRating: number, newReview: string) {
+    setRating(newRating);
+    setReview(newReview);
+    fetchProductReviews(); // Refresh reviews after change
+  }
 
   const fetchProductReviews = async () => {
     if (productId) {
@@ -127,7 +136,7 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
               </div>
               <h1 className="text-3xl font-bold text-black mb-3">{product.name}</h1>
 
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex items-center gap-2 mb-3">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -141,6 +150,13 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
                   {productReviews.length > 0 && ` (${productReviews.length} ${productReviews.length === 1 ? 'review' : 'reviews'})`}
                 </span>
               </div>
+              
+              <EditableRating 
+                rating={rating} 
+                review={review} 
+                productId={productId || '0'} 
+                onChange={handleRatingChange} 
+              />
               
               <div className="text-2xl font-bold text-black mb-6">
                 {product.price.toFixed(2)} MAD
