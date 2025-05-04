@@ -27,24 +27,42 @@ export const useProductReview = () => {
 
     setIsSubmitting(true);
     try {
-      const { error } = await supabase
+      // First check if the user already has a review for this product
+      const { data: existingReview } = await supabase
         .from('product_reviews')
-        .upsert(
-          { 
-            product_id: productId, 
-            user_id: user.id,
+        .select('id')
+        .eq('product_id', productId)
+        .eq('user_id', user.id)
+        .single();
+      
+      let result;
+      
+      if (existingReview) {
+        // Update existing review
+        result = await supabase
+          .from('product_reviews')
+          .update({
             rating,
             review,
             updated_at: new Date().toISOString(),
-          },
-          { 
-            onConflict: 'product_id,user_id',
-            ignoreDuplicates: false,
-          }
-        );
-
-      if (error) {
-        console.error("Error submitting review:", error);
+          })
+          .eq('id', existingReview.id);
+      } else {
+        // Insert new review
+        result = await supabase
+          .from('product_reviews')
+          .insert({
+            product_id: productId,
+            user_id: user.id,
+            rating,
+            review,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          });
+      }
+      
+      if (result.error) {
+        console.error("Error submitting review:", result.error);
         toast({
           title: "Error",
           description: "Failed to submit your review. Please try again.",
