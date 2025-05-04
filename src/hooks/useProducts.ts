@@ -40,7 +40,12 @@ export const useProducts = () => {
         });
       } else {
         console.log('Products loaded:', data);
-        setProducts(data || []);
+        // Add id field if needed - since Supabase automatically adds a unique row id
+        const productsWithId = data?.map(product => ({
+          id: product.id || String(Math.random()), // Use existing id or create a fallback
+          ...product
+        })) || [];
+        setProducts(productsWithId);
       }
     } catch (err: any) {
       console.error('Unexpected error:', err);
