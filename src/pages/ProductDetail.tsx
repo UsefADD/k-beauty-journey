@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -135,21 +134,6 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
                 <span className="font-medium text-black uppercase text-xs">{product.brand}</span>
               </div>
               <h1 className="text-3xl font-bold text-black mb-3">{product.name}</h1>
-
-              <div className="flex items-center gap-2 mb-3">
-                <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-4 w-4 ${i < Math.round(averageRating) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
-                    />
-                  ))}
-                </div>
-                <span className="text-sm text-black">
-                  {averageRating > 0 ? averageRating.toFixed(1) : 'No ratings yet'} 
-                  {productReviews.length > 0 && ` (${productReviews.length} ${productReviews.length === 1 ? 'review' : 'reviews'})`}
-                </span>
-              </div>
               
               <EditableRating 
                 rating={rating} 
