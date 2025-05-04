@@ -44,28 +44,31 @@ export type Database = {
           Brand: string
           "Conseils d'utilisation": string | null
           descrption: string | null
+          "image url": string | null
           price: string | null
           "Product name": string
-          quantity: number | null
           "skin type": string | null
+          "stock quantity": number | null
         }
         Insert: {
           Brand: string
           "Conseils d'utilisation"?: string | null
           descrption?: string | null
+          "image url"?: string | null
           price?: string | null
           "Product name": string
-          quantity?: number | null
           "skin type"?: string | null
+          "stock quantity"?: number | null
         }
         Update: {
           Brand?: string
           "Conseils d'utilisation"?: string | null
           descrption?: string | null
+          "image url"?: string | null
           price?: string | null
           "Product name"?: string
-          quantity?: number | null
           "skin type"?: string | null
+          "stock quantity"?: number | null
         }
         Relationships: []
       }

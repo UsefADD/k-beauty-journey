@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ShopCategories from '../components/ShopCategories';
-import NewProducts from '../components/NewProducts';
+import ProductsGrid from '../components/ProductsGrid';
 
 const Shop = () => {
   return (
@@ -15,7 +15,9 @@ const Shop = () => {
             SHOP ALL PRODUCTS
           </h1>
           <ShopCategories />
-          <NewProducts />
+          <div className="mt-8">
+            <ProductsGrid />
+          </div>
         </div>
       </div>
       <Footer />
