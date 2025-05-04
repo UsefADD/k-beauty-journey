@@ -25,6 +25,17 @@ export const useProductReview = () => {
       return false;
     }
 
+    // Ensure rating is a valid number between 1 and 5
+    const validatedRating = Number(rating);
+    if (isNaN(validatedRating) || validatedRating < 1 || validatedRating > 5) {
+      toast({
+        title: "Invalid Rating",
+        description: "Rating must be a number between 1 and 5",
+        variant: "destructive",
+      });
+      return false;
+    }
+
     setIsSubmitting(true);
     try {
       // First check if the user already has a review for this product
@@ -33,7 +44,7 @@ export const useProductReview = () => {
         .select('id')
         .eq('product_id', productId)
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
       
       let result;
       
@@ -42,7 +53,7 @@ export const useProductReview = () => {
         result = await supabase
           .from('product_reviews')
           .update({
-            rating,
+            rating: validatedRating, // Use validated rating
             review,
             updated_at: new Date().toISOString(),
           })
@@ -54,7 +65,7 @@ export const useProductReview = () => {
           .insert({
             product_id: productId,
             user_id: user.id,
-            rating,
+            rating: validatedRating, // Use validated rating
             review,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),

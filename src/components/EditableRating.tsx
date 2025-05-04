@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { Star, Pencil, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useProductReview } from "@/hooks/useProductReview";
 import { useAuth } from "@/contexts/AuthContext";
@@ -22,7 +21,7 @@ const EditableRating: React.FC<EditableRatingProps> = ({
   onChange 
 }) => {
   const [editing, setEditing] = useState(false);
-  const [newRating, setNewRating] = useState(initialRating);
+  const [newRating, setNewRating] = useState(initialRating || 0); // Ensure we have a default value
   const [hoverRating, setHoverRating] = useState(0);
   const [newReview, setNewReview] = useState(initialReview);
   const { submitReview, getUserReview, isSubmitting } = useProductReview();
@@ -54,6 +53,16 @@ const EditableRating: React.FC<EditableRatingProps> = ({
       return;
     }
 
+    // Ensure rating is at least 1 before submitting
+    if (newRating < 1) {
+      toast({
+        title: "Rating Required",
+        description: "Please select at least 1 star to submit your review",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const success = await submitReview({
       productId,
       rating: newRating,
@@ -67,7 +76,7 @@ const EditableRating: React.FC<EditableRatingProps> = ({
   }
 
   function handleCancel() {
-    setNewRating(initialRating);
+    setNewRating(initialRating || 0);
     setNewReview(initialReview);
     setEditing(false);
   }
@@ -92,11 +101,11 @@ const EditableRating: React.FC<EditableRatingProps> = ({
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`h-4 w-4 ${i < Math.round(newRating) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                className={`h-4 w-4 ${i < Math.round(newRating || 0) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
               />
             ))}
           </div>
-          <span className="text-sm text-black">{newRating.toFixed(1)}</span>
+          <span className="text-sm text-black">{newRating ? newRating.toFixed(1) : "0.0"}</span>
           <Button
             size="icon"
             variant="ghost"
@@ -123,7 +132,7 @@ const EditableRating: React.FC<EditableRatingProps> = ({
                 onClick={() => setNewRating(i + 1)}
               />
             ))}
-            <span className="ml-3 text-base font-medium text-black">{newRating.toFixed(1)}</span>
+            <span className="ml-3 text-base font-medium text-black">{newRating ? newRating.toFixed(1) : "0.0"}</span>
           </div>
           <Textarea
             className="mb-2"
