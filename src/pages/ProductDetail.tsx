@@ -1,28 +1,42 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Heart, ShoppingCart, Star } from 'lucide-react';
+import { Heart, ShoppingCart, Star, Loader2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from '../contexts/CartContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import EditableRating from "../components/EditableRating";
+import { useProductReview } from '@/hooks/useProductReview';
+import { formatDistance } from 'date-fns';
+
+interface ProductReview {
+  rating: number;
+  review: string | null;
+  created_at: string;
+}
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const { t, language } = useLanguage();
   const { addItem } = useCart();
+  const { getProductReviews } = useProductReview();
+  
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+  const [productReviews, setProductReviews] = useState<ProductReview[]>([]);
+  const [isLoadingReviews, setIsLoadingReviews] = useState(false);
+  const [averageRating, setAverageRating] = useState(0);
 
   const product = {
     id: productId,
     name: language === 'fr' ? "Bean Essence" : "Bean Essence",
     brand: "MIXSOON",
     price: 280,
-    rating: 4.8,
     images: [
       "/lovable-uploads/b0dafd90-86ab-4723-a1c2-e63a296048e2.png",
       "/lovable-uploads/2e3f0b7a-0103-4602-9efe-fabce75ae855.png",
@@ -58,13 +72,37 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
     });
   };
 
-  const [rating, setRating] = useState(product.rating);
-  const [review, setReview] = useState("");
-
   function handleRatingChange(newRating: number, newReview: string) {
     setRating(newRating);
     setReview(newReview);
+    fetchProductReviews(); // Refresh reviews after change
   }
+
+  const fetchProductReviews = async () => {
+    if (productId) {
+      setIsLoadingReviews(true);
+      try {
+        const reviews = await getProductReviews(productId);
+        setProductReviews(reviews as ProductReview[]);
+        
+        // Calculate average rating
+        if (reviews.length > 0) {
+          const total = reviews.reduce((sum, item) => sum + Number(item.rating), 0);
+          setAverageRating(total / reviews.length);
+        }
+      } catch (error) {
+        console.error("Error fetching product reviews:", error);
+      } finally {
+        setIsLoadingReviews(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (productId) {
+      fetchProductReviews();
+    }
+  }, [productId]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -98,7 +136,27 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
               </div>
               <h1 className="text-3xl font-bold text-black mb-3">{product.name}</h1>
 
-              <EditableRating rating={rating} review={review} onChange={handleRatingChange} />
+              <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`h-4 w-4 ${i < Math.round(averageRating) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                    />
+                  ))}
+                </div>
+                <span className="text-sm text-black">
+                  {averageRating > 0 ? averageRating.toFixed(1) : 'No ratings yet'} 
+                  {productReviews.length > 0 && ` (${productReviews.length} ${productReviews.length === 1 ? 'review' : 'reviews'})`}
+                </span>
+              </div>
+              
+              <EditableRating 
+                rating={rating} 
+                review={review} 
+                productId={productId || '0'} 
+                onChange={handleRatingChange} 
+              />
               
               <div className="text-2xl font-bold text-black mb-6">
                 {product.price.toFixed(2)} MAD
@@ -140,9 +198,10 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
           
           <div className="mt-16">
             <Tabs defaultValue="how-to-use" className="w-full">
-              <TabsList className="w-full grid grid-cols-2 gap-2">
+              <TabsList className="w-full grid grid-cols-3 gap-2">
                 <TabsTrigger value="how-to-use" className="text-black">{t('how.to.use')}</TabsTrigger>
                 <TabsTrigger value="ingredients" className="text-black">{t('ingredients')}</TabsTrigger>
+                <TabsTrigger value="reviews" className="text-black">Reviews</TabsTrigger>
               </TabsList>
               <TabsContent value="how-to-use" className="mt-6">
                 <Card>
@@ -155,6 +214,42 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
                 <Card>
                   <CardContent className="pt-6">
                     <p className="text-black">{product.ingredients}</p>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="reviews" className="mt-6">
+                <Card>
+                  <CardContent className="pt-6">
+                    {isLoadingReviews ? (
+                      <div className="flex justify-center py-8">
+                        <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
+                      </div>
+                    ) : productReviews.length > 0 ? (
+                      <div className="space-y-6">
+                        {productReviews.map((review, index) => (
+                          <div key={index} className="border-b pb-4 last:border-b-0">
+                            <div className="flex items-center mb-2">
+                              <div className="flex items-center mr-2">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star
+                                    key={i}
+                                    className={`h-4 w-4 ${
+                                      i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                              <span className="text-sm text-gray-500">
+                                {formatDistance(new Date(review.created_at), new Date(), { addSuffix: true })}
+                              </span>
+                            </div>
+                            {review.review && <p className="text-black">{review.review}</p>}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-center py-8 text-gray-500">No reviews yet. Be the first to review this product!</p>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>

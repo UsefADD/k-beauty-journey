@@ -1,30 +1,87 @@
 
-import React, { useState } from "react";
-import { Star, Pencil } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Star, Pencil, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useProductReview } from "@/hooks/useProductReview";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 interface EditableRatingProps {
   rating: number;
   review?: string;
+  productId: string;
   onChange?: (rating: number, review: string) => void;
 }
 
-const EditableRating: React.FC<EditableRatingProps> = ({ rating, review = "", onChange }) => {
+const EditableRating: React.FC<EditableRatingProps> = ({ 
+  rating: initialRating, 
+  review: initialReview = "", 
+  productId,
+  onChange 
+}) => {
   const [editing, setEditing] = useState(false);
-  const [newRating, setNewRating] = useState(rating);
+  const [newRating, setNewRating] = useState(initialRating);
   const [hoverRating, setHoverRating] = useState(0);
-  const [newReview, setNewReview] = useState(review);
+  const [newReview, setNewReview] = useState(initialReview);
+  const { submitReview, getUserReview, isSubmitting } = useProductReview();
+  const { isAuthenticated } = useAuth();
+  const { toast } = useToast();
 
-  function handleSave() {
-    setEditing(false);
-    if (onChange) onChange(newRating, newReview);
+  useEffect(() => {
+    const fetchUserReview = async () => {
+      if (isAuthenticated && productId) {
+        const userReview = await getUserReview(productId);
+        if (userReview) {
+          setNewRating(userReview.rating);
+          setNewReview(userReview.review || "");
+          if (onChange) onChange(userReview.rating, userReview.review || "");
+        }
+      }
+    };
+    
+    fetchUserReview();
+  }, [isAuthenticated, productId]);
+
+  async function handleSave() {
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to submit a review",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const success = await submitReview({
+      productId,
+      rating: newRating,
+      review: newReview
+    });
+
+    if (success) {
+      setEditing(false);
+      if (onChange) onChange(newRating, newReview);
+    }
   }
 
   function handleCancel() {
-    setNewRating(rating);
-    setNewReview(review);
+    setNewRating(initialRating);
+    setNewReview(initialReview);
     setEditing(false);
+  }
+
+  function handleStartEditing() {
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to submit a review",
+        variant: "destructive",
+      });
+      return;
+    }
+    setEditing(true);
   }
 
   return (
@@ -43,7 +100,7 @@ const EditableRating: React.FC<EditableRatingProps> = ({ rating, review = "", on
           <Button
             size="icon"
             variant="ghost"
-            onClick={() => setEditing(true)}
+            onClick={handleStartEditing}
             className="ml-2"
             aria-label="Edit rating and review"
           >
@@ -68,14 +125,28 @@ const EditableRating: React.FC<EditableRatingProps> = ({ rating, review = "", on
             ))}
             <span className="ml-3 text-base font-medium text-black">{newRating.toFixed(1)}</span>
           </div>
-          <Input
+          <Textarea
             className="mb-2"
             value={newReview}
             onChange={e => setNewReview(e.target.value)}
             placeholder="Write your review..."
           />
           <div className="flex gap-2">
-            <Button size="sm" onClick={handleSave} className="bg-pink-600 text-white hover:bg-pink-700">Save</Button>
+            <Button 
+              size="sm" 
+              onClick={handleSave} 
+              className="bg-pink-600 text-white hover:bg-pink-700"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Saving
+                </>
+              ) : (
+                'Save'
+              )}
+            </Button>
             <Button size="sm" variant="secondary" onClick={handleCancel}>Cancel</Button>
           </div>
         </div>
