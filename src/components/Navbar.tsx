@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, User, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe } from 'lucide-react';
+import { ShoppingBag, Heart, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
@@ -14,6 +15,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import SearchDialog from './SearchDialog';
 import { useCart } from '../contexts/CartContext';
+import UserMenu from './UserMenu';
 
 const Navbar = () => {
   const { t } = useLanguage();
@@ -175,7 +177,7 @@ const Navbar = () => {
               className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" 
               onClick={() => setSearchOpen(true)}
             />
-            <User className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
+            <UserMenu />
             <Heart className="w-5 h-5 hover:text-pink-800 cursor-pointer transition-colors" />
             <div className="relative inline-flex items-center">
               <Link to="/cart">
