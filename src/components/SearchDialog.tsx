@@ -36,10 +36,10 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
           if (error) {
             console.error('Error fetching products for search:', error);
           } else {
-            // Ensure each product has an id
+            // Transform products to ensure each has an id
             const productsWithId = data?.map(product => ({
-              id: product.id || String(Math.random()),
-              ...product
+              ...product,
+              id: crypto.randomUUID(), // Use a reliable UUID generation
             })) || [];
             setProducts(productsWithId);
           }

@@ -40,11 +40,15 @@ export const useProducts = () => {
         });
       } else {
         console.log('Products loaded:', data);
-        // Add id field if needed - since Supabase automatically adds a unique row id
-        const productsWithId = data?.map(product => ({
-          id: product.id || String(Math.random()), // Use existing id or create a fallback
-          ...product
-        })) || [];
+        // Transform each product to ensure it has an id
+        const productsWithId = data?.map(product => {
+          // Use row-level uuid as id (Supabase doesn't expose this directly in the returned row)
+          // Generate a random id as fallback if none exists
+          return {
+            ...product,
+            id: crypto.randomUUID(), // Use a more reliable UUID generation method
+          };
+        }) || [];
         setProducts(productsWithId);
       }
     } catch (err: any) {
