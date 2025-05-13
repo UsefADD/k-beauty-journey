@@ -36,6 +36,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
           if (error) {
             console.error('Error fetching products for search:', error);
           } else {
+            // Ensure each product has an id
             const productsWithId = data?.map(product => ({
               id: product.id || String(Math.random()),
               ...product
@@ -71,14 +72,20 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
     onOpenChange(false);
   };
 
+  // Prevent click events inside the dialog from propagating and closing it
+  const handleDialogClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="p-0">
+      <DialogContent className="p-0" onClick={handleDialogClick}>
         <Command className="rounded-lg border shadow-md">
           <CommandInput
             placeholder={t('search.products')}
             value={searchQuery}
             onValueChange={setSearchQuery}
+            autoFocus
           />
           
           {isLoading ? (
