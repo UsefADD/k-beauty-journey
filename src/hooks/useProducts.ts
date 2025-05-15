@@ -27,6 +27,9 @@ export const useProducts = () => {
     
     try {
       console.log('Fetching products from Supabase...');
+      console.log('Supabase URL:', import.meta.env.VITE_SUPABASE_URL);
+      console.log('Supabase key defined:', !!import.meta.env.VITE_SUPABASE_ANON_KEY);
+      
       const { data, error } = await supabase
         .from('Products')
         .select('*');
@@ -43,10 +46,10 @@ export const useProducts = () => {
       } else {
         console.log('Products received from Supabase:', data);
         
-        // Create unique IDs for products if they don't have them
+        // Since the Products table doesn't have an id field, we need to generate one
         const productsWithId = data ? data.map((product, index) => ({
           ...product,
-          id: product.id || `product-${index}-${Date.now()}`,
+          id: `product-${index}-${Date.now()}`, // Generate a unique id
         })) : [];
         
         setProducts(productsWithId);
@@ -74,14 +77,35 @@ export const useProducts = () => {
     }
   };
 
+  // Test the Supabase connection independently
+  const testConnection = async () => {
+    try {
+      console.log('Testing Supabase connection...');
+      const { error } = await supabase.from('Products').select('count');
+      
+      if (error) {
+        console.error('Connection test failed:', error);
+        return false;
+      }
+      
+      console.log('Connection test successful');
+      return true;
+    } catch (err) {
+      console.error('Connection test error:', err);
+      return false;
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
+    testConnection();
   }, []);
 
   return {
     products,
     isLoading,
     error,
-    refetch: fetchProducts
+    refetch: fetchProducts,
+    testConnection
   };
 };

@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ShopCategories from '../components/ShopCategories';
 import ProductsGrid from '../components/ProductsGrid';
+import SupabaseConnectionStatus from '../components/SupabaseConnectionStatus';
 import { useProducts } from '@/hooks/useProducts';
 import { Button } from '@/components/ui/button';
 import { Loader2, RefreshCw } from 'lucide-react';
@@ -35,6 +36,9 @@ const ShopNewlyCurated = () => {
               <span className="sr-only">Refresh products</span>
             </Button>
           </div>
+          
+          {/* Add connection status component for debugging */}
+          <SupabaseConnectionStatus />
           
           <ShopCategories />
           
