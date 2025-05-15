@@ -1,39 +1,19 @@
+
 import React from 'react';
 import ProductCard from './ProductCard';
 import { Link } from 'react-router-dom';
 import NewArrivals from './NewArrivals';
 import { Button } from "@/components/ui/button";
 import { useLanguage } from '../contexts/LanguageContext';
-const bestSellerProducts = [{
-  id: 1,
-  name: "Rice Toner Bright & Radiant",
-  brand: "I'm From",
-  price: 28,
-  image: "/placeholder.svg"
-}, {
-  id: 2,
-  name: "Vitamin C Serum Anti-Aging",
-  brand: "KLAIRS",
-  price: 23,
-  image: "/placeholder.svg"
-}, {
-  id: 3,
-  name: "Cleansing Oil PHA Makeup Remover",
-  brand: "HANSKIN",
-  price: 28,
-  image: "/placeholder.svg"
-}, {
-  id: 4,
-  name: "Day-Light Protection Sunscreen SPF50+",
-  brand: "NEOGEN",
-  price: 32,
-  image: "/placeholder.svg"
-}];
+import { useProducts } from '@/hooks/useProducts';
+import { Loader2 } from 'lucide-react';
+
 const BestSellers = () => {
-  const {
-    t
-  } = useLanguage();
-  return <div className="py-16 bg-white">
+  const { t } = useLanguage();
+  const { products, isLoading, error } = useProducts();
+  
+  return (
+    <div className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Link to="/shop/newly-curated" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
@@ -50,9 +30,32 @@ const BestSellers = () => {
           </Link>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {bestSellerProducts.map(product => <ProductCard key={product.id} {...product} />)}
-        </div>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="h-8 w-8 animate-spin text-pink-600" />
+          </div>
+        ) : error ? (
+          <div className="text-center py-10">
+            <p className="text-red-500">Failed to load products. Please try again later.</p>
+          </div>
+        ) : !products || products.length === 0 ? (
+          <div className="text-center py-10">
+            <p className="text-gray-500">No products found. Add some products to your Supabase database to see them here.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {products.slice(0, 4).map(product => (
+              <ProductCard 
+                key={product.id}
+                id={product.id}
+                name={product["Product name"]}
+                brand={product.Brand}
+                price={Number(product.price) || 0}
+                image={product["image url"] || "/placeholder.svg"}
+              />
+            ))}
+          </div>
+        )}
         
         <NewArrivals />
         
@@ -64,6 +67,8 @@ const BestSellers = () => {
           </Link>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default BestSellers;
