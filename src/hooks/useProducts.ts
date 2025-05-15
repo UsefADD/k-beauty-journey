@@ -26,8 +26,9 @@ export const useProducts = () => {
     setError(null);
     
     try {
+      console.log('Fetching products from Supabase...');
       const { data, error } = await supabase
-        .from('Products') // Correct table name with capital P
+        .from('Products')
         .select('*');
       
       if (error) {
@@ -38,16 +39,26 @@ export const useProducts = () => {
           description: "Failed to load products. Please try again later.",
           variant: "destructive",
         });
-        setProducts([]); // Initialize with empty array to avoid null
+        setProducts([]);
       } else {
-        console.log('Products loaded:', data);
-        // Transform each product to ensure it has an id
-        const productsWithId = data ? data.map(product => ({
+        console.log('Products received from Supabase:', data);
+        
+        // Create unique IDs for products if they don't have them
+        const productsWithId = data ? data.map((product, index) => ({
           ...product,
-          id: crypto.randomUUID(), // Use a more reliable UUID generation method
+          id: product.id || `product-${index}-${Date.now()}`,
         })) : [];
         
         setProducts(productsWithId);
+        
+        if (productsWithId.length === 0) {
+          console.log('No products found in the database.');
+          toast({
+            title: "No Products",
+            description: "No products found in the database.",
+            variant: "default",
+          });
+        }
       }
     } catch (err: any) {
       console.error('Unexpected error:', err);
@@ -57,7 +68,7 @@ export const useProducts = () => {
         description: "An unexpected error occurred. Please try again later.",
         variant: "destructive",
       });
-      setProducts([]); // Initialize with empty array to avoid null
+      setProducts([]);
     } finally {
       setIsLoading(false);
     }
