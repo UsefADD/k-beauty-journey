@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Command, CommandInput, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { useLanguage } from '../contexts/LanguageContext';
@@ -80,6 +81,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="p-0" onClick={handleDialogClick}>
+        <DialogTitle className="sr-only">Search products</DialogTitle>
         <Command className="rounded-lg border shadow-md">
           <CommandInput
             placeholder={t('search.products')}
