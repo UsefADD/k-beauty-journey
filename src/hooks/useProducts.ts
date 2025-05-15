@@ -27,7 +27,7 @@ export const useProducts = () => {
     
     try {
       const { data, error } = await supabase
-        .from('Products')
+        .from('Products') // Correct table name with capital P
         .select('*');
       
       if (error) {
@@ -38,17 +38,15 @@ export const useProducts = () => {
           description: "Failed to load products. Please try again later.",
           variant: "destructive",
         });
+        setProducts([]); // Initialize with empty array to avoid null
       } else {
         console.log('Products loaded:', data);
         // Transform each product to ensure it has an id
-        const productsWithId = data?.map(product => {
-          // Use row-level uuid as id (Supabase doesn't expose this directly in the returned row)
-          // Generate a random id as fallback if none exists
-          return {
-            ...product,
-            id: crypto.randomUUID(), // Use a more reliable UUID generation method
-          };
-        }) || [];
+        const productsWithId = data ? data.map(product => ({
+          ...product,
+          id: crypto.randomUUID(), // Use a more reliable UUID generation method
+        })) : [];
+        
         setProducts(productsWithId);
       }
     } catch (err: any) {
@@ -59,6 +57,7 @@ export const useProducts = () => {
         description: "An unexpected error occurred. Please try again later.",
         variant: "destructive",
       });
+      setProducts([]); // Initialize with empty array to avoid null
     } finally {
       setIsLoading(false);
     }
