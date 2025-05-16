@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import NewArrivals from './NewArrivals';
 import { Button } from "@/components/ui/button";
 import { useLanguage } from '../contexts/LanguageContext';
-import { useProducts } from '@/hooks/useProducts';
+import { useInventory } from '@/hooks/useInventory';
 import { Loader2 } from 'lucide-react';
 
 const BestSellers = () => {
   const { t } = useLanguage();
-  const { products, isLoading, error } = useProducts();
+  const { products, isLoading } = useInventory();
   
   return (
     <div className="py-16 bg-white">
@@ -34,10 +34,6 @@ const BestSellers = () => {
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-8 w-8 animate-spin text-pink-600" />
           </div>
-        ) : error ? (
-          <div className="text-center py-10">
-            <p className="text-red-500">Failed to load products. Please try again later.</p>
-          </div>
         ) : !products || products.length === 0 ? (
           <div className="text-center py-10">
             <p className="text-gray-500">No products found. Add some products to your Supabase database to see them here.</p>
@@ -48,10 +44,10 @@ const BestSellers = () => {
               <ProductCard 
                 key={product.id}
                 id={product.id}
-                name={product["Product name"]}
-                brand={product.Brand}
-                price={Number(product.price) || 0}
-                image={product["image url"] || "/placeholder.svg"}
+                name={product.name}
+                brand={product.brand}
+                price={product.price}
+                image={product.image || "/placeholder.svg"}
               />
             ))}
           </div>

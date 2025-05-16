@@ -10,26 +10,18 @@ import {
 } from "@/components/ui/carousel";
 import { Heart } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
-import { useProducts } from '@/hooks/useProducts';
+import { useInventory } from '@/hooks/useInventory';
 import { Loader2 } from 'lucide-react';
 
 const NewProducts = () => {
   const { addItem } = useCart();
-  const { products, isLoading, error } = useProducts();
+  const { products, isLoading } = useInventory();
   
   // If there are no products or loading/error states, handle them
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64 mt-8">
         <Loader2 className="h-8 w-8 animate-spin text-pink-600" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-10 mt-8">
-        <p className="text-red-500">Failed to load products. Please try again later.</p>
       </div>
     );
   }
@@ -50,9 +42,9 @@ const NewProducts = () => {
     e.stopPropagation();
     addItem({
       id: product.id.toString(),
-      name: product["Product name"],
-      price: Number(product.price) || 0,
-      image: product["image url"] || '/placeholder.svg',
+      name: product.name,
+      price: product.price,
+      image: product.image || '/placeholder.svg',
     });
   };
 
@@ -71,10 +63,18 @@ const NewProducts = () => {
               <div className="flex flex-col items-center p-2">
                 <Link to={`/product/${product.id}`} className="relative w-full">
                   <div className="overflow-hidden rounded-lg bg-white transition-all duration-300 group-hover:opacity-90 h-64 flex items-center justify-center">
-                    <div className="text-center p-4">
-                      <h3 className="font-medium text-cream-900 text-lg">{product["Product name"]}</h3>
-                      <p className="mt-2 text-cream-700">{Number(product.price).toFixed(2)} MAD</p>
-                    </div>
+                    {product.image ? (
+                      <img 
+                        src={product.image} 
+                        alt={product.name} 
+                        className="h-full w-full object-cover object-center"
+                      />
+                    ) : (
+                      <div className="text-center p-4">
+                        <h3 className="font-medium text-cream-900 text-lg">{product.name}</h3>
+                        <p className="mt-2 text-cream-700">{product.price.toFixed(2)} MAD</p>
+                      </div>
+                    )}
                   </div>
                   <button 
                     className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-cream-100 transition-colors"
@@ -84,7 +84,7 @@ const NewProducts = () => {
                   </button>
                 </Link>
                 <span className="mt-3 text-sm font-bold text-cream-800">
-                  {product.Brand}
+                  {product.brand}
                 </span>
                 <button 
                   onClick={(e) => handleAddToCart(product, e)}

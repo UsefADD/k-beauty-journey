@@ -1,11 +1,11 @@
 
 import React from 'react';
 import ProductCard from './ProductCard';
-import { useProducts } from '@/hooks/useProducts';
+import { useInventory } from '@/hooks/useInventory';
 import { Loader2 } from 'lucide-react';
 
 const ProductsGrid = () => {
-  const { products, isLoading, error } = useProducts();
+  const { products, isLoading } = useInventory();
 
   if (isLoading) {
     return (
@@ -15,18 +15,10 @@ const ProductsGrid = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="text-center py-10">
-        <p className="text-red-500">Failed to load products. Please try again later.</p>
-      </div>
-    );
-  }
-
   if (!products || products.length === 0) {
     return (
       <div className="text-center py-10">
-        <p className="text-gray-500">No products found.</p>
+        <p className="text-gray-500">No products found in the database.</p>
       </div>
     );
   }
@@ -37,10 +29,10 @@ const ProductsGrid = () => {
         <ProductCard
           key={product.id}
           id={product.id}
-          name={product["Product name"]}
-          brand={product.Brand}
-          price={Number(product.price) || 0}
-          image={product["image url"] || "/placeholder.svg"}
+          name={product.name}
+          brand={product.brand}
+          price={product.price}
+          image={product.image || "/placeholder.svg"}
         />
       ))}
     </div>
