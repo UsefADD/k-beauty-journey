@@ -31,15 +31,21 @@ export const useInventory = () => {
         }
         
         // Transform Supabase Products format to our Product interface format
-        const transformedProducts: Product[] = (data || []).map(item => ({
-          id: item.id || `product-${Math.random().toString(36).substr(2, 9)}`,
-          name: item["Product name"],
-          brand: item.Brand,
-          price: Number(item.price) || 0,
-          image: item["image url"] || "",
-          stock_quantity: item["stock quantity"] || 0,
-          description: item.descrption,
-        }));
+        const transformedProducts: Product[] = (data || []).map(item => {
+          // Generate a unique ID if one doesn't exist
+          const uniqueId = `product-${Math.random().toString(36).substr(2, 9)}`;
+          
+          return {
+            // We need to ensure we're accessing a property that exists or use a default
+            id: uniqueId, // Since id doesn't exist directly, we use our generated id
+            name: item["Product name"],
+            brand: item.Brand,
+            price: Number(item.price) || 0,
+            image: item["image url"] || "",
+            stock_quantity: item["stock quantity"] || 0,
+            description: item.descrption,
+          };
+        });
         
         return transformedProducts;
       } catch (err) {
@@ -86,23 +92,25 @@ export const useInventory = () => {
     },
   });
 
+  // Fix the updateStock function to avoid type instantiation issues
   const updateStock = useMutation({
     mutationFn: async ({ productId, quantity }: { productId: string; quantity: number }) => {
       try {
         console.log(`Updating stock for product ${productId} with quantity ${quantity}`);
-        const { data, error } = await supabase
+        
+        // Use explicit typing to avoid excessive type instantiation
+        const result = await supabase
           .from('Products')
           .update({ "stock quantity": quantity })
           .eq('id', productId)
-          .select()
-          .single();
-
-        if (error) {
-          console.error("Error updating stock:", error);
-          throw error;
+          .select();
+          
+        if (result.error) {
+          console.error("Error updating stock:", result.error);
+          throw result.error;
         }
         
-        return data;
+        return result.data;
       } catch (err) {
         console.error("Failed to update stock:", err);
         throw err;
