@@ -22,7 +22,7 @@ export const useInventory = () => {
     queryFn: async () => {
       try {
         const { data, error } = await supabase
-          .from('products')
+          .from('Products')
           .select('*');
         
         if (error) {
@@ -30,7 +30,18 @@ export const useInventory = () => {
           throw error;
         }
         
-        return data as Product[] || [];
+        // Transform Supabase Products format to our Product interface format
+        const transformedProducts: Product[] = (data || []).map(item => ({
+          id: item.id || `product-${Math.random().toString(36).substr(2, 9)}`,
+          name: item["Product name"],
+          brand: item.Brand,
+          price: Number(item.price) || 0,
+          image: item["image url"] || "",
+          stock_quantity: item["stock quantity"] || 0,
+          description: item.descrption,
+        }));
+        
+        return transformedProducts;
       } catch (err) {
         console.error("Failed to fetch products:", err);
         return [];
@@ -40,9 +51,19 @@ export const useInventory = () => {
 
   const addProduct = useMutation({
     mutationFn: async (product: Omit<Product, 'id'>) => {
+      // Transform our Product interface to Supabase Products format
+      const supabaseProduct = {
+        "Product name": product.name,
+        "Brand": product.brand,
+        "price": product.price.toString(),
+        "image url": product.image,
+        "stock quantity": product.stock_quantity,
+        "descrption": product.description
+      };
+
       const { data, error } = await supabase
-        .from('products')
-        .insert([product])
+        .from('Products')
+        .insert([supabaseProduct])
         .select()
         .single();
 
@@ -70,8 +91,8 @@ export const useInventory = () => {
       try {
         console.log(`Updating stock for product ${productId} with quantity ${quantity}`);
         const { data, error } = await supabase
-          .from('products')
-          .update({ stock_quantity: quantity })
+          .from('Products')
+          .update({ "stock quantity": quantity })
           .eq('id', productId)
           .select()
           .single();
