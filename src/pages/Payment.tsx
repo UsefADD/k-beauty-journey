@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
-import { isSupabaseConfigured } from '../lib/supabaseClient';
+import { supabase } from '@/integrations/supabase/client';
 
 interface ShippingFormValues {
   fullName: string;
@@ -29,16 +29,16 @@ const Payment = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   
-  // Check Supabase configuration on component mount
+  // Check if there are any items in the cart
   useEffect(() => {
-    if (!isSupabaseConfigured()) {
+    if (items.length === 0) {
       toast({
-        variant: "destructive",
-        title: "Configuration Error",
-        description: "Supabase is not properly configured. Please set up environment variables.",
+        title: "Empty Cart",
+        description: "Your cart is empty. Please add items before proceeding to payment.",
       });
+      navigate('/shop');
     }
-  }, [toast]);
+  }, [items, navigate, toast]);
   
   const form = useForm<ShippingFormValues>({
     defaultValues: {
@@ -51,29 +51,19 @@ const Payment = () => {
   });
 
   const onSubmit = async (data: ShippingFormValues) => {
-    // Check if Supabase is configured
-    if (!isSupabaseConfigured()) {
-      toast({
-        variant: "destructive",
-        title: "Configuration Error",
-        description: "Cannot process order: Supabase is not properly configured.",
-      });
-      return;
-    }
-
-    // Check if all items are in stock
-    const stockCheck = items.every(item => checkStock(item.id, item.quantity));
-    
-    if (!stockCheck) {
-      toast({
-        variant: "destructive",
-        title: "Out of Stock",
-        description: "Some items in your cart are no longer available in the requested quantity.",
-      });
-      return;
-    }
-
     try {
+      // Check if all items are in stock
+      const stockCheck = items.every(item => checkStock(item.id, item.quantity));
+      
+      if (!stockCheck) {
+        toast({
+          variant: "destructive",
+          title: "Out of Stock",
+          description: "Some items in your cart are no longer available in the requested quantity.",
+        });
+        return;
+      }
+
       // Update stock for each item
       for (const item of items) {
         await updateStock.mutateAsync({
@@ -98,6 +88,7 @@ const Payment = () => {
         title: "Error",
         description: "There was an error processing your order. Please try again.",
       });
+      console.error("Order processing error:", error);
     }
   };
 
