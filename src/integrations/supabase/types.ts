@@ -44,6 +44,7 @@ export type Database = {
           Brand: string
           "Conseils d'utilisation": string | null
           descrption: string | null
+          id: string
           "image url": string | null
           price: string | null
           "Product name": string
@@ -54,6 +55,7 @@ export type Database = {
           Brand: string
           "Conseils d'utilisation"?: string | null
           descrption?: string | null
+          id?: string
           "image url"?: string | null
           price?: string | null
           "Product name": string
@@ -64,6 +66,7 @@ export type Database = {
           Brand?: string
           "Conseils d'utilisation"?: string | null
           descrption?: string | null
+          id?: string
           "image url"?: string | null
           price?: string | null
           "Product name"?: string

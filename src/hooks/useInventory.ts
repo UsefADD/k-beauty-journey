@@ -32,12 +32,9 @@ export const useInventory = () => {
         
         // Transform Supabase Products format to our Product interface format
         const transformedProducts: Product[] = (data || []).map(item => {
-          // Generate a unique ID if one doesn't exist
-          const uniqueId = `product-${Math.random().toString(36).substr(2, 9)}`;
-          
           return {
-            // We need to ensure we're accessing a property that exists or use a default
-            id: uniqueId, // Since id doesn't exist directly, we use our generated id
+            // Now we can use the real ID from the database
+            id: item.id || "",
             name: item["Product name"],
             brand: item.Brand,
             price: Number(item.price) || 0,
@@ -92,14 +89,19 @@ export const useInventory = () => {
     },
   });
 
-  // Fix the updateStock function to avoid type instantiation issues
+  // Fix the updateStock function to avoid excessive type instantiation
   const updateStock = useMutation({
     mutationFn: async ({ productId, quantity }: { productId: string; quantity: number }) => {
       try {
         console.log(`Updating stock for product ${productId} with quantity ${quantity}`);
         
-        // Use explicit typing to avoid excessive type instantiation
-        const result = await supabase
+        // Explicitly type the response to avoid excessive type instantiation
+        type UpdateResponse = {
+          data: any[] | null;
+          error: any | null;
+        }
+        
+        const result: UpdateResponse = await supabase
           .from('Products')
           .update({ "stock quantity": quantity })
           .eq('id', productId)
