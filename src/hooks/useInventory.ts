@@ -17,10 +17,11 @@ export const useInventory = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const { data: products, isLoading } = useQuery({
+  const { data: products, isLoading, refetch } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
       try {
+        console.log("Fetching products from Supabase...");
         const { data, error } = await supabase
           .from('Products')
           .select('*');
@@ -30,13 +31,22 @@ export const useInventory = () => {
           throw error;
         }
         
+        // Log the raw response for debugging
+        console.log("Raw Supabase response:", data);
+        
+        // Check if we got data but it's empty
+        if (!data || data.length === 0) {
+          console.log("No products found in the database");
+          return [];
+        }
+        
         // Transform Supabase Products format to our Product interface format
-        const transformedProducts: Product[] = (data || []).map(item => {
+        const transformedProducts: Product[] = data.map(item => {
+          console.log("Processing product item:", item);
           return {
-            // Now we can use the real ID from the database
             id: item.id || "",
-            name: item["Product name"],
-            brand: item.Brand,
+            name: item["Product name"] || "Untitled Product",
+            brand: item.Brand || "Unknown Brand",
             price: Number(item.price) || 0,
             image: item["image url"] || "",
             stock_quantity: item["stock quantity"] || 0,
@@ -44,6 +54,7 @@ export const useInventory = () => {
           };
         });
         
+        console.log("Transformed products:", transformedProducts);
         return transformedProducts;
       } catch (err) {
         console.error("Failed to fetch products:", err);
@@ -145,5 +156,6 @@ export const useInventory = () => {
     addProduct,
     updateStock,
     checkStock,
+    refetch,
   };
 };
