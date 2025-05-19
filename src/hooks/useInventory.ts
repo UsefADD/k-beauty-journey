@@ -17,7 +17,7 @@ export const useInventory = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const { data: products, isLoading, refetch } = useQuery({
+  const { data: products, isLoading, refetch, error } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
       try {
@@ -40,17 +40,50 @@ export const useInventory = () => {
           return [];
         }
         
-        // Transform Supabase Products format to our Product interface format
+        // Log the first product to see exact field names and structure
+        if (data.length > 0) {
+          console.log("First product example:", JSON.stringify(data[0], null, 2));
+          console.log("Object keys:", Object.keys(data[0]));
+        }
+        
+        // Transform Supabase Products format to our Product interface format with fallbacks
         const transformedProducts: Product[] = data.map(item => {
           console.log("Processing product item:", item);
+          
+          // Extract values with fallbacks and log exact field access attempts
+          const id = item.id || "";
+          console.log(`ID extraction: ${id} from ${item.id}`);
+          
+          const name = item["Product name"] || item.product_name || item.name || "Untitled Product";
+          console.log(`Name extraction: ${name} from fields:`, {
+            "Product name": item["Product name"],
+            product_name: item.product_name,
+            name: item.name
+          });
+          
+          const brand = item.Brand || item.brand || "Unknown Brand";
+          console.log(`Brand extraction: ${brand}`);
+          
+          const price = Number(item.price) || 0;
+          console.log(`Price extraction: ${price} from ${item.price}`);
+          
+          const image = item["image url"] || item.image_url || item.image || "";
+          console.log(`Image extraction: ${image}`);
+          
+          const stock_quantity = Number(item["stock quantity"] || item.stock_quantity || 0);
+          console.log(`Stock quantity extraction: ${stock_quantity}`);
+          
+          const description = item.descrption || item.description || "";
+          console.log(`Description extraction: ${description}`);
+          
           return {
-            id: item.id || "",
-            name: item["Product name"] || "Untitled Product",
-            brand: item.Brand || "Unknown Brand",
-            price: Number(item.price) || 0,
-            image: item["image url"] || "",
-            stock_quantity: item["stock quantity"] || 0,
-            description: item.descrption,
+            id,
+            name,
+            brand,
+            price,
+            image,
+            stock_quantity,
+            description
           };
         });
         
@@ -153,6 +186,7 @@ export const useInventory = () => {
   return {
     products,
     isLoading,
+    error,
     addProduct,
     updateStock,
     checkStock,
