@@ -46,35 +46,31 @@ export const useInventory = () => {
           console.log("Object keys:", Object.keys(data[0]));
         }
         
-        // Transform Supabase Products format to our Product interface format with fallbacks
+        // Transform Supabase Products format to our Product interface format
         const transformedProducts: Product[] = data.map(item => {
           console.log("Processing product item:", item);
           
-          // Extract values with fallbacks and log exact field access attempts
+          // Extract values with proper property name mapping
           const id = item.id || "";
           console.log(`ID extraction: ${id} from ${item.id}`);
           
-          const name = item["Product name"] || item.product_name || item.name || "Untitled Product";
-          console.log(`Name extraction: ${name} from fields:`, {
-            "Product name": item["Product name"],
-            product_name: item.product_name,
-            name: item.name
-          });
+          const name = item["Product name"] || "";
+          console.log(`Name extraction: ${name} from ${item["Product name"]}`);
           
-          const brand = item.Brand || item.brand || "Unknown Brand";
-          console.log(`Brand extraction: ${brand}`);
+          const brand = item.Brand || "";
+          console.log(`Brand extraction: ${brand} from ${item.Brand}`);
           
-          const price = Number(item.price) || 0;
+          const price = item.price ? Number(item.price) : 0;
           console.log(`Price extraction: ${price} from ${item.price}`);
           
-          const image = item["image url"] || item.image_url || item.image || "";
-          console.log(`Image extraction: ${image}`);
+          const image = item["image url"] || "";
+          console.log(`Image extraction: ${image} from ${item["image url"]}`);
           
-          const stock_quantity = Number(item["stock quantity"] || item.stock_quantity || 0);
-          console.log(`Stock quantity extraction: ${stock_quantity}`);
+          const stock_quantity = item["stock quantity"] ? Number(item["stock quantity"]) : 0;
+          console.log(`Stock quantity extraction: ${stock_quantity} from ${item["stock quantity"]}`);
           
-          const description = item.descrption || item.description || "";
-          console.log(`Description extraction: ${description}`);
+          const description = item.descrption || "";
+          console.log(`Description extraction: ${description} from ${item.descrption}`);
           
           return {
             id,
