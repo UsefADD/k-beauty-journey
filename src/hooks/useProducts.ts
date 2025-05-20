@@ -3,16 +3,17 @@ import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
+// Update the Product interface to match the actual database field names
 export interface Product {
   id: string;
-  "Product name": string;
-  Brand: string;
+  Product_name: string;
+  brand: string;
   price: string;
-  "image url": string | null;
-  descrption: string | null;
+  image_url: string | null;
+  description: string | null;
   "Conseils d'utilisation": string | null;
   "skin type": string | null;
-  "stock quantity": number | null;
+  stock_quantity: number | null;
 }
 
 export const useProducts = () => {

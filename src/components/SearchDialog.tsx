@@ -62,8 +62,8 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
     }
     
     const filtered = products.filter(product => 
-      product["Product name"].toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.Brand.toLowerCase().includes(searchQuery.toLowerCase())
+      product.Product_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.brand.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredProducts(filtered);
   }, [searchQuery, products]);
@@ -109,13 +109,13 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                       className="flex items-center gap-2 p-2 cursor-pointer hover:bg-accent"
                     >
                       <img 
-                        src={product["image url"] || "/placeholder.svg"} 
-                        alt={product["Product name"]} 
+                        src={product.image_url || "/placeholder.svg"} 
+                        alt={product.Product_name} 
                         className="w-10 h-10 object-cover rounded"
                       />
                       <div>
-                        <div className="font-medium">{product["Product name"]}</div>
-                        <div className="text-sm text-muted-foreground">{product.Brand}</div>
+                        <div className="font-medium">{product.Product_name}</div>
+                        <div className="text-sm text-muted-foreground">{product.brand}</div>
                       </div>
                     </CommandItem>
                   ))}

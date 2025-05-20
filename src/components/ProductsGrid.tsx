@@ -112,12 +112,12 @@ const ProductsGrid = () => {
           <p>Make sure you have added products to your Supabase Products table with the following columns:</p>
           <ul className="list-disc text-left pl-8 mt-2">
             <li><code>id</code> (UUID)</li>
-            <li><code>Product name</code> (text)</li>
-            <li><code>Brand</code> (text)</li>
+            <li><code>Product_name</code> (text)</li>
+            <li><code>brand</code> (text)</li>
             <li><code>price</code> (text or number)</li>
-            <li><code>image url</code> (text)</li>
-            <li><code>stock quantity</code> (number)</li>
-            <li><code>descrption</code> (text)</li>
+            <li><code>image_url</code> (text)</li>
+            <li><code>stock_quantity</code> (number)</li>
+            <li><code>description</code> (text)</li>
           </ul>
         </div>
         <div className="flex justify-center gap-4">
