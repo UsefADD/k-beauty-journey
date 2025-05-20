@@ -41,37 +41,37 @@ export type Database = {
       }
       Products: {
         Row: {
-          Brand: string
+          brand: string
           "Conseils d'utilisation": string | null
-          descrption: string | null
+          description: string | null
           id: string
-          "image url": string | null
+          image_url: string | null
           price: string | null
-          "Product name": string
+          Product_name: string
           "skin type": string | null
-          "stock quantity": number | null
+          stock_quantity: number | null
         }
         Insert: {
-          Brand: string
+          brand: string
           "Conseils d'utilisation"?: string | null
-          descrption?: string | null
+          description?: string | null
           id?: string
-          "image url"?: string | null
+          image_url?: string | null
           price?: string | null
-          "Product name": string
+          Product_name: string
           "skin type"?: string | null
-          "stock quantity"?: number | null
+          stock_quantity?: number | null
         }
         Update: {
-          Brand?: string
+          brand?: string
           "Conseils d'utilisation"?: string | null
-          descrption?: string | null
+          description?: string | null
           id?: string
-          "image url"?: string | null
+          image_url?: string | null
           price?: string | null
-          "Product name"?: string
+          Product_name?: string
           "skin type"?: string | null
-          "stock quantity"?: number | null
+          stock_quantity?: number | null
         }
         Relationships: []
       }

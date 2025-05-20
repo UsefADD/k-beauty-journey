@@ -50,27 +50,28 @@ export const useInventory = () => {
         const transformedProducts: Product[] = data.map(item => {
           console.log("Processing product item:", item);
           
-          // Extract values with proper property name mapping
+          // Extract values with proper property name mapping based on actual DB column names
           const id = item.id || "";
           console.log(`ID extraction: ${id} from ${item.id}`);
           
-          const name = item["Product name"] || "";
-          console.log(`Name extraction: ${name} from ${item["Product name"]}`);
+          // Using the correct field names from the database schema
+          const name = item.Product_name || "";
+          console.log(`Name extraction: ${name} from ${item.Product_name}`);
           
-          const brand = item.Brand || "";
-          console.log(`Brand extraction: ${brand} from ${item.Brand}`);
+          const brand = item.brand || "";
+          console.log(`Brand extraction: ${brand} from ${item.brand}`);
           
           const price = item.price ? Number(item.price) : 0;
           console.log(`Price extraction: ${price} from ${item.price}`);
           
-          const image = item["image url"] || "";
-          console.log(`Image extraction: ${image} from ${item["image url"]}`);
+          const image = item.image_url || "";
+          console.log(`Image extraction: ${image} from ${item.image_url}`);
           
-          const stock_quantity = item["stock quantity"] ? Number(item["stock quantity"]) : 0;
-          console.log(`Stock quantity extraction: ${stock_quantity} from ${item["stock quantity"]}`);
+          const stock_quantity = item.stock_quantity ? Number(item.stock_quantity) : 0;
+          console.log(`Stock quantity extraction: ${stock_quantity} from ${item.stock_quantity}`);
           
-          const description = item.descrption || "";
-          console.log(`Description extraction: ${description} from ${item.descrption}`);
+          const description = item.description || "";
+          console.log(`Description extraction: ${description} from ${item.description}`);
           
           return {
             id,
@@ -96,12 +97,12 @@ export const useInventory = () => {
     mutationFn: async (product: Omit<Product, 'id'>) => {
       // Transform our Product interface to Supabase Products format
       const supabaseProduct = {
-        "Product name": product.name,
-        "Brand": product.brand,
+        "Product_name": product.name,
+        "brand": product.brand,
         "price": product.price.toString(),
-        "image url": product.image,
-        "stock quantity": product.stock_quantity,
-        "descrption": product.description
+        "image_url": product.image,
+        "stock_quantity": product.stock_quantity,
+        "description": product.description
       };
 
       const { data, error } = await supabase
@@ -143,7 +144,7 @@ export const useInventory = () => {
         
         const result: UpdateResponse = await supabase
           .from('Products')
-          .update({ "stock quantity": quantity })
+          .update({ "stock_quantity": quantity })
           .eq('id', productId)
           .select();
           
