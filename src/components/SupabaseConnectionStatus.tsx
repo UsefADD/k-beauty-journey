@@ -24,7 +24,7 @@ const SupabaseConnectionStatus = () => {
     }
     
     try {
-      const { error } = await supabase.from('Products').select('count');
+      const { error } = await supabase.from('products').select('count');  // Changed from 'Products' to 'products' (lowercase)
       
       if (error) {
         console.error('Connection test failed:', error);

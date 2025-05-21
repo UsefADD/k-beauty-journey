@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -31,7 +30,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
         setIsLoading(true);
         try {
           const { data, error } = await supabase
-            .from('Products')
+            .from('products')  // Changed from 'Products' to 'products' (lowercase)
             .select('*');
           
           if (error) {

@@ -23,7 +23,7 @@ export const useInventory = () => {
       try {
         console.log("Fetching products from Supabase...");
         const { data, error } = await supabase
-          .from('Products')
+          .from('products')  // Changed from 'Products' to 'products' (lowercase)
           .select('*');
         
         if (error) {
@@ -106,7 +106,7 @@ export const useInventory = () => {
       };
 
       const { data, error } = await supabase
-        .from('Products')
+        .from('products')  // Changed from 'Products' to 'products' (lowercase)
         .insert([supabaseProduct])
         .select()
         .single();
@@ -143,7 +143,7 @@ export const useInventory = () => {
         }
         
         const result: UpdateResponse = await supabase
-          .from('Products')
+          .from('products')  // Changed from 'Products' to 'products' (lowercase)
           .update({ "stock_quantity": quantity })
           .eq('id', productId)
           .select();

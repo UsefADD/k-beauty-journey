@@ -32,7 +32,7 @@ export const useProducts = () => {
       console.log('Supabase key defined:', !!import.meta.env.VITE_SUPABASE_ANON_KEY);
       
       const { data, error } = await supabase
-        .from('Products')
+        .from('products')  // Changed from 'Products' to 'products' (lowercase)
         .select('*');
       
       if (error) {
@@ -82,7 +82,7 @@ export const useProducts = () => {
   const testConnection = async () => {
     try {
       console.log('Testing Supabase connection...');
-      const { error } = await supabase.from('Products').select('count');
+      const { error } = await supabase.from('products').select('count');  // Changed from 'Products' to 'products' (lowercase)
       
       if (error) {
         console.error('Connection test failed:', error);

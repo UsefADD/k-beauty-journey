@@ -39,10 +39,9 @@ export type Database = {
         }
         Relationships: []
       }
-      Products: {
+      products: {
         Row: {
           brand: string
-          "Conseils d'utilisation": string | null
           description: string | null
           id: string
           image_url: string | null
@@ -53,7 +52,6 @@ export type Database = {
         }
         Insert: {
           brand: string
-          "Conseils d'utilisation"?: string | null
           description?: string | null
           id?: string
           image_url?: string | null
@@ -64,7 +62,6 @@ export type Database = {
         }
         Update: {
           brand?: string
-          "Conseils d'utilisation"?: string | null
           description?: string | null
           id?: string
           image_url?: string | null
