@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -39,9 +40,9 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
             // Transform products to ensure each has an id
             const productsWithId = data?.map(product => ({
               ...product,
-              id: crypto.randomUUID(), // Use a reliable UUID generation
+              id: product.id || crypto.randomUUID(), // Use existing id or generate one
             })) || [];
-            setProducts(productsWithId);
+            setProducts(productsWithId as Product[]);
           }
         } catch (err) {
           console.error('Unexpected error in search:', err);

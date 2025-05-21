@@ -17,7 +17,7 @@ const ProductsGrid = () => {
     try {
       console.log("Testing Supabase connection directly...");
       const { data, error } = await supabase
-        .from('Products')
+        .from('products')  // Changed from 'Products' to 'products' (lowercase)
         .select('*');
         
       if (error) {

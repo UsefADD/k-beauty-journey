@@ -8,10 +8,9 @@ export interface Product {
   id: string;
   Product_name: string;
   brand: string;
-  price: string;
+  price: string | null;
   image_url: string | null;
   description: string | null;
-  "Conseils d'utilisation": string | null;
   "skin type": string | null;
   stock_quantity: number | null;
 }
@@ -50,10 +49,10 @@ export const useProducts = () => {
         // Since the Products table doesn't have an id field, we need to generate one
         const productsWithId = data ? data.map((product, index) => ({
           ...product,
-          id: `product-${index}-${Date.now()}`, // Generate a unique id
+          id: product.id || `product-${index}-${Date.now()}`, // Use existing id or generate one
         })) : [];
         
-        setProducts(productsWithId);
+        setProducts(productsWithId as Product[]);
         
         if (productsWithId.length === 0) {
           console.log('No products found in the database.');
