@@ -108,13 +108,14 @@ export const useProducts = () => {
         .from('products')
         .select('*')
         .eq('id', productId)
-        .maybeSingle();
+        .single();
       
       if (error) {
         console.error('Error fetching product:', error);
         return null;
       }
       
+      console.log('Product fetched successfully:', data);
       return data as Product | null;
     } catch (err) {
       console.error('Unexpected error fetching product:', err);

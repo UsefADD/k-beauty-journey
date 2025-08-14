@@ -41,9 +41,11 @@ const ProductDetail = () => {
       if (productId) {
         setIsLoadingProduct(true);
         const productData = await fetchSingleProduct(productId);
+        console.log('Product data received:', productData);
         if (productData) {
           setProduct(productData);
         } else {
+          console.log('No product found, navigating to 404');
           navigate('/404');
         }
         setIsLoadingProduct(false);
@@ -51,7 +53,7 @@ const ProductDetail = () => {
     };
     
     loadProduct();
-  }, [productId, fetchSingleProduct, navigate]);
+  }, [productId]);
 
   const handleAddToCart = () => {
     if (product) {
