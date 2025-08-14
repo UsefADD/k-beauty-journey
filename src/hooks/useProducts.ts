@@ -101,11 +101,33 @@ export const useProducts = () => {
     testConnection();
   }, []);
 
+  const fetchSingleProduct = async (productId: string) => {
+    try {
+      console.log('Fetching single product:', productId);
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('id', productId)
+        .maybeSingle();
+      
+      if (error) {
+        console.error('Error fetching product:', error);
+        return null;
+      }
+      
+      return data as Product | null;
+    } catch (err) {
+      console.error('Unexpected error fetching product:', err);
+      return null;
+    }
+  };
+
   return {
     products,
     isLoading,
     error,
     refetch: fetchProducts,
-    testConnection
+    testConnection,
+    fetchSingleProduct
   };
 };

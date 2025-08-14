@@ -12,6 +12,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import EditableRating from "../components/EditableRating";
 import { useProductReview } from '@/hooks/useProductReview';
 import { formatDistance } from 'date-fns';
+import { useProducts, Product } from '@/hooks/useProducts';
 
 interface ProductReview {
   rating: number;
@@ -21,54 +22,46 @@ interface ProductReview {
 
 const ProductDetail = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const { t, language } = useLanguage();
   const { addItem } = useCart();
   const { getProductReviews } = useProductReview();
+  const { fetchSingleProduct } = useProducts();
   
+  const [product, setProduct] = useState<Product | null>(null);
+  const [isLoadingProduct, setIsLoadingProduct] = useState(true);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [productReviews, setProductReviews] = useState<ProductReview[]>([]);
   const [isLoadingReviews, setIsLoadingReviews] = useState(false);
   const [averageRating, setAverageRating] = useState(0);
 
-  const product = {
-    id: productId,
-    name: language === 'fr' ? "Bean Essence" : "Bean Essence",
-    brand: "MIXSOON",
-    price: 280,
-    images: [
-      "/lovable-uploads/b0dafd90-86ab-4723-a1c2-e63a296048e2.png",
-      "/lovable-uploads/2e3f0b7a-0103-4602-9efe-fabce75ae855.png",
-      "/lovable-uploads/3f8687b9-677f-4a44-9351-7ad103dcc6a3.png",
-      "/lovable-uploads/41330e03-a806-4f90-96ce-12336f3d878f.png"
-    ],
-    description: language === 'fr' 
-      ? "La Bean Essence MIXSOON est une essence purifiante infusée de haricot qui aide à améliorer et à affiner la texture de la peau pour un résultat lisse et sans tache. L'extrait de haricot contenu dans la formule élimine..."
-      : "The MIXSOON Bean Essence is a purifying essence infused with bean extract that helps improve and refine skin texture for a smooth and spotless result. The bean extract in the formula eliminates...",
-    usageInstructions: language === 'fr'
-      ? `Appliquez chaque jour 2 à 3 pressions de pompe de l'essence mixsoon Bean que vous étalez et tapotez sur votre peau pour bénéficier d'un visage sain. Appliquez ensuite une crème hydratante.
-
-Cette essence agit également comme un peeling délicat : si vous souhaitez profiter d'un effet exfoliant, appliquez-la sur la peau propre et sèche, puis massez en exécutant des mouvements circulaires. Utilisez ensuite un coton démaquillant pour éliminer les restes de produits, puis tonifiez la peau et appliquez une crème hydratante.`
-      : `Apply 2-3 pumps of the Mixsoon Bean Essence daily, spread and pat onto your skin for a healthy complexion. Follow with a moisturizing cream.
-
-This essence also acts as a gentle peeling: if you want to enjoy an exfoliating effect, apply it on clean, dry skin, then massage using circular motions. Then use a makeup remover cotton to eliminate product residue, tone the skin, and apply a moisturizing cream.`,
-    ingredients: language === 'fr'
-      ? "Complexe de 4 extraits fermentés :\n→ de fèves de soja – régénère, humidifie et affine le grain de la peau\n→ de grenade – raffermit la peau, lisse les rides et resserre les pores\n→ d'orge – hydrate et adoucit la peau\n→ de poire – lisse et régénère la peau\nproduit végan"
-      : "Bean Extract (77.78%), Methylpropanediol, Triethylhexanoin, Hydrogenated Poly(C6-14 Olefin), Hydrogenated Polydecene, Pentaerythrityl Tetraethylhexanoate, 1,2-Hexanediol, Glycerin, Butylene Glycol, Water, Dimethicone, Cetyl Ethylhexanoate, Cetearyl Alcohol, Cetearyl Glucoside.",
-    inStock: true,
-    volume: "150ml",
-    skinTypes: language === 'fr' 
-      ? ["Tous types de peau", "Particulièrement adapté aux peaux sèches et ternes"]
-      : ["All skin types", "Especially good for dry and dull skin"],
-  };
+  useEffect(() => {
+    const loadProduct = async () => {
+      if (productId) {
+        setIsLoadingProduct(true);
+        const productData = await fetchSingleProduct(productId);
+        if (productData) {
+          setProduct(productData);
+        } else {
+          navigate('/404');
+        }
+        setIsLoadingProduct(false);
+      }
+    };
+    
+    loadProduct();
+  }, [productId, fetchSingleProduct, navigate]);
 
   const handleAddToCart = () => {
-    addItem({
-      id: productId || '0',
-      name: product.name,
-      price: product.price,
-      image: product.images[0],
-    });
+    if (product) {
+      addItem({
+        id: productId || '0',
+        name: product.Product_name,
+        price: parseFloat(product.price?.replace(/[^\d.]/g, '') || '0'),
+        image: product.image_url || '',
+      });
+    }
   };
 
   function handleRatingChange(newRating: number, newReview: string) {
@@ -103,6 +96,36 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
     }
   }, [productId]);
 
+  if (isLoadingProduct) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-grow flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin" />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-grow flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
+            <Button onClick={() => navigate('/')}>Back to Home</Button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const productImages = product.image_url ? [product.image_url] : ['/placeholder.svg'];
+  const productPrice = parseFloat(product.price?.replace(/[^\d.]/g, '') || '0');
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -112,13 +135,16 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
             <div className="md:w-1/2">
               <Carousel className="w-full">
                 <CarouselContent>
-                  {product.images.map((image, index) => (
+                  {productImages.map((image, index) => (
                     <CarouselItem key={index}>
                       <div className="aspect-square w-full overflow-hidden rounded-xl bg-cream-100">
                         <img
                           src={image}
-                          alt={`${product.name} - View ${index + 1}`}
+                          alt={`${product.Product_name} - View ${index + 1}`}
                           className="h-full w-full object-cover object-center"
+                          onError={(e) => {
+                            e.currentTarget.src = '/placeholder.svg';
+                          }}
                         />
                       </div>
                     </CarouselItem>
@@ -133,7 +159,7 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
               <div className="mb-2">
                 <span className="font-medium text-black uppercase text-xs">{product.brand}</span>
               </div>
-              <h1 className="text-3xl font-bold text-black mb-3">{product.name}</h1>
+              <h1 className="text-3xl font-bold text-black mb-3">{product.Product_name}</h1>
               
               <EditableRating 
                 rating={rating} 
@@ -143,21 +169,21 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
               />
               
               <div className="text-2xl font-bold text-black mb-6">
-                {product.price.toFixed(2)} MAD
+                {productPrice.toFixed(2)} MAD
               </div>
               
               <div className="mb-6">
-                <span className="text-black">{t('volume')}: {product.volume}</span>
+                <span className="text-black">Stock: {product.stock_quantity || 0}</span>
               </div>
               
               <div className="flex gap-3 mb-8">
                 <Button 
                   onClick={handleAddToCart} 
                   className="flex-1 bg-white text-pink-600 border border-pink-600 hover:bg-pink-50"
-                  disabled={!product.inStock}
+                  disabled={!product.stock_quantity || product.stock_quantity <= 0}
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" />
-                  {product.inStock ? t('add.to.cart') : t('out.of.stock')}
+                  {product.stock_quantity && product.stock_quantity > 0 ? t('add.to.cart') : t('out.of.stock')}
                 </Button>
                 <Button variant="outline" className="px-4 border-cream-200">
                   <Heart className="h-5 w-5 text-pink-600" />
@@ -166,17 +192,15 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
               
               <div className="mb-6">
                 <h3 className="font-medium text-black mb-2">{t('product.description')}</h3>
-                <p className="text-black">{product.description}</p>
+                <p className="text-black whitespace-pre-line">{product.description}</p>
               </div>
               
-              <div className="mb-6">
-                <h3 className="font-medium text-black mb-2">{t('suitable.for')}</h3>
-                <ul className="list-disc pl-5 text-black">
-                  {product.skinTypes.map((type, index) => (
-                    <li key={index}>{type}</li>
-                  ))}
-                </ul>
-              </div>
+              {product["skin type"] && (
+                <div className="mb-6">
+                  <h3 className="font-medium text-black mb-2">{t('suitable.for')}</h3>
+                  <div className="text-black whitespace-pre-line">{product["skin type"]}</div>
+                </div>
+              )}
             </div>
           </div>
           
@@ -190,14 +214,14 @@ This essence also acts as a gentle peeling: if you want to enjoy an exfoliating 
               <TabsContent value="how-to-use" className="mt-6">
                 <Card>
                   <CardContent className="pt-6">
-                    <p className="text-black">{product.usageInstructions}</p>
+                    <p className="text-black">Usage instructions not available for this product.</p>
                   </CardContent>
                 </Card>
               </TabsContent>
               <TabsContent value="ingredients" className="mt-6">
                 <Card>
                   <CardContent className="pt-6">
-                    <p className="text-black">{product.ingredients}</p>
+                    <p className="text-black">Ingredients information not available for this product.</p>
                   </CardContent>
                 </Card>
               </TabsContent>
