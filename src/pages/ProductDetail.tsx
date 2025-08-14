@@ -174,10 +174,6 @@ const ProductDetail = () => {
                 {productPrice.toFixed(2)} MAD
               </div>
               
-              <div className="mb-6">
-                <span className="text-black">Stock: {product.stock_quantity || 0}</span>
-              </div>
-              
               <div className="flex gap-3 mb-8">
                 <Button 
                   onClick={handleAddToCart} 
