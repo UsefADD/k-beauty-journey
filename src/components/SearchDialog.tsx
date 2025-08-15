@@ -61,10 +61,14 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
       return;
     }
     
-    const filtered = products.filter(product => 
-      product.Product_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.brand.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filtered = products.filter(product => {
+      const productName = product.Product_name || '';
+      const brand = product.brand || '';
+      const query = searchQuery.toLowerCase();
+      
+      return productName.toLowerCase().includes(query) ||
+             brand.toLowerCase().includes(query);
+    });
     setFilteredProducts(filtered);
   }, [searchQuery, products]);
 
