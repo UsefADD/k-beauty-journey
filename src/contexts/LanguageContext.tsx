@@ -75,6 +75,9 @@ const enTranslations: Record<string, string> = {
   'volume': 'Volume',
   'payment.method': 'Payment Method',
   'cash.on.delivery.only': 'Cash on delivery only',
+  // Search
+  'search.products': 'Search products...',
+  'no.results': 'No results found'
 };
 
 // French translations
@@ -142,6 +145,9 @@ const frTranslations: Record<string, string> = {
   'volume': 'Volume',
   'payment.method': 'Mode de Paiement',
   'cash.on.delivery.only': 'Paiement à la livraison uniquement',
+  // Search
+  'search.products': 'Rechercher des produits...',
+  'no.results': 'Aucun résultat trouvé'
 };
 
 interface LanguageProviderProps {
