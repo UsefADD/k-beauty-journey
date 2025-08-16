@@ -61,7 +61,8 @@ export const useInventory = () => {
           const brand = item.brand || "";
           console.log(`Brand extraction: ${brand} from ${item.brand}`);
           
-          const price = item.price ? Number(item.price) : 0;
+          // Extract numeric value from price string (e.g., "289 dhs" -> 289)
+          const price = item.price ? parseFloat(item.price.toString().replace(/[^\d.]/g, '')) || 0 : 0;
           console.log(`Price extraction: ${price} from ${item.price}`);
           
           const image = item.image_url || "";

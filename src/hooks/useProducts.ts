@@ -8,7 +8,7 @@ export interface Product {
   id: string;
   Product_name: string;
   brand: string;
-  price: string | null;
+  price: number; // Changed from string | null to number
   image_url: string | null;
   description: string | null;
   "skin type": string | null;
@@ -50,6 +50,8 @@ export const useProducts = () => {
         const productsWithId = data ? data.map((product, index) => ({
           ...product,
           id: product.id || `product-${index}-${Date.now()}`, // Use existing id or generate one
+          // Convert price from string like "289 dhs" to number
+          price: product.price ? parseFloat(product.price.toString().replace(/[^\d.]/g, '')) || 0 : 0,
         })) : [];
         
         setProducts(productsWithId as Product[]);
@@ -116,7 +118,17 @@ export const useProducts = () => {
       }
       
       console.log('Product fetched successfully:', data);
-      return data as Product | null;
+      
+      // Transform the price from string to number
+      if (data) {
+        const transformedProduct = {
+          ...data,
+          price: data.price ? parseFloat(data.price.toString().replace(/[^\d.]/g, '')) || 0 : 0,
+        };
+        return transformedProduct as Product;
+      }
+      
+      return null;
     } catch (err) {
       console.error('Unexpected error fetching product:', err);
       return null;

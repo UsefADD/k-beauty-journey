@@ -60,7 +60,7 @@ const ProductDetail = () => {
       addItem({
         id: productId || '0',
         name: product.Product_name,
-        price: parseFloat(product.price?.replace(/[^\d.]/g, '') || '0'),
+        price: product.price,
         image: product.image_url || '',
       });
     }
@@ -126,7 +126,7 @@ const ProductDetail = () => {
   }
 
   const productImages = product.image_url ? [product.image_url] : ['/placeholder.svg'];
-  const productPrice = parseFloat(product.price?.replace(/[^\d.]/g, '') || '0');
+  const productPrice = product.price;
 
   return (
     <div className="min-h-screen flex flex-col">
