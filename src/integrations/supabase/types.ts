@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -52,7 +52,12 @@ export type Database = {
           image_url: string | null
           price: string | null
           Product_name: string
+          product_subtype: string | null
+          product_type: string | null
           "skin type": string | null
+          skin_concern_category: string | null
+          skin_concern_subcategory: string | null
+          skin_type_category: string | null
           stock_quantity: number | null
         }
         Insert: {
@@ -62,7 +67,12 @@ export type Database = {
           image_url?: string | null
           price?: string | null
           Product_name: string
+          product_subtype?: string | null
+          product_type?: string | null
           "skin type"?: string | null
+          skin_concern_category?: string | null
+          skin_concern_subcategory?: string | null
+          skin_type_category?: string | null
           stock_quantity?: number | null
         }
         Update: {
@@ -72,7 +82,12 @@ export type Database = {
           image_url?: string | null
           price?: string | null
           Product_name?: string
+          product_subtype?: string | null
+          product_type?: string | null
           "skin type"?: string | null
+          skin_concern_category?: string | null
+          skin_concern_subcategory?: string | null
+          skin_type_category?: string | null
           stock_quantity?: number | null
         }
         Relationships: []

@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ShopCategories from '../components/ShopCategories';
-import NewProducts from '../components/NewProducts';
+import SkinTypeCategories from '../components/SkinTypeCategories';
 
 const ShopSkinType = () => {
   return (
@@ -15,7 +15,7 @@ const ShopSkinType = () => {
             SHOP BY SKIN TYPE
           </h1>
           <ShopCategories />
-          <NewProducts />
+          <SkinTypeCategories />
         </div>
       </div>
       <Footer />
