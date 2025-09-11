@@ -55,9 +55,9 @@ export type Database = {
           product_subtype: string | null
           product_type: string | null
           "skin type": string | null
-          skin_concern_category: string | null
-          skin_concern_subcategory: string | null
-          skin_type_category: string | null
+          skin_concern_category: string[] | null
+          skin_concern_subcategory: string[] | null
+          skin_type_category: string[] | null
           stock_quantity: number | null
         }
         Insert: {
@@ -70,9 +70,9 @@ export type Database = {
           product_subtype?: string | null
           product_type?: string | null
           "skin type"?: string | null
-          skin_concern_category?: string | null
-          skin_concern_subcategory?: string | null
-          skin_type_category?: string | null
+          skin_concern_category?: string[] | null
+          skin_concern_subcategory?: string[] | null
+          skin_type_category?: string[] | null
           stock_quantity?: number | null
         }
         Update: {
@@ -85,9 +85,9 @@ export type Database = {
           product_subtype?: string | null
           product_type?: string | null
           "skin type"?: string | null
-          skin_concern_category?: string | null
-          skin_concern_subcategory?: string | null
-          skin_type_category?: string | null
+          skin_concern_category?: string[] | null
+          skin_concern_subcategory?: string[] | null
+          skin_type_category?: string[] | null
           stock_quantity?: number | null
         }
         Relationships: []

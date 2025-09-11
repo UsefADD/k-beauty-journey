@@ -15,9 +15,9 @@ export interface Product {
   stock_quantity: number | null;
   product_type: string | null;
   product_subtype: string | null;
-  skin_type_category: string | null;
-  skin_concern_category: string | null;
-  skin_concern_subcategory: string | null;
+  skin_type_category: string[] | null;
+  skin_concern_category: string[] | null;
+  skin_concern_subcategory: string[] | null;
 }
 
 export const useProducts = () => {
