@@ -3,36 +3,37 @@ import { Link } from 'react-router-dom';
 
 const productTypes = [
   {
-    name: 'Skincare',
-    path: '/shop/product-type/skincare',
+    name: 'Traitements',
+    path: '/shop/product-type/traitements',
     subtypes: [
-      { name: 'Cleanser', path: '/shop/product-type/skincare/cleanser' },
-      { name: 'Toner', path: '/shop/product-type/skincare/toner' },
-      { name: 'Serum', path: '/shop/product-type/skincare/serum' },
-      { name: 'Moisturizer', path: '/shop/product-type/skincare/moisturizer' },
-      { name: 'Sunscreen', path: '/shop/product-type/skincare/sunscreen' },
-      { name: 'Mask', path: '/shop/product-type/skincare/mask' },
+      { name: 'Serum', path: '/shop/product-type/traitements/serum' },
+      { name: 'Ampoule', path: '/shop/product-type/traitements/ampoule' },
+      { name: 'Essence', path: '/shop/product-type/traitements/essence' },
     ]
   },
   {
-    name: 'Makeup',
-    path: '/shop/product-type/makeup',
+    name: 'Double nettoyage',
+    path: '/shop/product-type/double-nettoyage',
     subtypes: [
-      { name: 'Foundation', path: '/shop/product-type/makeup/foundation' },
-      { name: 'Concealer', path: '/shop/product-type/makeup/concealer' },
-      { name: 'Blush', path: '/shop/product-type/makeup/blush' },
-      { name: 'Lipstick', path: '/shop/product-type/makeup/lipstick' },
-      { name: 'Eyeshadow', path: '/shop/product-type/makeup/eyeshadow' },
+      { name: 'Cleanser', path: '/shop/product-type/double-nettoyage/cleanser' },
+      { name: 'Oil Cleanser', path: '/shop/product-type/double-nettoyage/oil-cleanser' },
     ]
   },
   {
-    name: 'Hair Care',
-    path: '/shop/product-type/haircare',
+    name: 'Hydratant',
+    path: '/shop/product-type/hydratant',
     subtypes: [
-      { name: 'Shampoo', path: '/shop/product-type/haircare/shampoo' },
-      { name: 'Conditioner', path: '/shop/product-type/haircare/conditioner' },
-      { name: 'Hair Mask', path: '/shop/product-type/haircare/mask' },
-      { name: 'Hair Oil', path: '/shop/product-type/haircare/oil' },
+      { name: 'Cream', path: '/shop/product-type/hydratant/cream' },
+      { name: 'Lotion', path: '/shop/product-type/hydratant/lotion' },
+      { name: 'Gel', path: '/shop/product-type/hydratant/gel' },
+    ]
+  },
+  {
+    name: 'Protection solaire',
+    path: '/shop/product-type/protection-solaire',
+    subtypes: [
+      { name: 'Sunscreen', path: '/shop/product-type/protection-solaire/sunscreen' },
+      { name: 'SPF Cream', path: '/shop/product-type/protection-solaire/spf-cream' },
     ]
   }
 ];
