@@ -101,7 +101,7 @@ const Payment = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="flex items-center gap-3 text-pink-600 mb-6">
                 <Package className="h-6 w-6" />
-                <span className="font-medium text-lg">Shipping Information</span>
+                <span className="font-medium text-lg">{t('shipping.information')}</span>
               </div>
 
               <Form {...form}>
@@ -111,9 +111,9 @@ const Payment = () => {
                     name="fullName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Full Name</FormLabel>
+                        <FormLabel>{t('full.name')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter your full name" {...field} />
+                          <Input placeholder={t('enter.full.name')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -125,9 +125,9 @@ const Payment = () => {
                     name="address"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Address</FormLabel>
+                        <FormLabel>{t('address')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter your address" {...field} />
+                          <Input placeholder={t('enter.address')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -140,9 +140,9 @@ const Payment = () => {
                       name="city"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>City</FormLabel>
+                          <FormLabel>{t('city')}</FormLabel>
                           <FormControl>
-                            <Input placeholder="Enter your city" {...field} />
+                            <Input placeholder={t('enter.city')} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -154,9 +154,9 @@ const Payment = () => {
                       name="zipCode"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>ZIP Code</FormLabel>
+                          <FormLabel>{t('zip.code')}</FormLabel>
                           <FormControl>
-                            <Input placeholder="Enter ZIP code" {...field} />
+                            <Input placeholder={t('enter.zip.code')} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -169,9 +169,9 @@ const Payment = () => {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
+                        <FormLabel>{t('phone.number')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter your phone number" {...field} />
+                          <Input placeholder={t('enter.phone.number')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -179,7 +179,7 @@ const Payment = () => {
                   />
 
                   <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700">
-                    Save Shipping Details
+                    {t('save.shipping.details')}
                   </Button>
                 </form>
               </Form>

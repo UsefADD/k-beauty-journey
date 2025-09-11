@@ -75,6 +75,19 @@ const enTranslations: Record<string, string> = {
   'volume': 'Volume',
   'payment.method': 'Payment Method',
   'cash.on.delivery.only': 'Cash on delivery only',
+  // Shipping Form
+  'shipping.information': 'Shipping Information',
+  'full.name': 'Full Name',
+  'enter.full.name': 'Enter your full name',
+  'address': 'Address',
+  'enter.address': 'Enter your address',
+  'city': 'City',
+  'enter.city': 'Enter your city',
+  'zip.code': 'ZIP Code',
+  'enter.zip.code': 'Enter ZIP code',
+  'phone.number': 'Phone Number',
+  'enter.phone.number': 'Enter your phone number',
+  'save.shipping.details': 'Save Shipping Details',
   // Search
   'search.products': 'Search products...',
   'no.results': 'No results found'
@@ -145,6 +158,19 @@ const frTranslations: Record<string, string> = {
   'volume': 'Volume',
   'payment.method': 'Mode de Paiement',
   'cash.on.delivery.only': 'Paiement à la livraison uniquement',
+  // Shipping Form
+  'shipping.information': 'Informations de Livraison',
+  'full.name': 'Nom Complet',
+  'enter.full.name': 'Entrez votre nom complet',
+  'address': 'Adresse',
+  'enter.address': 'Entrez votre adresse',
+  'city': 'Ville',
+  'enter.city': 'Entrez votre ville',
+  'zip.code': 'Code Postal',
+  'enter.zip.code': 'Entrez le code postal',
+  'phone.number': 'Numéro de Téléphone',
+  'enter.phone.number': 'Entrez votre numéro de téléphone',
+  'save.shipping.details': 'Enregistrer les Détails de Livraison',
   // Search
   'search.products': 'Rechercher des produits...',
   'no.results': 'Aucun résultat trouvé'
