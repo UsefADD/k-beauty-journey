@@ -24,6 +24,7 @@ import NotFound from "./pages/NotFound";
 import Payment from "./pages/Payment";
 import CartPage from "./pages/CartPage";
 import AdminInventory from "./pages/AdminInventory";
+import AdminOrders from "./pages/AdminOrders";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 
@@ -57,6 +58,7 @@ const App = () => (
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/admin/inventory" element={<AdminInventory />} />
+                <Route path="/admin/orders" element={<AdminOrders />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />

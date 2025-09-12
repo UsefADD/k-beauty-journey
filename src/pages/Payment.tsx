@@ -3,17 +3,19 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Package } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useCart } from '../contexts/CartContext';
-import { useInventory } from '../hooks/useInventory';
+import { useCart } from "../contexts/CartContext";
+import { useInventory } from "../hooks/useInventory";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
-import { useNavigate } from 'react-router-dom';
+import { useToast } from "@/hooks/use-toast";
 
 interface ShippingFormValues {
   fullName: string;
+  email: string;
   address: string;
   city: string;
   zipCode: string;
@@ -41,6 +43,7 @@ const Payment = () => {
   const form = useForm<ShippingFormValues>({
     defaultValues: {
       fullName: "",
+      email: "",
       address: "",
       city: "",
       zipCode: "",
@@ -50,43 +53,81 @@ const Payment = () => {
 
   const onSubmit = async (data: ShippingFormValues) => {
     try {
-      // Check if all items are in stock
-      const stockCheck = items.every(item => checkStock(item.id, item.quantity));
-      
-      if (!stockCheck) {
-        toast({
-          variant: "destructive",
-          title: "Out of Stock",
-          description: "Some items in your cart are no longer available in the requested quantity.",
-        });
-        return;
+      // Check stock for all items
+      for (const item of items) {
+        if (!checkStock(item.id, item.quantity)) {
+          toast({
+            title: "Insufficient stock",
+            description: `Sorry, ${item.name} is out of stock or has insufficient quantity.`,
+            variant: "destructive",
+          });
+          return;
+        }
       }
 
-      // Update stock for each item
+      // Generate order number
+      const { data: orderNumberData, error: orderError } = await supabase.rpc('generate_order_number');
+      if (orderError) throw orderError;
+
+      // Create the order
+      const orderData = {
+        order_number: orderNumberData,
+        customer_name: data.fullName,
+        customer_email: data.email,
+        customer_phone: data.phone,
+        shipping_address: data.address,
+        shipping_city: data.city,
+        shipping_zip_code: data.zipCode,
+        total_amount: totalPrice,
+        status: 'pending'
+      };
+
+      const { data: order, error: insertOrderError } = await supabase
+        .from('orders')
+        .insert(orderData)
+        .select()
+        .single();
+
+      if (insertOrderError) throw insertOrderError;
+
+      // Create order items
+      const orderItems = items.map(item => ({
+        order_id: order.id,
+        product_id: item.id,
+        product_name: item.name,
+        product_price: item.price,
+        quantity: item.quantity,
+        subtotal: item.price * item.quantity
+      }));
+
+      const { error: insertItemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+
+      if (insertItemsError) throw insertItemsError;
+
+      // Update stock for all items
       for (const item of items) {
         await updateStock.mutateAsync({
           productId: item.id,
-          quantity: item.quantity,
+          quantity: -item.quantity, // Decrease stock
         });
       }
 
-      // Order successful
       toast({
-        title: "Order Placed Successfully!",
-        description: "Thank you for your purchase. We'll deliver your items soon.",
+        title: "Order placed successfully",
+        description: `Your order ${orderData.order_number} has been placed and will be processed soon.`,
       });
 
-      // Clear the cart and redirect to home
       clearCart();
-      navigate('/');
-      
+      navigate("/");
     } catch (error) {
+      console.error("Error processing order:", error);
       toast({
-        variant: "destructive",
-        title: "Error",
+        title: "Order failed",
         description: "There was an error processing your order. Please try again.",
+        variant: "destructive",
       });
-      console.error("Order processing error:", error);
     }
   };
 
@@ -114,6 +155,20 @@ const Payment = () => {
                         <FormLabel>{t('full.name')}</FormLabel>
                         <FormControl>
                           <Input placeholder={t('enter.full.name')} {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="Enter your email" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
