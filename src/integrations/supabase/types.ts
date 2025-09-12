@@ -48,8 +48,10 @@ export type Database = {
         Row: {
           brand: string
           description: string | null
+          how_to_use: string | null
           id: string
           image_url: string | null
+          ingredients: string | null
           price: string | null
           Product_name: string
           product_subtype: string | null
@@ -63,8 +65,10 @@ export type Database = {
         Insert: {
           brand: string
           description?: string | null
+          how_to_use?: string | null
           id?: string
           image_url?: string | null
+          ingredients?: string | null
           price?: string | null
           Product_name: string
           product_subtype?: string | null
@@ -78,8 +82,10 @@ export type Database = {
         Update: {
           brand?: string
           description?: string | null
+          how_to_use?: string | null
           id?: string
           image_url?: string | null
+          ingredients?: string | null
           price?: string | null
           Product_name?: string
           product_subtype?: string | null

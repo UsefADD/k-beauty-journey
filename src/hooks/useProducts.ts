@@ -18,6 +18,8 @@ export interface Product {
   skin_type_category: string[] | null;
   skin_concern_category: string[] | null;
   skin_concern_subcategory: string[] | null;
+  how_to_use: string | null;
+  ingredients: string | null;
 }
 
 export const useProducts = () => {

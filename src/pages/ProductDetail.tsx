@@ -212,14 +212,22 @@ const ProductDetail = () => {
               <TabsContent value="how-to-use" className="mt-6">
                 <Card>
                   <CardContent className="pt-6">
-                    <p className="text-black">Usage instructions not available for this product.</p>
+                    {product.how_to_use ? (
+                      <p className="text-black whitespace-pre-line">{product.how_to_use}</p>
+                    ) : (
+                      <p className="text-black">Usage instructions not available for this product.</p>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>
               <TabsContent value="ingredients" className="mt-6">
                 <Card>
                   <CardContent className="pt-6">
-                    <p className="text-black">Ingredients information not available for this product.</p>
+                    {product.ingredients ? (
+                      <p className="text-black whitespace-pre-line">{product.ingredients}</p>
+                    ) : (
+                      <p className="text-black">Ingredients information not available for this product.</p>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>
