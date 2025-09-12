@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import { useInventory } from '../hooks/useInventory';
 import AddProductForm from '../components/AddProductForm';
 import BackgroundProcessor from '../components/BackgroundProcessor';
+import ManualBackgroundEditor from '../components/ManualBackgroundEditor';
 import { 
   Table,
   TableBody,
@@ -45,6 +46,7 @@ const AdminInventory = () => {
             <div className="lg:col-span-1 space-y-6">
               <AddProductForm />
               <BackgroundProcessor />
+              <ManualBackgroundEditor />
             </div>
             
             <div className="lg:col-span-2">
