@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useInventory } from '../hooks/useInventory';
 import AddProductForm from '../components/AddProductForm';
+import BackgroundProcessor from '../components/BackgroundProcessor';
 import { 
   Table,
   TableBody,
@@ -41,8 +42,9 @@ const AdminInventory = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 space-y-6">
               <AddProductForm />
+              <BackgroundProcessor />
             </div>
             
             <div className="lg:col-span-2">
