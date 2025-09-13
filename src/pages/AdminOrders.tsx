@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Package, Search, Eye } from "lucide-react";
+import { Package, Search, Eye, Printer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import {
@@ -108,6 +108,100 @@ const AdminOrders: React.FC = () => {
     
     setOrderItems(data as OrderItem[]);
     setShowOrderDialog(true);
+  };
+
+  // Print order for preparation
+  const printOrder = async (order: Order) => {
+    const { data, error } = await supabase
+      .from('order_items')
+      .select('*')
+      .eq('order_id', order.id);
+    
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to load order details for printing.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Create print content
+    const printContent = `
+      <html>
+        <head>
+          <title>Order ${order.order_number} - Preparation</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
+            .section { margin-bottom: 20px; }
+            .section h3 { margin-bottom: 10px; border-bottom: 1px solid #ccc; }
+            .item { padding: 8px 0; border-bottom: 1px dotted #ccc; }
+            .item:last-child { border-bottom: none; }
+            .total { font-weight: bold; font-size: 1.2em; margin-top: 15px; }
+            .prep-notes { background: #f5f5f5; padding: 15px; margin-top: 20px; }
+            @media print { body { margin: 0; } }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>ORDER PREPARATION SHEET</h1>
+            <p><strong>Order #:</strong> ${order.order_number}</p>
+            <p><strong>Date:</strong> ${format(new Date(order.created_at), 'MMM dd, yyyy HH:mm')}</p>
+            <p><strong>Status:</strong> ${order.status.toUpperCase()}</p>
+          </div>
+          
+          <div class="section">
+            <h3>CUSTOMER INFORMATION</h3>
+            <p><strong>Name:</strong> ${order.customer_name}</p>
+            <p><strong>Phone:</strong> ${order.customer_phone || 'N/A'}</p>
+            <p><strong>Email:</strong> ${order.customer_email || 'N/A'}</p>
+          </div>
+          
+          <div class="section">
+            <h3>SHIPPING ADDRESS</h3>
+            <p>${order.shipping_address}</p>
+            <p>${order.shipping_city}, ${order.shipping_zip_code}</p>
+          </div>
+          
+          <div class="section">
+            <h3>ITEMS TO PREPARE</h3>
+            ${data.map(item => `
+              <div class="item">
+                <strong>${item.product_name}</strong><br>
+                Quantity: <strong>${item.quantity}</strong> × $${item.product_price.toFixed(2)} = $${item.subtotal.toFixed(2)}
+              </div>
+            `).join('')}
+            <div class="total">
+              TOTAL: $${order.total_amount.toFixed(2)}
+            </div>
+          </div>
+          
+          <div class="prep-notes">
+            <h3>PREPARATION NOTES</h3>
+            <p>☐ Items picked and verified</p>
+            <p>☐ Items packed securely</p>
+            <p>☐ Shipping label attached</p>
+            <p>☐ Ready for pickup/delivery</p>
+            <br>
+            <p><strong>Prepared by:</strong> ________________</p>
+            <p><strong>Date prepared:</strong> ________________</p>
+          </div>
+        </body>
+      </html>
+    `;
+    
+    // Open print window
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 250);
+    }
   };
 
   // Filter orders based on search term
@@ -210,15 +304,25 @@ const AdminOrders: React.FC = () => {
                         {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                       </Badge>
                       
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => viewOrderDetails(order)}
-                        >
-                          <Eye className="h-4 w-4 mr-1" />
-                          View
-                        </Button>
+                        <div className="flex gap-2">
+                         <Button
+                           variant="outline"
+                           size="sm"
+                           onClick={() => viewOrderDetails(order)}
+                         >
+                           <Eye className="h-4 w-4 mr-1" />
+                           View
+                         </Button>
+                         
+                         <Button
+                           variant="outline"
+                           size="sm"
+                           onClick={() => printOrder(order)}
+                           className="bg-green-50 hover:bg-green-100"
+                         >
+                           <Printer className="h-4 w-4 mr-1" />
+                           Print
+                         </Button>
                         
                         <Select
                           value={order.status}
@@ -307,6 +411,17 @@ const AdminOrders: React.FC = () => {
                     <span>${selectedOrder.total_amount.toFixed(2)}</span>
                   </div>
                 </div>
+              </div>
+
+              {/* Print Button in Dialog */}
+              <div className="flex justify-end pt-4 border-t">
+                <Button 
+                  onClick={() => printOrder(selectedOrder)}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  <Printer className="h-4 w-4 mr-2" />
+                  Print Preparation Sheet
+                </Button>
               </div>
             </div>
           )}
