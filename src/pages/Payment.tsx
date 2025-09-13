@@ -53,7 +53,15 @@ const Payment = () => {
 
   const onSubmit = async (data: ShippingFormValues) => {
     try {
-      // Check stock for all items
+      // Prepare order items payload
+      const orderItems = items.map(item => ({
+        product_id: item.id,
+        product_name: item.name,
+        product_price: item.price,
+        quantity: item.quantity,
+      }));
+
+      // Optional client-side stock check for UX
       for (const item of items) {
         if (!checkStock(item.id, item.quantity)) {
           toast({
@@ -65,67 +73,37 @@ const Payment = () => {
         }
       }
 
-      // Generate order number
-      const { data: orderNumberData, error: orderError } = await supabase.rpc('generate_order_number');
-      if (orderError) throw orderError;
+      // Create order transactionally via secure RPC
+      const { data: result, error: rpcError } = await supabase.rpc('create_order', {
+        p_customer_name: data.fullName,
+        p_customer_email: data.email,
+        p_customer_phone: data.phone,
+        p_shipping_address: data.address,
+        p_shipping_city: data.city,
+        p_shipping_zip_code: data.zipCode,
+        p_total_amount: totalPrice,
+        p_items: orderItems,
+      });
 
-      // Create the order
-      const orderData = {
-        order_number: orderNumberData,
-        customer_name: data.fullName,
-        customer_email: data.email,
-        customer_phone: data.phone,
-        shipping_address: data.address,
-        shipping_city: data.city,
-        shipping_zip_code: data.zipCode,
-        total_amount: totalPrice,
-        status: 'pending'
-      };
+      if (rpcError) throw rpcError as any;
 
-      const { data: order, error: insertOrderError } = await supabase
-        .from('orders')
-        .insert(orderData)
-        .select()
-        .single();
-
-      if (insertOrderError) throw insertOrderError;
-
-      // Create order items
-      const orderItems = items.map(item => ({
-        order_id: order.id,
-        product_id: item.id,
-        product_name: item.name,
-        product_price: item.price,
-        quantity: item.quantity,
-        subtotal: item.price * item.quantity
-      }));
-
-      const { error: insertItemsError } = await supabase
-        .from('order_items')
-        .insert(orderItems);
-
-      if (insertItemsError) throw insertItemsError;
-
-      // Update stock for all items
-      for (const item of items) {
-        await updateStock.mutateAsync({
-          productId: item.id,
-          quantity: -item.quantity, // Decrease stock
-        });
-      }
+      const orderNumber = Array.isArray(result) ? (result[0] as any)?.order_number : (result as any)?.order_number;
 
       toast({
         title: "Order placed successfully",
-        description: `Your order ${orderData.order_number} has been placed and will be processed soon.`,
+        description: `Your order ${orderNumber ?? ''} has been placed and will be processed soon.`,
       });
 
       clearCart();
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error processing order:", error);
+      const description = error?.message?.includes("Insufficient stock")
+        ? error.message
+        : "There was an error processing your order. Please try again.";
       toast({
         title: "Order failed",
-        description: "There was an error processing your order. Please try again.",
+        description,
         variant: "destructive",
       });
     }

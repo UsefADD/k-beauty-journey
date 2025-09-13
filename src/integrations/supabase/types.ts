@@ -196,6 +196,22 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_order: {
+        Args: {
+          p_customer_email: string
+          p_customer_name: string
+          p_customer_phone: string
+          p_items: Json
+          p_shipping_address: string
+          p_shipping_city: string
+          p_shipping_zip_code: string
+          p_total_amount: number
+        }
+        Returns: {
+          order_id: string
+          order_number: string
+        }[]
+      }
       generate_order_number: {
         Args: Record<PropertyKey, never>
         Returns: string
