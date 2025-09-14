@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe } from 'lucide-react';
+import { ShoppingBag, Heart, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe, Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
@@ -15,12 +15,14 @@ import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import SearchDialog from './SearchDialog';
 import { useCart } from '../contexts/CartContext';
+import { useAuth } from '../contexts/AuthContext';
 import UserMenu from './UserMenu';
 
 const Navbar = () => {
   const { t } = useLanguage();
   const [searchOpen, setSearchOpen] = useState(false);
   const { totalItems } = useCart();
+  const { user } = useAuth();
 
   return <>
       <div className="bg-white text-pink-600 py-1 overflow-hidden whitespace-nowrap relative border-b border-pink-100">
@@ -170,6 +172,12 @@ const Navbar = () => {
             <Link to="/brands" className="hover:text-pink-800 transition-colors zigzag-underline">
               {t('brands')}
             </Link>
+            {user && (
+              <Link to="/admin/orders" className="hover:text-pink-800 transition-colors zigzag-underline flex items-center gap-1">
+                <Settings className="w-4 h-4" />
+                Orders
+              </Link>
+            )}
           </div>
           
           <div className="space-x-6 text-pink-600 flex items-center">
