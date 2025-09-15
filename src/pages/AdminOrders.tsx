@@ -49,17 +49,18 @@ const AdminOrders: React.FC = () => {
   const [showOrderDialog, setShowOrderDialog] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const { isAuthenticated } = useAuth();
-  const { isAdmin, loading: roleLoading } = useUserRole();
+  const { isAuthenticated, user } = useAuth();
+  const { isAdmin, role, loading: roleLoading } = useUserRole();
 
   // Check if user has admin access
   if (roleLoading) {
+    console.log('Role loading...', { isAuthenticated, user: user?.email });
     return (
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 container mx-auto px-4 py-8">
           <div className="flex items-center justify-center h-64">
-            <div className="text-lg">Loading...</div>
+            <div className="text-lg">Loading role...</div>
           </div>
         </main>
         <Footer />
@@ -67,7 +68,10 @@ const AdminOrders: React.FC = () => {
     );
   }
 
+  console.log('Role check result:', { isAuthenticated, isAdmin, role });
+
   if (!isAuthenticated || !isAdmin) {
+    console.log('Access denied:', { isAuthenticated, isAdmin });
     return (
       <div className="min-h-screen flex flex-col">
         <Navbar />
@@ -77,6 +81,9 @@ const AdminOrders: React.FC = () => {
             <h1 className="text-2xl font-bold mb-2">Access Restricted</h1>
             <p className="text-muted-foreground">
               You need admin privileges to access this page.
+            </p>
+            <p className="text-sm text-muted-foreground mt-2">
+              Auth: {isAuthenticated ? 'Yes' : 'No'} | Admin: {isAdmin ? 'Yes' : 'No'} | Role: {role}
             </p>
           </div>
         </main>
