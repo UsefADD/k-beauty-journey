@@ -227,16 +227,28 @@ export type Database = {
     }
     Functions: {
       create_order: {
-        Args: {
-          p_customer_email: string
-          p_customer_name: string
-          p_customer_phone: string
-          p_items: Json
-          p_shipping_address: string
-          p_shipping_city: string
-          p_shipping_zip_code: string
-          p_total_amount: number
-        }
+        Args:
+          | {
+              p_customer_email: string
+              p_customer_name: string
+              p_customer_phone: string
+              p_items: Json
+              p_shipping_address: string
+              p_shipping_city: string
+              p_shipping_zip_code: string
+              p_total_amount: number
+            }
+          | {
+              p_customer_email: string
+              p_customer_name: string
+              p_customer_phone: string
+              p_items: Json
+              p_shipping_address: string
+              p_shipping_city: string
+              p_shipping_zip_code: string
+              p_total_amount: number
+              p_user_id?: string
+            }
         Returns: {
           order_id: string
           order_number: string
