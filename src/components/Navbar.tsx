@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe, Settings } from 'lucide-react';
+import { ShoppingBag, Heart, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe, Settings, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
@@ -16,6 +16,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import SearchDialog from './SearchDialog';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useUserRole } from '../hooks/useUserRole';
 import UserMenu from './UserMenu';
 
 const Navbar = () => {
@@ -23,6 +24,7 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const { totalItems } = useCart();
   const { user } = useAuth();
+  const { isAdmin } = useUserRole();
 
   return <>
       <div className="bg-white text-pink-600 py-1 overflow-hidden whitespace-nowrap relative border-b border-pink-100">
@@ -172,10 +174,19 @@ const Navbar = () => {
             <Link to="/brands" className="hover:text-pink-800 transition-colors zigzag-underline">
               {t('brands')}
             </Link>
-            {user && (
+            {/* Admin Orders Link - Only for admins */}
+            {isAdmin && (
               <Link to="/admin/orders" className="hover:text-pink-800 transition-colors zigzag-underline flex items-center gap-1">
                 <Settings className="w-4 h-4" />
                 Orders
+              </Link>
+            )}
+            
+            {/* My Orders Link - Only for regular customers */}
+            {user && !isAdmin && (
+              <Link to="/profile" className="hover:text-pink-800 transition-colors zigzag-underline flex items-center gap-1">
+                <Package className="w-4 h-4" />
+                My Orders
               </Link>
             )}
           </div>
