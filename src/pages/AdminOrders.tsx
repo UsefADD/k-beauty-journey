@@ -8,9 +8,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Package, Search, Eye, Printer } from "lucide-react";
+import { Package, Search, Eye, Printer, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import { useUserRole } from "@/hooks/useUserRole";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   Dialog,
   DialogContent,
@@ -47,6 +49,41 @@ const AdminOrders: React.FC = () => {
   const [showOrderDialog, setShowOrderDialog] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { isAuthenticated } = useAuth();
+  const { isAdmin, loading: roleLoading } = useUserRole();
+
+  // Check if user has admin access
+  if (roleLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1 container mx-auto px-4 py-8">
+          <div className="flex items-center justify-center h-64">
+            <div className="text-lg">Loading...</div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated || !isAdmin) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1 container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center justify-center h-64 text-center">
+            <Lock className="h-16 w-16 text-muted-foreground mb-4" />
+            <h1 className="text-2xl font-bold mb-2">Access Restricted</h1>
+            <p className="text-muted-foreground">
+              You need admin privileges to access this page.
+            </p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   // Fetch orders
   const { data: orders = [], isLoading } = useQuery({
