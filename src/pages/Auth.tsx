@@ -14,6 +14,8 @@ const Auth = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true); // Toggle between login and signup
+  const [showResendConfirmation, setShowResendConfirmation] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -49,9 +51,10 @@ const Auth = () => {
 
         if (error) throw error;
         
+        setShowResendConfirmation(true);
         toast({
           title: "Success",
-          description: "Registration successful! Please check your email for verification.",
+          description: "Registration successful! Please check your email for verification. Don't forget to check your spam folder.",
         });
       }
     } catch (error: any) {
@@ -62,6 +65,43 @@ const Auth = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResendConfirmation = async () => {
+    if (!email) {
+      toast({
+        title: "Error",
+        description: "Please enter your email address first",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setResendLoading(true);
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+        }
+      });
+
+      if (error) throw error;
+      
+      toast({
+        title: "Success",
+        description: "Confirmation email sent! Please check your email and spam folder.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to resend confirmation email",
+        variant: "destructive",
+      });
+    } finally {
+      setResendLoading(false);
     }
   };
 
@@ -112,12 +152,32 @@ const Auth = () => {
           
           <div className="mt-4 text-center">
             <button
-              onClick={() => setIsLogin(!isLogin)}
+              onClick={() => {
+                setIsLogin(!isLogin);
+                setShowResendConfirmation(false);
+              }}
               className="text-pink-600 hover:underline text-sm"
             >
               {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
             </button>
           </div>
+          
+          {showResendConfirmation && (
+            <div className="mt-4 p-4 bg-pink-50 rounded-lg border border-pink-200">
+              <p className="text-sm text-pink-700 mb-2">
+                Didn't receive the confirmation email?
+              </p>
+              <Button
+                onClick={handleResendConfirmation}
+                disabled={resendLoading}
+                variant="outline"
+                size="sm"
+                className="w-full border-pink-300 text-pink-700 hover:bg-pink-100"
+              >
+                {resendLoading ? "Sending..." : "Resend Confirmation Email"}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
