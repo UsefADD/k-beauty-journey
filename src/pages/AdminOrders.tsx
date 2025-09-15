@@ -52,15 +52,14 @@ const AdminOrders: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
   const { isAdmin, role, loading: roleLoading } = useUserRole();
 
-  // Check if user has admin access
+  // Simple loading check first
   if (roleLoading) {
-    console.log('Role loading...', { isAuthenticated, user: user?.email });
     return (
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 container mx-auto px-4 py-8">
           <div className="flex items-center justify-center h-64">
-            <div className="text-lg">Loading role...</div>
+            <div className="text-lg">Checking permissions...</div>
           </div>
         </main>
         <Footer />
@@ -68,10 +67,27 @@ const AdminOrders: React.FC = () => {
     );
   }
 
-  console.log('Role check result:', { isAuthenticated, isAdmin, role });
+  // If not authenticated, show access restricted
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1 container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center justify-center h-64 text-center">
+            <Lock className="h-16 w-16 text-muted-foreground mb-4" />
+            <h1 className="text-2xl font-bold mb-2">Please Sign In</h1>
+            <p className="text-muted-foreground">
+              You need to be logged in to access this page.
+            </p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
-  if (!isAuthenticated || !isAdmin) {
-    console.log('Access denied:', { isAuthenticated, isAdmin });
+  // If not admin, show access restricted
+  if (!isAdmin) {
     return (
       <div className="min-h-screen flex flex-col">
         <Navbar />
@@ -80,10 +96,10 @@ const AdminOrders: React.FC = () => {
             <Lock className="h-16 w-16 text-muted-foreground mb-4" />
             <h1 className="text-2xl font-bold mb-2">Access Restricted</h1>
             <p className="text-muted-foreground">
-              You need admin privileges to access this page.
+              Admin privileges required. Current role: {role || 'customer'}
             </p>
             <p className="text-sm text-muted-foreground mt-2">
-              Auth: {isAuthenticated ? 'Yes' : 'No'} | Admin: {isAdmin ? 'Yes' : 'No'} | Role: {role}
+              Email: {user?.email}
             </p>
           </div>
         </main>
