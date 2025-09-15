@@ -52,6 +52,45 @@ const AdminOrders: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
   const { isAdmin, role, loading: roleLoading } = useUserRole();
 
+  // Fetch orders (only when admin)
+  const { data: orders = [], isLoading, error } = useQuery({
+    queryKey: ['orders'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('orders')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      return data as Order[];
+    },
+    enabled: isAuthenticated && isAdmin, // prevent running for non-admins or before role resolves
+  });
+
+  // Update order status mutation
+  const updateOrderStatus = useMutation({
+    mutationFn: async ({ orderId, status }: { orderId: string; status: string }) => {
+      const { error } = await supabase
+        .from('orders')
+        .update({ status })
+        .eq('id', orderId);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      toast({
+        title: "Status updated",
+        description: "Order status has been updated successfully.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update order status.",
+        variant: "destructive",
+      });
+    }
+  });
+
   // Simple loading check first
   if (roleLoading) {
     return (
@@ -108,59 +147,7 @@ const AdminOrders: React.FC = () => {
     );
   }
 
-  // Fetch orders (only when admin)
-  const { data: orders = [], isLoading, error } = useQuery({
-    queryKey: ['orders'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('orders')
-        .select('*')
-        .order('created_at', { ascending: false });
-      if (error) throw error;
-      return data as Order[];
-    },
-    enabled: isAuthenticated && isAdmin, // prevent running for non-admins or before role resolves
-  });
-  // Update order status mutation
-  const updateOrderStatus = useMutation({
-    mutationFn: async ({ orderId, status }: { orderId: string; status: string }) => {
-      const { error } = await supabase
-        .from('orders')
-        .update({ status })
-        .eq('id', orderId);
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
-      toast({
-        title: "Status updated",
-        description: "Order status has been updated successfully.",
-      });
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Failed to update order status.",
-        variant: "destructive",
-      });
-    }
-  });
 
-  // Handle query error state
-  if (error) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1 container mx-auto px-4 py-8">
-          <div className="flex flex-col items-center justify-center h-64 text-center">
-            <h1 className="text-2xl font-bold mb-2">Failed to load orders</h1>
-            <p className="text-muted-foreground">{(error as any)?.message || 'Permission denied or network issue.'}</p>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
 
   // View order details
   const viewOrderDetails = async (order: Order) => {
