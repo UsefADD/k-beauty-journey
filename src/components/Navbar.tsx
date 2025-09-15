@@ -48,12 +48,8 @@ const Navbar = () => {
                   <NavigationMenuTrigger className="hover:text-pink-800 transition-colors bg-transparent">{t('shop.all')}</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="flex w-[900px] p-4">
-                      <div className="w-1/3 pr-4">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/shop/product-type"
-                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-pink-50 to-pink-100 p-4 no-underline outline-none focus:shadow-md"
-                          >
+                        <div className="w-1/3 pr-4">
+                          <div className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-pink-50 to-pink-100 p-4 no-underline outline-none focus:shadow-md">
                             <div className="text-lg font-medium text-pink-800">{t('product.type')}</div>
                             <div className="mt-4 grid grid-cols-2 gap-2">
                               <Link to="/shop/product-type/double-nettoyage" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-pink-100">
@@ -97,15 +93,10 @@ const Navbar = () => {
                                 <span>{t('makeup.tools')}</span>
                               </Link>
                             </div>
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                      <div className="w-1/3 px-4">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/shop/skin-type"
-                            className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
-                          >
+                          </div>
+                        </div>
+                        <div className="w-1/3 px-4">
+                          <div className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100">
                             <div className="text-lg font-medium leading-none text-pink-800">{t('skin.type')}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-pink-600 mt-2">
                               {t('skin.type.description')}
@@ -124,15 +115,10 @@ const Navbar = () => {
                                 <span>{t('normal')}</span>
                               </Link>
                             </div>
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                      <div className="w-1/3 pl-4">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/shop/skin-concern"
-                            className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100"
-                          >
+                          </div>
+                        </div>
+                        <div className="w-1/3 pl-4">
+                          <div className="block h-full select-none space-y-1 rounded-md p-4 leading-none no-underline outline-none transition-colors hover:bg-pink-50 hover:text-pink-600 bg-gradient-to-b from-pink-50 to-pink-100">
                             <div className="text-lg font-medium leading-none text-pink-800">{t('skin.concern')}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-pink-600 mt-2">
                               {t('skin.concern.description')}
@@ -160,9 +146,8 @@ const Navbar = () => {
                                 <span>{t('anti.aging')}</span>
                               </Link>
                             </div>
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
+                          </div>
+                        </div>
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
