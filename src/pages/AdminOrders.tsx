@@ -3,12 +3,12 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Package, Search, Eye, Printer, Lock } from "lucide-react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Package, Eye, Printer, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { useUserRole } from "@/hooks/useUserRole";
@@ -19,6 +19,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import OrdersStatsCards from "@/components/OrdersStatsCards";
+import OrdersFilters from "@/components/OrdersFilters";
 
 interface Order {
   id: string;
@@ -44,6 +46,8 @@ interface OrderItem {
 
 const AdminOrders: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [dateFilter, setDateFilter] = useState("all");
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [showOrderDialog, setShowOrderDialog] = useState(false);
@@ -265,30 +269,151 @@ const AdminOrders: React.FC = () => {
     }
   };
 
-  // Filter orders based on search term
+  // Filter orders based on search term, status, and date
   const filteredOrders = useMemo(() => {
-    return orders.filter(order =>
-      order.order_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.customer_email?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [orders, searchTerm]);
+    let filtered = orders;
+
+    // Filter by search term
+    if (searchTerm) {
+      filtered = filtered.filter(order =>
+        order.order_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.customer_email?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Filter by status
+    if (statusFilter !== "all") {
+      filtered = filtered.filter(order => order.status === statusFilter);
+    }
+
+    // Filter by date
+    if (dateFilter !== "all") {
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const thisWeekStart = new Date(today.getTime() - (today.getDay() * 24 * 60 * 60 * 1000));
+      const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+      filtered = filtered.filter(order => {
+        const orderDate = new Date(order.created_at);
+        switch (dateFilter) {
+          case "today":
+            return orderDate >= today;
+          case "week":
+            return orderDate >= thisWeekStart;
+          case "month":
+            return orderDate >= thisMonthStart;
+          default:
+            return true;
+        }
+      });
+    }
+
+    return filtered;
+  }, [orders, searchTerm, statusFilter, dateFilter]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'processing':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-100 text-blue-800 border-blue-200';
       case 'shipped':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-100 text-green-800 border-green-200';
       case 'delivered':
-        return 'bg-emerald-100 text-emerald-800';
+        return 'bg-emerald-100 text-emerald-800 border-emerald-200';
       case 'cancelled':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-100 text-red-800 border-red-200';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
+  };
+
+  const handlePrintOrders = () => {
+    // Create a print-friendly version of the orders table
+    const printContent = `
+      <html>
+        <head>
+          <title>Orders Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1 { text-align: center; margin-bottom: 30px; }
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f5f5f5; font-weight: bold; }
+            .status { padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+            .status-pending { background-color: #fef3c7; color: #92400e; }
+            .status-processing { background-color: #dbeafe; color: #1e40af; }
+            .status-shipped { background-color: #d1fae5; color: #065f46; }
+            .status-delivered { background-color: #d1fae5; color: #064e3b; }
+            .status-cancelled { background-color: #fee2e2; color: #991b1b; }
+            @media print { body { margin: 0; } }
+          </style>
+        </head>
+        <body>
+          <h1>Orders Report</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filteredOrders.map(order => `
+                <tr>
+                  <td>${order.order_number}</td>
+                  <td>${order.customer_name}</td>
+                  <td>${format(new Date(order.created_at), 'MMM dd, yyyy')}</td>
+                  <td>$${order.total_amount.toFixed(2)}</td>
+                  <td><span class="status status-${order.status}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `;
+    
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 250);
+    }
+  };
+
+  const handleExportCSV = () => {
+    const csvHeaders = ['Order ID', 'Customer', 'Email', 'Phone', 'Date', 'Amount', 'Status', 'Shipping Address'];
+    const csvData = filteredOrders.map(order => [
+      order.order_number,
+      order.customer_name,
+      order.customer_email || '',
+      order.customer_phone || '',
+      format(new Date(order.created_at), 'yyyy-MM-dd'),
+      order.total_amount.toFixed(2),
+      order.status,
+      `"${order.shipping_address}, ${order.shipping_city}, ${order.shipping_zip_code}"`
+    ]);
+
+    const csvContent = [csvHeaders, ...csvData]
+      .map(row => row.join(','))
+      .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `orders-${format(new Date(), 'yyyy-MM-dd')}.csv`;
+    link.click();
+    window.URL.revokeObjectURL(url);
   };
 
   if (isLoading) {
@@ -308,108 +433,139 @@ const AdminOrders: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="flex items-center gap-2 mb-8">
-          <Package className="h-8 w-8" />
-          <h1 className="text-3xl font-bold">Order Management</h1>
-        </div>
-
-        {/* Search */}
-        <div className="mb-6">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search orders by number, customer name, or email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+      <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <Package className="h-8 w-8 text-primary" />
           </div>
+          <h1 className="text-3xl font-bold">Orders Management</h1>
         </div>
 
-        {/* Orders Grid */}
-        <div className="grid gap-4">
-          {filteredOrders.length === 0 ? (
-            <Card>
-              <CardContent className="flex items-center justify-center h-32">
-                <p className="text-muted-foreground">No orders found</p>
-              </CardContent>
-            </Card>
-          ) : (
-            filteredOrders.map((order) => (
-              <Card key={order.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
-                      <div>
-                        <p className="font-semibold text-lg">{order.order_number}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {format(new Date(order.created_at), 'MMM dd, yyyy HH:mm')}
+        {/* Statistics Cards */}
+        <OrdersStatsCards />
+
+        {/* Filters */}
+        <OrdersFilters
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          statusFilter={statusFilter}
+          onStatusFilterChange={setStatusFilter}
+          dateFilter={dateFilter}
+          onDateFilterChange={setDateFilter}
+          onPrint={handlePrintOrders}
+          onExport={handleExportCSV}
+        />
+
+        {/* Orders Table */}
+        <Card className="shadow-sm">
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/50">
+                  <TableHead className="font-semibold">Order ID</TableHead>
+                  <TableHead className="font-semibold">Customer</TableHead>
+                  <TableHead className="font-semibold">Date</TableHead>
+                  <TableHead className="font-semibold">Amount</TableHead>
+                  <TableHead className="font-semibold">Status</TableHead>
+                  <TableHead className="font-semibold">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredOrders.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center py-12">
+                      <div className="text-muted-foreground">
+                        <Package className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                        <p className="text-lg font-medium">No orders found</p>
+                        <p className="text-sm">Try adjusting your search or filter criteria</p>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  filteredOrders.map((order) => (
+                    <TableRow key={order.id} className="hover:bg-muted/50 transition-colors">
+                      <TableCell>
+                        <div>
+                          <p className="font-semibold text-sm">{order.order_number}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {format(new Date(order.created_at), 'MMM dd, yyyy')}
+                          </p>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div>
+                          <p className="font-medium text-sm">{order.customer_name}</p>
+                          <p className="text-xs text-muted-foreground">{order.customer_email}</p>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <p className="text-sm">
+                          {format(new Date(order.created_at), 'MMM dd, yyyy')}
                         </p>
-                      </div>
-                      <div>
-                        <p className="font-medium">{order.customer_name}</p>
-                        <p className="text-sm text-muted-foreground">{order.customer_email}</p>
-                        <p className="text-sm text-muted-foreground">{order.customer_phone}</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold">${order.total_amount.toFixed(2)}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {order.shipping_city}, {order.shipping_zip_code}
+                        <p className="text-xs text-muted-foreground">
+                          {format(new Date(order.created_at), 'HH:mm')}
                         </p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                      <Badge className={getStatusColor(order.status)}>
-                        {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                      </Badge>
-                      
-                        <div className="flex gap-2">
-                         <Button
-                           variant="outline"
-                           size="sm"
-                           onClick={() => viewOrderDetails(order)}
-                         >
-                           <Eye className="h-4 w-4 mr-1" />
-                           View
-                         </Button>
-                         
-                         <Button
-                           variant="outline"
-                           size="sm"
-                           onClick={() => printOrder(order)}
-                           className="bg-green-50 hover:bg-green-100"
-                         >
-                           <Printer className="h-4 w-4 mr-1" />
-                           Print
-                         </Button>
-                        
-                        <Select
-                          value={order.status}
-                          onValueChange={(value) => 
-                            updateOrderStatus.mutate({ orderId: order.id, status: value })
-                          }
-                        >
-                          <SelectTrigger className="w-32">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="processing">Processing</SelectItem>
-                            <SelectItem value="shipped">Shipped</SelectItem>
-                            <SelectItem value="delivered">Delivered</SelectItem>
-                            <SelectItem value="cancelled">Cancelled</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))
-          )}
-        </div>
+                      </TableCell>
+                      <TableCell>
+                        <p className="font-semibold text-sm">
+                          ${order.total_amount.toFixed(2)}
+                        </p>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Badge 
+                            variant="outline" 
+                            className={`text-xs font-medium ${getStatusColor(order.status)}`}
+                          >
+                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                          </Badge>
+                          <Select
+                            value={order.status}
+                            onValueChange={(value) => 
+                              updateOrderStatus.mutate({ orderId: order.id, status: value })
+                            }
+                          >
+                            <SelectTrigger className="h-8 w-28 text-xs">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="pending">Pending</SelectItem>
+                              <SelectItem value="processing">Processing</SelectItem>
+                              <SelectItem value="shipped">Shipped</SelectItem>
+                              <SelectItem value="delivered">Delivered</SelectItem>
+                              <SelectItem value="cancelled">Cancelled</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => viewOrderDetails(order)}
+                            className="h-8 w-8 p-0"
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => printOrder(order)}
+                            className="h-8 w-8 p-0 text-green-600 hover:text-green-700 hover:bg-green-50"
+                          >
+                            <Printer className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       </main>
 
       {/* Order Details Dialog */}
