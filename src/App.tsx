@@ -30,7 +30,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <ErrorBoundary>
+  <ErrorBoundary name="App Root">
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <AuthProvider>
