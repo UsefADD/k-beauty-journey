@@ -27,6 +27,7 @@ import AdminInventory from "./pages/AdminInventory";
 import AdminOrders from "./pages/AdminOrders";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
@@ -38,32 +39,34 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/brands" element={<Brands />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/shop/newly-curated" element={<ShopNewlyCurated />} />
-                <Route path="/shop/viral" element={<ShopViral />} />
-                <Route path="/shop/best-sellers" element={<ShopBestSellers />} />
-                <Route path="/shop/sets" element={<ShopRoutines />} />
-                <Route path="/shop/skin-concern" element={<ShopSkinConcern />} />
-                <Route path="/shop/skin-type" element={<ShopSkinType />} />
-                <Route path="/shop/brand" element={<ShopBrand />} />
-                <Route path="/shop/product-type" element={<ShopProductType />} />
-                <Route path="/shop/product-type/:type" element={<ShopProductType />} />
-                <Route path="/shop/product-type/:type/:subtype" element={<ShopProductType />} />
-                <Route path="/shop/ingredient" element={<ShopIngredient />} />
-                <Route path="/product/:productId" element={<ProductDetail />} />
-                <Route path="/payment" element={<Payment />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/admin/inventory" element={<AdminInventory />} />
-                <Route path="/admin/orders" element={<AdminOrders />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
+            <ErrorBoundary>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/brands" element={<Brands />} />
+                  <Route path="/shop" element={<Shop />} />
+                  <Route path="/shop/newly-curated" element={<ShopNewlyCurated />} />
+                  <Route path="/shop/viral" element={<ShopViral />} />
+                  <Route path="/shop/best-sellers" element={<ShopBestSellers />} />
+                  <Route path="/shop/sets" element={<ShopRoutines />} />
+                  <Route path="/shop/skin-concern" element={<ShopSkinConcern />} />
+                  <Route path="/shop/skin-type" element={<ShopSkinType />} />
+                  <Route path="/shop/brand" element={<ShopBrand />} />
+                  <Route path="/shop/product-type" element={<ShopProductType />} />
+                  <Route path="/shop/product-type/:type" element={<ShopProductType />} />
+                  <Route path="/shop/product-type/:type/:subtype" element={<ShopProductType />} />
+                  <Route path="/shop/ingredient" element={<ShopIngredient />} />
+                  <Route path="/product/:productId" element={<ProductDetail />} />
+                  <Route path="/payment" element={<Payment />} />
+                  <Route path="/cart" element={<CartPage />} />
+                  <Route path="/admin/inventory" element={<AdminInventory />} />
+                  <Route path="/admin/orders" element={<AdminOrders />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </ErrorBoundary>
           </TooltipProvider>
         </CartProvider>
       </AuthProvider>
