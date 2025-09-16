@@ -20,6 +20,7 @@ import { useUserRole } from '../hooks/useUserRole';
 import UserMenu from './UserMenu';
 
 const Navbar = () => {
+  console.info('Render: Navbar');
   const { t } = useLanguage();
   const [searchOpen, setSearchOpen] = useState(false);
   const { totalItems } = useCart();

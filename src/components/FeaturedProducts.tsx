@@ -12,6 +12,7 @@ interface Product {
 }
 
 const FeaturedProducts = () => {
+  console.info('Render: FeaturedProducts');
   const { addItem } = useCart();
 
   const products: Product[] = [

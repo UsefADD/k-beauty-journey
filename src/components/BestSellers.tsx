@@ -9,6 +9,7 @@ import { useInventory } from '@/hooks/useInventory';
 import { Loader2 } from 'lucide-react';
 
 const BestSellers = () => {
+  console.info('Render: BestSellers');
   const { t } = useLanguage();
   const { products, isLoading } = useInventory();
   

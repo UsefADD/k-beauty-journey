@@ -19,6 +19,7 @@ const ProductCard = ({
   price,
   image
 }: ProductCardProps) => {
+  console.info('Render: ProductCard');
   const { addItem } = useCart();
 
   const handleAddToCart = (e: React.MouseEvent) => {

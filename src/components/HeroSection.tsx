@@ -3,6 +3,7 @@ import { Circle, CircleDot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 const HeroSection = () => {
+  console.info('Render: HeroSection');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [prevSlide, setPrevSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);

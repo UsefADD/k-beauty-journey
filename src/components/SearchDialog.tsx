@@ -18,6 +18,7 @@ interface SearchDialogProps {
 }
 
 const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
+  console.info('Render: SearchDialog', { open });
   const [searchQuery, setSearchQuery] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);

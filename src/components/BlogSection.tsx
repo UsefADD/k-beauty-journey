@@ -4,6 +4,7 @@ import { ExternalLink } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 
 const BlogSection = () => {
+  console.info('Render: BlogSection');
   const blogPosts = [
     {
       id: 1,

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useLanguage } from '../contexts/LanguageContext';
 const NewArrivals = () => {
+  console.info('Render: NewArrivals');
   const {
     t
   } = useLanguage();

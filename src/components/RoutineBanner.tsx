@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const RoutineBanner = () => {
+  console.info('Render: RoutineBanner');
   const [showAll, setShowAll] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   

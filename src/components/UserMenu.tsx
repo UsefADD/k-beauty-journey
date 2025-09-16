@@ -14,6 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const UserMenu = () => {
+  console.info('Render: UserMenu');
   const { user, isAuthenticated, signOut } = useAuth();
   const { toast } = useToast();
   const { t } = useLanguage();
