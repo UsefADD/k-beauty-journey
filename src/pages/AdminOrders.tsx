@@ -165,7 +165,7 @@ const AdminOrders: React.FC = () => {
     const csvContent = [
       'Order ID,Customer,Date,Amount,Status',
       ...filteredOrders.map(order => 
-        `${order.order_number},"${order.customer_name}",${format(new Date(order.created_at), 'MMM dd, yyyy')},${order.total_amount.toFixed(2)},${order.status}`
+        `${order.order_number},"${order.customer_name}",${format(new Date(order.created_at), 'MMM dd, yyyy')},${order.total_amount.toFixed(2)} dhs,${order.status}`
       )
     ].join('\n');
     
@@ -339,7 +339,7 @@ const AdminOrders: React.FC = () => {
                         {format(new Date(order.created_at), 'MMM dd, yyyy')}
                       </td>
                       <td className="p-4 font-medium text-admin-text">
-                        ${order.total_amount.toFixed(2)}
+                        {order.total_amount.toFixed(2)} dhs
                       </td>
                       <td className="p-4">
                         <Badge className={`${getStatusColor(order.status)} border`}>
@@ -433,15 +433,15 @@ const AdminOrders: React.FC = () => {
                       <div>
                         <p className="font-medium">{item.product_name}</p>
                         <p className="text-sm text-muted-foreground">
-                          ${item.product_price.toFixed(2)} x {item.quantity}
+                          {item.product_price.toFixed(2)} dhs x {item.quantity}
                         </p>
                       </div>
-                      <p className="font-semibold">${item.subtotal.toFixed(2)}</p>
+                      <p className="font-semibold">{item.subtotal.toFixed(2)} dhs</p>
                     </div>
                   ))}
                   <div className="flex justify-between items-center pt-2 font-semibold text-lg">
                     <span>Total:</span>
-                    <span>${selectedOrder.total_amount.toFixed(2)}</span>
+                    <span>{selectedOrder.total_amount.toFixed(2)} dhs</span>
                   </div>
                 </div>
               </div>

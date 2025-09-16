@@ -33,7 +33,7 @@ export const OrdersStatsCards: React.FC<StatsCardsProps> = ({
       <CardContent className="p-6">
         <h3 className="text-sm font-medium text-admin-muted mb-3">{title}</h3>
         <div className="text-2xl font-bold text-admin-primary mb-2">
-          {isRevenue ? `$${value.toFixed(2)}` : value.toLocaleString()}
+          {isRevenue ? `${value.toFixed(2)} dhs` : value.toLocaleString()}
         </div>
         <div className={`text-sm flex items-center gap-1 ${change >= 0 ? 'text-admin-success' : 'text-admin-danger'}`}>
           {change >= 0 ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
