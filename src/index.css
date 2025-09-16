@@ -6,6 +6,20 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Admin Interface Colors */
+    --admin-background: 249 250 251; /* #f9fafb */
+    --admin-border: 229 231 235; /* #e5e7eb */
+    --admin-card: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --admin-primary: 139 92 246; /* #8b5cf6 */
+    --admin-text: 55 65 81; /* #374151 */
+    --admin-muted: 107 114 128; /* #6b7280 */
+    --admin-success: 16 185 129; /* #10b981 */
+    --admin-warning: 245 158 11; /* #f59e0b */
+    --admin-danger: 239 68 68; /* #ef4444 */
+    --admin-info: 59 130 246; /* #3b82f6 */
+  }
+
   body {
     @apply bg-background text-black font-sans;
   }

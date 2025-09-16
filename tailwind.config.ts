@@ -25,6 +25,16 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				// Admin interface colors
+				'admin-background': 'rgb(var(--admin-background))',
+				'admin-border': 'rgb(var(--admin-border))',
+				'admin-primary': 'rgb(var(--admin-primary))',
+				'admin-text': 'rgb(var(--admin-text))',
+				'admin-muted': 'rgb(var(--admin-muted))',
+				'admin-success': 'rgb(var(--admin-success))',
+				'admin-warning': 'rgb(var(--admin-warning))',
+				'admin-danger': 'rgb(var(--admin-danger))',
+				'admin-info': 'rgb(var(--admin-info))',
 				cream: {
 					50: '#FBF7F3', // Lightest warm cream
 					100: '#F9F3ED', // Very light warm cream
@@ -99,6 +109,9 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			boxShadow: {
+				'admin-card': 'var(--admin-card)',
 			},
 			fontFamily: {
 				sans: ['Montserrat', 'sans-serif'],

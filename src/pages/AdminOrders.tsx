@@ -3,16 +3,18 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Package, Search, Eye, Printer, Lock } from "lucide-react";
+import { Eye, Lock, ShoppingBag } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useAuth } from "@/contexts/AuthContext";
+import { OrdersStatsCards } from "@/components/OrdersStatsCards";
+import { OrdersFilters } from "@/components/OrdersFilters";
+import { useOrderStats } from "@/hooks/useOrderStats";
 import {
   Dialog,
   DialogContent,
@@ -44,9 +46,12 @@ interface OrderItem {
 
 const AdminOrders: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [dateFilter, setDateFilter] = useState("all");
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [showOrderDialog, setShowOrderDialog] = useState(false);
+  
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { isAuthenticated, user } = useAuth();
@@ -63,8 +68,11 @@ const AdminOrders: React.FC = () => {
       if (error) throw error;
       return data as Order[];
     },
-    enabled: isAuthenticated && isAdmin, // prevent running for non-admins or before role resolves
+    enabled: isAuthenticated && isAdmin,
   });
+
+  // Calculate statistics
+  const stats = useOrderStats(orders);
 
   // Update order status mutation
   const updateOrderStatus = useMutation({
@@ -91,63 +99,39 @@ const AdminOrders: React.FC = () => {
     }
   });
 
-  // Simple loading check first
-  if (roleLoading) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1 container mx-auto px-4 py-8">
-          <div className="flex items-center justify-center h-64">
-            <div className="text-lg">Checking permissions...</div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  // If not authenticated, show access restricted
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1 container mx-auto px-4 py-8">
-          <div className="flex flex-col items-center justify-center h-64 text-center">
-            <Lock className="h-16 w-16 text-muted-foreground mb-4" />
-            <h1 className="text-2xl font-bold mb-2">Please Sign In</h1>
-            <p className="text-muted-foreground">
-              You need to be logged in to access this page.
-            </p>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  // If not admin, show access restricted
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1 container mx-auto px-4 py-8">
-          <div className="flex flex-col items-center justify-center h-64 text-center">
-            <Lock className="h-16 w-16 text-muted-foreground mb-4" />
-            <h1 className="text-2xl font-bold mb-2">Access Restricted</h1>
-            <p className="text-muted-foreground">
-              Admin privileges required. Current role: {role || 'customer'}
-            </p>
-            <p className="text-sm text-muted-foreground mt-2">
-              Email: {user?.email}
-            </p>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-
+  // Filter orders based on search term, status, and date
+  const filteredOrders = useMemo(() => {
+    return orders.filter(order => {
+      const matchesSearch = 
+        order.order_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.customer_email?.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
+      
+      let matchesDate = true;
+      if (dateFilter !== 'all') {
+        const orderDate = new Date(order.created_at);
+        const now = new Date();
+        
+        switch (dateFilter) {
+          case 'today':
+            matchesDate = orderDate.toDateString() === now.toDateString();
+            break;
+          case 'week':
+            const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            matchesDate = orderDate >= weekAgo;
+            break;
+          case 'month':
+            const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+            matchesDate = orderDate >= monthAgo;
+            break;
+        }
+      }
+      
+      return matchesSearch && matchesStatus && matchesDate;
+    });
+  }, [orders, searchTerm, statusFilter, dateFilter]);
 
   // View order details
   const viewOrderDetails = async (order: Order) => {
@@ -171,133 +155,111 @@ const AdminOrders: React.FC = () => {
     setShowOrderDialog(true);
   };
 
-  // Print order for preparation
-  const printOrder = async (order: Order) => {
-    const { data, error } = await supabase
-      .from('order_items')
-      .select('*')
-      .eq('order_id', order.id);
-    
-    if (error) {
-      toast({
-        title: "Error",
-        description: "Failed to load order details for printing.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    // Create print content
-    const printContent = `
-      <html>
-        <head>
-          <title>Order ${order.order_number} - Preparation</title>
-          <style>
-            body { font-family: Arial, sans-serif; margin: 20px; }
-            .header { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
-            .section { margin-bottom: 20px; }
-            .section h3 { margin-bottom: 10px; border-bottom: 1px solid #ccc; }
-            .item { padding: 8px 0; border-bottom: 1px dotted #ccc; }
-            .item:last-child { border-bottom: none; }
-            .total { font-weight: bold; font-size: 1.2em; margin-top: 15px; }
-            .prep-notes { background: #f5f5f5; padding: 15px; margin-top: 20px; }
-            @media print { body { margin: 0; } }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <h1>ORDER PREPARATION SHEET</h1>
-            <p><strong>Order #:</strong> ${order.order_number}</p>
-            <p><strong>Date:</strong> ${format(new Date(order.created_at), 'MMM dd, yyyy HH:mm')}</p>
-            <p><strong>Status:</strong> ${order.status.toUpperCase()}</p>
-          </div>
-          
-          <div class="section">
-            <h3>CUSTOMER INFORMATION</h3>
-            <p><strong>Name:</strong> ${order.customer_name}</p>
-            <p><strong>Phone:</strong> ${order.customer_phone || 'N/A'}</p>
-            <p><strong>Email:</strong> ${order.customer_email || 'N/A'}</p>
-          </div>
-          
-          <div class="section">
-            <h3>SHIPPING ADDRESS</h3>
-            <p>${order.shipping_address}</p>
-            <p>${order.shipping_city}, ${order.shipping_zip_code}</p>
-          </div>
-          
-          <div class="section">
-            <h3>ITEMS TO PREPARE</h3>
-            ${data.map(item => `
-              <div class="item">
-                <strong>${item.product_name}</strong><br>
-                Quantity: <strong>${item.quantity}</strong> × $${item.product_price.toFixed(2)} = $${item.subtotal.toFixed(2)}
-              </div>
-            `).join('')}
-            <div class="total">
-              TOTAL: $${order.total_amount.toFixed(2)}
-            </div>
-          </div>
-          
-          <div class="prep-notes">
-            <h3>PREPARATION NOTES</h3>
-            <p>☐ Items picked and verified</p>
-            <p>☐ Items packed securely</p>
-            <p>☐ Shipping label attached</p>
-            <p>☐ Ready for pickup/delivery</p>
-            <br>
-            <p><strong>Prepared by:</strong> ________________</p>
-            <p><strong>Date prepared:</strong> ________________</p>
-          </div>
-        </body>
-      </html>
-    `;
-    
-    // Open print window
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      printWindow.document.write(printContent);
-      printWindow.document.close();
-      printWindow.focus();
-      setTimeout(() => {
-        printWindow.print();
-        printWindow.close();
-      }, 250);
-    }
+  // Print orders
+  const handlePrint = () => {
+    window.print();
   };
 
-  // Filter orders based on search term
-  const filteredOrders = useMemo(() => {
-    return orders.filter(order =>
-      order.order_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.customer_email?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [orders, searchTerm]);
+  // Export to CSV
+  const handleExport = () => {
+    const csvContent = [
+      'Order ID,Customer,Date,Amount,Status',
+      ...filteredOrders.map(order => 
+        `${order.order_number},"${order.customer_name}",${format(new Date(order.created_at), 'MMM dd, yyyy')},${order.total_amount.toFixed(2)},${order.status}`
+      )
+    ].join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `orders-${format(new Date(), 'yyyy-MM-dd')}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-admin-warning/10 text-admin-warning border-admin-warning/20';
       case 'processing':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-admin-info/10 text-admin-info border-admin-info/20';
       case 'shipped':
-        return 'bg-green-100 text-green-800';
+        return 'bg-admin-success/10 text-admin-success border-admin-success/20';
       case 'delivered':
-        return 'bg-emerald-100 text-emerald-800';
+        return 'bg-admin-success/10 text-admin-success border-admin-success/20';
       case 'cancelled':
-        return 'bg-red-100 text-red-800';
+        return 'bg-admin-danger/10 text-admin-danger border-admin-danger/20';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-admin-muted/10 text-admin-muted border-admin-muted/20';
     }
   };
 
-  if (isLoading) {
+  // Loading check
+  if (roleLoading) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-admin-background">
         <Navbar />
         <main className="flex-1 container mx-auto px-4 py-8">
           <div className="flex items-center justify-center h-64">
-            <div className="text-lg">Loading orders...</div>
+            <div className="text-lg text-admin-muted">Checking permissions...</div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Authentication check
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex flex-col bg-admin-background">
+        <Navbar />
+        <main className="flex-1 container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center justify-center h-64 text-center">
+            <Lock className="h-16 w-16 text-admin-muted mb-4" />
+            <h1 className="text-2xl font-bold mb-2 text-admin-text">Please Sign In</h1>
+            <p className="text-admin-muted">
+              You need to be logged in to access this page.
+            </p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Admin check
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex flex-col bg-admin-background">
+        <Navbar />
+        <main className="flex-1 container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center justify-center h-64 text-center">
+            <Lock className="h-16 w-16 text-admin-muted mb-4" />
+            <h1 className="text-2xl font-bold mb-2 text-admin-text">Access Restricted</h1>
+            <p className="text-admin-muted">
+              Admin privileges required. Current role: {role || 'customer'}
+            </p>
+            <p className="text-sm text-admin-muted mt-2">
+              Email: {user?.email}
+            </p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col bg-admin-background">
+        <Navbar />
+        <main className="flex-1 container mx-auto px-4 py-8">
+          <div className="flex items-center justify-center h-64">
+            <div className="text-lg text-admin-muted">Loading orders...</div>
           </div>
         </main>
         <Footer />
@@ -306,110 +268,120 @@ const AdminOrders: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-admin-background">
       <Navbar />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="flex items-center gap-2 mb-8">
-          <Package className="h-8 w-8" />
-          <h1 className="text-3xl font-bold">Order Management</h1>
-        </div>
-
-        {/* Search */}
-        <div className="mb-6">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search orders by number, customer name, or email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+      <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-admin-border">
+          <div className="flex items-center gap-3">
+            <ShoppingBag className="h-8 w-8 text-admin-primary" />
+            <h1 className="text-2xl font-bold text-admin-text">K-Beauty Journey - Orders</h1>
+          </div>
+          <div className="flex items-center gap-3 text-admin-muted">
+            <div className="w-10 h-10 rounded-full bg-admin-primary text-white flex items-center justify-center font-bold">
+              A
+            </div>
+            <div className="text-sm">{user?.email}</div>
           </div>
         </div>
 
-        {/* Orders Grid */}
-        <div className="grid gap-4">
-          {filteredOrders.length === 0 ? (
-            <Card>
-              <CardContent className="flex items-center justify-center h-32">
-                <p className="text-muted-foreground">No orders found</p>
-              </CardContent>
-            </Card>
-          ) : (
-            filteredOrders.map((order) => (
-              <Card key={order.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
-                      <div>
-                        <p className="font-semibold text-lg">{order.order_number}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {format(new Date(order.created_at), 'MMM dd, yyyy HH:mm')}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="font-medium">{order.customer_name}</p>
-                        <p className="text-sm text-muted-foreground">{order.customer_email}</p>
-                        <p className="text-sm text-muted-foreground">{order.customer_phone}</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold">${order.total_amount.toFixed(2)}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {order.shipping_city}, {order.shipping_zip_code}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                      <Badge className={getStatusColor(order.status)}>
-                        {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                      </Badge>
-                      
-                        <div className="flex gap-2">
-                         <Button
-                           variant="outline"
-                           size="sm"
-                           onClick={() => viewOrderDetails(order)}
-                         >
-                           <Eye className="h-4 w-4 mr-1" />
-                           View
-                         </Button>
-                         
-                         <Button
-                           variant="outline"
-                           size="sm"
-                           onClick={() => printOrder(order)}
-                           className="bg-green-50 hover:bg-green-100"
-                         >
-                           <Printer className="h-4 w-4 mr-1" />
-                           Print
-                         </Button>
-                        
-                        <Select
-                          value={order.status}
-                          onValueChange={(value) => 
-                            updateOrderStatus.mutate({ orderId: order.id, status: value })
-                          }
-                        >
-                          <SelectTrigger className="w-32">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="processing">Processing</SelectItem>
-                            <SelectItem value="shipped">Shipped</SelectItem>
-                            <SelectItem value="delivered">Delivered</SelectItem>
-                            <SelectItem value="cancelled">Cancelled</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))
-          )}
-        </div>
+        {/* Statistics Cards */}
+        <OrdersStatsCards
+          totalOrders={stats.totalOrders}
+          pendingOrders={stats.pendingOrders}
+          completedOrders={stats.completedOrders}
+          totalRevenue={stats.totalRevenue}
+          totalOrdersChange={stats.totalOrdersChange}
+          pendingOrdersChange={stats.pendingOrdersChange}
+          completedOrdersChange={stats.completedOrdersChange}
+          revenueChange={stats.revenueChange}
+        />
+
+        {/* Filters */}
+        <OrdersFilters
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          dateFilter={dateFilter}
+          setDateFilter={setDateFilter}
+          onPrint={handlePrint}
+          onExport={handleExport}
+        />
+
+        {/* Orders Table */}
+        <Card className="bg-white border-admin-border shadow-admin-card overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-admin-background border-b border-admin-border">
+                  <th className="text-left p-4 font-medium text-admin-text text-sm">Order ID</th>
+                  <th className="text-left p-4 font-medium text-admin-text text-sm">Customer</th>
+                  <th className="text-left p-4 font-medium text-admin-text text-sm">Date</th>
+                  <th className="text-left p-4 font-medium text-admin-text text-sm">Amount</th>
+                  <th className="text-left p-4 font-medium text-admin-text text-sm">Status</th>
+                  <th className="text-left p-4 font-medium text-admin-text text-sm">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredOrders.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="text-center p-8 text-admin-muted">
+                      No orders match your filter criteria
+                    </td>
+                  </tr>
+                ) : (
+                  filteredOrders.map((order) => (
+                    <tr key={order.id} className="border-b border-admin-border/50 hover:bg-admin-background/50">
+                      <td className="p-4 font-medium text-admin-text">{order.order_number}</td>
+                      <td className="p-4 text-admin-text">{order.customer_name}</td>
+                      <td className="p-4 text-admin-muted">
+                        {format(new Date(order.created_at), 'MMM dd, yyyy')}
+                      </td>
+                      <td className="p-4 font-medium text-admin-text">
+                        ${order.total_amount.toFixed(2)}
+                      </td>
+                      <td className="p-4">
+                        <Badge className={`${getStatusColor(order.status)} border`}>
+                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                        </Badge>
+                      </td>
+                      <td className="p-4">
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => viewOrderDetails(order)}
+                            className="h-8 w-8 p-0 hover:bg-admin-primary/10"
+                          >
+                            <Eye className="h-4 w-4 text-admin-muted hover:text-admin-primary" />
+                          </Button>
+                          <Select
+                            value={order.status}
+                            onValueChange={(value) => 
+                              updateOrderStatus.mutate({ orderId: order.id, status: value })
+                            }
+                          >
+                            <SelectTrigger className="w-28 h-8 text-xs border-admin-border">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="pending">Pending</SelectItem>
+                              <SelectItem value="processing">Processing</SelectItem>
+                              <SelectItem value="shipped">Shipped</SelectItem>
+                              <SelectItem value="delivered">Delivered</SelectItem>
+                              <SelectItem value="cancelled">Cancelled</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </Card>
       </main>
 
       {/* Order Details Dialog */}
@@ -472,17 +444,6 @@ const AdminOrders: React.FC = () => {
                     <span>${selectedOrder.total_amount.toFixed(2)}</span>
                   </div>
                 </div>
-              </div>
-
-              {/* Print Button in Dialog */}
-              <div className="flex justify-end pt-4 border-t">
-                <Button 
-                  onClick={() => printOrder(selectedOrder)}
-                  className="bg-green-600 hover:bg-green-700"
-                >
-                  <Printer className="h-4 w-4 mr-2" />
-                  Print Preparation Sheet
-                </Button>
               </div>
             </div>
           )}
