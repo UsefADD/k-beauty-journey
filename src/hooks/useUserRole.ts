@@ -18,30 +18,23 @@ export const useUserRole = () => {
       }
 
       try {
-        // Try to get existing profile
-        const { data, error, status } = await supabase
+        console.log('Fetching role for user:', user.id);
+        // Try to get existing profile with fresh query
+        const { data, error } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', user.id)
-          .maybeSingle();
+          .single();
 
-        if (!data) {
-          // Create a default customer profile if missing
-          const { error: insertErr } = await supabase
-            .from('profiles')
-            .insert({ id: user.id, email: user.email, full_name: user.user_metadata?.full_name || null });
-          if (insertErr) {
-            console.error('Failed to create profile:', insertErr);
-          }
-          // Try fetching again
-          const { data: afterInsert } = await supabase
-            .from('profiles')
-            .select('role')
-            .eq('id', user.id)
-            .maybeSingle();
-          setRole((afterInsert?.role as UserRole) || 'customer');
+        console.log('Profile data:', data, 'Error:', error);
+        
+        if (error) {
+          console.error('Error fetching profile:', error);
+          setRole('customer');
         } else {
-          setRole((data.role as UserRole) || 'customer');
+          const userRole = (data?.role as UserRole) || 'customer';
+          console.log('Setting role to:', userRole);
+          setRole(userRole);
         }
       } catch (error) {
         console.error('Error fetching user role:', error);
