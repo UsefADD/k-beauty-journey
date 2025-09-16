@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Eye, Lock, ShoppingBag } from "lucide-react";
+import { Eye, Lock, ShoppingBag, Printer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { useUserRole } from "@/hooks/useUserRole";
@@ -155,7 +155,204 @@ const AdminOrders: React.FC = () => {
     setShowOrderDialog(true);
   };
 
-  // Print orders
+  // Print individual order
+  const printOrder = async (order: Order) => {
+    const { data, error } = await supabase
+      .from('order_items')
+      .select('*')
+      .eq('order_id', order.id);
+    
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to load order details for printing.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Create print content
+    const printContent = `
+      <html>
+        <head>
+          <title>Order ${order.order_number} - K-Beauty Journey</title>
+          <style>
+            body { 
+              font-family: Arial, sans-serif; 
+              margin: 20px; 
+              color: #333;
+              line-height: 1.4;
+            }
+            .header { 
+              border-bottom: 2px solid #8b5cf6; 
+              padding-bottom: 15px; 
+              margin-bottom: 25px; 
+              text-align: center;
+            }
+            .header h1 {
+              color: #8b5cf6;
+              margin: 0 0 5px 0;
+              font-size: 24px;
+            }
+            .header p {
+              margin: 0;
+              color: #6b7280;
+            }
+            .section { 
+              margin-bottom: 25px; 
+              background: #f9fafb;
+              padding: 15px;
+              border-radius: 8px;
+            }
+            .section h3 { 
+              margin: 0 0 10px 0; 
+              color: #374151;
+              font-size: 16px;
+              border-bottom: 1px solid #e5e7eb;
+              padding-bottom: 5px;
+            }
+            .info-row {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+            }
+            .info-label {
+              font-weight: bold;
+              color: #6b7280;
+            }
+            .item { 
+              padding: 12px 0; 
+              border-bottom: 1px dotted #d1d5db; 
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+            .item:last-child { border-bottom: none; }
+            .item-details {
+              flex: 1;
+            }
+            .item-name {
+              font-weight: bold;
+              margin-bottom: 4px;
+            }
+            .item-price {
+              color: #6b7280;
+              font-size: 14px;
+            }
+            .item-total {
+              font-weight: bold;
+              font-size: 16px;
+              color: #8b5cf6;
+            }
+            .total { 
+              font-weight: bold; 
+              font-size: 18px; 
+              margin-top: 15px; 
+              text-align: right;
+              padding-top: 15px;
+              border-top: 2px solid #8b5cf6;
+              color: #8b5cf6;
+            }
+            .status {
+              display: inline-block;
+              padding: 4px 12px;
+              border-radius: 20px;
+              font-size: 12px;
+              font-weight: bold;
+              text-transform: uppercase;
+            }
+            .status-completed { background: #ecfdf5; color: #10b981; }
+            .status-pending { background: #fffbeb; color: #f59e0b; }
+            .status-processing { background: #eff6ff; color: #3b82f6; }
+            .status-cancelled { background: #fef2f2; color: #ef4444; }
+            @media print { 
+              body { margin: 0; }
+              .no-print { display: none; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>K-Beauty Journey</h1>
+            <p>Order Receipt</p>
+          </div>
+          
+          <div class="section">
+            <h3>Order Information</h3>
+            <div class="info-row">
+              <span class="info-label">Order Number:</span>
+              <span>${order.order_number}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Date:</span>
+              <span>${format(new Date(order.created_at), 'MMMM dd, yyyy HH:mm')}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Status:</span>
+              <span class="status status-${order.status}">${order.status}</span>
+            </div>
+          </div>
+          
+          <div class="section">
+            <h3>Customer Information</h3>
+            <div class="info-row">
+              <span class="info-label">Name:</span>
+              <span>${order.customer_name}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Email:</span>
+              <span>${order.customer_email || 'N/A'}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Phone:</span>
+              <span>${order.customer_phone || 'N/A'}</span>
+            </div>
+          </div>
+          
+          <div class="section">
+            <h3>Shipping Address</h3>
+            <p>${order.shipping_address}</p>
+            <p>${order.shipping_city}, ${order.shipping_zip_code}</p>
+          </div>
+          
+          <div class="section">
+            <h3>Order Items</h3>
+            ${data.map(item => `
+              <div class="item">
+                <div class="item-details">
+                  <div class="item-name">${item.product_name}</div>
+                  <div class="item-price">${item.product_price.toFixed(2)} dhs × ${item.quantity}</div>
+                </div>
+                <div class="item-total">${item.subtotal.toFixed(2)} dhs</div>
+              </div>
+            `).join('')}
+            <div class="total">
+              Total: ${order.total_amount.toFixed(2)} dhs
+            </div>
+          </div>
+          
+          <div class="section" style="text-align: center; margin-top: 30px;">
+            <p style="color: #6b7280; font-size: 14px;">Thank you for your order!</p>
+            <p style="color: #6b7280; font-size: 12px;">K-Beauty Journey - Your Korean Skincare Destination</p>
+          </div>
+        </body>
+      </html>
+    `;
+    
+    // Open print window
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    if (printWindow) {
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 250);
+    }
+  };
+
+  // Print all orders (existing functionality)
   const handlePrint = () => {
     window.print();
   };
@@ -347,16 +544,28 @@ const AdminOrders: React.FC = () => {
                         </Badge>
                       </td>
                       <td className="p-4">
-                        <div className="flex items-center gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => viewOrderDetails(order)}
-                            className="h-8 w-8 p-0 hover:bg-admin-primary/10"
-                          >
-                            <Eye className="h-4 w-4 text-admin-muted hover:text-admin-primary" />
-                          </Button>
-                          <Select
+                         <div className="flex items-center gap-2">
+                           <Button
+                             variant="ghost"
+                             size="sm"
+                             onClick={() => viewOrderDetails(order)}
+                             className="h-8 w-8 p-0 hover:bg-admin-primary/10"
+                             title="View Details"
+                           >
+                             <Eye className="h-4 w-4 text-admin-muted hover:text-admin-primary" />
+                           </Button>
+                           
+                           <Button
+                             variant="ghost"
+                             size="sm"
+                             onClick={() => printOrder(order)}
+                             className="h-8 w-8 p-0 hover:bg-admin-success/10"
+                             title="Print Order"
+                           >
+                             <Printer className="h-4 w-4 text-admin-muted hover:text-admin-success" />
+                           </Button>
+                           
+                           <Select
                             value={order.status}
                             onValueChange={(value) => 
                               updateOrderStatus.mutate({ orderId: order.id, status: value })
