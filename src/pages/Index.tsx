@@ -7,17 +7,18 @@ import FeaturedProducts from '../components/FeaturedProducts';
 import RoutineBanner from '../components/RoutineBanner';
 import BlogSection from '../components/BlogSection';
 import Footer from '../components/Footer';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <HeroSection />
-      <BestSellers />
-      <FeaturedProducts />
-      <RoutineBanner />
-      <BlogSection />
-      <Footer />
+      <ErrorBoundary name="Navbar"><Navbar /></ErrorBoundary>
+      <ErrorBoundary name="HeroSection"><HeroSection /></ErrorBoundary>
+      <ErrorBoundary name="BestSellers"><BestSellers /></ErrorBoundary>
+      <ErrorBoundary name="FeaturedProducts"><FeaturedProducts /></ErrorBoundary>
+      <ErrorBoundary name="RoutineBanner"><RoutineBanner /></ErrorBoundary>
+      <ErrorBoundary name="BlogSection"><BlogSection /></ErrorBoundary>
+      <ErrorBoundary name="Footer"><Footer /></ErrorBoundary>
     </div>
   );
 };

@@ -6,8 +6,8 @@ interface ErrorBoundaryState {
   errorInfo?: React.ErrorInfo;
 }
 
-class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, ErrorBoundaryState> {
-  constructor(props: React.PropsWithChildren<{}>) {
+class ErrorBoundary extends React.Component<React.PropsWithChildren<{ name?: string }>, ErrorBoundaryState> {
+  constructor(props: React.PropsWithChildren<{ name?: string }>) {
     super(props);
     this.state = { hasError: false };
   }
@@ -17,7 +17,7 @@ class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, ErrorBo
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('App crashed with error:', error, errorInfo);
+    console.error(`App crashed in ${this.props?.name ?? 'Unknown boundary'}:`, error, errorInfo);
     this.setState({ errorInfo });
   }
 
@@ -26,7 +26,7 @@ class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, ErrorBo
       return (
         <div className="min-h-screen flex items-center justify-center p-6">
           <div className="max-w-lg text-center space-y-4">
-            <h1 className="text-2xl font-semibold">Something went wrong</h1>
+            <h1 className="text-2xl font-semibold">Something went wrong{this.props?.name ? ` in ${this.props.name}` : ''}</h1>
             <p className="text-muted-foreground">{this.state.error?.message}</p>
             {this.state.errorInfo?.componentStack && (
               <details className="text-left mx-auto w-full max-w-lg bg-muted/30 p-3 rounded">
