@@ -114,7 +114,7 @@ export default {
 				'admin-card': 'var(--admin-card)',
 			},
 			fontFamily: {
-				sans: ['Inter', 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+				sans: ['Roboto', 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
 				serif: ['Playfair Display', 'serif'],
 			},
 			borderRadius: {
