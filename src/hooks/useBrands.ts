@@ -1,92 +1,60 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { 
-  brandsData, 
+  fetchBrandsFromProducts,
+  searchBrands as searchBrandsData, 
   getBrandsByLetter, 
-  getFeaturedBrands, 
-  getPopularBrands, 
-  getNewBrands, 
-  searchBrands,
+  sortBrands, 
   type Brand 
-} from '../data/brandsData';
-
-export type BrandFilter = 'all' | 'featured' | 'popular' | 'new';
-export type SortOption = 'name' | 'established' | 'productCount';
+} from '@/data/brandsData';
 
 export const useBrands = () => {
-  const [activeFilter, setActiveFilter] = useState<BrandFilter>('all');
-  const [activeLetter, setActiveLetter] = useState<string>('');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [sortBy, setSortBy] = useState<SortOption>('name');
+  const [allBrands, setAllBrands] = useState<Brand[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedLetter, setSelectedLetter] = useState('');
+  const [sortBy, setSortBy] = useState<'name' | 'productCount'>('name');
 
-  const filteredBrands = useMemo(() => {
-    let brands = brandsData;
-
-    // Apply filter
-    switch (activeFilter) {
-      case 'featured':
-        brands = getFeaturedBrands();
-        break;
-      case 'popular':
-        brands = getPopularBrands();
-        break;
-      case 'new':
-        brands = getNewBrands();
-        break;
-      default:
-        brands = brandsData;
-    }
-
-    // Apply letter filter
-    if (activeLetter) {
-      brands = getBrandsByLetter(activeLetter);
-    }
-
-    // Apply search
+  useEffect(() => {
+    const loadBrands = async () => {
+      setIsLoading(true);
+      const brands = await fetchBrandsFromProducts();
+      setAllBrands(brands);
+      setIsLoading(false);
+    };
+    loadBrands();
+  }, []);
+  
+  const brands = useMemo(() => {
+    let filtered = allBrands;
+    
+    // Apply search filter
     if (searchQuery) {
-      brands = searchBrands(searchQuery);
+      filtered = searchBrandsData(filtered, searchQuery);
     }
-
+    
+    // Apply letter filter
+    if (selectedLetter) {
+      filtered = getBrandsByLetter(filtered, selectedLetter);
+    }
+    
     // Apply sorting
-    const sortedBrands = [...brands].sort((a, b) => {
-      switch (sortBy) {
-        case 'established':
-          return b.established - a.established;
-        case 'productCount':
-          return b.productCount - a.productCount;
-        case 'name':
-        default:
-          return a.name.localeCompare(b.name);
-      }
-    });
+    return sortBrands(filtered, sortBy);
+  }, [searchQuery, selectedLetter, sortBy, allBrands]);
 
-    return sortedBrands;
-  }, [activeFilter, activeLetter, searchQuery, sortBy]);
-
-  const getAvailableLetters = () => {
-    const letters = new Set<string>();
-    brandsData.forEach(brand => {
-      const firstChar = brand.name.charAt(0).toUpperCase();
-      if (/[A-Z]/.test(firstChar)) {
-        letters.add(firstChar);
-      } else if (/[0-9]/.test(firstChar)) {
-        letters.add('#');
-      }
-    });
+  const availableLetters = useMemo(() => {
+    const letters = new Set(allBrands.map(brand => brand.name.charAt(0).toUpperCase()));
     return Array.from(letters).sort();
-  };
+  }, [allBrands]);
 
   return {
-    brands: filteredBrands,
-    activeFilter,
-    setActiveFilter,
-    activeLetter,
-    setActiveLetter,
+    brands,
+    isLoading,
     searchQuery,
     setSearchQuery,
+    selectedLetter,
+    setSelectedLetter,
     sortBy,
     setSortBy,
-    availableLetters: getAvailableLetters(),
-    totalBrands: brandsData.length,
-    filteredCount: filteredBrands.length
+    availableLetters,
   };
 };

@@ -4,10 +4,19 @@ import { Link } from 'react-router-dom';
 import { Badge } from './ui/badge';
 import { Card, CardContent } from './ui/card';
 import { useBrands } from '../hooks/useBrands';
-import { MapPin, Calendar, Package } from 'lucide-react';
+import { Package, Loader2 } from 'lucide-react';
 
 const BrandsList = () => {
-  const { brands } = useBrands();
+  const { brands, isLoading } = useBrands();
+
+  if (isLoading) {
+    return (
+      <div className="w-full md:w-3/4 flex justify-center items-center py-12">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <span className="ml-2 text-muted-foreground">Loading brands...</span>
+      </div>
+    );
+  }
 
   if (brands.length === 0) {
     return (
@@ -32,21 +41,9 @@ const BrandsList = () => {
                   className="w-full h-48 object-cover object-center group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-3 left-3 flex gap-2">
-                  {brand.featured && (
-                    <Badge variant="secondary" className="bg-primary text-primary-foreground">
-                      Featured
-                    </Badge>
-                  )}
-                  {brand.new && (
-                    <Badge variant="secondary" className="bg-emerald-500 text-white">
-                      New
-                    </Badge>
-                  )}
-                  {brand.popular && (
-                    <Badge variant="secondary" className="bg-orange-500 text-white">
-                      Popular
-                    </Badge>
-                  )}
+                  <Badge variant="secondary" className="bg-primary text-primary-foreground">
+                    {brand.productCount} {brand.productCount === 1 ? 'Product' : 'Products'}
+                  </Badge>
                 </div>
               </div>
               
@@ -64,28 +61,20 @@ const BrandsList = () => {
                 
                 <div className="space-y-2 text-xs text-muted-foreground">
                   <div className="flex items-center gap-2">
-                    <MapPin className="h-3 w-3" />
-                    <span>{brand.country}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-3 w-3" />
-                    <span>Est. {brand.established}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
                     <Package className="h-3 w-3" />
-                    <span>{brand.productCount} products</span>
+                    <span>{brand.productCount} {brand.productCount === 1 ? 'product' : 'products'}</span>
                   </div>
                 </div>
                 
                 <div className="mt-3 flex flex-wrap gap-1">
-                  {brand.specialties.slice(0, 2).map((specialty) => (
-                    <Badge key={specialty} variant="outline" className="text-xs">
-                      {specialty}
+                  {brand.products.slice(0, 3).map((product) => (
+                    <Badge key={product.id} variant="outline" className="text-xs">
+                      {product.product_type}
                     </Badge>
                   ))}
-                  {brand.specialties.length > 2 && (
+                  {brand.products.length > 3 && (
                     <Badge variant="outline" className="text-xs">
-                      +{brand.specialties.length - 2} more
+                      +{brand.products.length - 3} more
                     </Badge>
                   )}
                 </div>

@@ -4,15 +4,15 @@ import { Button } from './ui/button';
 import { useBrands } from '../hooks/useBrands';
 
 const AlphabetNavigation = () => {
-  const { availableLetters, activeLetter, setActiveLetter } = useBrands();
+  const { availableLetters, selectedLetter, setSelectedLetter } = useBrands();
   const alphabet = ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   
   return (
     <div className="flex flex-wrap justify-center gap-1 mb-6">
       <Button
-        variant={activeLetter === '' ? 'default' : 'outline'}
+        variant={selectedLetter === '' ? 'default' : 'outline'}
         size="sm"
-        onClick={() => setActiveLetter('')}
+        onClick={() => setSelectedLetter('')}
         className="min-w-[40px]"
       >
         ALL
@@ -22,9 +22,9 @@ const AlphabetNavigation = () => {
         return (
           <Button
             key={letter}
-            variant={activeLetter === letter ? 'default' : 'outline'}
+            variant={selectedLetter === letter ? 'default' : 'outline'}
             size="sm"
-            onClick={() => setActiveLetter(letter)}
+            onClick={() => setSelectedLetter(letter)}
             disabled={!hasLetterBrands}
             className="min-w-[40px]"
           >
