@@ -1,60 +1,88 @@
 import React from 'react';
-
+import { Mail, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 const Footer = () => {
-  return (
-    <footer className="bg-muted">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 py-12 px-4">
+  console.info('Render: Footer');
+  return <footer className="bg-white border-t border-gray-200">
+      <div className="bg-white py-6 text-center">
+        <div className="container mx-auto px-4">
+          
+          
+          
+          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <input type="email" placeholder="Your email address" className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 max-w-xs w-full" />
+            <Button className="uppercase bg-white hover:bg-cream-100 text-pink-800 border border-cream-300">
+              Subscribe
+            </Button>
+          </div>
+        </div>
+      </div>
+      
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-base font-semibold mb-5 text-foreground">À PROPOS</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Notre histoire</a></li>
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Notre équipe</a></li>
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Blog</a></li>
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Carrières</a></li>
+            <h4 className="font-serif text-lg font-medium text-pink-800 mb-4">SHOP</h4>
+            <ul className="space-y-2 text-cream-700 text-sm">
+              <li><a href="#" className="hover:text-pink-800">Best Sellers</a></li>
+              <li><a href="#" className="hover:text-pink-800">New Arrivals</a></li>
+              <li><a href="#" className="hover:text-pink-800">K-Beauty Sets</a></li>
+              <li><a href="#" className="hover:text-pink-800">Special Offers</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="text-base font-semibold mb-5 text-foreground">INFORMATIONS</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Conditions générales</a></li>
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Politique de confidentialité</a></li>
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Politique de retour</a></li>
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">FAQ</a></li>
+            <h4 className="font-serif text-lg font-medium text-pink-800 mb-4">LEARN</h4>
+            <ul className="space-y-2 text-cream-700 text-sm">
+              <li><a href="#" className="hover:text-pink-800">About K-Beauty</a></li>
+              <li><a href="#" className="hover:text-pink-800">Skincare Guides</a></li>
+              <li><a href="#" className="hover:text-pink-800">Ingredient Library</a></li>
+              <li><a href="#" className="hover:text-pink-800">Skin Types</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="text-base font-semibold mb-5 text-foreground">CONTACT</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Service client</a></li>
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Nous contacter</a></li>
-              <li><a href="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">Stores</a></li>
+            <h4 className="font-serif text-lg font-medium text-pink-800 mb-4">ABOUT</h4>
+            <ul className="space-y-2 text-cream-700 text-sm">
+              <li><a href="#" className="hover:text-pink-800">Our Story</a></li>
+              <li><a href="#" className="hover:text-pink-800">Contact Us</a></li>
+              <li><a href="#" className="hover:text-pink-800">FAQ</a></li>
+              <li><a href="#" className="hover:text-pink-800">Shipping & Returns</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="text-base font-semibold mb-5 text-foreground">NEWSLETTER</h3>
-            <div className="space-y-3">
-              <input 
-                type="email" 
-                placeholder="Votre email" 
-                className="w-full py-3 px-3 border border-border rounded bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <button className="w-full bg-primary text-primary-foreground border-0 py-3 px-4 rounded font-semibold cursor-pointer hover:opacity-90 transition-opacity">
-                S'abonner
-              </button>
+            <h4 className="font-serif text-lg font-medium text-pink-800 mb-4">CONNECT</h4>
+            <div className="flex space-x-4 mb-6">
+              <a href="#" className="text-pink-600 hover:text-pink-800">
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-pink-600 hover:text-pink-800">
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-pink-600 hover:text-pink-800">
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-pink-600 hover:text-pink-800">
+                <Mail className="h-5 w-5" />
+              </a>
             </div>
+            <p className="text-sm text-zinc-800">
+              Join our community for exclusive offers, skincare tips, and inspiration.
+            </p>
           </div>
         </div>
         
-        <div className="text-center py-5 border-t border-border text-muted-foreground text-sm">
-          &copy; 2025 korean skincare.fr - Tous droits réservés
+        <div className="mt-12 pt-8 border-t border-gray-100 text-center">
+          <p className="text-sm text-gray-500">
+            &copy; {new Date().getFullYear()} K-Beauty Journey. All rights reserved.
+          </p>
+          <div className="mt-4 flex justify-center space-x-6 text-xs text-gray-500">
+            <a href="#" className="hover:text-gray-700">Privacy Policy</a>
+            <a href="#" className="hover:text-gray-700">Terms of Service</a>
+            <a href="#" className="hover:text-gray-700">Accessibility</a>
+          </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;

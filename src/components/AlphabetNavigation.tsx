@@ -10,10 +10,10 @@ const AlphabetNavigation = () => {
       {availableLetters.map((letter) => (
         <div
           key={letter}
-          className={`w-11 h-11 flex items-center justify-center rounded-full cursor-pointer font-bold text-base transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:-translate-y-1 hover:shadow-lg ${
+          className={`w-12 h-12 flex items-center justify-center rounded-full cursor-pointer font-bold text-lg transition-all duration-300 hover:bg-blue-500 hover:text-white hover:-translate-y-1 hover:shadow-lg ${
             selectedLetter === letter 
-              ? 'bg-primary text-primary-foreground scale-110' 
-              : 'bg-muted text-foreground'
+              ? 'bg-blue-500 text-white scale-110' 
+              : 'bg-gray-200 text-gray-700'
           }`}
           onClick={() => setSelectedLetter(letter)}
         >
