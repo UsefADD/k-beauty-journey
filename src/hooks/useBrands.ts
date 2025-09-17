@@ -27,18 +27,25 @@ export const useBrands = () => {
   const brands = useMemo(() => {
     let filtered = [...allBrands];
     
+    console.log('All brands:', allBrands.map(b => b.name));
+    console.log('Selected letter:', selectedLetter);
+    
     // Apply letter filter first
     if (selectedLetter) {
       filtered = getBrandsByLetter(filtered, selectedLetter);
+      console.log('After letter filter:', filtered.map(b => b.name));
     }
     
     // Apply search filter
     if (searchQuery) {
       filtered = searchBrandsData(filtered, searchQuery);
+      console.log('After search filter:', filtered.map(b => b.name));
     }
     
     // Apply sorting
-    return sortBrands(filtered, sortBy);
+    const sorted = sortBrands(filtered, sortBy);
+    console.log('Final filtered brands:', sorted.map(b => b.name));
+    return sorted;
   }, [searchQuery, selectedLetter, sortBy, allBrands]);
 
   const availableLetters = useMemo(() => {

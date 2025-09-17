@@ -67,8 +67,16 @@ export const searchBrands = (brands: Brand[], query: string) =>
     brand.description.toLowerCase().includes(query.toLowerCase())
   );
 
-export const getBrandsByLetter = (brands: Brand[], letter: string) => 
-  brands.filter(brand => brand.name.toUpperCase().startsWith(letter.toUpperCase()));
+export const getBrandsByLetter = (brands: Brand[], letter: string) => {
+  console.log('getBrandsByLetter called with:', letter, 'brands:', brands.map(b => b.name));
+  const filtered = brands.filter(brand => {
+    const matches = brand.name.toUpperCase().startsWith(letter.toUpperCase());
+    console.log(`Brand ${brand.name} starts with ${letter}:`, matches);
+    return matches;
+  });
+  console.log('Filtered result:', filtered.map(b => b.name));
+  return filtered;
+};
 
 export const sortBrands = (brands: Brand[], sortBy: 'name' | 'productCount') => {
   return [...brands].sort((a, b) => {
