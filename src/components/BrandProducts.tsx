@@ -9,29 +9,37 @@ interface BrandProductsProps {
 
 const BrandProducts = ({ brand, onBack }: BrandProductsProps) => {
   return (
-    <div className="bg-white rounded-xl p-5 shadow-sm mb-10">
-      <div className="flex justify-between items-center mb-5 pb-2.5 border-b border-gray-200">
-        <h2 className="text-2xl font-semibold">{brand.name} Products</h2>
+    <div className="bg-white rounded-2xl p-8 shadow-lg mb-10">
+      <div className="flex justify-between items-center mb-8 pb-4 border-b-2 border-gray-200">
+        <h2 className="text-3xl font-bold text-gray-800">{brand.name} Products</h2>
         <button
           onClick={onBack}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-colors"
+          className="bg-blue-500 text-white px-5 py-3 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-all duration-300 hover:-translate-x-1 font-semibold"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Brands
         </button>
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {brand.products.map((product) => (
           <div 
             key={product.id}
-            className="bg-gray-50 rounded-lg p-4 hover:-translate-y-1 transition-transform duration-300"
+            className="bg-gray-50 rounded-xl p-5 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 overflow-hidden"
           >
-            <div className="h-30 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mb-4 text-white text-2xl">
-              📦
+            <div className="h-44 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mb-5 text-white text-4xl overflow-hidden relative">
+              {product.image_url ? (
+                <img 
+                  src={product.image_url} 
+                  alt={product.name}
+                  className="w-full h-full object-cover absolute inset-0"
+                />
+              ) : (
+                '📦'
+              )}
             </div>
-            <div className="font-semibold mb-1">{product.name}</div>
-            <div className="text-blue-500 font-bold">{product.price} AED</div>
+            <div className="font-bold mb-2 text-lg text-gray-800">{product.name}</div>
+            <div className="text-blue-500 font-extrabold text-xl">{product.price}</div>
           </div>
         ))}
       </div>

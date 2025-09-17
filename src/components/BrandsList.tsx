@@ -34,18 +34,18 @@ const BrandsList = ({ onBrandSelect }: BrandsListProps) => {
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
         {brands.map((brand) => (
           <div 
             key={brand.id} 
-            className="bg-white rounded-xl p-5 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+            className="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center text-center"
             onClick={() => onBrandSelect(brand)}
           >
-            <div className="w-15 h-15 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mb-4 text-white text-xl font-bold">
+            <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-5 text-white text-2xl font-bold shadow-lg">
               {brand.name.charAt(0)}
             </div>
-            <div className="text-lg font-semibold mb-2">{brand.name}</div>
-            <div className="text-gray-600 text-sm">{brand.description}</div>
+            <div className="text-xl font-bold mb-3 text-gray-800">{brand.name}</div>
+            <div className="text-gray-600 text-base leading-relaxed">{brand.description}</div>
           </div>
         ))}
       </div>
