@@ -30,39 +30,18 @@ const BrandsList = () => {
 
   return (
     <div className="w-full md:w-3/4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {brands.map((brand) => (
           <Card key={brand.id} className="group hover:shadow-md transition-all duration-300 hover:border-primary/50">
-            <CardContent className="p-6">
+            <CardContent className="p-4">
               <Link 
                 to={`/shop/brand/${brand.id}`}
                 className="block hover:text-primary transition-colors"
               >
-                <div className="text-center space-y-3">
-                  <h3 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">
+                <div className="text-center">
+                  <h3 className="font-medium text-lg group-hover:text-primary transition-colors">
                     {brand.name}
                   </h3>
-                  
-                  <Badge variant="secondary" className="bg-primary/10 text-primary">
-                    {brand.productCount} {brand.productCount === 1 ? 'Product' : 'Products'}
-                  </Badge>
-                  
-                  <p className="text-sm text-muted-foreground">
-                    {brand.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap justify-center gap-1 mt-3">
-                    {brand.products.slice(0, 2).map((product) => (
-                      <Badge key={product.id} variant="outline" className="text-xs">
-                        {product.product_type}
-                      </Badge>
-                    ))}
-                    {brand.products.length > 2 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{brand.products.length - 2} more
-                      </Badge>
-                    )}
-                  </div>
                 </div>
               </Link>
             </CardContent>
