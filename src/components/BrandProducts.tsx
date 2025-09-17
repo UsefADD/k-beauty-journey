@@ -31,7 +31,7 @@ const BrandProducts = ({ brand, onBack }: BrandProductsProps) => {
               📦
             </div>
             <div className="font-semibold mb-1">{product.name}</div>
-            <div className="text-blue-500 font-bold">${product.price}</div>
+            <div className="text-blue-500 font-bold">{product.price} AED</div>
           </div>
         ))}
       </div>
