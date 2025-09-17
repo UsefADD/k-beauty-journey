@@ -25,16 +25,16 @@ export const useBrands = () => {
   }, []);
   
   const brands = useMemo(() => {
-    let filtered = allBrands;
+    let filtered = [...allBrands];
+    
+    // Apply letter filter first
+    if (selectedLetter) {
+      filtered = getBrandsByLetter(filtered, selectedLetter);
+    }
     
     // Apply search filter
     if (searchQuery) {
       filtered = searchBrandsData(filtered, searchQuery);
-    }
-    
-    // Apply letter filter
-    if (selectedLetter) {
-      filtered = getBrandsByLetter(filtered, selectedLetter);
     }
     
     // Apply sorting
