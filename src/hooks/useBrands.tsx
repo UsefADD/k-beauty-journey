@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, createContext, useContext } from 'react';
 import { 
   fetchBrandsFromProducts,
   searchBrands as searchBrandsData, 
@@ -7,7 +7,22 @@ import {
   type Brand 
 } from '@/data/brandsData';
 
-export const useBrands = () => {
+interface BrandsContextType {
+  allBrands: Brand[];
+  isLoading: boolean;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  selectedLetter: string;
+  setSelectedLetter: (letter: string) => void;
+  sortBy: 'name' | 'productCount';
+  setSortBy: (sort: 'name' | 'productCount') => void;
+  brands: Brand[];
+  availableLetters: string[];
+}
+
+const BrandsContext = createContext<BrandsContextType | null>(null);
+
+export const BrandsProvider = ({ children }: { children: React.ReactNode }) => {
   const [allBrands, setAllBrands] = useState<Brand[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,25 +42,18 @@ export const useBrands = () => {
   const brands = useMemo(() => {
     let filtered = [...allBrands];
     
-    console.log('All brands:', allBrands.map(b => b.name));
-    console.log('Selected letter:', selectedLetter);
-    
     // Apply letter filter first
     if (selectedLetter) {
       filtered = getBrandsByLetter(filtered, selectedLetter);
-      console.log('After letter filter:', filtered.map(b => b.name));
     }
     
     // Apply search filter
     if (searchQuery) {
       filtered = searchBrandsData(filtered, searchQuery);
-      console.log('After search filter:', filtered.map(b => b.name));
     }
     
     // Apply sorting
-    const sorted = sortBrands(filtered, sortBy);
-    console.log('Final filtered brands:', sorted.map(b => b.name));
-    return sorted;
+    return sortBrands(filtered, sortBy);
   }, [searchQuery, selectedLetter, sortBy, allBrands]);
 
   const availableLetters = useMemo(() => {
@@ -53,8 +61,8 @@ export const useBrands = () => {
     return Array.from(letters).sort();
   }, [allBrands]);
 
-  return {
-    brands,
+  const value = {
+    allBrands,
     isLoading,
     searchQuery,
     setSearchQuery,
@@ -62,6 +70,21 @@ export const useBrands = () => {
     setSelectedLetter,
     sortBy,
     setSortBy,
+    brands,
     availableLetters,
   };
+
+  return (
+    <BrandsContext.Provider value={value}>
+      {children}
+    </BrandsContext.Provider>
+  );
+};
+
+export const useBrands = () => {
+  const context = useContext(BrandsContext);
+  if (!context) {
+    throw new Error('useBrands must be used within a BrandsProvider');
+  }
+  return context;
 };
