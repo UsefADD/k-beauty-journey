@@ -20,7 +20,7 @@ const NewArrivals = () => {
               {t('new.arrivals.description')}
             </p>
             <Link to="/shop/newly-curated">
-              <Button className="uppercase bg-white hover:bg-cream-100 border border-cream-300 text-zinc-900">
+              <Button>
                 {t('shop.newly.curated')}
               </Button>
             </Link>

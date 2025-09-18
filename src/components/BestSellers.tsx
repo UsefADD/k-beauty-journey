@@ -58,7 +58,7 @@ const BestSellers = () => {
         
         <div className="mt-12 text-center">
           <Link to="/shop/best-sellers">
-            <Button className="uppercase bg-white hover:bg-cream-100 border border-cream-300 text-zinc-900">
+            <Button>
               {t('view.all.best.sellers')}
             </Button>
           </Link>

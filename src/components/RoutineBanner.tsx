@@ -100,7 +100,7 @@ const RoutineBanner = () => {
 
         <div className="mt-8">
           <Link to="/shop/sets">
-            <Button className="uppercase bg-white hover:bg-cream-100 border border-cream-300 text-zinc-900">
+            <Button>
               Shop Routine Sets
             </Button>
           </Link>

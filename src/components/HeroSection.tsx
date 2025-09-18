@@ -65,7 +65,7 @@ const HeroSection = () => {
                     <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif text-zinc-200">{slides[currentSlide].title}</h2>
                     <p className="text-xl md:text-2xl mb-6 text-zinc-200">{slides[currentSlide].subtitle}</p>
                     {currentSlide === 1 && <Link to="/shop/newly-curated">
-                        <Button variant="default" size="lg" className="bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-md">
+                        <Button variant="default" size="lg">
                           Get Ready for Spring
                         </Button>
                       </Link>}
@@ -73,7 +73,7 @@ const HeroSection = () => {
                 </div> : <div className="absolute inset-0 flex items-end justify-start p-12">
                   <div className="text-center mb-30 -ml-8">
                     <Link to="/shop/best-sellers">
-                      <Button variant="default" size="lg" className="bg-transparent hover:bg-white/20 text-white font-medium rounded-md border border-white py-0">
+                      <Button variant="default" size="lg">
                         Craquez pour nos best-sellers
                       </Button>
                     </Link>

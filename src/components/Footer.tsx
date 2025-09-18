@@ -11,7 +11,7 @@ const Footer = () => {
           
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
             <input type="email" placeholder="Your email address" className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 max-w-xs w-full" />
-            <Button className="uppercase bg-white hover:bg-cream-100 text-pink-800 border border-cream-300">
+            <Button>
               Subscribe
             </Button>
           </div>
