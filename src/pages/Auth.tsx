@@ -110,7 +110,7 @@ const Auth = () => {
       <Navbar />
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md border border-pink-100">
-          <h1 className="text-2xl font-serif font-bold text-pink-600 text-center mb-6">
+          <h1 className="text-2xl font-serif font-bold text-black text-center mb-6">
             {isLogin ? "Welcome Back" : "Create an Account"}
           </h1>
           
