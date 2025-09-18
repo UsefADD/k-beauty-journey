@@ -65,26 +65,22 @@ const RoutineBanner = () => {
           Get started with our curated Korean Skincare Routine Sets!
         </h2>
         
-        <div className="flex justify-center gap-10 mt-4 mb-8 relative">
-          <div className="relative group">
-            <button 
-              onClick={show5Step} 
-              className="text-lg font-semibold text-zinc-900 relative group-hover:text-cream-600 transition-colors duration-300"
-            >
-              5 Step
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cream-300 origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </button>
-          </div>
+        <div className="flex justify-center gap-4 mt-4 mb-8">
+          <Button 
+            onClick={show5Step}
+            variant={!showAll ? "default" : "outline"}
+            className={!showAll ? "" : "text-black border-black hover:bg-black hover:text-white"}
+          >
+            5 Step
+          </Button>
           
-          <div className="relative group">
-            <button 
-              onClick={show10Step} 
-              className="text-lg font-semibold text-zinc-900 relative group-hover:text-cream-600 transition-colors duration-300"
-            >
-              10 Step
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cream-300 origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </button>
-          </div>
+          <Button 
+            onClick={show10Step}
+            variant={showAll ? "default" : "outline"}
+            className={showAll ? "" : "text-black border-black hover:bg-black hover:text-white"}
+          >
+            10 Step
+          </Button>
         </div>
         
         <ScrollArea className="w-full max-w-6xl mx-auto mb-10">
