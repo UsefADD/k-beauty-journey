@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
 import { useCart } from '../contexts/CartContext';
 
 interface Product {
@@ -83,12 +84,13 @@ const FeaturedProducts = () => {
                     </div>
                   )}
                 </Link>
-                <button 
+                <Button 
                   onClick={(e) => handleAddToCart(product, e)}
-                  className="mt-2 w-full py-2 text-sm font-medium text-cream-700 border border-cream-300 rounded-md hover:bg-pink-700 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
+                  className="mt-2 w-full opacity-0 group-hover:opacity-100 transition-opacity"
+                  variant="default"
                 >
                   Add to Cart
-                </button>
+                </Button>
               </div>
             </CarouselItem>
           ))}
