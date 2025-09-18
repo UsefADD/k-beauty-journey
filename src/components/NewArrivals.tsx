@@ -14,6 +14,12 @@ const NewArrivals = () => {
   // Get the latest 2 products (last 2 in the array assuming newest are added last)
   const latestProducts = products ? products.slice(-2).reverse() : [];
   
+  // Get unique brands from all products
+  const uniqueBrands = products ? [...new Set(products.map(product => product.brand).filter(brand => brand))] : [];
+  const brandsText = uniqueBrands.length > 0 
+    ? `Découvrez nos marques : ${uniqueBrands.slice(0, 3).join(', ')}${uniqueBrands.length > 3 ? ' et plus encore' : ''}.`
+    : 'Découvrez nos dernières collections de marques K-Beauty authentiques.';
+  
   return <div className="bg-white py-16 mt-16">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center">
@@ -23,7 +29,7 @@ const NewArrivals = () => {
               {t('new.arrivals.title')}
             </h2>
             <p className="text-lg mb-8 max-w-xl text-zinc-800">
-              {t('new.arrivals.description')}
+              {brandsText}
             </p>
             <Link to="/shop/newly-curated">
               <Button variant="default">
