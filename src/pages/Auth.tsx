@@ -124,7 +124,7 @@ const Auth = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="border-pink-200 focus:border-pink-400"
+                className="border-black focus:border-gray-800"
               />
             </div>
             
@@ -137,7 +137,7 @@ const Auth = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="border-pink-200 focus:border-pink-400"
+                className="border-black focus:border-gray-800"
               />
             </div>
             
