@@ -28,7 +28,7 @@ const Navbar = () => {
   const { isAdmin } = useUserRole();
 
   return <>
-      <div className="bg-white text-pink-600 py-1 overflow-hidden whitespace-nowrap relative border-b border-pink-100">
+      <div className="text-pink-600 py-1 overflow-hidden whitespace-nowrap relative border-b border-pink-100" style={{background: 'var(--gradient-pastel)'}}>
         <div className="animate-marquee inline-block">
           <span className="mx-4 font-medium">{t('shipping.banner')}</span>
           <span className="mx-4 font-medium">{t('shipping.banner')}</span>
