@@ -54,8 +54,10 @@ const ProductCard = ({
       </Link>
       <button 
         onClick={handleAddToCart}
-        className="mt-2 w-full py-2 text-sm font-medium text-primary border border-primary/20 rounded-md hover:bg-primary hover:text-primary-foreground transition-colors opacity-0 group-hover:opacity-100"
-        style={{background: 'transparent'}}
+        className="mt-2 w-full py-2 text-sm font-medium text-black border border-transparent rounded-md hover:bg-black hover:text-white active:bg-black active:text-white transition-all duration-200 opacity-0 group-hover:opacity-100"
+        style={{
+          background: 'linear-gradient(135deg, #fef3c7, #fce7f3)',
+        }}
       >
         Add to Cart
       </button>
