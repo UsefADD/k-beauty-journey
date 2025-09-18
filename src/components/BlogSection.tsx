@@ -5,29 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const BlogSection = () => {
   console.info('Render: BlogSection');
-  const blogPosts = [
-    {
-      id: 1,
-      image: "https://storage.googleapis.com/a1aa/image/ikRmqzl55PYuNYov5m2Xj2lO_cc4rjErGHM36MycI1U.jpg",
-      title: "WINTER TRAVEL SUN TIPS",
-      description: "Your Guide to Winter Sun Protection",
-      link: "#"
-    },
-    {
-      id: 2,
-      image: "https://storage.googleapis.com/a1aa/image/DWfkExXohADuJdSjFhoc78qDpR0rphNl8QubHHpvETQ.jpg",
-      title: "CLINICALLY-PROVEN SKINCARE",
-      description: "The Science of Anti-Aging: Exploring IOPE's Innovative Take on Retinol",
-      link: "#"
-    },
-    {
-      id: 3,
-      image: "https://storage.googleapis.com/a1aa/image/WJmnr8gNtTEHLqVJW_mGcT3EGncouaweZlryeK8L3wY.jpg",
-      title: "VIRAL SKINCARE",
-      description: "This Viral K-Beauty Brand Sells a Product Every 20 Seconds",
-      link: "#"
-    }
-  ];
+  const blogPosts: any[] = []; // Empty array - all articles and photos removed
 
   return (
     <div className="bg-knude-50 py-16">
@@ -45,28 +23,34 @@ const BlogSection = () => {
           
           <div className="col-span-1 md:col-span-3">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {blogPosts.map((post) => (
-                <Card key={post.id} className="bg-white border border-knude-100 overflow-hidden transition-all duration-300 hover:shadow-md">
-                  <div className="relative overflow-hidden h-48">
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="mt-2 text-center font-medium text-knude-800">{post.title}</h3>
-                    <p className="mt-2 text-center text-knude-600 text-sm">{post.description}</p>
-                    <a 
-                      href={post.link} 
-                      className="mt-4 flex items-center justify-center text-knude-700 hover:text-knude-900 text-sm underline"
-                    >
-                      Read On The Blog
-                      <ExternalLink className="ml-1 w-3 h-3" />
-                    </a>
-                  </CardContent>
-                </Card>
-              ))}
+              {blogPosts.length > 0 ? (
+                blogPosts.map((post) => (
+                  <Card key={post.id} className="bg-white border border-knude-100 overflow-hidden transition-all duration-300 hover:shadow-md">
+                    <div className="relative overflow-hidden h-48">
+                      <img 
+                        src={post.image} 
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                    </div>
+                    <CardContent className="p-4">
+                      <h3 className="mt-2 text-center font-medium text-knude-800">{post.title}</h3>
+                      <p className="mt-2 text-center text-knude-600 text-sm">{post.description}</p>
+                      <a 
+                        href={post.link} 
+                        className="mt-4 flex items-center justify-center text-knude-700 hover:text-knude-900 text-sm underline"
+                      >
+                        Read On The Blog
+                        <ExternalLink className="ml-1 w-3 h-3" />
+                      </a>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-8">
+                  <p className="text-knude-600">No articles available at the moment.</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
