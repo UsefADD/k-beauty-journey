@@ -16,14 +16,14 @@ const ServicesSection = () => {
           <div className="flex items-center justify-center gap-4">
             <Gift className="w-8 h-8 text-foreground flex-shrink-0" />
             <span className="text-foreground font-medium text-center">
-              Masque gratuit à partir de 40€
+              Masque gratuit à partir de 400 dhs
             </span>
           </div>
           
           <div className="flex items-center justify-center md:justify-end gap-4">
             <Truck className="w-8 h-8 text-foreground flex-shrink-0" />
             <span className="text-foreground font-medium text-center md:text-right">
-              Livraison gratuite à partir de 50€
+              Livraison gratuite à partir de 800 dhs
             </span>
           </div>
         </div>
