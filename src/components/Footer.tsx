@@ -21,7 +21,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h4 className="font-serif text-lg font-medium text-black mb-4">SHOP</h4>
+            <h4 className="font-serif text-lg font-bold text-black mb-4">SHOP</h4>
             <ul className="space-y-2 text-cream-700 text-sm">
               <li><a href="#" className="hover:text-gray-800">Best Sellers</a></li>
               <li><a href="#" className="hover:text-gray-800">New Arrivals</a></li>
@@ -31,7 +31,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-serif text-lg font-medium text-black mb-4">LEARN</h4>
+            <h4 className="font-serif text-lg font-bold text-black mb-4">LEARN</h4>
             <ul className="space-y-2 text-cream-700 text-sm">
               <li><a href="#" className="hover:text-gray-800">About K-Beauty</a></li>
               <li><a href="#" className="hover:text-gray-800">Skincare Guides</a></li>
@@ -41,7 +41,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-serif text-lg font-medium text-black mb-4">ABOUT</h4>
+            <h4 className="font-serif text-lg font-bold text-black mb-4">ABOUT</h4>
             <ul className="space-y-2 text-cream-700 text-sm">
               <li><a href="#" className="hover:text-gray-800">Our Story</a></li>
               <li><a href="#" className="hover:text-gray-800">Contact Us</a></li>
@@ -51,7 +51,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-serif text-lg font-medium text-black mb-4">CONNECT</h4>
+            <h4 className="font-serif text-lg font-bold text-black mb-4">CONNECT</h4>
             <div className="flex space-x-4 mb-6">
               <a href="#" className="text-black hover:text-gray-800">
                 <Instagram className="h-5 w-5" />
