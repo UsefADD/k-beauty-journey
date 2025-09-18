@@ -2,6 +2,7 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
 import { useCart } from '../contexts/CartContext';
 
 interface ProductCardProps {
@@ -52,15 +53,13 @@ const ProductCard = ({
           <p className="text-sm font-medium text-zinc-950">{price.toFixed(2)} MAD</p>
         </div>
       </Link>
-      <button 
+      <Button 
         onClick={handleAddToCart}
-        className="mt-2 w-full py-2 text-sm font-medium text-black border border-transparent rounded-md hover:bg-black hover:text-white active:bg-black active:text-white transition-all duration-200 opacity-0 group-hover:opacity-100"
-        style={{
-          background: 'linear-gradient(135deg, #fef3c7, #fce7f3)',
-        }}
+        className="mt-2 w-full opacity-0 group-hover:opacity-100 transition-opacity"
+        variant="default"
       >
         Add to Cart
-      </button>
+      </Button>
     </div>
   );
 };
