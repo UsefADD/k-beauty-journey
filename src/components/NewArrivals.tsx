@@ -20,7 +20,7 @@ const NewArrivals = () => {
               {t('new.arrivals.description')}
             </p>
             <Link to="/shop/newly-curated">
-              <Button>
+              <Button variant="default">
                 {t('shop.newly.curated')}
               </Button>
             </Link>
