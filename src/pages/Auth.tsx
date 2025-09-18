@@ -157,7 +157,7 @@ const Auth = () => {
                 setIsLogin(!isLogin);
                 setShowResendConfirmation(false);
               }}
-              className="text-pink-600 hover:underline text-sm"
+              className="text-black hover:underline text-sm"
             >
               {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
             </button>
