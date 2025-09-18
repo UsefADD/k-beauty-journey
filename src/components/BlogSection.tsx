@@ -14,7 +14,7 @@ const BlogSection = () => {
           <div className="col-span-1">
             <h2 className="text-4xl font-serif font-bold text-knude-900">The Blog</h2>
             <p className="mt-4 text-lg text-knude-700">
-              Your skincare guide, inspired by Korean beauty. A Soko Glam project.
+              Le skincare n'est pas une tendance, c'est un art de vivre.
             </p>
             <a href="#" className="mt-4 inline-block text-knude-700 hover:text-knude-900 underline font-medium">
               Visit The Blog
