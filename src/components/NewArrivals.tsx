@@ -3,11 +3,17 @@ import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useLanguage } from '../contexts/LanguageContext';
+import { useInventory } from '@/hooks/useInventory';
+import ProductCard from './ProductCard';
+import { Loader2 } from 'lucide-react';
 const NewArrivals = () => {
   console.info('Render: NewArrivals');
-  const {
-    t
-  } = useLanguage();
+  const { t } = useLanguage();
+  const { products, isLoading } = useInventory();
+  
+  // Get the latest 2 products (last 2 in the array assuming newest are added last)
+  const latestProducts = products ? products.slice(-2).reverse() : [];
+  
   return <div className="bg-white py-16 mt-16">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center">
@@ -26,14 +32,33 @@ const NewArrivals = () => {
             </Link>
           </div>
           
-          {/* Right side - Placeholder instead of photo */}
+          {/* Right side - Latest Products */}
           <div className="lg:w-1/2">
-            <Card className="overflow-hidden border-none shadow-lg bg-white h-64 flex items-center justify-center">
-              <div className="text-center p-6">
-                <h3 className="text-2xl font-semibold mb-2 text-zinc-950">{t('new.arrivals.card.title')}</h3>
-                <p className="text-zinc-900">{t('new.arrivals.card.description')}</p>
+            {isLoading ? (
+              <div className="flex justify-center items-center h-64">
+                <Loader2 className="h-8 w-8 animate-spin text-gray-600" />
               </div>
-            </Card>
+            ) : latestProducts.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {latestProducts.map(product => (
+                  <ProductCard 
+                    key={product.id}
+                    id={product.id}
+                    name={product.name}
+                    brand={product.brand}
+                    price={product.price}
+                    image={product.image || "/placeholder.svg"}
+                  />
+                ))}
+              </div>
+            ) : (
+              <Card className="overflow-hidden border-none shadow-lg bg-white h-64 flex items-center justify-center">
+                <div className="text-center p-6">
+                  <h3 className="text-2xl font-semibold mb-2 text-zinc-950">Nouveaux produits bientôt disponibles</h3>
+                  <p className="text-zinc-900">Découvrez nos dernières trouvailles K-Beauty</p>
+                </div>
+              </Card>
+            )}
           </div>
         </div>
       </div>
