@@ -58,7 +58,7 @@ const BestSellers = () => {
         
         <div className="mt-12 text-center">
           <Link to="/shop/best-sellers">
-            <Button>
+            <Button variant="default">
               {t('view.all.best.sellers')}
             </Button>
           </Link>
