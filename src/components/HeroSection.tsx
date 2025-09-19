@@ -18,10 +18,10 @@ const HeroSection = () => {
     title: "Spring Collection",
     subtitle: "Refresh your routine with our seasonal favorites"
   }, {
-    src: "/autumn-hero-bg.jpg",
+    src: "/autumn-beauty-bg.jpg",
     alt: "Autumn K-Beauty Collection",
     title: "Collection Automne",
-    subtitle: "Découvrez notre sélection automnale aux tons dorés"
+    subtitle: "Révélez votre beauté naturelle avec nos soins automne"
   }];
   useEffect(() => {
     const interval = setInterval(() => {
