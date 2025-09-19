@@ -3,21 +3,18 @@ import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useLanguage } from '../contexts/LanguageContext';
-import { useInventory } from '@/hooks/useInventory';
+import { useNewArrivals } from '@/hooks/useNewArrivals';
 import ProductCard from './ProductCard';
 import { Loader2 } from 'lucide-react';
 const NewArrivals = () => {
   console.info('Render: NewArrivals');
   const { t } = useLanguage();
-  const { products, isLoading } = useInventory();
+  const { newArrivals, isLoading } = useNewArrivals(2); // Get 2 newest products in stock
   
-  // Get the latest 2 products (last 2 in the array assuming newest are added last)
-  const latestProducts = products ? products.slice(-2).reverse() : [];
-  
-  // Get unique brands from all products
-  const uniqueBrands = products ? [...new Set(products.map(product => product.brand).filter(brand => brand))] : [];
+  // Get unique brands from new arrivals
+  const uniqueBrands = newArrivals ? [...new Set(newArrivals.map(product => product.brand).filter(brand => brand))] : [];
   const brandsText = uniqueBrands.length > 0 
-    ? `Découvrez nos marques : ${uniqueBrands.slice(0, 3).join(', ')}${uniqueBrands.length > 3 ? ' et plus encore' : ''}.`
+    ? `Découvrez nos marques : ${uniqueBrands.join(', ')}.`
     : 'Découvrez nos dernières collections de marques K-Beauty authentiques.';
   
   return <div className="bg-white py-16 mt-16">
@@ -44,9 +41,9 @@ const NewArrivals = () => {
               <div className="flex justify-center items-center h-64">
                 <Loader2 className="h-8 w-8 animate-spin text-gray-600" />
               </div>
-            ) : latestProducts.length > 0 ? (
+            ) : newArrivals && newArrivals.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {latestProducts.map(product => (
+                {newArrivals.map(product => (
                   <ProductCard 
                     key={product.id}
                     id={product.id}

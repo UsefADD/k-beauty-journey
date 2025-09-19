@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/carousel";
 import { Heart } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
-import { useInventory } from '@/hooks/useInventory';
+import { useNewArrivals } from '@/hooks/useNewArrivals';
 import { Loader2 } from 'lucide-react';
 
 const NewProducts = () => {
   const { addItem } = useCart();
-  const { products, isLoading } = useInventory();
+  const { newArrivals: products, isLoading } = useNewArrivals(4); // Get 4 newest products
   
   // If there are no products or loading/error states, handle them
   if (isLoading) {
@@ -29,13 +29,13 @@ const NewProducts = () => {
   if (!products || products.length === 0) {
     return (
       <div className="text-center py-10 mt-8">
-        <p className="text-gray-500">No products found. Add some products to your Supabase database.</p>
+        <p className="text-gray-500">Aucun nouveau produit disponible pour le moment.</p>
       </div>
     );
   }
 
-  // Only take up to 4 products for display in the carousel
-  const displayProducts = products.slice(0, 4);
+  // Use all available new products (up to 4)
+  const displayProducts = products;
 
   const handleAddToCart = (product: any, e: React.MouseEvent) => {
     e.preventDefault();
