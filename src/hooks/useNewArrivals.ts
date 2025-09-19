@@ -19,12 +19,13 @@ export const useNewArrivals = (limit: number = 4) => {
         console.log("Fetching new arrivals from Supabase...");
         
         // Get products with stock > 0, ordered by id (assuming newer products have higher/newer IDs)
-        const { data, error } = await supabase
-          .from('products')
-          .select('*')
-          .gt('stock_quantity', 0) // Only show products in stock
-          .order('id', { ascending: false }) // Get the newest products first
-          .limit(limit);
+          const { data, error } = await supabase
+            .from('products')
+            .select('id, Product_name, brand, price, image_url, stock_quantity, description')
+            .gt('stock_quantity', 0)
+            .order('stock_quantity', { ascending: false, nullsFirst: false })
+            .order('id', { ascending: false })
+            .limit(limit);
         
         if (error) {
           console.error("Error fetching new arrivals:", error);
