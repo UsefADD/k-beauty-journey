@@ -17,6 +17,11 @@ const HeroSection = () => {
     alt: "Spring K-Beauty Collection",
     title: "Spring Collection",
     subtitle: "Refresh your routine with our seasonal favorites"
+  }, {
+    src: "/autumn-hero-bg.jpg",
+    alt: "Autumn K-Beauty Collection",
+    title: "Collection Automne",
+    subtitle: "Découvrez notre sélection automnale aux tons dorés"
   }];
   useEffect(() => {
     const interval = setInterval(() => {
@@ -67,6 +72,11 @@ const HeroSection = () => {
                     {currentSlide === 1 && <Link to="/shop/newly-curated">
                         <Button variant="default" size="lg">
                           Get Ready for Spring
+                        </Button>
+                      </Link>}
+                    {currentSlide === 2 && <Link to="/shop">
+                        <Button variant="default" size="lg">
+                          Découvrir la Collection
                         </Button>
                       </Link>}
                   </div>
