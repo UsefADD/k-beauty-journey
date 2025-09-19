@@ -7,6 +7,7 @@ import BestSellers from '../components/BestSellers';
 import FeaturedProducts from '../components/FeaturedProducts';
 import RoutineBanner from '../components/RoutineBanner';
 import BlogSection from '../components/BlogSection';
+import NewsletterSignup from '../components/NewsletterSignup';
 import Footer from '../components/Footer';
 import ErrorBoundary from '@/components/ErrorBoundary';
 
@@ -20,6 +21,9 @@ const Index = () => {
       <ErrorBoundary name="FeaturedProducts"><FeaturedProducts /></ErrorBoundary>
       <ErrorBoundary name="RoutineBanner"><RoutineBanner /></ErrorBoundary>
       <ErrorBoundary name="BlogSection"><BlogSection /></ErrorBoundary>
+      <div className="container mx-auto px-4 py-12">
+        <ErrorBoundary name="NewsletterSignup"><NewsletterSignup /></ErrorBoundary>
+      </div>
       <ErrorBoundary name="Footer"><Footer /></ErrorBoundary>
     </div>
   );

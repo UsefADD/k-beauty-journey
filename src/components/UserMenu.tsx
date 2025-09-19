@@ -8,16 +8,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, LogOut, UserPlus } from 'lucide-react';
+import { User, LogOut, UserPlus, Settings, Mail, Package, ShoppingCart } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useUserRole } from '@/hooks/useUserRole';
 
 const UserMenu = () => {
   console.info('Render: UserMenu');
   const { user, isAuthenticated, signOut } = useAuth();
   const { toast } = useToast();
   const { t } = useLanguage();
+  const { isAdmin } = useUserRole();
   const [open, setOpen] = useState(false);
 
   const handleSignOut = async () => {
@@ -58,6 +60,29 @@ const UserMenu = () => {
               {t('orders')}
             </Link>
           </DropdownMenuItem>
+          {isAdmin && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link to="/admin/inventory" className="cursor-pointer">
+                  <Package className="w-4 h-4 mr-2" />
+                  Admin Inventaire
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/admin/orders" className="cursor-pointer">
+                  <ShoppingCart className="w-4 h-4 mr-2" />
+                  Admin Commandes
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/admin/newsletter" className="cursor-pointer">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Admin Newsletter
+                </Link>
+              </DropdownMenuItem>
+            </>
+          )}
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-500 focus:text-red-500">
             <LogOut className="w-4 h-4 mr-2" />

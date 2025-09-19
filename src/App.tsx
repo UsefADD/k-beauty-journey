@@ -23,6 +23,7 @@ import Payment from "./pages/Payment";
 import CartPage from "./pages/CartPage";
 import AdminInventory from "./pages/AdminInventory";
 import AdminOrders from "./pages/AdminOrders";
+import AdminNewsletter from "./pages/AdminNewsletter";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -57,6 +58,7 @@ const App = () => (
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/admin/inventory" element={<AdminInventory />} />
                 <Route path="/admin/orders" element={<AdminOrders />} />
+                <Route path="/admin/newsletter" element={<AdminNewsletter />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />
