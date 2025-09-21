@@ -2,7 +2,6 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 import { Link } from 'react-router-dom';
-import NewArrivals from './NewArrivals';
 import { Button } from "@/components/ui/button";
 import { useLanguage } from '../contexts/LanguageContext';
 import { useInventory } from '@/hooks/useInventory';
@@ -53,8 +52,6 @@ const BestSellers = () => {
             ))}
           </div>
         )}
-        
-        <NewArrivals />
         
         <div className="mt-12 text-center">
           <Link to="/shop/best-sellers">
