@@ -5,7 +5,7 @@ import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
 import BestSellers from '../components/BestSellers';
 import NewArrivals from '../components/NewArrivals';
-import FeaturedProducts from '../components/FeaturedProducts';
+
 import RoutineBanner from '../components/RoutineBanner';
 import BlogSection from '../components/BlogSection';
 import NewsletterSignup from '../components/NewsletterSignup';
@@ -20,7 +20,7 @@ const Index = () => {
       <ErrorBoundary name="ServicesSection"><ServicesSection /></ErrorBoundary>
       <ErrorBoundary name="BestSellers"><BestSellers /></ErrorBoundary>
       <ErrorBoundary name="NewArrivals"><NewArrivals /></ErrorBoundary>
-      <ErrorBoundary name="FeaturedProducts"><FeaturedProducts /></ErrorBoundary>
+      
       <ErrorBoundary name="RoutineBanner"><RoutineBanner /></ErrorBoundary>
       <ErrorBoundary name="BlogSection"><BlogSection /></ErrorBoundary>
       <div className="container mx-auto px-4 py-12">
