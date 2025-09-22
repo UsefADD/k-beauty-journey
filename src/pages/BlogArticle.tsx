@@ -58,6 +58,14 @@ const BlogArticle = () => {
         <p className="text-lg font-medium text-knude-800 mb-6">
           ✨ Découvrez notre sélection de produits K-beauty sur BLISSFUL et commencez votre voyage vers une peau éclatante !
         </p>
+        
+        <div className="mt-8">
+          <img 
+            src="/routine-coreenne-10-etapes.png" 
+            alt="Routine coréenne en 10 étapes illustrée"
+            className="w-full h-auto rounded-lg shadow-lg"
+          />
+        </div>
       </div>
     )
   };
