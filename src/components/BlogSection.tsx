@@ -41,13 +41,6 @@ const BlogSection = () => {
                   className="bg-white border border-knude-100 overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer"
                   onClick={() => navigate(`/blog/${post.id}`)}
                 >
-                  <div className="relative overflow-hidden h-48">
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                  </div>
                   <CardContent className="p-4">
                     <h3 className="mt-2 font-medium text-knude-800 text-center">{post.title}</h3>
                     <p className="mt-2 text-knude-600 text-sm text-center">{post.description}</p>
