@@ -96,7 +96,7 @@ const BlogArticle = () => {
               <img 
                 src="/k-beauty-header.png" 
                 alt="Pourquoi tout le monde craque pour la K-beauty - l'art coréen du soin qui change tout"
-                className="w-full max-w-2xl mx-auto h-auto rounded-lg"
+                className="w-full h-auto rounded-lg"
               />
             </div>
             
