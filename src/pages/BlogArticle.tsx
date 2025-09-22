@@ -94,8 +94,8 @@ const BlogArticle = () => {
           <div className="flex gap-8">
             {/* Intro Section - Left */}
             <div className="w-1/3">
-              <div className="bg-gradient-to-br from-purple-100 to-indigo-100 p-6 rounded-2xl shadow-sm sticky top-8">
-                <p className="text-purple-800 font-serif text-lg leading-relaxed italic">
+              <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-6 rounded-2xl shadow-sm sticky top-8 border border-rose-100">
+                <p className="text-rose-700 font-serif text-lg leading-relaxed italic">
                   Vous avez sûrement déjà entendu parler de la K-beauty, cette tendance venue de Corée qui fait le buzz partout dans le monde. Plus qu'une simple mode, c'est une véritable philosophie qui met en avant le soin, la douceur et la prévention pour révéler une peau éclatante jour après jour. Dans cet article, découvrez pourquoi la K-beauty séduit autant et comment elle peut transformer votre routine beauté.
                 </p>
               </div>
