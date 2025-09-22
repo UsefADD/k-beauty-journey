@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
 import koreanSkincareStepsPoster from '@/assets/korean-skincare-steps-poster.jpg';
@@ -22,39 +22,25 @@ const BlogSection = () => {
     <div className="bg-knude-50 py-16">
       
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1">
-            <h2 className="text-4xl font-serif font-bold text-knude-900">The Blog</h2>
-            <p className="mt-4 text-lg text-knude-700">
-              Le skincare n'est pas une tendance, c'est un art de vivre.
-            </p>
-            <a href="#" className="mt-4 inline-block text-knude-700 hover:text-knude-900 underline font-medium">
-              Visit The Blog
-            </a>
-          </div>
-          
-          <div className="col-span-1 md:col-span-3">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {blogPosts.map((post) => (
-                <Card 
-                  key={post.id} 
-                  className="bg-white border border-knude-100 overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer"
-                  onClick={() => navigate(`/blog/${post.id}`)}
-                >
-                  <div className="relative overflow-hidden h-48">
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-medium text-knude-800 text-center">{post.title}</h3>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {blogPosts.map((post) => (
+            <Card 
+              key={post.id} 
+              className="bg-white border border-knude-100 overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer"
+              onClick={() => navigate(`/blog/${post.id}`)}
+            >
+              <div className="relative overflow-hidden h-48">
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-medium text-knude-800 text-center">{post.title}</h3>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </div>
