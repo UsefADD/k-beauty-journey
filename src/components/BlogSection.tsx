@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import koreanSkincareStepsPoster from '@/assets/korean-skincare-steps-poster.jpg';
 
 const BlogSection = () => {
-  console.info('Render: BlogSection');
+  console.log('BlogSection render - timestamp:', Date.now());
   const navigate = useNavigate();
 
   const blogPosts = [
