@@ -26,6 +26,7 @@ import AdminOrders from "./pages/AdminOrders";
 import AdminNewsletter from "./pages/AdminNewsletter";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
+import BlogArticle from "./pages/BlogArticle";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 const queryClient = new QueryClient();
@@ -59,6 +60,7 @@ const App = () => (
                 <Route path="/admin/inventory" element={<AdminInventory />} />
                 <Route path="/admin/orders" element={<AdminOrders />} />
                 <Route path="/admin/newsletter" element={<AdminNewsletter />} />
+                <Route path="/blog/:articleId" element={<BlogArticle />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />
