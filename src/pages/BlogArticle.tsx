@@ -4,7 +4,6 @@ import { ArrowLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import koreanSkincareStepsPoster from '@/assets/korean-skincare-steps-poster.jpg';
 
 const BlogArticle = () => {
   const { articleId } = useParams();
@@ -59,14 +58,6 @@ const BlogArticle = () => {
         <p className="text-lg font-medium text-knude-800 mb-6">
           ✨ Découvrez notre sélection de produits K-beauty sur BLISSFUL et commencez votre voyage vers une peau éclatante !
         </p>
-        
-        <div className="mt-8">
-          <img 
-            src={koreanSkincareStepsPoster} 
-            alt="Poster des étapes de soins coréens en noir et blanc"
-            className="w-full h-auto rounded-lg shadow-lg"
-          />
-        </div>
       </div>
     )
   };
