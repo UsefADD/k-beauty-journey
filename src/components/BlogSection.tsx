@@ -20,16 +20,6 @@ const BlogSection = () => {
 
   return (
     <div className="bg-knude-50 py-16">
-      {/* Blog Banner */}
-      <div className="container mx-auto px-4 mb-12">
-        <div className="relative overflow-hidden rounded-2xl">
-          <img 
-            src="/blog-banner.png" 
-            alt="Pourquoi tout le monde craque pour la K-beauty - l'art coréen du soin qui change tout"
-            className="w-full h-auto"
-          />
-        </div>
-      </div>
       
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
