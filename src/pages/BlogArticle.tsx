@@ -92,7 +92,7 @@ const BlogArticle = () => {
           </div>
           
           {/* Hero Banner Section */}
-          <div className="bg-gradient-to-r from-pink-500 to-pink-600 overflow-hidden">
+          <div className="bg-gradient-to-r from-pink-200 to-pink-300 overflow-hidden">
             <div className="flex items-center">
               {/* Image Section */}
               <div className="w-1/3 lg:w-1/4">
@@ -106,16 +106,16 @@ const BlogArticle = () => {
               {/* Text Section */}
               <div className="flex-1 px-6 lg:px-12 py-8">
                 <div className="mb-2">
-                  <span className="text-xs lg:text-sm font-medium text-white/80 uppercase tracking-wide">
+                  <span className="text-xs lg:text-sm font-medium text-pink-800 uppercase tracking-wide">
                     K-Beauty
                   </span>
                 </div>
                 
-                <h1 className="text-xl lg:text-3xl font-bold text-white leading-tight">
+                <h1 className="text-xl lg:text-3xl font-bold text-pink-900 leading-tight">
                   {kBeautyArticle.title}
                 </h1>
                 
-                <div className="text-xs lg:text-sm text-white/70 mt-3">
+                <div className="text-xs lg:text-sm text-pink-700 mt-3">
                   <span className="font-medium">BLISSFUL</span> - {new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </div>
               </div>
