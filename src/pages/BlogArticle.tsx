@@ -91,43 +91,39 @@ const BlogArticle = () => {
             </Button>
           </div>
           
-          <article className="bg-white rounded-2xl border border-knude-100 shadow-sm overflow-hidden">
-            <div className="flex flex-col lg:flex-row">
+          {/* Hero Banner Section */}
+          <div className="bg-gradient-to-r from-pink-500 to-pink-600 overflow-hidden">
+            <div className="flex items-center">
               {/* Image Section */}
-              <div className="lg:w-2/5 relative">
+              <div className="w-1/3 lg:w-1/4">
                 <img 
                   src="/k-beauty-hero.png" 
                   alt="Woman with skincare routine - K-beauty"
-                  className="w-full h-full object-cover min-h-[400px] lg:min-h-[600px]"
+                  className="w-full h-32 lg:h-40 object-cover"
                 />
               </div>
               
-              {/* Content Section */}
-              <div className="lg:w-3/5 p-8 lg:p-12">
-                <div className="mb-4">
-                  <span className="text-sm font-medium text-pink-500 uppercase tracking-wide">
+              {/* Text Section */}
+              <div className="flex-1 px-6 lg:px-12 py-8">
+                <div className="mb-2">
+                  <span className="text-xs lg:text-sm font-medium text-white/80 uppercase tracking-wide">
                     K-Beauty
                   </span>
                 </div>
                 
-                <h1 className="text-3xl lg:text-4xl font-serif font-bold text-pink-600 mb-6 leading-tight">
+                <h1 className="text-xl lg:text-3xl font-bold text-white leading-tight">
                   {kBeautyArticle.title}
                 </h1>
                 
-                <div className="text-sm text-knude-600 mb-8">
+                <div className="text-xs lg:text-sm text-white/70 mt-3">
                   <span className="font-medium">BLISSFUL</span> - {new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </div>
-                
-                <div className="prose prose-lg max-w-none">
-                  <p className="text-knude-700 text-lg leading-relaxed">
-                    Salut, lectrice ou lecteur de BLISSFUL !
-                  </p>
-                  <p className="text-knude-700 leading-relaxed mt-4">
-                    Depuis quelques années, la K-beauty (Korean Beauty) a conquis le monde entier. Venue de Corée du Sud, cette approche du soin de la peau ne se limite pas à quelques produits, mais repose sur une véritable philosophie de beauté : prendre soin de sa peau au quotidien, avec douceur et régularité, pour révéler son éclat naturel.
-                  </p>
                 </div>
               </div>
             </div>
+          </div>
+          
+          {/* Article Content */}
+          <article className="bg-white rounded-b-2xl border-x border-b border-knude-100 shadow-sm">
             
             {/* Full content below */}
             <div className="px-8 lg:px-12 pb-12">
