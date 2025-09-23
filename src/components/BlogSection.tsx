@@ -1,63 +1,87 @@
 
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import koreanSkincareStepsPoster from '@/assets/korean-skincare-steps-poster.jpg';
 
 const BlogSection = () => {
   console.log('BlogSection render - timestamp:', Date.now());
   const navigate = useNavigate();
 
-  const blogPosts = [
+  const cards = [
     {
-      id: 'k-beauty-secret',
-      title: 'K-Beauty : Le secret coréen pour une peau éclatante',
-      description: 'Découvrez la philosophie coréenne de beauté et ses rituels en plusieurs étapes pour une peau saine et lumineuse.',
+      id: 'routine-10-etapes',
+      title: 'LA ROUTINE CORÉENNE EN 10 ÉTAPES',
+      description: "Découvre comment chaque produit fonctionne en harmonie pour créer la routine magique de soins coréens en 10 étapes.",
       image: koreanSkincareStepsPoster,
-    }
+      cta: "C'EST PARTI !",
+      to: '/shop/routines',
+    },
+    {
+      id: 'a-propos',
+      title: 'À PROPOS',
+      description: "Pour découvrir qui nous sommes et en apprendre plus sur les valeurs qui animent notre fondatrice et notre équipe, c'est par ici !",
+      image: '/blog-banner.png',
+      cta: 'EN SAVOIR PLUS',
+      to: '#',
+    },
+    {
+      id: 'pourquoi',
+      title: 'LA SKINCARE CORÉENNE, POURQUOI ?',
+      description: 'Lis notre article détaillé pour comprendre pourquoi la skincare coréenne est si efficace et populaire !',
+      image: '/k-beauty-hero.png',
+      cta: 'LIRE LE BLOG',
+      to: '/blog/k-beauty-secret',
+    },
   ];
 
   return (
-    <div className="bg-knude-50 py-16">
-      
+    <section className="bg-knude-50 py-16" aria-labelledby="starter-blog">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1">
-            <h2 className="text-4xl font-serif font-bold text-knude-900">The Blog</h2>
-            <p className="mt-4 text-lg text-knude-700">
-              Le skincare n'est pas une tendance, c'est un art de vivre.
-            </p>
-            <a href="#" className="mt-4 inline-block text-knude-700 hover:text-knude-900 underline font-medium">
-              Visit The Blog
-            </a>
-          </div>
-          
-          <div className="col-span-1 md:col-span-3">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {blogPosts.map((post) => (
-                <Card 
-                  key={post.id} 
-                  className="bg-white border border-knude-100 overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer"
-                  onClick={() => navigate(`/blog/${post.id}`)}
-                >
-                  <div className="relative overflow-hidden h-48">
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-medium text-knude-800 text-center">{post.title}</h3>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+        <header className="mb-10 flex items-center justify-center gap-6">
+          <div className="hidden md:block h-px w-24 bg-knude-200" />
+          <h2 id="starter-blog" className="text-2xl md:text-3xl font-serif font-bold text-knude-900 text-center tracking-wide uppercase">
+            BIEN DÉBUTER DANS LA SKINCARE CORÉENNE
+          </h2>
+          <div className="hidden md:block h-px w-24 bg-knude-200" />
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              className="bg-white border border-knude-100 overflow-hidden transition-all duration-300 hover:shadow-md"
+              onClick={() => (card.to !== '#' ? navigate(card.to) : undefined)}
+            >
+              <div className="relative overflow-hidden rounded-md">
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  loading="lazy"
+                  className="w-full aspect-square object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </div>
+              <CardContent className="p-6 text-center">
+                <h3 className="text-lg font-semibold text-knude-900 mb-2">{card.title}</h3>
+                <p className="text-knude-700 mb-6">{card.description}</p>
+                <div className="flex justify-center">
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (card.to !== '#') navigate(card.to);
+                    }}
+                  >
+                    {card.cta}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
