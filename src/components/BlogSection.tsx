@@ -35,7 +35,7 @@ const BlogSection = () => {
         <header className="mb-10 flex items-center justify-center gap-6">
           <div className="hidden md:block h-px w-24 bg-knude-200" />
           <h2 id="starter-blog" className="text-2xl md:text-3xl font-serif font-bold text-knude-900 text-center tracking-wide uppercase">
-            BIEN DÉBUTER DANS LA SKINCARE CORÉENNE
+            LE BLOG
           </h2>
           <div className="hidden md:block h-px w-24 bg-knude-200" />
         </header>
