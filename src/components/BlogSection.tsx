@@ -32,12 +32,12 @@ const BlogSection = () => {
   return (
     <section className="bg-knude-50 py-16" aria-labelledby="starter-blog">
       <div className="container mx-auto px-4">
-        <header className="mb-10 flex items-center justify-center gap-6">
-          <div className="hidden md:block h-px w-24 bg-knude-200" />
-          <h2 id="starter-blog" className="text-2xl md:text-3xl font-serif font-bold text-knude-900 text-center tracking-wide uppercase">
+        <header className="mb-10 flex items-center justify-center">
+          <div className="flex-1 h-px bg-knude-900" />
+          <h2 id="starter-blog" className="text-2xl md:text-3xl font-serif font-bold text-knude-900 text-center tracking-wide uppercase px-8">
             LE BLOG
           </h2>
-          <div className="hidden md:block h-px w-24 bg-knude-200" />
+          <div className="flex-1 h-px bg-knude-900" />
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
