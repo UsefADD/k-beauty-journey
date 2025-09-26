@@ -12,14 +12,6 @@ const BlogSection = () => {
 
   const cards = [
     {
-      id: 'routine-10-etapes',
-      title: 'LA ROUTINE CORÉENNE EN 10 ÉTAPES',
-      description: "Découvre comment chaque produit fonctionne en harmonie pour créer la routine magique de soins coréens en 10 étapes.",
-      image: koreanSkincareStepsPoster,
-      cta: "C'EST PARTI !",
-      to: '/shop/routines',
-    },
-    {
       id: 'a-propos',
       title: 'À PROPOS',
       description: "Pour découvrir qui nous sommes et en apprendre plus sur les valeurs qui animent notre fondatrice et notre équipe, c'est par ici !",
@@ -48,7 +40,7 @@ const BlogSection = () => {
           <div className="hidden md:block h-px w-24 bg-knude-200" />
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {cards.map((card) => (
             <Card
               key={card.id}
