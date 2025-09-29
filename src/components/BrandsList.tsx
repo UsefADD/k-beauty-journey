@@ -14,7 +14,7 @@ const BrandsList = ({ onBrandSelect }: BrandsListProps) => {
   if (isLoading) {
     return (
       <div className="w-full flex justify-center items-center py-12">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-pink-500" />
         <span className="ml-2 text-gray-600">Loading brands...</span>
       </div>
     );
@@ -41,7 +41,7 @@ const BrandsList = ({ onBrandSelect }: BrandsListProps) => {
             className="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center text-center"
             onClick={() => onBrandSelect(brand)}
           >
-            <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-5 text-white text-2xl font-bold shadow-lg">
+            <div className="w-20 h-20 bg-gradient-to-r from-cream-400 to-pink-300 rounded-2xl flex items-center justify-center mb-5 text-gray-800 text-2xl font-bold shadow-lg">
               {brand.name.charAt(0)}
             </div>
             <div className="text-xl font-bold mb-3 text-gray-800">{brand.name}</div>
