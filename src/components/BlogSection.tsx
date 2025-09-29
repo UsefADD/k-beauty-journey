@@ -15,7 +15,7 @@ const BlogSection = () => {
       id: 'a-propos',
       title: 'À PROPOS',
       description: "Pour découvrir qui nous sommes et en apprendre plus sur les valeurs qui animent notre fondatrice et notre équipe, c'est par ici !",
-      image: '/blog-banner.png',
+      image: '/blog-hero-image.png',
       cta: 'EN SAVOIR PLUS',
       to: '#',
     },
