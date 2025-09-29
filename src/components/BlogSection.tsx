@@ -31,7 +31,7 @@ const BlogSection = () => {
       id: 'spf-protection',
       title: "SPF : INDISPENSABLE TOUTE L'ANNÉE",
       description: "Découvrez pourquoi la protection solaire est essentielle même en automne et en hiver pour une peau jeune et éclatante !",
-      image: "/spf-seasonal-protection.png",
+      image: "/blog-hero-image.png",
       cta: "LIRE L'ARTICLE",
       to: '/blog/spf-protection-annuelle',
     },
