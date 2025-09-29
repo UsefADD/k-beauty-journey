@@ -114,7 +114,7 @@ const BlogArticle = () => {
           
           <div className="mt-8">
             <img 
-              src="/spf-protection-image.png" 
+              src="/blog-hero-image.png" 
               alt="Femme profitant du soleil avec une peau protégée"
               className="w-full h-auto rounded-lg shadow-lg"
             />
