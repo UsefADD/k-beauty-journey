@@ -111,14 +111,6 @@ const BlogArticle = () => {
           <p className="text-lg font-medium text-knude-800 mb-6">
             👉 Découvrez notre sélection de protections solaires coréennes, légères et agréables à porter toute l'année, sur BLISSFUL.
           </p>
-          
-          <div className="mt-8">
-            <img 
-              src="/blog-hero-image.png" 
-              alt="Femme profitant du soleil avec une peau protégée"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
         </div>
       )
     }
