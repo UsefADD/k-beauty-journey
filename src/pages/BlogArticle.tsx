@@ -150,7 +150,8 @@ const BlogArticle = () => {
                     <img 
                       src={currentArticle.image} 
                       alt={currentArticle.title}
-                      className="w-full h-32 lg:h-40 object-cover"
+                      className="w-full h-32 lg:h-40 object-cover object-center"
+                      style={{ objectPosition: '30% 20%' }}
                     />
                   </div>
                   
