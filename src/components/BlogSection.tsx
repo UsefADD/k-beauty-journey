@@ -27,6 +27,14 @@ const BlogSection = () => {
       cta: 'LIRE LE BLOG',
       to: '/blog/k-beauty-secret',
     },
+    {
+      id: 'spf-protection',
+      title: "SPF : INDISPENSABLE TOUTE L'ANNÉE",
+      description: "Découvrez pourquoi la protection solaire est essentielle même en automne et en hiver pour une peau jeune et éclatante !",
+      image: "/spf-seasonal-protection.png",
+      cta: "LIRE L'ARTICLE",
+      to: '/blog/spf-protection-annuelle',
+    },
   ];
 
   return (
@@ -40,7 +48,7 @@ const BlogSection = () => {
           <div className="flex-1 h-px bg-knude-900" />
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {cards.map((card) => (
             <Card
               key={card.id}
