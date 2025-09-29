@@ -72,7 +72,7 @@ const BlogArticle = () => {
     'spf-protection-annuelle': {
       title: 'SPF : indispensable en été… mais aussi en automne et en hiver !',
       category: 'Protection Solaire',
-      image: '/spf-seasonal-protection.png',
+      image: '/blog-hero-image.png',
       intro: 'Quand les journées se raccourcissent et que les températures baissent, on a tendance à ranger sa crème solaire au fond du placard. Pourtant, le SPF n\'est pas seulement un allié de l\'été : il protège votre peau toute l\'année, même lorsque le soleil est discret.',
       content: (
         <div className="prose prose-lg max-w-none text-knude-700">
