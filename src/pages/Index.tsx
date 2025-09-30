@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
+import OurStory from '../components/OurStory';
 import BestSellers from '../components/BestSellers';
 import NewArrivals from '../components/NewArrivals';
 
@@ -18,6 +19,7 @@ const Index = () => {
       <ErrorBoundary name="Navbar"><Navbar /></ErrorBoundary>
       <ErrorBoundary name="HeroSection"><HeroSection /></ErrorBoundary>
       <ErrorBoundary name="ServicesSection"><ServicesSection /></ErrorBoundary>
+      <ErrorBoundary name="OurStory"><OurStory /></ErrorBoundary>
       <ErrorBoundary name="BestSellers"><BestSellers /></ErrorBoundary>
       <ErrorBoundary name="NewArrivals"><NewArrivals /></ErrorBoundary>
       
