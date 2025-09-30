@@ -15,10 +15,14 @@ const BestSellers = () => {
   return (
     <div className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-knude-600">
-            Nouveautés
-          </h2>
+        <div className="mb-12">
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="h-px bg-black flex-1 max-w-xs"></div>
+            <h2 className="text-3xl md:text-4xl font-bold text-black uppercase tracking-wide">
+              Nouveautés
+            </h2>
+            <div className="h-px bg-black flex-1 max-w-xs"></div>
+          </div>
         </div>
         
         {isLoading ? (
