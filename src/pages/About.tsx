@@ -27,7 +27,7 @@ const About = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4 max-w-4xl">
             <div className="text-center">
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-8">
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-pink-300 mb-8">
                 Our Story 🌿✨
               </h2>
               
