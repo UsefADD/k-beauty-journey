@@ -19,23 +19,7 @@ const ShopCategories = () => {
     { key: 'sets', name: 'SHOP BY SETS & ROUTINES', path: '/shop/sets' },
   ];
 
-  return (
-    <div className="flex flex-wrap justify-center gap-4 mb-12">
-      {categories.map((category) => (
-        <Link
-          key={category.key}
-          to={category.path}
-          className={`text-sm md:text-base ${
-            currentPath === category.path 
-              ? 'text-black font-bold border-b-2 border-black' 
-              : 'text-black hover:text-gray-800 zigzag-underline transition-colors'
-          } pb-1 mb-2`}
-        >
-          {category.name}
-        </Link>
-      ))}
-    </div>
-  );
+  return null;
 };
 
 export default ShopCategories;
