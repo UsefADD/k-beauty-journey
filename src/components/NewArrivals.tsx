@@ -24,11 +24,11 @@ const NewArrivals = () => {
           <div className="lg:w-1/2 mb-10 lg:mb-0 pr-0 lg:pr-12">
             <div className="mb-6">
               <div className="flex items-center gap-4">
-                <div className="h-0.5 bg-black flex-1 max-w-xs"></div>
-                <h2 className="text-3xl md:text-4xl font-bold text-black uppercase tracking-wide">
+                <div className="h-0.5 bg-black flex-1"></div>
+                <h2 className="text-3xl md:text-4xl font-bold text-black uppercase tracking-wide whitespace-nowrap">
                   Best Sellers
                 </h2>
-                <div className="h-0.5 bg-black flex-1 max-w-xs"></div>
+                <div className="h-0.5 bg-black flex-1"></div>
               </div>
             </div>
             <p className="text-lg mb-8 max-w-xl text-zinc-800">
