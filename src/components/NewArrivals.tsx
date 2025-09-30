@@ -23,7 +23,7 @@ const NewArrivals = () => {
           {/* Left side - Text content */}
           <div className="lg:w-1/2 mb-10 lg:mb-0 pr-0 lg:pr-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 font-serif leading-tight text-zinc-950">
-              {t('new.arrivals.title')}
+              Best Sellers
             </h2>
             <p className="text-lg mb-8 max-w-xl text-zinc-800">
               {brandsText}
