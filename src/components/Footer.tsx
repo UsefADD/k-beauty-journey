@@ -43,7 +43,20 @@ const Footer = () => {
           <div>
             <h4 className="font-serif text-lg font-bold text-black mb-4">CONNECT</h4>
             <div className="flex space-x-4 mb-6">
-              <a href="https://www.instagram.com/blissfulsskin/" target="_blank" rel="noopener noreferrer" className="text-black hover:text-gray-800">
+              <a
+                href="https://www.instagram.com/blissfulsskin/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-black hover:text-gray-800"
+                aria-label="Instagram @blissfulsskin"
+                title="Instagram @blissfulsskin"
+                onClick={(e) => {
+                  try {
+                    e.preventDefault();
+                    window.open('https://www.instagram.com/blissfulsskin/', '_blank', 'noopener,noreferrer');
+                  } catch (_) {}
+                }}
+              >
                 <Instagram className="h-5 w-5" />
               </a>
               <a href="#" className="text-black hover:text-gray-800">
