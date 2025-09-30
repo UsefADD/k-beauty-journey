@@ -77,14 +77,6 @@ const NewArrivals = () => {
           </div>
         )}
 
-        {/* Shop button */}
-        <div className="text-center">
-          <Link to="/shop/newly-curated">
-            <Button variant="default">
-              {t('shop.newly.curated')}
-            </Button>
-          </Link>
-        </div>
       </div>
     </div>;
 };
