@@ -31,16 +31,6 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-serif text-lg font-bold text-black mb-4">RN</h4>
-            <ul className="space-y-2 text-cream-700 text-sm">
-              <li><a href="#" className="hover:text-gray-800">About K-Beauty</a></li>
-              <li><a href="#" className="hover:text-gray-800">Skincare Guides</a></li>
-              <li><a href="#" className="hover:text-gray-800">Ingredient Library</a></li>
-              <li><a href="#" className="hover:text-gray-800">Skin Types</a></li>
-            </ul>
-          </div>
-          
-          <div>
             <h4 className="font-serif text-lg font-bold text-black mb-4">ABOUT</h4>
             <ul className="space-y-2 text-cream-700 text-sm">
               <li><a href="/about" className="hover:text-gray-800">Our Story</a></li>
