@@ -22,9 +22,15 @@ const NewArrivals = () => {
         <div className="flex flex-col lg:flex-row items-center">
           {/* Left side - Text content */}
           <div className="lg:w-1/2 mb-10 lg:mb-0 pr-0 lg:pr-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-serif leading-tight text-zinc-950">
-              Best Sellers
-            </h2>
+            <div className="mb-6">
+              <div className="flex items-center gap-4">
+                <div className="h-0.5 bg-black flex-1 max-w-xs"></div>
+                <h2 className="text-3xl md:text-4xl font-bold text-black uppercase tracking-wide">
+                  Best Sellers
+                </h2>
+                <div className="h-0.5 bg-black flex-1 max-w-xs"></div>
+              </div>
+            </div>
             <p className="text-lg mb-8 max-w-xl text-zinc-800">
               {brandsText}
             </p>
