@@ -17,16 +17,7 @@ const BestSellers = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Link to="/shop/newly-curated" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
-            {t('shop.newly.curated')}
-          </Link>
-          <Link to="/shop/viral" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
-            {t('shop.viral')}
-          </Link>
-          <Link to="/shop/best-sellers" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
-            {t('shop.best.sellers')}
-          </Link>
-          <Link to="/shop/sets" className="text-sm text-knude-600 hover:text-pink-600 zigzag-underline transition-colors pb-1">
-            {t('shop.sets')}
+            Nouveautés
           </Link>
         </div>
         
