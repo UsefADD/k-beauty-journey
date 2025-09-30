@@ -6,6 +6,7 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import Index from "./pages/Index";
+import About from "./pages/About";
 import Brands from "./pages/Brands";
 import Shop from "./pages/Shop";
 import ShopNewlyCurated from "./pages/ShopNewlyCurated";
@@ -41,6 +42,7 @@ const App = () => (
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/brands" element={<Brands />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/shop/newly-curated" element={<ShopNewlyCurated />} />
