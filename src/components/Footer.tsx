@@ -52,8 +52,10 @@ const Footer = () => {
                 title="Instagram @blissfulsskin"
                 onClick={(e) => {
                   try {
-                    e.preventDefault();
-                    window.open('https://www.instagram.com/blissfulsskin/', '_blank', 'noopener,noreferrer');
+                    if (window.self !== window.top) {
+                      e.preventDefault();
+                      window.location.href = 'https://www.instagram.com/blissfulsskin/';
+                    }
                   } catch (_) {}
                 }}
               >
