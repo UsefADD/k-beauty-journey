@@ -10,19 +10,7 @@ const About = () => {
         <Navbar />
       </ErrorBoundary>
 
-      <main className="flex-1">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-b from-cream-100 to-background py-16">
-          <div className="container mx-auto px-4">
-            <h1 className="text-5xl md:text-6xl font-serif font-bold text-center text-foreground mb-6">
-              About Blissful
-            </h1>
-            <p className="text-xl text-center text-muted-foreground max-w-3xl mx-auto">
-              Discover the story behind your favorite K-beauty destination
-            </p>
-          </div>
-        </div>
-
+      <main className="flex-1 pt-20">
         {/* Our Story Section */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4 max-w-4xl">
