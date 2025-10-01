@@ -15,7 +15,7 @@ const BrandProducts = ({ brand, onBack }: BrandProductsProps) => {
         <h2 className="text-3xl font-bold text-gray-800">{brand.name} Products</h2>
         <button
           onClick={onBack}
-          className="bg-blue-500 text-white px-5 py-3 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-all duration-300 hover:-translate-x-1 font-semibold"
+          className="bg-pink-600 text-white px-5 py-3 rounded-lg flex items-center gap-2 hover:bg-pink-700 transition-all duration-300 hover:-translate-x-1 font-semibold"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Brands
