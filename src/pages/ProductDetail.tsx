@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, Star, Loader2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -159,7 +159,12 @@ const ProductDetail = () => {
             
             <div className="md:w-1/2">
               <div className="mb-2">
-                <span className="font-medium text-black uppercase text-xs">{product.brand}</span>
+                <Link 
+                  to={`/shop/brand/${encodeURIComponent(product.brand)}`}
+                  className="font-medium text-black uppercase text-xs hover:text-pink-600 transition-colors cursor-pointer inline-block"
+                >
+                  {product.brand}
+                </Link>
               </div>
               <h1 className="text-3xl font-bold text-black mb-3">{product.Product_name}</h1>
               
