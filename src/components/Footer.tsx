@@ -34,7 +34,7 @@ const Footer = () => {
             <h4 className="font-serif text-lg font-bold text-black mb-4">ABOUT</h4>
             <ul className="space-y-2 text-cream-700 text-sm">
               <li><a href="/about" className="hover:text-gray-800">Our Story</a></li>
-              <li><a href="#" className="hover:text-gray-800">Contact Us</a></li>
+              <li><a href="mailto:blissful.sk.info@gmail.com" className="hover:text-gray-800">Contact Us</a></li>
               <li><a href="#" className="hover:text-gray-800">FAQ</a></li>
               <li><a href="#" className="hover:text-gray-800">Shipping & Returns</a></li>
             </ul>
