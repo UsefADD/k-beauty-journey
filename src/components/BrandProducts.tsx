@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Brand } from '@/data/brandsData';
 import { ArrowLeft } from 'lucide-react';
 
@@ -23,9 +24,10 @@ const BrandProducts = ({ brand, onBack }: BrandProductsProps) => {
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {brand.products.map((product) => (
-          <div 
+          <Link 
             key={product.id}
-            className="bg-gray-50 rounded-xl p-5 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 overflow-hidden"
+            to={`/product/${product.id}`}
+            className="bg-gray-50 rounded-xl p-5 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 overflow-hidden block cursor-pointer"
           >
             <div className="h-44 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mb-5 text-white text-4xl overflow-hidden relative">
               {product.image_url ? (
@@ -40,7 +42,7 @@ const BrandProducts = ({ brand, onBack }: BrandProductsProps) => {
             </div>
             <div className="font-bold mb-2 text-lg text-gray-800">{product.name}</div>
             <div className="text-blue-500 font-extrabold text-xl">{product.price} MAD</div>
-          </div>
+          </Link>
         ))}
       </div>
       
