@@ -19,6 +19,7 @@ import ShopProductType from "./pages/ShopProductType";
 import ShopSkinType from "./pages/ShopSkinType";
 import ShopIngredient from "./pages/ShopIngredient";
 import ProductDetail from "./pages/ProductDetail";
+import BrandProducts from "./pages/BrandProducts";
 import NotFound from "./pages/NotFound";
 import Payment from "./pages/Payment";
 import CartPage from "./pages/CartPage";
@@ -52,6 +53,7 @@ const App = () => (
                 <Route path="/shop/skin-concern" element={<ShopSkinConcern />} />
                 <Route path="/shop/skin-type" element={<ShopSkinType />} />
                 <Route path="/shop/brand" element={<ShopBrand />} />
+                <Route path="/shop/brand/:brandName" element={<BrandProducts />} />
                 <Route path="/shop/product-type" element={<ShopProductType />} />
                 <Route path="/shop/product-type/:type" element={<ShopProductType />} />
                 <Route path="/shop/product-type/:type/:subtype" element={<ShopProductType />} />

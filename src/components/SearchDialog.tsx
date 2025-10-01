@@ -23,6 +23,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [matchingBrands, setMatchingBrands] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { t } = useLanguage();
@@ -62,34 +63,51 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
   useEffect(() => {
     if (searchQuery.trim() === '') {
       setFilteredProducts([]);
+      setMatchingBrands([]);
       return;
     }
     
     console.log('Searching for:', searchQuery);
     console.log('Total products:', products.length);
     
+    const query = searchQuery.toLowerCase();
+    const brandsSet = new Set<string>();
+    
     const filtered = products.filter(product => {
       const productName = product.Product_name || '';
       const brand = product.brand || '';
-      const query = searchQuery.toLowerCase();
       
-      const matches = productName.toLowerCase().includes(query) ||
-             brand.toLowerCase().includes(query);
+      const brandMatches = brand.toLowerCase().includes(query);
+      const nameMatches = productName.toLowerCase().includes(query);
       
-      if (matches) {
-        console.log('Match found:', { name: productName, brand });
+      if (brandMatches) {
+        brandsSet.add(brand);
       }
       
-      return matches;
+      if (brandMatches || nameMatches) {
+        console.log('Match found:', { name: productName, brand });
+        return true;
+      }
+      
+      return false;
     });
     
     console.log('Filtered products:', filtered.length);
+    console.log('Matching brands:', Array.from(brandsSet));
     setFilteredProducts(filtered);
+    setMatchingBrands(Array.from(brandsSet));
   }, [searchQuery, products]);
 
   const handleSelect = (productId: string) => {
     navigate(`/product/${productId}`);
     onOpenChange(false);
+    setSearchQuery('');
+  };
+
+  const handleBrandClick = (brandName: string) => {
+    navigate(`/shop/brand/${encodeURIComponent(brandName)}`);
+    onOpenChange(false);
+    setSearchQuery('');
   };
 
   // Prevent click events inside the dialog from propagating and closing it
@@ -98,7 +116,9 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
   };
 
   const handleSearchClick = () => {
-    if (filteredProducts.length > 0) {
+    if (matchingBrands.length > 0) {
+      handleBrandClick(matchingBrands[0]);
+    } else if (filteredProducts.length > 0) {
       handleSelect(filteredProducts[0].id);
     }
   };
@@ -122,13 +142,35 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
               </div>
             ) : (
               <>
-                {searchQuery.trim() !== '' && filteredProducts.length === 0 && (
+                {searchQuery.trim() !== '' && filteredProducts.length === 0 && matchingBrands.length === 0 && (
                   <CommandEmpty>{t('no.results')}</CommandEmpty>
                 )}
                 
+                {matchingBrands.length > 0 && (
+                  <CommandGroup heading="Marques">
+                    {matchingBrands.map((brand) => {
+                      const brandProductCount = filteredProducts.filter(p => p.brand === brand).length;
+                      return (
+                        <CommandItem
+                          key={brand}
+                          onSelect={() => handleBrandClick(brand)}
+                          className="flex items-center gap-2 p-3 cursor-pointer hover:bg-accent"
+                        >
+                          <div className="flex-1">
+                            <div className="font-bold text-base">{brand}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {brandProductCount} produit{brandProductCount > 1 ? 's' : ''} trouvé{brandProductCount > 1 ? 's' : ''}
+                            </div>
+                          </div>
+                        </CommandItem>
+                      );
+                    })}
+                  </CommandGroup>
+                )}
+                
                 {filteredProducts.length > 0 && (
-                  <CommandGroup>
-                    {filteredProducts.map((product) => (
+                  <CommandGroup heading="Produits">
+                    {filteredProducts.slice(0, 5).map((product) => (
                       <CommandItem
                         key={product.id}
                         onSelect={() => handleSelect(product.id)}
