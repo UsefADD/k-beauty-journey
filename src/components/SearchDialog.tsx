@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Command, CommandInput, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
@@ -96,39 +96,41 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
             autoFocus
           />
           
-          {isLoading ? (
-            <div className="flex justify-center items-center p-4">
-              <Loader2 className="h-6 w-6 animate-spin text-pink-600" />
-            </div>
-          ) : (
-            <>
-              {searchQuery.trim() !== '' && filteredProducts.length === 0 && (
-                <CommandEmpty>{t('no.results')}</CommandEmpty>
-              )}
-              
-              {filteredProducts.length > 0 && (
-                <CommandGroup>
-                  {filteredProducts.map((product) => (
-                    <CommandItem
-                      key={product.id}
-                      onSelect={() => handleSelect(product.id)}
-                      className="flex items-center gap-2 p-2 cursor-pointer hover:bg-accent"
-                    >
-                      <img 
-                        src={product.image_url || "/placeholder.svg"} 
-                        alt={product.Product_name} 
-                        className="w-10 h-10 object-cover rounded"
-                      />
-                      <div>
-                        <div className="font-medium">{product.Product_name}</div>
-                        <div className="text-sm text-muted-foreground">{product.brand}</div>
-                      </div>
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              )}
-            </>
-          )}
+          <CommandList>
+            {isLoading ? (
+              <div className="flex justify-center items-center p-4">
+                <Loader2 className="h-6 w-6 animate-spin text-pink-600" />
+              </div>
+            ) : (
+              <>
+                {searchQuery.trim() !== '' && filteredProducts.length === 0 && (
+                  <CommandEmpty>{t('no.results')}</CommandEmpty>
+                )}
+                
+                {filteredProducts.length > 0 && (
+                  <CommandGroup>
+                    {filteredProducts.map((product) => (
+                      <CommandItem
+                        key={product.id}
+                        onSelect={() => handleSelect(product.id)}
+                        className="flex items-center gap-2 p-2 cursor-pointer hover:bg-accent"
+                      >
+                        <img 
+                          src={product.image_url || "/placeholder.svg"} 
+                          alt={product.Product_name} 
+                          className="w-10 h-10 object-cover rounded"
+                        />
+                        <div>
+                          <div className="font-medium">{product.Product_name}</div>
+                          <div className="text-sm text-muted-foreground">{product.brand}</div>
+                        </div>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                )}
+              </>
+            )}
+          </CommandList>
         </Command>
       </DialogContent>
     </Dialog>
