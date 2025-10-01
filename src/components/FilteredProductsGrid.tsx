@@ -50,6 +50,7 @@ const FilteredProductsGrid = ({ products, isLoading, emptyMessage = "No products
           brand={product.brand}
           price={product.price}
           image={product.image_url || "/placeholder.svg"}
+          stock_quantity={product.stock_quantity}
         />
       ))}
     </div>

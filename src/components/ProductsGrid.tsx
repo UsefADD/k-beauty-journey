@@ -150,6 +150,7 @@ const ProductsGrid = () => {
           brand={product.brand}
           price={product.price}
           image={product.image || "/placeholder.svg"}
+          stock_quantity={product.stock_quantity}
         />
       ))}
     </div>
