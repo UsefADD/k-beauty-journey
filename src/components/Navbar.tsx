@@ -18,6 +18,7 @@ import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useUserRole } from '../hooks/useUserRole';
 import UserMenu from './UserMenu';
+import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   console.info('Render: Navbar');
@@ -182,6 +183,9 @@ const Navbar = () => {
               className="w-5 h-5 hover:text-gray-800 cursor-pointer transition-colors" 
               onClick={() => setSearchOpen(true)}
             />
+            <Button className="h-8 px-3 hidden sm:inline-flex" variant="default" onClick={() => setSearchOpen(true)}>
+              Rechercher
+            </Button>
             <UserMenu />
             <Heart className="w-5 h-5 hover:text-gray-800 cursor-pointer transition-colors" />
             <div className="relative inline-flex items-center">

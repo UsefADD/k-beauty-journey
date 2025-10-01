@@ -11,6 +11,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
 import { Product } from '@/hooks/useProducts';
+import { Button } from "@/components/ui/button";
 
 interface SearchDialogProps {
   open: boolean;
@@ -96,6 +97,12 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
     e.stopPropagation();
   };
 
+  const handleSearchClick = () => {
+    if (filteredProducts.length > 0) {
+      handleSelect(filteredProducts[0].id);
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="p-0" onClick={handleDialogClick}>
@@ -143,6 +150,11 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
               </>
             )}
           </CommandList>
+          <div className="flex justify-end p-3">
+            <Button onClick={handleSearchClick} disabled={!searchQuery.trim()}>
+              Rechercher
+            </Button>
+          </div>
         </Command>
       </DialogContent>
     </Dialog>
