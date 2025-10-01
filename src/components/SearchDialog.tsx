@@ -44,6 +44,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
               id: product.id || crypto.randomUUID(), // Use existing id or generate one
               price: product.price ? parseFloat(product.price.toString().replace(/[^\d.]/g, '')) || 0 : 0,
             })) || [];
+            console.log('Products loaded for search:', productsWithId.length);
             setProducts(productsWithId as Product[]);
           }
         } catch (err) {
@@ -63,14 +64,25 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
       return;
     }
     
+    console.log('Searching for:', searchQuery);
+    console.log('Total products:', products.length);
+    
     const filtered = products.filter(product => {
       const productName = product.Product_name || '';
       const brand = product.brand || '';
       const query = searchQuery.toLowerCase();
       
-      return productName.toLowerCase().includes(query) ||
+      const matches = productName.toLowerCase().includes(query) ||
              brand.toLowerCase().includes(query);
+      
+      if (matches) {
+        console.log('Match found:', { name: productName, brand });
+      }
+      
+      return matches;
     });
+    
+    console.log('Filtered products:', filtered.length);
     setFilteredProducts(filtered);
   }, [searchQuery, products]);
 
