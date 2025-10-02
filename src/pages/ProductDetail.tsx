@@ -166,7 +166,7 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="flex-grow py-12 bg-cream-50">
+      <div className="flex-grow py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-10">
             <div className="md:w-1/2">
