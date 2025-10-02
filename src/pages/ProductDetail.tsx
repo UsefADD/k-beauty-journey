@@ -38,6 +38,7 @@ const ProductDetail = () => {
   const [isLoadingReviews, setIsLoadingReviews] = useState(false);
   const [averageRating, setAverageRating] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
+  const [quantity, setQuantity] = useState(1);
   
   const { data: variants = [], isLoading: isLoadingVariants } = useProductVariants(productId || '');
 
@@ -74,12 +75,27 @@ const ProductDetail = () => {
         ? `${product.Product_name} - ${selectedVariant.volume}` 
         : product.Product_name;
       
-      addItem({
-        id: selectedVariant ? selectedVariant.id : (productId || '0'),
-        name: itemName,
-        price: itemPrice,
-        image: product.image_url || '',
-      });
+      // Add items based on quantity
+      for (let i = 0; i < quantity; i++) {
+        addItem({
+          id: selectedVariant ? selectedVariant.id : (productId || '0'),
+          name: itemName,
+          price: itemPrice,
+          image: product.image_url || '',
+        });
+      }
+    }
+  };
+
+  const incrementQuantity = () => {
+    if (quantity < (productStock || 0)) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
     }
   };
 
@@ -234,6 +250,41 @@ const ProductDetail = () => {
                   </div>
                 </div>
               )}
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-black mb-2">
+                  {t('quantity') || 'Quantité'}
+                </label>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={decrementQuantity}
+                    disabled={quantity <= 1}
+                    className="w-10 h-10 flex items-center justify-center border-2 border-gray-300 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <span className="text-xl font-medium">−</span>
+                  </button>
+                  <input
+                    type="number"
+                    min="1"
+                    max={productStock || 1}
+                    value={quantity}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value) || 1;
+                      if (val >= 1 && val <= (productStock || 1)) {
+                        setQuantity(val);
+                      }
+                    }}
+                    className="w-20 h-10 text-center border-2 border-gray-300 focus:border-pink-600 focus:outline-none"
+                  />
+                  <button
+                    onClick={incrementQuantity}
+                    disabled={quantity >= (productStock || 0)}
+                    className="w-10 h-10 flex items-center justify-center border-2 border-gray-300 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <span className="text-xl font-medium">+</span>
+                  </button>
+                </div>
+              </div>
               
               <div className="flex gap-3 mb-8">
                 <Button 
