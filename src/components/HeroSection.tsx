@@ -13,7 +13,7 @@ const HeroSection = () => {
     title: "",
     subtitle: ""
   }, {
-    src: "/autumn-skincare-new.png",
+    src: "/autumn-collection.png",
     alt: "Autumn K-Beauty Collection",
     title: "",
     subtitle: ""
@@ -51,7 +51,7 @@ const HeroSection = () => {
               <img
                 src={slide.src}
                 alt={slide.alt}
-                className="w-full max-h-[85%] object-contain"
+                className="w-full h-full object-cover"
                 loading={index === 0 ? "eager" : "lazy"}
               />
               {slide.title ? (
