@@ -13,6 +13,8 @@ import EditableRating from "../components/EditableRating";
 import { useProductReview } from '@/hooks/useProductReview';
 import { formatDistance } from 'date-fns';
 import { useProducts, Product } from '@/hooks/useProducts';
+import { useProductVariants, ProductVariant } from '@/hooks/useProductVariants';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface ProductReview {
   rating: number;
@@ -35,6 +37,9 @@ const ProductDetail = () => {
   const [productReviews, setProductReviews] = useState<ProductReview[]>([]);
   const [isLoadingReviews, setIsLoadingReviews] = useState(false);
   const [averageRating, setAverageRating] = useState(0);
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
+  
+  const { data: variants = [], isLoading: isLoadingVariants } = useProductVariants(productId || '');
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -55,12 +60,24 @@ const ProductDetail = () => {
     loadProduct();
   }, [productId]);
 
+  // Set first variant as default when variants are loaded
+  useEffect(() => {
+    if (variants.length > 0 && !selectedVariant) {
+      setSelectedVariant(variants[0]);
+    }
+  }, [variants]);
+
   const handleAddToCart = () => {
     if (product) {
+      const itemPrice = selectedVariant ? selectedVariant.price : product.price;
+      const itemName = selectedVariant 
+        ? `${product.Product_name} - ${selectedVariant.volume}` 
+        : product.Product_name;
+      
       addItem({
-        id: productId || '0',
-        name: product.Product_name,
-        price: product.price,
+        id: selectedVariant ? selectedVariant.id : (productId || '0'),
+        name: itemName,
+        price: itemPrice,
         image: product.image_url || '',
       });
     }
@@ -126,7 +143,9 @@ const ProductDetail = () => {
   }
 
   const productImages = product.image_url ? [product.image_url] : ['/placeholder.svg'];
-  const productPrice = product.price;
+  const productPrice = selectedVariant ? selectedVariant.price : product.price;
+  const productStock = selectedVariant ? selectedVariant.stock_quantity : product.stock_quantity;
+  const hasVariants = variants.length > 0;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -179,14 +198,41 @@ const ProductDetail = () => {
                 {productPrice.toFixed(2)} MAD
               </div>
               
+              {hasVariants && (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-black mb-2">
+                    {t('choose.volume') || 'Choisir le volume'}
+                  </label>
+                  <Select
+                    value={selectedVariant?.id}
+                    onValueChange={(value) => {
+                      const variant = variants.find(v => v.id === value);
+                      if (variant) setSelectedVariant(variant);
+                    }}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Sélectionner un volume" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {variants.map((variant) => (
+                        <SelectItem key={variant.id} value={variant.id}>
+                          {variant.volume} - {variant.price.toFixed(2)} MAD
+                          {variant.stock_quantity <= 0 && ' (Rupture de stock)'}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+              
               <div className="flex gap-3 mb-8">
                 <Button 
                   onClick={handleAddToCart} 
                   className="flex-1 bg-white text-pink-600 border border-pink-600 hover:bg-pink-50"
-                  disabled={!product.stock_quantity || product.stock_quantity <= 0}
+                  disabled={!productStock || productStock <= 0}
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" />
-                  {product.stock_quantity && product.stock_quantity > 0 ? t('add.to.cart') : t('out.of.stock')}
+                  {productStock && productStock > 0 ? t('add.to.cart') : t('out.of.stock')}
                 </Button>
                 <Button variant="outline" className="px-4 border-cream-200">
                   <Heart className="h-5 w-5 text-pink-600" />
