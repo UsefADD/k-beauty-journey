@@ -43,7 +43,7 @@ const HeroSection = () => {
     if (currentSlide === slides.length - 1 && prevSlide === 0) return 'slide-right';
     return currentSlide > prevSlide ? 'slide-left' : 'slide-right';
   };
-  return <div className="relative w-full h-screen overflow-hidden bg-gray-50">
+  return <div className="relative w-full h-screen overflow-hidden bg-white">
       <div className="w-full h-full">
         <div className="h-full relative">
           <div className={`absolute w-full h-full flex items-center justify-center transition-transform duration-500 ease-in-out ${isAnimating ? `${getSlideDirection()}` : ''}`} style={{
