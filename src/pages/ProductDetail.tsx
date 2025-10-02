@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, Star, Loader2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from '../contexts/CartContext';
+import { useAuth } from '../contexts/AuthContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -27,6 +28,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
   const { addItem } = useCart();
+  const { isAuthenticated } = useAuth();
   const { getProductReviews } = useProductReview();
   const { fetchSingleProduct } = useProducts();
   
@@ -295,9 +297,19 @@ const ProductDetail = () => {
                   <ShoppingCart className="mr-2 h-5 w-5" />
                   {productStock && productStock > 0 ? t('add.to.cart') : t('out.of.stock')}
                 </Button>
-                <Button variant="outline" className="px-4 border-cream-200">
-                  <Heart className="h-5 w-5 text-pink-600" />
-                </Button>
+                {isAuthenticated ? (
+                  <Button variant="outline" className="px-4 border-cream-200">
+                    <Heart className="h-5 w-5 text-pink-600" />
+                  </Button>
+                ) : (
+                  <Button 
+                    variant="outline" 
+                    className="px-4 border-cream-200"
+                    onClick={() => navigate('/auth')}
+                  >
+                    <Heart className="h-5 w-5 text-gray-400" />
+                  </Button>
+                )}
               </div>
               
               <div className="mb-6">
