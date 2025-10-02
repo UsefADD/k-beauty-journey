@@ -205,32 +205,29 @@ const ProductDetail = () => {
               {hasVariants && (
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-black mb-2">
-                    {t('choose.volume') || 'Choisir le volume'}
+                    Size: {selectedVariant?.volume || variants[0]?.volume}
                   </label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="flex gap-2">
                     {variants.map((variant) => (
                       <button
                         key={variant.id}
                         onClick={() => setSelectedVariant(variant)}
                         disabled={variant.stock_quantity <= 0}
                         className={`
-                          relative p-4 border-2 rounded-lg transition-all text-left
+                          relative px-6 py-2 border-2 transition-all
                           ${selectedVariant?.id === variant.id 
-                            ? 'border-pink-600 bg-pink-50' 
-                            : 'border-gray-200 hover:border-pink-300'}
+                            ? 'border-black' 
+                            : 'border-gray-300 hover:border-gray-400'}
                           ${variant.stock_quantity <= 0 
                             ? 'opacity-50 cursor-not-allowed' 
                             : 'cursor-pointer'}
                         `}
                       >
-                        <div className={`font-semibold text-gray-900 ${variant.stock_quantity <= 0 ? 'line-through' : ''}`}>
+                        <span className={`font-medium text-black ${variant.stock_quantity <= 0 ? 'line-through' : ''}`}>
                           {variant.volume}
-                        </div>
-                        <div className="text-lg font-bold text-pink-600 mt-1">{variant.price.toFixed(2)} MAD</div>
+                        </span>
                         {variant.stock_quantity <= 0 && (
-                          <div className="absolute top-2 right-2 px-2 py-0.5 bg-red-100 border border-red-300 rounded text-xs text-red-600 font-medium">
-                            Épuisé
-                          </div>
+                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-sm"></div>
                         )}
                       </button>
                     ))}
