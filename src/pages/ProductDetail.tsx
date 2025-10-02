@@ -274,7 +274,7 @@ const ProductDetail = () => {
                         setQuantity(val);
                       }
                     }}
-                    className="w-20 h-10 text-center border-2 border-gray-300 focus:border-pink-600 focus:outline-none"
+                    className="w-20 h-10 text-center border-2 border-gray-300 focus:border-pink-600 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <button
                     onClick={incrementQuantity}
