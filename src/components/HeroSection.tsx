@@ -20,8 +20,8 @@ const HeroSection = () => {
   }, {
     src: "/autumn-skincare-new.png",
     alt: "Autumn K-Beauty Collection",
-    title: "Collection Automne",
-    subtitle: "Révélez votre beauté naturelle avec nos soins automne"
+    title: "",
+    subtitle: ""
   }];
   useEffect(() => {
     const interval = setInterval(() => {
