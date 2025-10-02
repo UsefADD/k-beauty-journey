@@ -13,11 +13,6 @@ const HeroSection = () => {
     title: "",
     subtitle: ""
   }, {
-    src: "/lovable-uploads/af567ca0-8439-426c-ab0b-4b6827528920.png",
-    alt: "Spring K-Beauty Collection",
-    title: "Spring Collection",
-    subtitle: "Refresh your routine with our seasonal favorites"
-  }, {
     src: "/autumn-skincare-new.png",
     alt: "Autumn K-Beauty Collection",
     title: "",
@@ -66,20 +61,6 @@ const HeroSection = () => {
                       {slide.title}
                     </h2>
                     <p className="text-xl md:text-2xl mb-6 text-zinc-200">{slide.subtitle}</p>
-                    {index === 1 && (
-                      <Link to="/shop/newly-curated">
-                        <Button variant="default" size="lg">
-                          Get Ready for Spring
-                        </Button>
-                      </Link>
-                    )}
-                    {index === 2 && (
-                      <Link to="/shop">
-                        <Button variant="default" size="lg">
-                          Découvrir la Collection
-                        </Button>
-                      </Link>
-                    )}
                   </div>
                 </div>
               ) : index === 0 ? (
@@ -98,10 +79,22 @@ const HeroSection = () => {
         ))}
       </div>
       
-      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg">
-        {slides.map((_, index) => <button key={index} onClick={() => handleSlideChange(index)} className="focus:outline-none hover:scale-110 transition-transform" aria-label={`Go to slide ${index + 1}`} disabled={isAnimating}>
-            {index === currentSlide ? <CircleDot className="h-6 w-6 text-pink-600" /> : <Circle className="h-6 w-6 text-gray-400 hover:text-pink-400" />}
-          </button>)}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleSlideChange(index)}
+            className="focus:outline-none hover:scale-110 transition-transform w-8 h-8 flex items-center justify-center"
+            aria-label={`Aller à la slide ${index + 1}`}
+            disabled={isAnimating}
+          >
+            {index === currentSlide ? (
+              <CircleDot className="h-5 w-5 text-pink-600" />
+            ) : (
+              <Circle className="h-5 w-5 text-gray-500" />
+            )}
+          </button>
+        ))}
       </div>
       
       <style>
