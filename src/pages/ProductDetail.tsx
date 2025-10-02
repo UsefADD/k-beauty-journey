@@ -187,6 +187,10 @@ const ProductDetail = () => {
               </div>
               <h1 className="text-3xl font-bold text-black mb-3">{product.Product_name}</h1>
               
+              {product.volume && !hasVariants && (
+                <div className="text-gray-600 mb-2">{product.volume}</div>
+              )}
+              
               <EditableRating 
                 rating={rating} 
                 review={review} 
