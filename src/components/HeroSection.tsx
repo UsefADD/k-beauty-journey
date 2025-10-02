@@ -18,7 +18,7 @@ const HeroSection = () => {
     title: "Spring Collection",
     subtitle: "Refresh your routine with our seasonal favorites"
   }, {
-    src: "/autumn-skincare-bg.jpg",
+    src: "/autumn-skincare-new.png",
     alt: "Autumn K-Beauty Collection",
     title: "Collection Automne",
     subtitle: "Révélez votre beauté naturelle avec nos soins automne"
