@@ -230,7 +230,7 @@ const ProductDetail = () => {
                         onClick={() => setSelectedVariant(variant)}
                         disabled={variant.stock_quantity <= 0}
                         className={`
-                          relative px-6 py-2 border-2 transition-all
+                          relative px-4 py-2 border transition-all text-sm
                           ${selectedVariant?.id === variant.id 
                             ? 'border-black' 
                             : 'border-gray-300 hover:border-gray-400'}
@@ -243,7 +243,7 @@ const ProductDetail = () => {
                           {variant.volume}
                         </span>
                         {variant.stock_quantity <= 0 && (
-                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-sm"></div>
+                          <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-sm"></div>
                         )}
                       </button>
                     ))}
@@ -255,13 +255,13 @@ const ProductDetail = () => {
                 <label className="block text-sm font-medium text-black mb-2">
                   {t('quantity') || 'Quantité'}
                 </label>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center border border-gray-300 w-fit">
                   <button
                     onClick={decrementQuantity}
                     disabled={quantity <= 1}
-                    className="w-10 h-10 flex items-center justify-center border-2 border-gray-300 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border-r border-gray-300"
                   >
-                    <span className="text-xl font-medium">−</span>
+                    <span className="text-lg">−</span>
                   </button>
                   <input
                     type="number"
@@ -274,14 +274,14 @@ const ProductDetail = () => {
                         setQuantity(val);
                       }
                     }}
-                    className="w-20 h-10 text-center border-2 border-gray-300 focus:border-pink-600 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-16 h-10 text-center focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <button
                     onClick={incrementQuantity}
                     disabled={quantity >= (productStock || 0)}
-                    className="w-10 h-10 flex items-center justify-center border-2 border-gray-300 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border-l border-gray-300"
                   >
-                    <span className="text-xl font-medium">+</span>
+                    <span className="text-lg">+</span>
                   </button>
                 </div>
               </div>
