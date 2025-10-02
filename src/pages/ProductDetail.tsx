@@ -214,7 +214,7 @@ const ProductDetail = () => {
                         onClick={() => setSelectedVariant(variant)}
                         disabled={variant.stock_quantity <= 0}
                         className={`
-                          p-4 border-2 rounded-lg transition-all text-left
+                          relative p-4 border-2 rounded-lg transition-all text-left
                           ${selectedVariant?.id === variant.id 
                             ? 'border-pink-600 bg-pink-50' 
                             : 'border-gray-200 hover:border-pink-300'}
@@ -223,10 +223,14 @@ const ProductDetail = () => {
                             : 'cursor-pointer'}
                         `}
                       >
-                        <div className="font-semibold text-gray-900">{variant.volume}</div>
+                        <div className={`font-semibold text-gray-900 ${variant.stock_quantity <= 0 ? 'line-through' : ''}`}>
+                          {variant.volume}
+                        </div>
                         <div className="text-lg font-bold text-pink-600 mt-1">{variant.price.toFixed(2)} MAD</div>
                         {variant.stock_quantity <= 0 && (
-                          <div className="text-xs text-red-500 mt-1">Rupture de stock</div>
+                          <div className="absolute top-2 right-2 px-2 py-0.5 bg-red-100 border border-red-300 rounded text-xs text-red-600 font-medium">
+                            Épuisé
+                          </div>
                         )}
                       </button>
                     ))}
