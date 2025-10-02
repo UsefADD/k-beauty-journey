@@ -98,9 +98,9 @@ const HeroSection = () => {
         ))}
       </div>
       
-      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
-        {slides.map((_, index) => <button key={index} onClick={() => handleSlideChange(index)} className="focus:outline-none" aria-label={`Go to slide ${index + 1}`} disabled={isAnimating}>
-            {index === currentSlide ? <CircleDot className="h-4 w-4 text-pink-600" /> : <Circle className="h-4 w-4 text-gray-400" />}
+      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg">
+        {slides.map((_, index) => <button key={index} onClick={() => handleSlideChange(index)} className="focus:outline-none hover:scale-110 transition-transform" aria-label={`Go to slide ${index + 1}`} disabled={isAnimating}>
+            {index === currentSlide ? <CircleDot className="h-6 w-6 text-pink-600" /> : <Circle className="h-6 w-6 text-gray-400 hover:text-pink-400" />}
           </button>)}
       </div>
       
