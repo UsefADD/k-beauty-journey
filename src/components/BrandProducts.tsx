@@ -41,6 +41,9 @@ const BrandProducts = ({ brand, onBack }: BrandProductsProps) => {
               )}
             </div>
             <div className="font-bold mb-2 text-lg text-gray-800">{product.name}</div>
+            {product.volume && (
+              <div className="text-gray-600 text-sm mb-1">{product.volume}</div>
+            )}
             <div className="text-black font-extrabold text-xl">{product.price} MAD</div>
           </Link>
         ))}

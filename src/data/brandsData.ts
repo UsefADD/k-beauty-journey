@@ -14,6 +14,7 @@ export interface Brand {
     product_type: string;
     skin_type_category: string[];
     skin_concern_category: string[];
+    volume: string | null;
   }>;
 }
 
@@ -22,7 +23,7 @@ export const fetchBrandsFromProducts = async (): Promise<Brand[]> => {
   try {
     const { data: products, error } = await supabase
       .from('products')
-      .select('id, brand, "Product_name", price, image_url, product_type, skin_type_category, skin_concern_category');
+      .select('id, brand, "Product_name", price, image_url, product_type, skin_type_category, skin_concern_category, volume');
 
     if (error) throw error;
 
@@ -39,7 +40,8 @@ export const fetchBrandsFromProducts = async (): Promise<Brand[]> => {
         image_url: product.image_url,
         product_type: product.product_type,
         skin_type_category: product.skin_type_category || [],
-        skin_concern_category: product.skin_concern_category || []
+        skin_concern_category: product.skin_concern_category || [],
+        volume: product.volume
       });
       return acc;
     }, {} as Record<string, any[]>) || {};

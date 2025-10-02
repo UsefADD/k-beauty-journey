@@ -12,6 +12,7 @@ interface ProductCardProps {
   price: number;
   image: string;
   stock_quantity?: number;
+  volume?: string | null;
 }
 
 const ProductCard = ({
@@ -20,7 +21,8 @@ const ProductCard = ({
   brand,
   price,
   image,
-  stock_quantity
+  stock_quantity,
+  volume
 }: ProductCardProps) => {
   console.info('Render: ProductCard');
   const { addItem } = useCart();
@@ -60,6 +62,7 @@ const ProductCard = ({
             <h3 className="text-sm text-zinc-900">
               <span className="font-medium uppercase text-xs text-zinc-950">{brand}</span>
               <p className="font-medium mt-1 text-zinc-900">{name}</p>
+              {volume && <p className="text-xs text-gray-600 mt-0.5">{volume}</p>}
             </h3>
           </div>
           <p className="text-sm font-medium text-zinc-950">{price.toFixed(2)} MAD</p>

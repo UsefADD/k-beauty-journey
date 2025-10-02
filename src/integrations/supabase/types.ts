@@ -226,6 +226,7 @@ export type Database = {
           skin_concern_subcategory: string[] | null
           skin_type_category: string[] | null
           stock_quantity: number | null
+          volume: string | null
         }
         Insert: {
           brand: string
@@ -243,6 +244,7 @@ export type Database = {
           skin_concern_subcategory?: string[] | null
           skin_type_category?: string[] | null
           stock_quantity?: number | null
+          volume?: string | null
         }
         Update: {
           brand?: string
@@ -260,6 +262,7 @@ export type Database = {
           skin_concern_subcategory?: string[] | null
           skin_type_category?: string[] | null
           stock_quantity?: number | null
+          volume?: string | null
         }
         Relationships: []
       }

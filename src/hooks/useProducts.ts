@@ -20,6 +20,7 @@ export interface Product {
   skin_concern_subcategory: string[] | null;
   how_to_use: string | null;
   ingredients: string | null;
+  volume: string | null;
 }
 
 export const useProducts = () => {
