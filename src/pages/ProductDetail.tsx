@@ -10,6 +10,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import EditableRating from "../components/EditableRating";
 import { useProductReview } from '@/hooks/useProductReview';
 import { formatDistance } from 'date-fns';
@@ -41,6 +42,7 @@ const ProductDetail = () => {
   const [averageRating, setAverageRating] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
   
   const { data: variants = [], isLoading: isLoadingVariants } = useProductVariants(productId || '');
 
@@ -98,6 +100,15 @@ const ProductDetail = () => {
   const decrementQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
+    }
+  };
+
+  const handleWishlistClick = () => {
+    if (!isAuthenticated) {
+      setShowAuthDialog(true);
+    } else {
+      // Logic for adding to wishlist
+      console.log('Add to wishlist');
     }
   };
 
@@ -297,19 +308,13 @@ const ProductDetail = () => {
                   <ShoppingCart className="mr-2 h-5 w-5" />
                   {productStock && productStock > 0 ? t('add.to.cart') : t('out.of.stock')}
                 </Button>
-                {isAuthenticated ? (
-                  <Button variant="outline" className="px-4 border-cream-200">
-                    <Heart className="h-5 w-5 text-pink-600" />
-                  </Button>
-                ) : (
-                  <Button 
-                    variant="outline" 
-                    className="px-4 border-cream-200"
-                    onClick={() => navigate('/auth')}
-                  >
-                    <Heart className="h-5 w-5 text-gray-400" />
-                  </Button>
-                )}
+                <Button 
+                  variant="outline" 
+                  className="px-4 border-cream-200"
+                  onClick={handleWishlistClick}
+                >
+                  <Heart className="h-5 w-5 text-pink-600" />
+                </Button>
               </div>
               
               <div className="mb-6">
@@ -395,6 +400,41 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      
+      <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">
+              {t('connect.to.continue') || 'Connectez-vous pour continuer'}
+            </DialogTitle>
+            <DialogDescription className="text-center pt-2">
+              {t('wishlist.auth.message') || 'Vous devez être connecté pour ajouter des produits à votre liste de souhaits.'}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-3 pt-4">
+            <Button 
+              onClick={() => {
+                setShowAuthDialog(false);
+                navigate('/auth');
+              }}
+              className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+            >
+              {t('sign.in') || 'Se connecter'}
+            </Button>
+            <Button 
+              onClick={() => {
+                setShowAuthDialog(false);
+                navigate('/auth?mode=signup');
+              }}
+              variant="outline"
+              className="w-full"
+            >
+              {t('create.account') || 'Créer un compte'}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+      
       <Footer />
     </div>
   );
