@@ -207,25 +207,30 @@ const ProductDetail = () => {
                   <label className="block text-sm font-medium text-black mb-2">
                     {t('choose.volume') || 'Choisir le volume'}
                   </label>
-                  <Select
-                    value={selectedVariant?.id}
-                    onValueChange={(value) => {
-                      const variant = variants.find(v => v.id === value);
-                      if (variant) setSelectedVariant(variant);
-                    }}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Sélectionner un volume" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {variants.map((variant) => (
-                        <SelectItem key={variant.id} value={variant.id}>
-                          {variant.volume} - {variant.price.toFixed(2)} MAD
-                          {variant.stock_quantity <= 0 && ' (Rupture de stock)'}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="grid grid-cols-2 gap-3">
+                    {variants.map((variant) => (
+                      <button
+                        key={variant.id}
+                        onClick={() => setSelectedVariant(variant)}
+                        disabled={variant.stock_quantity <= 0}
+                        className={`
+                          p-4 border-2 rounded-lg transition-all text-left
+                          ${selectedVariant?.id === variant.id 
+                            ? 'border-pink-600 bg-pink-50' 
+                            : 'border-gray-200 hover:border-pink-300'}
+                          ${variant.stock_quantity <= 0 
+                            ? 'opacity-50 cursor-not-allowed' 
+                            : 'cursor-pointer'}
+                        `}
+                      >
+                        <div className="font-semibold text-gray-900">{variant.volume}</div>
+                        <div className="text-lg font-bold text-pink-600 mt-1">{variant.price.toFixed(2)} MAD</div>
+                        {variant.stock_quantity <= 0 && (
+                          <div className="text-xs text-red-500 mt-1">Rupture de stock</div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
               
