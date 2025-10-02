@@ -45,42 +45,45 @@ const HeroSection = () => {
   };
   return <div className="relative w-full h-screen overflow-hidden bg-white">
       <div className="w-full h-full">
-        <div className="h-full relative">
-          <div className={`absolute w-full h-full flex items-center justify-center transition-transform duration-500 ease-in-out ${isAnimating ? `${getSlideDirection()}` : ''}`} style={{
-          transform: isAnimating ? getSlideDirection() === 'slide-left' ? 'translateX(-100%)' : 'translateX(100%)' : 'translateX(0)'
-        }}>
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute w-full h-full flex items-center justify-center transition-opacity duration-500 ${
+              index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+          >
             <div className="relative w-full h-full flex items-center justify-center">
-              <img src={slides[prevSlide].src} alt={slides[prevSlide].alt} className="max-w-full max-h-full object-contain" loading="lazy" />
-              {slides[prevSlide].title && <div className="absolute inset-0 bg-black bg-opacity-30">
+              <img
+                src={slide.src}
+                alt={slide.alt}
+                className="max-w-full max-h-full object-contain"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+              {slide.title ? (
+                <div className="absolute inset-0 bg-black bg-opacity-30">
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif">{slides[prevSlide].title}</h2>
-                    <p className="text-xl md:text-2xl">{slides[prevSlide].subtitle}</p>
-                  </div>
-                </div>}
-            </div>
-          </div>
-          
-          <div className={`absolute w-full h-full flex items-center justify-center transition-transform duration-500 ease-in-out ${isAnimating ? `${getSlideDirection() === 'slide-left' ? 'entering-right' : 'entering-left'}` : ''}`} style={{
-          transform: isAnimating ? 'translateX(0)' : 'translateX(0)'
-        }}>
-            <div className="relative w-full h-full flex items-center justify-center">
-              <img src={slides[currentSlide].src} alt={slides[currentSlide].alt} className="max-w-full max-h-full object-contain" loading={currentSlide === 0 && prevSlide === 0 ? "eager" : "lazy"} />
-              {slides[currentSlide].title ? <div className="absolute inset-0 bg-black bg-opacity-30">
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif text-zinc-200">{slides[currentSlide].title}</h2>
-                    <p className="text-xl md:text-2xl mb-6 text-zinc-200">{slides[currentSlide].subtitle}</p>
-                    {currentSlide === 1 && <Link to="/shop/newly-curated">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif text-zinc-200">
+                      {slide.title}
+                    </h2>
+                    <p className="text-xl md:text-2xl mb-6 text-zinc-200">{slide.subtitle}</p>
+                    {index === 1 && (
+                      <Link to="/shop/newly-curated">
                         <Button variant="default" size="lg">
                           Get Ready for Spring
                         </Button>
-                      </Link>}
-                    {currentSlide === 2 && <Link to="/shop">
+                      </Link>
+                    )}
+                    {index === 2 && (
+                      <Link to="/shop">
                         <Button variant="default" size="lg">
                           Découvrir la Collection
                         </Button>
-                      </Link>}
+                      </Link>
+                    )}
                   </div>
-                </div> : <div className="absolute inset-0 flex items-end justify-start p-12">
+                </div>
+              ) : index === 0 ? (
+                <div className="absolute inset-0 flex items-end justify-start p-12">
                   <div className="text-center mb-30 -ml-8">
                     <Link to="/shop/best-sellers">
                       <Button variant="default" size="lg">
@@ -88,10 +91,11 @@ const HeroSection = () => {
                       </Button>
                     </Link>
                   </div>
-                </div>}
+                </div>
+              ) : null}
             </div>
           </div>
-        </div>
+        ))}
       </div>
       
       <div className="absolute right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
