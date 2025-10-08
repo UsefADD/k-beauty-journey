@@ -8,7 +8,7 @@ const HeroSection = () => {
   const [prevSlide, setPrevSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const slides = [{
-    src: "/lovable-uploads/96bd7d31-ad5b-415b-af2a-51ec79980cad.png",
+    src: "/k-beauty-hero.webp",
     alt: "K-Beauty Essentials Collection",
     title: "",
     subtitle: ""
