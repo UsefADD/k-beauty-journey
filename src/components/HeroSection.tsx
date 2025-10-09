@@ -89,7 +89,7 @@ const HeroSection = () => {
         ))}
       </div>
       
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg z-50 pointer-events-auto" aria-label="Contrôles du carrousel">
         {slides.map((_, index) => (
           <button
             key={index}
