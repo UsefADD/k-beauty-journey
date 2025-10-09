@@ -25,12 +25,17 @@ const HeroSection = () => {
   }];
   useEffect(() => {
     const interval = setInterval(() => {
-      handleSlideChange((currentSlide + 1) % slides.length);
+      if (!isAnimating) {
+        setPrevSlide(currentSlide);
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+        setIsAnimating(true);
+        setTimeout(() => setIsAnimating(false), 500);
+      }
     }, 5000);
     return () => clearInterval(interval);
-  }, [currentSlide, slides.length]);
+  }, [currentSlide, slides.length, isAnimating]);
   const handleSlideChange = (index: number) => {
-    if (index === currentSlide || isAnimating) return;
+    if (index === currentSlide) return;
     setPrevSlide(currentSlide);
     setCurrentSlide(index);
     setIsAnimating(true);
@@ -91,7 +96,6 @@ const HeroSection = () => {
             onClick={() => handleSlideChange(index)}
             className="focus:outline-none hover:scale-110 transition-transform w-8 h-8 flex items-center justify-center"
             aria-label={`Aller à la slide ${index + 1}`}
-            disabled={isAnimating}
           >
             {index === currentSlide ? (
               <CircleDot className="h-5 w-5 text-pink-600" />
