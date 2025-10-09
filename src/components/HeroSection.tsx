@@ -80,9 +80,9 @@ const HeroSection = () => {
                 </div>
               ) : index === 0 ? (
                 <Link 
-                  to="/brands/purito" 
+                  to="/shop" 
                   className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
-                  aria-label="Découvrir Purito Seoul"
+                  aria-label="Découvrir tous les produits"
                 />
               ) : index === 1 ? (
                 <Link 
