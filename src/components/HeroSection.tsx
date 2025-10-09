@@ -78,16 +78,6 @@ const HeroSection = () => {
                     <p className="text-xl md:text-2xl mb-6 text-zinc-200">{slide.subtitle}</p>
                   </div>
                 </div>
-              ) : index === 0 ? (
-                <div className="absolute inset-0 flex items-end justify-start p-12">
-                  <div className="text-center mb-30 -ml-8">
-                    <Link to="/shop/best-sellers">
-                      <Button variant="default" size="lg">
-                        Craquez pour nos best-sellers
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
               ) : index === 1 ? (
                 <Link 
                   to="/shop" 
