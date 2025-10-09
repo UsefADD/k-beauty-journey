@@ -53,7 +53,7 @@ const HeroSection = () => {
     if (currentSlide === slides.length - 1 && prevSlide === 0) return 'slide-right';
     return currentSlide > prevSlide ? 'slide-left' : 'slide-right';
   };
-  return <div className="relative w-full h-screen overflow-hidden bg-white">
+  return <div className="relative w-full h-screen overflow-hidden bg-white -mt-20">
       <div className="w-full h-full">
         {slides.map((slide, index) => (
           <div
