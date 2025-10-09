@@ -56,7 +56,7 @@ const HeroSection = () => {
               <img
                 src={slide.src}
                 alt={slide.alt}
-                className={index === 0 ? "max-w-full max-h-full object-contain" : "w-full h-full object-cover"}
+                className="max-w-full max-h-full object-contain"
                 loading={index === 0 ? "eager" : "lazy"}
               />
               {slide.title ? (
