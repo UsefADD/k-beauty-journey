@@ -22,6 +22,11 @@ const HeroSection = () => {
     alt: "Purito Best-seller",
     title: "",
     subtitle: ""
+  }, {
+    src: "/ksecret-eye-cream.png",
+    alt: "KSECRET - SEOUL 1988 Eye Cream",
+    title: "",
+    subtitle: ""
   }];
   useEffect(() => {
     const interval = setInterval(() => {
