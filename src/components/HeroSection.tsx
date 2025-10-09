@@ -12,6 +12,16 @@ const HeroSection = () => {
     alt: "Autumn K-Beauty Collection",
     title: "",
     subtitle: ""
+  }, {
+    src: "/brightening-heroes.png",
+    alt: "Brightening Heroes - 10% OFF",
+    title: "",
+    subtitle: ""
+  }, {
+    src: "/purito-bestseller.png",
+    alt: "Purito Best-seller",
+    title: "",
+    subtitle: ""
   }];
   useEffect(() => {
     const interval = setInterval(() => {
