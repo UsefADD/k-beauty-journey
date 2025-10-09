@@ -86,7 +86,7 @@ const HeroSection = () => {
               ) : index === 1 ? (
                 <Link 
                   to="/shop" 
-                  className="absolute bottom-[15%] left-1/2 -translate-x-1/2 w-48 h-14 pointer-events-auto z-20"
+                  className="absolute bottom-[12%] left-1/2 -translate-x-1/2 w-56 h-16 pointer-events-auto z-20 cursor-pointer hover:bg-white/10 rounded-lg transition-colors"
                   aria-label="Découvrir"
                 />
               ) : null}
