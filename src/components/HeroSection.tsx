@@ -92,9 +92,9 @@ const HeroSection = () => {
                 />
               ) : index === 2 ? (
                 <Link 
-                  to="/brands/purito" 
+                  to="/brands/purito-seoul" 
                   className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
-                  aria-label="Découvrir Purito"
+                  aria-label="Découvrir Purito Seoul"
                 />
               ) : null}
             </div>
