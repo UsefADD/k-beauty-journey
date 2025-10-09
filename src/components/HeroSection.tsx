@@ -78,6 +78,12 @@ const HeroSection = () => {
                     <p className="text-xl md:text-2xl mb-6 text-zinc-200">{slide.subtitle}</p>
                   </div>
                 </div>
+              ) : index === 0 ? (
+                <Link 
+                  to="/brands/purito" 
+                  className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
+                  aria-label="Découvrir Purito Seoul"
+                />
               ) : index === 1 ? (
                 <Link 
                   to="/shop" 
