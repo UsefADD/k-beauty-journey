@@ -16,6 +16,7 @@ import { useProductReview } from '@/hooks/useProductReview';
 import { formatDistance } from 'date-fns';
 import { useProducts, Product } from '@/hooks/useProducts';
 import { useProductVariants, ProductVariant } from '@/hooks/useProductVariants';
+import { useProductImages } from '@/hooks/useProductImages';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface ProductReview {
@@ -45,6 +46,7 @@ const ProductDetail = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   
   const { data: variants = [], isLoading: isLoadingVariants } = useProductVariants(productId || '');
+  const { data: additionalImages = [] } = useProductImages(productId || '');
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -171,7 +173,15 @@ const ProductDetail = () => {
     );
   }
 
-  const productImages = product.image_url ? [product.image_url] : ['/placeholder.svg'];
+  // Combine main image with additional images
+  const productImages = [
+    ...(product.image_url ? [product.image_url] : []),
+    ...additionalImages.map(img => img.image_url)
+  ];
+  
+  // If no images at all, use placeholder
+  const displayImages = productImages.length > 0 ? productImages : ['/placeholder.svg'];
+  
   const productPrice = selectedVariant ? selectedVariant.price : product.price;
   const productStock = selectedVariant ? selectedVariant.stock_quantity : product.stock_quantity;
   const hasVariants = variants.length > 0;
@@ -185,7 +195,7 @@ const ProductDetail = () => {
             <div className="md:w-1/2">
               <Carousel className="w-full">
                 <CarouselContent>
-                  {productImages.map((image, index) => (
+                  {displayImages.map((image, index) => (
                     <CarouselItem key={index}>
                       <div className="aspect-square w-full overflow-hidden rounded-xl bg-cream-100">
                         <img
