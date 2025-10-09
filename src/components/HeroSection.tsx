@@ -84,15 +84,11 @@ const HeroSection = () => {
                   </div>
                 </div>
               ) : index === 1 ? (
-                <div className="absolute inset-0 flex items-end justify-center p-12 pointer-events-auto">
-                  <div className="text-center mb-30">
-                    <Link to="/shop">
-                      <Button variant="default" size="lg">
-                        Profitez de -10% maintenant
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
+                <Link 
+                  to="/shop" 
+                  className="absolute bottom-[15%] left-1/2 -translate-x-1/2 w-48 h-14 pointer-events-auto z-20"
+                  aria-label="Découvrir"
+                />
               ) : null}
             </div>
           </div>
