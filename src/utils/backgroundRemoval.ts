@@ -35,7 +35,7 @@ export const removeBackgroundAndAddWhite = async (imageElement: HTMLImageElement
   try {
     console.log('Starting background removal process...');
     const segmenter = await pipeline('image-segmentation', 'Xenova/segformer-b0-finetuned-ade-512-512', {
-      device: 'wasm',
+      device: 'webgpu',
     });
     
     // Convert HTMLImageElement to canvas
@@ -74,34 +74,42 @@ export const removeBackgroundAndAddWhite = async (imageElement: HTMLImageElement
     outputCtx.fillStyle = 'white';
     outputCtx.fillRect(0, 0, outputCanvas.width, outputCanvas.height);
     
-    // Get the original image data and mask
-    const originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    // Draw original image first
+    outputCtx.drawImage(canvas, 0, 0);
+    
+    // Get the image data and apply mask
     const outputImageData = outputCtx.getImageData(0, 0, outputCanvas.width, outputCanvas.height);
+    const data = outputImageData.data;
     
-    const originalData = originalImageData.data;
-    const outputData = outputImageData.data;
-    
-    // Apply the mask to blend original image with white background
+    // Apply inverted mask to alpha channel
     for (let i = 0; i < result[0].mask.data.length; i++) {
-      const pixelIndex = i * 4;
       // Invert the mask value (1 - value) to keep the subject instead of the background
-      const alpha = 1 - result[0].mask.data[i];
-      
-      if (alpha > 0.5) { // Keep the subject pixels
-        outputData[pixelIndex] = originalData[pixelIndex];     // R
-        outputData[pixelIndex + 1] = originalData[pixelIndex + 1]; // G
-        outputData[pixelIndex + 2] = originalData[pixelIndex + 2]; // B
-        outputData[pixelIndex + 3] = 255; // Full opacity
-      }
-      // Background pixels remain white (already filled)
+      const alpha = Math.round((1 - result[0].mask.data[i]) * 255);
+      data[i * 4 + 3] = alpha;
     }
     
     outputCtx.putImageData(outputImageData, 0, 0);
+    console.log('Mask applied successfully');
+    
+    // Create a new canvas to composite the transparent image over white
+    const finalCanvas = document.createElement('canvas');
+    finalCanvas.width = outputCanvas.width;
+    finalCanvas.height = outputCanvas.height;
+    const finalCtx = finalCanvas.getContext('2d');
+    
+    if (!finalCtx) throw new Error('Could not get final canvas context');
+    
+    // Fill with white background
+    finalCtx.fillStyle = 'white';
+    finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+    
+    // Draw the masked image on top
+    finalCtx.drawImage(outputCanvas, 0, 0);
     console.log('White background applied successfully');
     
-    // Convert canvas to blob
+    // Convert final canvas to blob
     return new Promise((resolve, reject) => {
-      outputCanvas.toBlob(
+      finalCanvas.toBlob(
         (blob) => {
           if (blob) {
             console.log('Successfully created final blob');
