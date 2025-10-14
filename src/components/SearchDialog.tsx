@@ -176,14 +176,21 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                         onSelect={() => handleSelect(product.id)}
                         className="flex items-center gap-2 p-2 cursor-pointer hover:bg-accent"
                       >
-                        <img 
-                          src={product.image_url || "/placeholder.svg"} 
-                          alt={product.Product_name} 
-                          className="w-10 h-10 object-cover rounded"
-                        />
-                        <div>
-                          <div className="font-medium">{product.Product_name}</div>
-                          <div className="text-sm text-muted-foreground">{product.brand}</div>
+                        <div className="w-10 h-10 flex-shrink-0 bg-muted rounded overflow-hidden">
+                          <img 
+                            src={product.image_url || "/placeholder.svg"} 
+                            alt={product.Product_name} 
+                            className="w-full h-full object-cover"
+                            loading="eager"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = "/placeholder.svg";
+                            }}
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium truncate">{product.Product_name}</div>
+                          <div className="text-sm text-muted-foreground truncate">{product.brand}</div>
                         </div>
                       </CommandItem>
                     ))}
