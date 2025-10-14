@@ -155,8 +155,9 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                 )}
                 
                 
-                {matchingBrands.length > 0 && matchingBrands.map((brand) => {
+                {matchingBrands.length > 0 ? matchingBrands.map((brand) => {
                   const brandProducts = filteredProducts.filter(p => p.brand === brand);
+                  console.log(`Brand: ${brand}, Products:`, brandProducts.length);
                   return (
                     <CommandGroup key={brand} heading={`${brand} (${brandProducts.length} produit${brandProducts.length > 1 ? 's' : ''})`}>
                       {brandProducts.map((product) => (
@@ -185,7 +186,11 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                       ))}
                     </CommandGroup>
                   );
-                })}
+                }) : (
+                  <div className="p-4 text-center text-muted-foreground">
+                    Recherche en cours...
+                  </div>
+                )}
               </>
             )}
           </CommandList>
