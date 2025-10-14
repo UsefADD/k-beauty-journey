@@ -93,17 +93,21 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
       return false;
     });
     
-    // Obtenir TOUS les produits des marques qui correspondent
+    // Déterminer les marques à utiliser: celles qui correspondent au texte OU celles des produits trouvés par nom
+    const nameMatchedBrands = new Set<string>(directMatches.map(p => p.brand || ''));
+    const brandsToUse = brandsSet.size > 0 ? brandsSet : nameMatchedBrands;
+
+    // Obtenir TOUS les produits des marques sélectionnées
     const allMatchingBrandProducts = products.filter(product => {
-      return brandsSet.has(product.brand || '');
+      return brandsToUse.has(product.brand || '');
     });
     
     console.log('Direct matches:', directMatches.length);
     console.log('All brand products:', allMatchingBrandProducts.length);
-    console.log('Matching brands:', Array.from(brandsSet));
+    console.log('Matching brands:', Array.from(brandsToUse));
     
     setFilteredProducts(allMatchingBrandProducts);
-    setMatchingBrands(Array.from(brandsSet));
+    setMatchingBrands(Array.from(brandsToUse));
   }, [searchQuery, products]);
 
   const handleSelect = (productId: string) => {
@@ -135,7 +139,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="p-0" onClick={handleDialogClick}>
         <DialogTitle className="sr-only">Search products</DialogTitle>
-        <Command className="rounded-lg border shadow-md">
+        <Command className="rounded-lg border shadow-md" shouldFilter={false}>
           <CommandInput
             placeholder={t('search.products')}
             value={searchQuery}
