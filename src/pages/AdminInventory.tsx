@@ -16,11 +16,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Package } from "lucide-react";
+import { Package, Check, X, Edit } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const AdminInventory = () => {
-  const { products, isLoading } = useInventory();
+  const { products, isLoading, updateStock } = useInventory();
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [editingId, setEditingId] = React.useState<string | null>(null);
+  const [editValue, setEditValue] = React.useState<string>('');
 
   const filteredProducts = React.useMemo(() => {
     if (!products) return [];
@@ -29,6 +32,25 @@ const AdminInventory = () => {
       product.brand.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [products, searchTerm]);
+
+  const handleEditStart = (id: string, currentStock: number) => {
+    setEditingId(id);
+    setEditValue(currentStock.toString());
+  };
+
+  const handleEditCancel = () => {
+    setEditingId(null);
+    setEditValue('');
+  };
+
+  const handleEditSave = (id: string) => {
+    const newStock = parseInt(editValue);
+    if (!isNaN(newStock) && newStock >= 0) {
+      updateStock.mutate({ productId: id, quantity: newStock });
+      setEditingId(null);
+      setEditValue('');
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -71,6 +93,7 @@ const AdminInventory = () => {
                         <TableHead>Brand</TableHead>
                         <TableHead>Price (MAD)</TableHead>
                         <TableHead className="text-right">Stock</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -80,12 +103,56 @@ const AdminInventory = () => {
                             <TableCell className="font-medium">{product.name}</TableCell>
                             <TableCell>{product.brand}</TableCell>
                             <TableCell>{product.price.toFixed(2)}</TableCell>
-                            <TableCell className="text-right">{product.stock_quantity}</TableCell>
+                            <TableCell className="text-right">
+                              {editingId === product.id ? (
+                                <Input
+                                  type="number"
+                                  value={editValue}
+                                  onChange={(e) => setEditValue(e.target.value)}
+                                  className="w-20 h-8 text-right"
+                                  min="0"
+                                  autoFocus
+                                />
+                              ) : (
+                                product.stock_quantity
+                              )}
+                            </TableCell>
+                            <TableCell className="text-right">
+                              {editingId === product.id ? (
+                                <div className="flex justify-end gap-2">
+                                  <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    className="h-8 w-8"
+                                    onClick={() => handleEditSave(product.id)}
+                                  >
+                                    <Check className="h-4 w-4" />
+                                  </Button>
+                                  <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    className="h-8 w-8"
+                                    onClick={handleEditCancel}
+                                  >
+                                    <X className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              ) : (
+                                <Button
+                                  size="icon"
+                                  variant="ghost"
+                                  className="h-8 w-8"
+                                  onClick={() => handleEditStart(product.id, product.stock_quantity)}
+                                >
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                              )}
+                            </TableCell>
                           </TableRow>
                         ))
                       ) : (
                         <TableRow>
-                          <TableCell colSpan={4} className="text-center py-4">
+                          <TableCell colSpan={5} className="text-center py-4">
                             No products found
                           </TableCell>
                         </TableRow>
