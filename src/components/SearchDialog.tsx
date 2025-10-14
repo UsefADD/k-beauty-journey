@@ -73,7 +73,8 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
     const query = searchQuery.toLowerCase();
     const brandsSet = new Set<string>();
     
-    const filtered = products.filter(product => {
+    // Trouver tous les produits qui correspondent au nom ou à la marque
+    const directMatches = products.filter(product => {
       const productName = product.Product_name || '';
       const brand = product.brand || '';
       
@@ -92,24 +93,16 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
       return false;
     });
     
-    // Si un produit correspond, ajouter tous les produits de la même marque
-    const brandProductsMap = new Map<string, typeof filtered>();
-    filtered.forEach(product => {
-      const brand = product.brand || '';
-      if (!brandProductsMap.has(brand)) {
-        brandProductsMap.set(brand, []);
-      }
-      brandProductsMap.get(brand)!.push(product);
-    });
-    
-    // Ajouter tous les produits des marques correspondantes
-    const allBrandProducts = products.filter(product => {
+    // Obtenir TOUS les produits des marques qui correspondent
+    const allMatchingBrandProducts = products.filter(product => {
       return brandsSet.has(product.brand || '');
     });
     
-    console.log('Filtered products:', allBrandProducts.length);
+    console.log('Direct matches:', directMatches.length);
+    console.log('All brand products:', allMatchingBrandProducts.length);
     console.log('Matching brands:', Array.from(brandsSet));
-    setFilteredProducts(allBrandProducts);
+    
+    setFilteredProducts(allMatchingBrandProducts);
     setMatchingBrands(Array.from(brandsSet));
   }, [searchQuery, products]);
 
