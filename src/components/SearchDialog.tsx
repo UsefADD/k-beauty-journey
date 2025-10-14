@@ -92,9 +92,24 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
       return false;
     });
     
-    console.log('Filtered products:', filtered.length);
+    // Si un produit correspond, ajouter tous les produits de la même marque
+    const brandProductsMap = new Map<string, typeof filtered>();
+    filtered.forEach(product => {
+      const brand = product.brand || '';
+      if (!brandProductsMap.has(brand)) {
+        brandProductsMap.set(brand, []);
+      }
+      brandProductsMap.get(brand)!.push(product);
+    });
+    
+    // Ajouter tous les produits des marques correspondantes
+    const allBrandProducts = products.filter(product => {
+      return brandsSet.has(product.brand || '');
+    });
+    
+    console.log('Filtered products:', allBrandProducts.length);
     console.log('Matching brands:', Array.from(brandsSet));
-    setFilteredProducts(filtered);
+    setFilteredProducts(allBrandProducts);
     setMatchingBrands(Array.from(brandsSet));
   }, [searchQuery, products]);
 
@@ -146,56 +161,38 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                   <CommandEmpty>{t('no.results')}</CommandEmpty>
                 )}
                 
-                {matchingBrands.length > 0 && (
-                  <CommandGroup heading="Marques">
-                    {matchingBrands.map((brand) => {
-                      const brandProductCount = filteredProducts.filter(p => p.brand === brand).length;
-                      return (
+                
+                {matchingBrands.length > 0 && matchingBrands.map((brand) => {
+                  const brandProducts = filteredProducts.filter(p => p.brand === brand);
+                  return (
+                    <CommandGroup key={brand} heading={`${brand} (${brandProducts.length} produit${brandProducts.length > 1 ? 's' : ''})`}>
+                      {brandProducts.map((product) => (
                         <CommandItem
-                          key={brand}
-                          onSelect={() => handleBrandClick(brand)}
-                          className="flex items-center gap-2 p-3 cursor-pointer hover:bg-accent"
+                          key={product.id}
+                          onSelect={() => handleSelect(product.id)}
+                          className="flex items-center gap-2 p-2 cursor-pointer hover:bg-accent"
                         >
-                          <div className="flex-1">
-                            <div className="font-bold text-base">{brand}</div>
-                            <div className="text-sm text-muted-foreground">
-                              {brandProductCount} produit{brandProductCount > 1 ? 's' : ''} trouvé{brandProductCount > 1 ? 's' : ''}
-                            </div>
+                          <div className="w-10 h-10 flex-shrink-0 bg-muted rounded overflow-hidden">
+                            <img 
+                              src={product.image_url || "/placeholder.svg"} 
+                              alt={product.Product_name} 
+                              className="w-full h-full object-cover"
+                              loading="eager"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = "/placeholder.svg";
+                              }}
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-medium truncate">{product.Product_name}</div>
+                            <div className="text-sm text-muted-foreground truncate">{product.price}</div>
                           </div>
                         </CommandItem>
-                      );
-                    })}
-                  </CommandGroup>
-                )}
-                
-                {filteredProducts.length > 0 && (
-                  <CommandGroup heading="Produits">
-                    {filteredProducts.slice(0, 5).map((product) => (
-                      <CommandItem
-                        key={product.id}
-                        onSelect={() => handleSelect(product.id)}
-                        className="flex items-center gap-2 p-2 cursor-pointer hover:bg-accent"
-                      >
-                        <div className="w-10 h-10 flex-shrink-0 bg-muted rounded overflow-hidden">
-                          <img 
-                            src={product.image_url || "/placeholder.svg"} 
-                            alt={product.Product_name} 
-                            className="w-full h-full object-cover"
-                            loading="eager"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.src = "/placeholder.svg";
-                            }}
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium truncate">{product.Product_name}</div>
-                          <div className="text-sm text-muted-foreground truncate">{product.brand}</div>
-                        </div>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
+                      ))}
+                    </CommandGroup>
+                  );
+                })}
               </>
             )}
           </CommandList>
