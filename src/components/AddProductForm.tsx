@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus, Trash2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ImageUploader from './ImageUploader';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Le nom du produit doit contenir au moins 2 caractères." }),
@@ -28,7 +29,7 @@ const formSchema = z.object({
   ingredients: z.string().optional(),
   volume: z.string().optional(),
   images: z.array(z.object({
-    image_url: z.string().url({ message: "URL d'image invalide." }),
+    image_url: z.string().min(1, { message: "Veuillez télécharger une image." }),
     display_order: z.coerce.number().int().nonnegative(),
   })).default([]),
   variants: z.array(z.object({
@@ -267,26 +268,42 @@ const AddProductForm: React.FC = () => {
                 <p className="text-sm text-muted-foreground">Aucune image ajoutée</p>
               ) : (
                 imageFields.map((field, index) => (
-                  <div key={field.id} className="flex gap-4 items-end">
+                  <div key={field.id} className="space-y-4 p-4 border rounded-md">
+                    <div className="flex justify-between items-start">
+                      <FormLabel>Image {index + 1}</FormLabel>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeImage(index)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
                     <FormField
                       control={form.control}
                       name={`images.${index}.image_url`}
                       render={({ field }) => (
-                        <FormItem className="flex-1">
-                          <FormLabel>URL de l'image {index + 1}</FormLabel>
+                        <FormItem>
                           <FormControl>
-                            <Input placeholder="https://exemple.com/image.jpg" {...field} />
+                            <ImageUploader
+                              currentImage={field.value}
+                              onImageUploaded={(url) => field.onChange(url)}
+                              onImageRemoved={() => field.onChange('')}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
+                    
                     <FormField
                       control={form.control}
                       name={`images.${index}.display_order`}
                       render={({ field }) => (
-                        <FormItem className="w-24">
-                          <FormLabel>Ordre</FormLabel>
+                        <FormItem>
+                          <FormLabel>Ordre d'affichage</FormLabel>
                           <FormControl>
                             <Input type="number" {...field} />
                           </FormControl>
@@ -294,14 +311,6 @@ const AddProductForm: React.FC = () => {
                         </FormItem>
                       )}
                     />
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="icon"
-                      onClick={() => removeImage(index)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
                   </div>
                 ))
               )}
