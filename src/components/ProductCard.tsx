@@ -45,7 +45,12 @@ const ProductCard = ({
     <div className="group relative">
       <Link to={`/product/${id}`} className="block">
         <div className="aspect-square w-full overflow-hidden rounded-lg bg-cream-100 transition-all duration-300 group-hover:opacity-90">
-          <img src={image} alt={name} className="h-full w-full object-cover object-center" />
+          <img
+            src={image}
+            alt={name}
+            className="h-full w-full object-cover object-center"
+            onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
+          />
           {isOutOfStock && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <span className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold">

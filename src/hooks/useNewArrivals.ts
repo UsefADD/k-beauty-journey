@@ -46,7 +46,7 @@ export const useNewArrivals = (limit: number = 4) => {
             name: item.Product_name || "",
             brand: item.brand || "",
             price,
-            image: item.image_url || "",
+            image: item.image_url ? item.image_url.toString().replace(/\$0$/, '').trim() : "",
             stock_quantity: item.stock_quantity ? Number(item.stock_quantity) : 0,
             description: item.description || ""
           };

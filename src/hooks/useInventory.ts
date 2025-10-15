@@ -65,7 +65,7 @@ export const useInventory = () => {
           const price = item.price ? parseFloat(item.price.toString().replace(/[^\d.]/g, '')) || 0 : 0;
           console.log(`Price extraction: ${price} from ${item.price}`);
           
-          const image = item.image_url || "";
+          const image = item.image_url ? item.image_url.toString().replace(/\$0$/, '').trim() : "";
           console.log(`Image extraction: ${image} from ${item.image_url}`);
           
           const stock_quantity = item.stock_quantity ? Number(item.stock_quantity) : 0;

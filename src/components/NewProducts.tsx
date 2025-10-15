@@ -65,9 +65,10 @@ const NewProducts = () => {
                   <div className="overflow-hidden rounded-lg bg-white transition-all duration-300 group-hover:opacity-90 h-64 flex items-center justify-center">
                     {product.image ? (
                       <img 
-                        src={product.image} 
-                        alt={product.name} 
+                        src={product.image}
+                        alt={product.name}
                         className="h-full w-full object-cover object-center"
+                        onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
                       />
                     ) : (
                       <div className="text-center p-4">
