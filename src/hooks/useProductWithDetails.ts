@@ -34,6 +34,11 @@ export const useProductWithDetails = () => {
   const addProductWithDetails = useMutation({
     mutationFn: async (productData: ProductWithDetails) => {
       // Step 1: Insert the product
+      // Set the first image as the main image_url
+      const mainImageUrl = productData.images && productData.images.length > 0 
+        ? productData.images[0].image_url 
+        : '';
+
       const { data: product, error: productError } = await supabase
         .from('products')
         .insert([{
@@ -46,6 +51,7 @@ export const useProductWithDetails = () => {
           how_to_use: productData.how_to_use || '',
           ingredients: productData.ingredients || '',
           volume: productData.volume || '',
+          image_url: mainImageUrl,
         }])
         .select()
         .single();
