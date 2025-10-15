@@ -34,9 +34,11 @@ export const useProductWithDetails = () => {
   const addProductWithDetails = useMutation({
     mutationFn: async (productData: ProductWithDetails) => {
       // Step 1: Insert the product
-      // Set the first image as the main image_url
+      // Set the first image as the main image_url (sorted by display_order)
       const mainImageUrl = productData.images && productData.images.length > 0 
-        ? productData.images[0].image_url 
+        ? [...productData.images]
+            .sort((a, b) => (a.display_order ?? 0) - (b.display_order ?? 0))[0]
+            .image_url 
         : '';
 
       const { data: product, error: productError } = await supabase
