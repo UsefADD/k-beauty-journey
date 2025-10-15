@@ -54,13 +54,43 @@ export const useProducts = () => {
       } else {
         console.log('Products received from Supabase:', data);
         
-        // Since the Products table doesn't have an id field, we need to generate one
-        const productsWithId = data ? data.map((product, index) => ({
-          ...product,
-          id: product.id || `product-${index}-${Date.now()}`, // Use existing id or generate one
-          // Convert price from string like "289 dhs" to number
-          price: product.price ? parseFloat(product.price.toString().replace(/[^\d.]/g, '')) || 0 : 0,
-        })) : [];
+        // Resolve primary images: use products.image_url if present, otherwise take first product_images by display_order
+        let imageMap: Record<string, string> = {};
+        if (data && data.length > 0) {
+          const missingIds = (data as any[])
+            .filter((p: any) => !p.image_url)
+            .map((p: any) => p.id)
+            .filter(Boolean);
+          if (missingIds.length > 0) {
+            const { data: images, error: imagesError } = await supabase
+              .from('product_images')
+              .select('product_id,image_url,display_order')
+              .in('product_id', missingIds)
+              .order('display_order', { ascending: true });
+            if (imagesError) {
+              console.warn('Could not fetch product_images for missing images:', imagesError);
+            } else if (images && images.length > 0) {
+              for (const img of images as any[]) {
+                const pid = (img as any).product_id as string;
+                if (pid && !imageMap[pid]) {
+                  imageMap[pid] = ((img as any).image_url || '').toString().replace(/\$0$/, '').trim();
+                }
+              }
+            }
+          }
+        }
+
+        const productsWithId = data ? (data as any[]).map((product: any, index: number) => {
+          const cleanedImage = product.image_url ? product.image_url.toString().replace(/\$0$/, '').trim() : '';
+          const resolvedImage = cleanedImage || imageMap[product.id] || null;
+          return {
+            ...product,
+            id: product.id || `product-${index}-${Date.now()}`,
+            // Convert price from string like "289 dhs" to number
+            price: product.price ? parseFloat(product.price.toString().replace(/[^\d.]/g, '')) || 0 : 0,
+            image_url: resolvedImage,
+          };
+        }) : [];
         
         setProducts(productsWithId as Product[]);
         
