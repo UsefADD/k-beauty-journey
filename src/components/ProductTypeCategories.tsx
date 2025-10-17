@@ -38,9 +38,9 @@ const productTypes = [
   },
   {
     name: 'Cheveux et corps',
-    path: '/shop/product-type/cheveux-et-corps',
+    path: '/shop/product-type/cheveux-corps',
     subtypes: [
-      { name: 'Serum', path: '/shop/product-type/cheveux-et-corps/serum' },
+      { name: 'Serum', path: '/shop/product-type/cheveux-corps/serum' },
     ]
   }
 ];
