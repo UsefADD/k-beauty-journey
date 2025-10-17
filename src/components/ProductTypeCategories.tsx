@@ -35,6 +35,13 @@ const productTypes = [
       { name: 'Sunscreen', path: '/shop/product-type/protection-solaire/sunscreen' },
       { name: 'SPF Cream', path: '/shop/product-type/protection-solaire/spf-cream' },
     ]
+  },
+  {
+    name: 'Cheveux et corps',
+    path: '/shop/product-type/cheveux-et-corps',
+    subtypes: [
+      { name: 'Serum', path: '/shop/product-type/cheveux-et-corps/serum' },
+    ]
   }
 ];
 
