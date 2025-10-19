@@ -35,12 +35,16 @@ const ShopProductType = () => {
       const s = slug.replace(/-+/g, '-');
       // Hair & Body -> Cheveux & Corps
       if (s === 'hair-body' || s === 'hair-and-body' || /(^|-)hair(-.*)?-body($|-)/.test(s)) return 'cheveux-corps';
+      // Maquillage & Outils -> Maquillage (unify)
+      if (s === 'maquillage-outils' || s === 'maquillage-et-outils' || s === 'maquillage' || s === 'makeup' || s === 'make-up') return 'maquillage';
       // Moisturizer -> Hydratant
       if (s === 'moisturizer' || s === 'moisturizers') return 'hydratant';
       // Sunscreen -> Protection solaire
       if (s === 'sunscreen' || s === 'sun-screen' || s === 'spf') return 'protection-solaire';
       // Treatments -> Traitements
       if (s === 'treatments' || s === 'treatment') return 'traitements';
+      // Subtype synonyms
+      if (s === 'recourbe-cils' || s === 'lashcurler') return 'lash-curler';
       return s;
     };
 
