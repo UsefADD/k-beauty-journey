@@ -15,17 +15,34 @@ const ShopProductType = () => {
   // Filter products based on URL parameters
   const filteredProducts = React.useMemo(() => {
     if (!products) return [];
-    
+
+    // Normalize a string into a URL-friendly slug
+    const slugify = (s?: string) =>
+      (s ?? '')
+        .toString()
+        .normalize('NFD') // remove accents
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-') // non-alphanum -> hyphen
+        .replace(/^-+|-+$/g, ''); // trim hyphens
+
+    // Remove common connective words so `cheveux-et-corps` matches `cheveux-corps`
+    const normalize = (slug: string) => slug.split('-').filter(p => p && p !== 'et' && p !== 'and').join('-');
+
+    const t = normalize(type ? type : '');
+    const st = normalize(subtype ? subtype : '');
+
     return products.filter(product => {
+      const pt = normalize(slugify(product.product_type));
+      const pst = normalize(slugify(product.product_subtype));
+
       if (type && !subtype) {
         // Filter by product type (e.g., "traitements")
-        return product.product_type?.toLowerCase().replace(/\s+/g, '-') === type;
+        return pt === t;
       } else if (type && subtype) {
         // Filter by both product type and subtype
-        return (
-          product.product_type?.toLowerCase().replace(/\s+/g, '-') === type &&
-          product.product_subtype?.toLowerCase() === subtype
-        );
+        return pt === t && pst === st;
       }
       return true;
     });
