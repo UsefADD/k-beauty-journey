@@ -42,6 +42,14 @@ const productTypes = [
     subtypes: [
       { name: 'Serum', path: '/shop/product-type/cheveux-corps/serum' },
     ]
+  },
+  {
+    name: 'Maquillage et outils',
+    path: '/shop/product-type/maquillage-outils',
+    subtypes: [
+      { name: 'Lash Curler', path: '/shop/product-type/maquillage-outils/lash-curler' },
+      { name: 'Outils', path: '/shop/product-type/maquillage-outils/outils' },
+    ]
   }
 ];
 
