@@ -6,6 +6,7 @@ import { useInventory } from '../hooks/useInventory';
 import AddProductForm from '../components/AddProductForm';
 import BackgroundProcessor from '../components/BackgroundProcessor';
 import ManualBackgroundEditor from '../components/ManualBackgroundEditor';
+import EditProductDialog from '../components/EditProductDialog';
 import { 
   Table,
   TableBody,
@@ -16,14 +17,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Package, Check, X, Edit } from "lucide-react";
+import { Package, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const AdminInventory = () => {
-  const { products, isLoading, updateStock } = useInventory();
+  const { products, isLoading } = useInventory();
   const [searchTerm, setSearchTerm] = React.useState('');
-  const [editingId, setEditingId] = React.useState<string | null>(null);
-  const [editValue, setEditValue] = React.useState<string>('');
+  const [editingProduct, setEditingProduct] = React.useState<any | null>(null);
 
   const filteredProducts = React.useMemo(() => {
     if (!products) return [];
@@ -33,24 +33,6 @@ const AdminInventory = () => {
     );
   }, [products, searchTerm]);
 
-  const handleEditStart = (id: string, currentStock: number) => {
-    setEditingId(id);
-    setEditValue(currentStock.toString());
-  };
-
-  const handleEditCancel = () => {
-    setEditingId(null);
-    setEditValue('');
-  };
-
-  const handleEditSave = (id: string) => {
-    const newStock = parseInt(editValue);
-    if (!isNaN(newStock) && newStock >= 0) {
-      updateStock.mutate({ productId: id, quantity: newStock });
-      setEditingId(null);
-      setEditValue('');
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -103,50 +85,16 @@ const AdminInventory = () => {
                             <TableCell className="font-medium">{product.name}</TableCell>
                             <TableCell>{product.brand}</TableCell>
                             <TableCell>{product.price.toFixed(2)}</TableCell>
+                            <TableCell className="text-right">{product.stock_quantity}</TableCell>
                             <TableCell className="text-right">
-                              {editingId === product.id ? (
-                                <Input
-                                  type="number"
-                                  value={editValue}
-                                  onChange={(e) => setEditValue(e.target.value)}
-                                  className="w-20 h-8 text-right"
-                                  min="0"
-                                  autoFocus
-                                />
-                              ) : (
-                                product.stock_quantity
-                              )}
-                            </TableCell>
-                            <TableCell className="text-right">
-                              {editingId === product.id ? (
-                                <div className="flex justify-end gap-2">
-                                  <Button
-                                    size="icon"
-                                    variant="ghost"
-                                    className="h-8 w-8"
-                                    onClick={() => handleEditSave(product.id)}
-                                  >
-                                    <Check className="h-4 w-4" />
-                                  </Button>
-                                  <Button
-                                    size="icon"
-                                    variant="ghost"
-                                    className="h-8 w-8"
-                                    onClick={handleEditCancel}
-                                  >
-                                    <X className="h-4 w-4" />
-                                  </Button>
-                                </div>
-                              ) : (
-                                <Button
-                                  size="icon"
-                                  variant="ghost"
-                                  className="h-8 w-8"
-                                  onClick={() => handleEditStart(product.id, product.stock_quantity)}
-                                >
-                                  <Edit className="h-4 w-4" />
-                                </Button>
-                              )}
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                className="h-8 w-8"
+                                onClick={() => setEditingProduct(product)}
+                              >
+                                <Edit className="h-4 w-4" />
+                              </Button>
                             </TableCell>
                           </TableRow>
                         ))
@@ -166,6 +114,11 @@ const AdminInventory = () => {
         </div>
       </div>
       <Footer />
+      <EditProductDialog 
+        product={editingProduct}
+        open={!!editingProduct}
+        onOpenChange={(open) => !open && setEditingProduct(null)}
+      />
     </div>
   );
 };
