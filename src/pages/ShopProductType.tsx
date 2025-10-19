@@ -30,12 +30,26 @@ const ShopProductType = () => {
     // Remove common connective words so `cheveux-et-corps` matches `cheveux-corps`
     const normalize = (slug: string) => slug.split('-').filter(p => p && p !== 'et' && p !== 'and').join('-');
 
-    const t = normalize(type ? type : '');
-    const st = normalize(subtype ? subtype : '');
+    // Map common synonyms to a canonical slug (FR-first)
+    const canonicalize = (slug: string) => {
+      const s = slug.replace(/-+/g, '-');
+      // Hair & Body -> Cheveux & Corps
+      if (s === 'hair-body' || s === 'hair-and-body' || /(^|-)hair(-.*)?-body($|-)/.test(s)) return 'cheveux-corps';
+      // Moisturizer -> Hydratant
+      if (s === 'moisturizer' || s === 'moisturizers') return 'hydratant';
+      // Sunscreen -> Protection solaire
+      if (s === 'sunscreen' || s === 'sun-screen' || s === 'spf') return 'protection-solaire';
+      // Treatments -> Traitements
+      if (s === 'treatments' || s === 'treatment') return 'traitements';
+      return s;
+    };
+
+    const t = canonicalize(normalize(type ? type : ''));
+    const st = canonicalize(normalize(subtype ? subtype : ''));
 
     return products.filter(product => {
-      const pt = normalize(slugify(product.product_type));
-      const pst = normalize(slugify(product.product_subtype));
+      const pt = canonicalize(normalize(slugify(product.product_type)));
+      const pst = canonicalize(normalize(slugify(product.product_subtype)));
 
       if (type && !subtype) {
         // Filter by product type (e.g., "traitements")
