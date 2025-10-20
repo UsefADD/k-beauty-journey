@@ -27,6 +27,7 @@ interface Product {
   description: string;
   stock_quantity: number;
   product_type: string;
+  product_subtype?: string;
   'skin type'?: string;
 }
 
@@ -37,6 +38,7 @@ interface ProductFormData {
   description: string;
   stock_quantity: string;
   product_type: string;
+  product_subtype?: string;
   skin_type?: string;
   skin_concern?: string;
   key_ingredient?: string;
@@ -63,6 +65,7 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
         description: product.description || '',
         stock_quantity: product.stock_quantity != null ? String(product.stock_quantity) : '',
         product_type: product.product_type || '',
+        product_subtype: product.product_subtype || '',
         skin_type: (product as any)['skin type'] || '',
         skin_concern: '',
         key_ingredient: '',
@@ -129,6 +132,7 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
           description: data.description || null,
           stock_quantity: data.stock_quantity !== undefined && data.stock_quantity !== null && data.stock_quantity !== '' ? Number(data.stock_quantity) as any : null,
           product_type: data.product_type || null,
+          product_subtype: data.product_subtype || null,
           ['skin type']: data.skin_type || null,
         })
         .eq('id', product?.id);
@@ -200,12 +204,22 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
             />
           </div>
 
-          <div>
-            <Label htmlFor="product_type">Type de produit</Label>
-            <Input 
-              id="product_type" 
-              {...register('product_type')} 
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="product_type">Type de produit</Label>
+              <Input 
+                id="product_type" 
+                {...register('product_type')} 
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="product_subtype">Sous-type de produit</Label>
+              <Input 
+                id="product_subtype" 
+                {...register('product_subtype')} 
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
