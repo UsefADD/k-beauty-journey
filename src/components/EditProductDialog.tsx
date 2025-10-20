@@ -58,9 +58,15 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
   React.useEffect(() => {
     if (product) {
       reset({
-        ...product,
-        price: product.price.toString(),
-        stock_quantity: product.stock_quantity.toString(),
+        name: (product as any).Product_name || '',
+        brand: (product as any).brand || '',
+        price: (product as any).price?.toString?.() ?? '',
+        description: (product as any).description || '',
+        stock_quantity: (product as any).stock_quantity != null ? String((product as any).stock_quantity) : '',
+        product_type: (product as any).product_type || '',
+        skin_type: (product as any)['skin type'] || '',
+        skin_concern: '',
+        key_ingredient: '',
       });
     }
   }, [product, reset]);
@@ -118,15 +124,13 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
       const { error } = await supabase
         .from('products')
         .update({
-          name: data.name,
-          brand: data.brand,
-          price: Number(data.price) as any,
+          Product_name: data.name || null,
+          brand: data.brand || null,
+          price: (data.price ?? '').toString() || null,
           description: data.description || null,
-          stock_quantity: Number(data.stock_quantity) as any,
+          stock_quantity: data.stock_quantity !== undefined && data.stock_quantity !== null && data.stock_quantity !== '' ? Number(data.stock_quantity) as any : null,
           product_type: data.product_type || null,
-          skin_type: data.skin_type || null,
-          skin_concern: data.skin_concern || null,
-          key_ingredient: data.key_ingredient || null,
+          ['skin type']: data.skin_type || null,
         })
         .eq('id', product?.id);
 
@@ -137,9 +141,10 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
       toast.success('Produit mis à jour avec succès');
       onOpenChange(false);
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error('Error updating product:', error);
-      toast.error('Erreur lors de la mise à jour du produit');
+      const message = error?.message || error?.cause?.message || 'Erreur lors de la mise à jour du produit';
+      toast.error(message);
     },
   });
 
