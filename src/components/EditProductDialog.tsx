@@ -20,7 +20,8 @@ import { useImageUpload } from '@/hooks/useImageUpload';
 
 interface Product {
   id: string;
-  Product_name: string;
+  Product_name?: string;
+  name?: string;
   brand: string;
   price: any;
   description: string;
@@ -56,13 +57,13 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
   React.useEffect(() => {
     if (product) {
       reset({
-        name: product.Product_name || '',
+        name: (product as any).Product_name || (product as any).name || '',
         brand: product.brand || '',
         price: product.price?.toString?.() ?? '',
         description: product.description || '',
         stock_quantity: product.stock_quantity != null ? String(product.stock_quantity) : '',
         product_type: product.product_type || '',
-        skin_type: product['skin type'] || '',
+        skin_type: (product as any)['skin type'] || '',
         skin_concern: '',
         key_ingredient: '',
       });
