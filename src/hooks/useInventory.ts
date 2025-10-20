@@ -11,6 +11,8 @@ export interface Product {
   image: string;
   stock_quantity: number;
   description?: string;
+  product_type?: string;
+  product_subtype?: string;
 }
 
 export const useInventory = () => {
@@ -74,6 +76,9 @@ export const useInventory = () => {
           const description = item.description || "";
           console.log(`Description extraction: ${description} from ${item.description}`);
           
+          const product_type = item.product_type || "";
+          const product_subtype = item.product_subtype || "";
+          
           return {
             id,
             name,
@@ -81,7 +86,9 @@ export const useInventory = () => {
             price,
             image,
             stock_quantity,
-            description
+            description,
+            product_type,
+            product_subtype
           };
         });
         
