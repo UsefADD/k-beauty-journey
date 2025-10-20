@@ -200,7 +200,7 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
             <Label htmlFor="product_type">Type de produit</Label>
             <Input 
               id="product_type" 
-              {...register('product_type', { required: true })} 
+              {...register('product_type')} 
             />
           </div>
 
