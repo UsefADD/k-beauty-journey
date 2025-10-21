@@ -86,7 +86,9 @@ const ProductCard = ({
             {volume && <p className="text-xs text-gray-600 mt-0.5">{volume}</p>}
           </h3>
         </div>
-        <p className="text-sm font-medium text-zinc-950">{price.toFixed(2)} MAD</p>
+        {!isOutOfStock && !isComingSoon && (
+          <p className="text-sm font-medium text-zinc-950">{price.toFixed(2)} MAD</p>
+        )}
       </div>
     </>
   );
