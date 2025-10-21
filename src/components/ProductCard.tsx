@@ -64,16 +64,6 @@ const ProductCard = ({
           </div>
         )}
       </div>
-      {isOutOfStock && (
-        <div className="mt-2 w-full bg-cream-200 text-cream-900 px-4 py-2 text-center text-sm font-medium">
-          Stock épuisé
-        </div>
-      )}
-      {isComingSoon && (
-        <div className="mt-2 w-full bg-pink-100 text-pink-900 px-4 py-2 text-center text-sm font-medium">
-          Bientôt disponible
-        </div>
-      )}
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-zinc-900">
