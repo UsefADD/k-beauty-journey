@@ -289,6 +289,7 @@ export type Database = {
           ingredients: string | null
           price: string | null
           Product_name: string
+          product_status: string | null
           product_subtype: string | null
           product_type: string | null
           "skin type": string | null
@@ -307,6 +308,7 @@ export type Database = {
           ingredients?: string | null
           price?: string | null
           Product_name: string
+          product_status?: string | null
           product_subtype?: string | null
           product_type?: string | null
           "skin type"?: string | null
@@ -325,6 +327,7 @@ export type Database = {
           ingredients?: string | null
           price?: string | null
           Product_name?: string
+          product_status?: string | null
           product_subtype?: string | null
           product_type?: string | null
           "skin type"?: string | null

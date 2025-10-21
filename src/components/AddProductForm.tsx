@@ -25,6 +25,7 @@ const formSchema = z.object({
   description: z.string().optional(),
   product_type: z.string().optional(),
   product_subtype: z.string().optional(),
+  product_status: z.enum(['new', 'coming_soon', 'standard']).default('new'),
   how_to_use: z.string().optional(),
   ingredients: z.string().optional(),
   volume: z.string().optional(),
@@ -53,6 +54,7 @@ const AddProductForm: React.FC = () => {
       description: '',
       product_type: '',
       product_subtype: '',
+      product_status: 'new',
       how_to_use: '',
       ingredients: '',
       volume: '',
@@ -79,6 +81,7 @@ const AddProductForm: React.FC = () => {
       description: values.description || '',
       product_type: values.product_type || '',
       product_subtype: values.product_subtype || '',
+      product_status: values.product_status || 'new',
       how_to_use: values.how_to_use || '',
       ingredients: values.ingredients || '',
       volume: values.volume || '',
@@ -209,6 +212,27 @@ const AddProductForm: React.FC = () => {
                   )}
                 />
               </div>
+
+              <FormField
+                control={form.control}
+                name="product_status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Statut du produit</FormLabel>
+                    <FormControl>
+                      <select 
+                        {...field} 
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      >
+                        <option value="new">Nouveau</option>
+                        <option value="coming_soon">Bientôt disponible</option>
+                        <option value="standard">Standard</option>
+                      </select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <FormField
                 control={form.control}

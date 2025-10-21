@@ -21,6 +21,7 @@ export interface Product {
   how_to_use: string | null;
   ingredients: string | null;
   volume: string | null;
+  product_status: 'new' | 'coming_soon' | 'standard' | null;
 }
 
 export const useProducts = () => {

@@ -13,6 +13,7 @@ export interface Product {
   description?: string;
   product_type?: string;
   product_subtype?: string;
+  product_status?: 'new' | 'coming_soon' | 'standard';
 }
 
 export const useInventory = () => {
@@ -78,6 +79,7 @@ export const useInventory = () => {
           
           const product_type = item.product_type || "";
           const product_subtype = item.product_subtype || "";
+          const product_status = (item.product_status || "standard") as 'new' | 'coming_soon' | 'standard';
           
           return {
             id,
@@ -88,7 +90,8 @@ export const useInventory = () => {
             stock_quantity,
             description,
             product_type,
-            product_subtype
+            product_subtype,
+            product_status
           };
         });
         

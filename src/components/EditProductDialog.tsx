@@ -28,6 +28,7 @@ interface Product {
   stock_quantity: number;
   product_type: string;
   product_subtype?: string;
+  product_status?: 'new' | 'coming_soon' | 'standard';
   'skin type'?: string;
 }
 
@@ -39,6 +40,7 @@ interface ProductFormData {
   stock_quantity: string;
   product_type: string;
   product_subtype?: string;
+  product_status?: 'new' | 'coming_soon' | 'standard';
   skin_type?: string;
   skin_concern?: string;
   key_ingredient?: string;
@@ -66,6 +68,7 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
         stock_quantity: product.stock_quantity != null ? String(product.stock_quantity) : '',
         product_type: product.product_type || '',
         product_subtype: product.product_subtype || '',
+        product_status: product.product_status || 'standard',
         skin_type: (product as any)['skin type'] || '',
         skin_concern: '',
         key_ingredient: '',
@@ -133,6 +136,7 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
           stock_quantity: data.stock_quantity !== undefined && data.stock_quantity !== null && data.stock_quantity !== '' ? Number(data.stock_quantity) as any : null,
           product_type: data.product_type || null,
           product_subtype: data.product_subtype || null,
+          product_status: data.product_status || 'standard',
           ['skin type']: data.skin_type || null,
         })
         .eq('id', product?.id);
@@ -220,6 +224,19 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
                 {...register('product_subtype')} 
               />
             </div>
+          </div>
+
+          <div>
+            <Label htmlFor="product_status">Statut du produit</Label>
+            <select 
+              id="product_status"
+              {...register('product_status')}
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="new">Nouveau</option>
+              <option value="coming_soon">Bientôt disponible</option>
+              <option value="standard">Standard</option>
+            </select>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
