@@ -48,6 +48,27 @@ export const useInventory = () => {
           console.log("First product example:", JSON.stringify(data[0], null, 2));
           console.log("Object keys:", Object.keys(data[0]));
         }
+
+        // Get product IDs for products without image_url
+        const productIds = data.filter(p => !p.image_url).map(p => p.id);
+        
+        // Fetch product images for products without image_url
+        let imageMap = new Map<string, string>();
+        if (productIds.length > 0) {
+          const { data: productImages } = await supabase
+            .from('product_images')
+            .select('product_id, image_url, display_order')
+            .in('product_id', productIds)
+            .order('display_order', { ascending: true });
+          
+          if (productImages) {
+            productImages.forEach(img => {
+              if (!imageMap.has(img.product_id)) {
+                imageMap.set(img.product_id, img.image_url);
+              }
+            });
+          }
+        }
         
         // Transform Supabase Products format to our Product interface format
         const transformedProducts: Product[] = data.map(item => {
@@ -68,7 +89,11 @@ export const useInventory = () => {
           const price = item.price ? parseFloat(item.price.toString().replace(/[^\d.]/g, '')) || 0 : 0;
           console.log(`Price extraction: ${price} from ${item.price}`);
           
-          const image = item.image_url ? item.image_url.toString().replace(/\$0$/, '').trim() : "";
+          // Use image_url if available, otherwise use first image from product_images
+          let image = item.image_url ? item.image_url.toString().replace(/\$0$/, '').trim() : "";
+          if (!image && imageMap.has(item.id)) {
+            image = imageMap.get(item.id) || "";
+          }
           console.log(`Image extraction: ${image} from ${item.image_url}`);
           
           const stock_quantity = item.stock_quantity ? Number(item.stock_quantity) : 0;
