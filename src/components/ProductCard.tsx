@@ -54,8 +54,8 @@ const ProductCard = ({
           onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
         />
         {isOutOfStock && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <span className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold">
+          <div className="absolute top-2 left-0 right-0 flex justify-center">
+            <span className="bg-red-600 text-white px-4 py-1 text-sm font-semibold">
               Stock épuisé
             </span>
           </div>
