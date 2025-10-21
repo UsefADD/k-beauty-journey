@@ -53,20 +53,6 @@ const ProductCard = ({
           className="h-full w-full object-cover object-center"
           onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
         />
-        {isOutOfStock && (
-          <div className="absolute top-2 left-0 right-0 flex justify-center">
-            <span className="bg-red-600 text-white px-4 py-1 text-sm font-semibold">
-              Stock épuisé
-            </span>
-          </div>
-        )}
-        {isComingSoon && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <span className="bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold">
-              Bientôt disponible
-            </span>
-          </div>
-        )}
         {product_status === 'new' && !isOutOfStock && !isComingSoon && (
           <div className="absolute top-2 left-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
             NOUVEAU
@@ -78,6 +64,16 @@ const ProductCard = ({
           </div>
         )}
       </div>
+      {isOutOfStock && (
+        <div className="mt-2 w-full bg-cream-200 text-cream-900 px-4 py-2 text-center text-sm font-medium">
+          Stock épuisé
+        </div>
+      )}
+      {isComingSoon && (
+        <div className="mt-2 w-full bg-pink-100 text-pink-900 px-4 py-2 text-center text-sm font-medium">
+          Bientôt disponible
+        </div>
+      )}
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-zinc-900">
