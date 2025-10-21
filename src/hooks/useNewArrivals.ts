@@ -36,17 +36,43 @@ export const useNewArrivals = (limit: number = 4) => {
           console.log("No products found for new arrivals");
           return [];
         }
+
+        // Get product IDs for fetching images
+        const productIds = data.map(p => p.id);
+        
+        // Fetch product images for products without image_url
+        const { data: productImages } = await supabase
+          .from('product_images')
+          .select('product_id, image_url, display_order')
+          .in('product_id', productIds)
+          .order('display_order', { ascending: true });
+        
+        // Create a map of product_id to first image
+        const imageMap = new Map<string, string>();
+        if (productImages) {
+          productImages.forEach(img => {
+            if (!imageMap.has(img.product_id)) {
+              imageMap.set(img.product_id, img.image_url);
+            }
+          });
+        }
         
         // Transform to our interface format
         const transformedProducts: NewArrivalProduct[] = data.map(item => {
           const price = item.price ? parseFloat(item.price.toString().replace(/[^\d.]/g, '')) || 0 : 0;
+          
+          // Use image_url if available, otherwise use first image from product_images
+          let imageUrl = item.image_url ? item.image_url.toString().replace(/\$0$/, '').trim() : "";
+          if (!imageUrl && imageMap.has(item.id)) {
+            imageUrl = imageMap.get(item.id) || "";
+          }
           
           return {
             id: item.id || "",
             name: item.Product_name || "",
             brand: item.brand || "",
             price,
-            image: item.image_url ? item.image_url.toString().replace(/\$0$/, '').trim() : "",
+            image: imageUrl,
             stock_quantity: item.stock_quantity ? Number(item.stock_quantity) : 0,
             description: item.description || ""
           };
