@@ -89,6 +89,8 @@ export const useProducts = () => {
             id: product.id || `product-${index}-${Date.now()}`,
             // Convert price from string like "289 dhs" to number
             price: product.price ? parseFloat(product.price.toString().replace(/[^\d.]/g, '')) || 0 : 0,
+            // Ensure stock_quantity is a number for reliable UI logic
+            stock_quantity: product.stock_quantity !== null && product.stock_quantity !== undefined ? Number(product.stock_quantity) : 0,
             image_url: resolvedImage,
           };
         }) : [];

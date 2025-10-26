@@ -54,12 +54,12 @@ const ProductCard = ({
           onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
         />
         {isOutOfStock && !isComingSoon && (
-          <div className="absolute top-2 left-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10">
+          <div className="absolute top-2 left-2 bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-xs font-bold z-10">
             ÉPUISÉ
           </div>
         )}
         {product_status === 'new' && !isOutOfStock && !isComingSoon && (
-          <div className="absolute top-2 left-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+          <div className="absolute top-2 left-2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
             NOUVEAU
           </div>
         )}
