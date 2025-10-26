@@ -46,19 +46,24 @@ const ProductCard = ({
 
   const cardContent = (
     <>
-      <div className="aspect-square w-full overflow-hidden rounded-lg bg-cream-100 transition-all duration-300 group-hover:opacity-90">
+      <div className="aspect-square w-full overflow-hidden rounded-lg bg-cream-100 transition-all duration-300 group-hover:opacity-90 relative">
         <img
           src={image}
           alt={name}
-          className="h-full w-full object-cover object-center"
+          className={`h-full w-full object-cover object-center ${isOutOfStock ? 'opacity-60' : ''}`}
           onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
         />
+        {isOutOfStock && !isComingSoon && (
+          <div className="absolute top-2 left-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10">
+            ÉPUISÉ
+          </div>
+        )}
         {product_status === 'new' && !isOutOfStock && !isComingSoon && (
           <div className="absolute top-2 left-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
             NOUVEAU
           </div>
         )}
-        {!isComingSoon && (
+        {!isComingSoon && !isOutOfStock && (
           <div className="absolute top-4 right-4 p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
             <Heart className="h-5 w-5 text-pink-500 hover:text-pink-700 cursor-pointer transition-colors" />
           </div>
