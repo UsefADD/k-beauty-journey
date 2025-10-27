@@ -20,6 +20,7 @@ export interface ProductWithDetails {
   description?: string;
   product_type?: string;
   product_subtype?: string;
+  product_status?: 'new' | 'coming_soon' | 'standard';
   how_to_use?: string;
   ingredients?: string;
   volume?: string;
@@ -50,6 +51,7 @@ export const useProductWithDetails = () => {
           description: productData.description || '',
           product_type: productData.product_type || '',
           product_subtype: productData.product_subtype || '',
+          product_status: productData.product_status || 'new',
           how_to_use: productData.how_to_use || '',
           ingredients: productData.ingredients || '',
           volume: productData.volume || '',
