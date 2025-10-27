@@ -26,10 +26,10 @@ const ProductCard = ({
   volume,
   product_status
 }: ProductCardProps) => {
-  console.info('Render: ProductCard');
   const { addItem } = useCart();
   const isOutOfStock = !stock_quantity || stock_quantity <= 0;
   const isComingSoon = product_status === 'coming_soon';
+  console.info(`[ProductCard] name="${name}" id=${id} stock=${stock_quantity} status=${product_status} isOut=${isOutOfStock}`);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ const ProductCard = ({
           className={`h-full w-full object-cover object-center ${isOutOfStock ? 'opacity-60' : ''}`}
           onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
         />
-        {isOutOfStock && !isComingSoon && (
+        {isOutOfStock && (
           <div className="absolute top-2 left-2 bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-xs font-bold z-10">
             ÉPUISÉ
           </div>
