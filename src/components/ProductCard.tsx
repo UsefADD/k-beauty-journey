@@ -64,6 +64,11 @@ const ProductCard = ({
             NOUVEAU
           </div>
         )}
+        {isComingSoon && (
+          <div className="absolute top-2 left-2 bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-xs font-bold">
+            Bientôt dispo
+          </div>
+        )}
         {!isComingSoon && !isOutOfStock && (
           <div className="absolute top-4 right-4 p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
             <Heart className="h-5 w-5 text-pink-500 hover:text-pink-700 cursor-pointer transition-colors" />
