@@ -188,7 +188,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                             {Number(product.stock_quantity ?? 0) > 0 ? (
                               <div className="text-sm text-muted-foreground truncate">{Number(product.price).toFixed(2)} MAD</div>
                             ) : (
-                              <div className="text-sm font-semibold text-destructive truncate">Stock épuisé</div>
+                              <div className="text-sm font-semibold text-pink-400 truncate">Stock épuisé</div>
                             )}
                           </div>
                         </CommandItem>
