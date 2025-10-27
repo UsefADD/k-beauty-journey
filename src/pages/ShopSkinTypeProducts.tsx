@@ -26,7 +26,18 @@ const ShopSkinTypeProducts = () => {
 
     const normalize = (slug: string) => slug.split('-').filter(p => p && p !== 'et' && p !== 'and').join('-');
 
-    const st = normalize(slugify(skinType || ''));
+    // Map FR/EN synonyms
+    const canonicalizeSkinType = (slug: string) => {
+      const s = slug.toLowerCase();
+      if (s === 'seche' || s === 'dry') return 'dry';
+      if (s === 'grasse' || s === 'oily') return 'oily';
+      if (s === 'mixte' || s === 'combination') return 'combination';
+      if (s === 'sensible' || s === 'sensitive') return 'sensitive';
+      if (s === 'normale' || s === 'normal') return 'normal';
+      return s;
+    };
+
+    const st = canonicalizeSkinType(normalize(slugify(skinType || '')));
     const sst = normalize(slugify(subtype || ''));
 
     return products.filter(product => {
@@ -35,7 +46,7 @@ const ShopSkinTypeProducts = () => {
       // Check skin_type_category array
       const skinTypes = product.skin_type_category || [];
       const hasSkinType = skinTypes.some(type => 
-        normalize(slugify(type)) === st
+        canonicalizeSkinType(normalize(slugify(type))) === st
       );
 
       if (!hasSkinType) return false;
