@@ -43,7 +43,7 @@ const Navbar = () => {
             BLISSFUL.
           </Link>
           
-          <div className="space-x-4 md:space-x-6 text-black text-sm font-medium mb-4 md:mb-0 flex items-center">
+          <div className="space-x-4 md:space-x-6 text-black text-sm font-bold mb-4 md:mb-0 flex items-center">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
