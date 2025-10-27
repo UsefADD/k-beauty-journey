@@ -27,7 +27,8 @@ const ProductCard = ({
   product_status
 }: ProductCardProps) => {
   const { addItem } = useCart();
-  const isOutOfStock = !stock_quantity || stock_quantity <= 0;
+  const qty = Number(stock_quantity ?? 0);
+  const isOutOfStock = !Number.isFinite(qty) || qty <= 0;
   const isComingSoon = product_status === 'coming_soon';
   console.info(`[ProductCard] name="${name}" id=${id} stock=${stock_quantity} status=${product_status} isOut=${isOutOfStock}`);
 
