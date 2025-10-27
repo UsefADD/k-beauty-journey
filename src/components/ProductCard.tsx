@@ -96,14 +96,14 @@ const ProductCard = ({
           {cardContent}
         </Link>
       )}
-      {!isComingSoon && (
+      {/* Show the Add to Cart button only when the product is in stock and not coming soon */}
+      {!isComingSoon && !isOutOfStock && (
         <Button 
           onClick={handleAddToCart}
           className="mt-2 w-full opacity-0 group-hover:opacity-100 transition-opacity"
           variant="default"
-          disabled={isOutOfStock}
         >
-          {isOutOfStock ? "Stock épuisé" : "Add to Cart"}
+          Add to Cart
         </Button>
       )}
     </div>
