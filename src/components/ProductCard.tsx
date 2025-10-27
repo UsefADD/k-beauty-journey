@@ -50,12 +50,12 @@ const ProductCard = ({
         <img
           src={image}
           alt={name}
-          className={`h-full w-full object-cover object-center ${isOutOfStock ? 'opacity-60' : ''}`}
+          className={`h-full w-full object-cover object-center`}
           onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
         />
         {isOutOfStock && (
-          <div className="absolute top-2 left-2 bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-xs font-bold z-10">
-            ÉPUISÉ
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-amber-100 via-pink-50 to-purple-100 py-3 text-center">
+            <span className="text-sm font-semibold text-gray-900">Stock épuisé</span>
           </div>
         )}
         {product_status === 'new' && !isOutOfStock && !isComingSoon && (
