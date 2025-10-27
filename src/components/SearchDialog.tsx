@@ -40,11 +40,12 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
           if (error) {
             console.error('Error fetching products for search:', error);
           } else {
-            // Transform products to ensure each has an id and price is a number
-            const productsWithId = data?.map(product => ({
+            // Transform products to ensure each has an id, numeric price and stock
+            const productsWithId = data?.map((product: any) => ({
               ...product,
-              id: product.id || crypto.randomUUID(), // Use existing id or generate one
+              id: product.id || crypto.randomUUID(),
               price: product.price ? parseFloat(product.price.toString().replace(/[^\d.]/g, '')) || 0 : 0,
+              stock_quantity: product.stock_quantity !== null && product.stock_quantity !== undefined ? Number(product.stock_quantity) : 0,
             })) || [];
             console.log('Products loaded for search:', productsWithId.length);
             setProducts(productsWithId as Product[]);
@@ -184,7 +185,11 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="font-medium truncate">{product.Product_name}</div>
-                            <div className="text-sm text-muted-foreground truncate">{product.price}</div>
+                            {Number(product.stock_quantity ?? 0) > 0 ? (
+                              <div className="text-sm text-muted-foreground truncate">{Number(product.price).toFixed(2)} MAD</div>
+                            ) : (
+                              <div className="text-sm font-semibold text-destructive truncate">Stock épuisé</div>
+                            )}
                           </div>
                         </CommandItem>
                       ))}
