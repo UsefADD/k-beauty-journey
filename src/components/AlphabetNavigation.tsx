@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useBrands } from '../hooks/useBrands';
+import { useBrands } from '@/hooks/useBrands';
 
 const AlphabetNavigation = () => {
   const { availableLetters, selectedLetter, setSelectedLetter } = useBrands();
