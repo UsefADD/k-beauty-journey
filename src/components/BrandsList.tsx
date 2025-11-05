@@ -9,7 +9,12 @@ interface BrandsListProps {
 }
 
 const BrandsList = ({ onBrandSelect }: BrandsListProps) => {
-  const { brands, isLoading } = useBrands();
+  const { brands, isLoading, selectedLetter } = useBrands();
+
+  // Ensure filtering by selected letter is strictly applied
+  const displayedBrands = selectedLetter
+    ? brands.filter((brand) => brand.name.trim().toUpperCase().startsWith(selectedLetter.toUpperCase()))
+    : brands;
 
   if (isLoading) {
     return (
@@ -20,7 +25,7 @@ const BrandsList = ({ onBrandSelect }: BrandsListProps) => {
     );
   }
 
-  if (brands.length === 0) {
+  if (displayedBrands.length === 0) {
     return (
       <div className="w-full">
         <div className="text-center py-10 bg-white rounded-xl shadow-sm">
@@ -35,7 +40,7 @@ const BrandsList = ({ onBrandSelect }: BrandsListProps) => {
   return (
     <div className="w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
-        {brands.map((brand) => (
+        {displayedBrands.map((brand) => (
           <div 
             key={brand.id} 
             className="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center text-center"
