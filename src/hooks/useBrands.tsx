@@ -53,7 +53,11 @@ export const BrandsProvider = ({ children }: { children: React.ReactNode }) => {
     }
     
     // Apply sorting
-    return sortBrands(filtered, sortBy);
+    const result = sortBrands(filtered, sortBy);
+    if (typeof window !== 'undefined') {
+      console.debug('[useBrands] letter:', selectedLetter, 'search:', searchQuery, 'sort:', sortBy, 'all:', allBrands.length, 'result:', result.length);
+    }
+    return result;
   }, [searchQuery, selectedLetter, sortBy, allBrands]);
 
   const availableLetters = useMemo(() => {

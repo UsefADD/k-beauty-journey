@@ -29,9 +29,11 @@ export const fetchBrandsFromProducts = async (): Promise<Brand[]> => {
 
     // Group products by brand
     const brandGroups = products?.reduce((acc, product) => {
-      const brandName = product.brand?.trim() || '';
-      if (!brandName || !acc[brandName]) {
-        if (brandName) acc[brandName] = [];
+      const brandNameRaw = (product.brand ?? '').toString();
+      const brandName = brandNameRaw.trim();
+      if (!brandName) return acc; // skip products without a brand
+      if (!acc[brandName]) {
+        acc[brandName] = [];
       }
       acc[brandName].push({
         id: product.id,
