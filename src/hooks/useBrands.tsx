@@ -57,7 +57,12 @@ export const BrandsProvider = ({ children }: { children: React.ReactNode }) => {
   }, [searchQuery, selectedLetter, sortBy, allBrands]);
 
   const availableLetters = useMemo(() => {
-    const letters = new Set(allBrands.map(brand => brand.name.charAt(0).toUpperCase()));
+    const letters = new Set(
+      allBrands
+        .map(brand => brand.name?.trim?.() || '')
+        .filter(Boolean)
+        .map(name => name.charAt(0).toUpperCase())
+    );
     return Array.from(letters).sort();
   }, [allBrands]);
 

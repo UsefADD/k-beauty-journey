@@ -15,6 +15,7 @@ const BrandsList = ({ onBrandSelect }: BrandsListProps) => {
   const displayedBrands = selectedLetter
     ? brands.filter((brand) => brand.name.trim().toUpperCase().startsWith(selectedLetter.toUpperCase()))
     : brands;
+  console.debug('[BrandsList] selectedLetter:', selectedLetter, 'brands:', brands.length, 'displayed:', displayedBrands.length);
 
   if (isLoading) {
     return (
