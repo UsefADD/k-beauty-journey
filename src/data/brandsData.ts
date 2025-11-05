@@ -29,9 +29,9 @@ export const fetchBrandsFromProducts = async (): Promise<Brand[]> => {
 
     // Group products by brand
     const brandGroups = products?.reduce((acc, product) => {
-      const brandName = product.brand;
-      if (!acc[brandName]) {
-        acc[brandName] = [];
+      const brandName = product.brand?.trim() || '';
+      if (!brandName || !acc[brandName]) {
+        if (brandName) acc[brandName] = [];
       }
       acc[brandName].push({
         id: product.id,
@@ -70,7 +70,7 @@ export const searchBrands = (brands: Brand[], query: string) =>
   );
 
 export const getBrandsByLetter = (brands: Brand[], letter: string) => 
-  brands.filter(brand => brand.name.toUpperCase().startsWith(letter.toUpperCase()));
+  brands.filter(brand => brand.name.trim().toUpperCase().startsWith(letter.toUpperCase()));
 
 export const sortBrands = (brands: Brand[], sortBy: 'name' | 'productCount') => {
   return [...brands].sort((a, b) => {
