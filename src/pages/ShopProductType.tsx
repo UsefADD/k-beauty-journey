@@ -51,19 +51,31 @@ const ShopProductType = () => {
     const t = canonicalize(normalize(type ? type : ''));
     const st = canonicalize(normalize(subtype ? subtype : ''));
 
-    return products.filter(product => {
+    console.log('[ShopProductType] URL type:', type, '-> normalized:', t);
+    console.log('[ShopProductType] URL subtype:', subtype, '-> normalized:', st);
+
+    const filtered = products.filter(product => {
       const pt = canonicalize(normalize(slugify(product.product_type)));
       const pst = canonicalize(normalize(slugify(product.product_subtype)));
 
       if (type && !subtype) {
-        // Filter by product type (e.g., "traitements")
-        return pt === t;
+        const match = pt === t;
+        if (match) {
+          console.log('[ShopProductType] MATCH:', product.Product_name, 'product_type:', product.product_type, '-> normalized:', pt);
+        }
+        return match;
       } else if (type && subtype) {
-        // Filter by both product type and subtype
-        return pt === t && pst === st;
+        const match = pt === t && pst === st;
+        if (match) {
+          console.log('[ShopProductType] MATCH:', product.Product_name, 'type:', product.product_type, '-> normalized:', pt, 'subtype:', product.product_subtype, '-> normalized:', pst);
+        }
+        return match;
       }
       return true;
     });
+
+    console.log('[ShopProductType] Filtered products count:', filtered.length);
+    return filtered;
   }, [products, type, subtype]);
 
   const getTitle = () => {
