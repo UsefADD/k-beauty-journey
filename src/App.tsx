@@ -19,6 +19,7 @@ import ShopProductType from "./pages/ShopProductType";
 import ShopSkinType from "./pages/ShopSkinType";
 import ShopSkinTypeProducts from "./pages/ShopSkinTypeProducts";
 import ShopIngredient from "./pages/ShopIngredient";
+import ShopSeason from "./pages/ShopSeason";
 import ProductDetail from "./pages/ProductDetail";
 import BrandProducts from "./pages/BrandProducts";
 import NotFound from "./pages/NotFound";
@@ -61,6 +62,7 @@ const App = () => (
                 <Route path="/shop/product-type/:type" element={<ShopProductType />} />
                 <Route path="/shop/product-type/:type/:subtype" element={<ShopProductType />} />
                 <Route path="/shop/ingredient" element={<ShopIngredient />} />
+                <Route path="/shop/season/:season" element={<ShopSeason />} />
                 <Route path="/product/:productId" element={<ProductDetail />} />
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/cart" element={<CartPage />} />

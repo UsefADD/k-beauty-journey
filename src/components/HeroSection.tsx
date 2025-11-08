@@ -80,9 +80,9 @@ const HeroSection = () => {
                 </div>
               ) : index === 0 ? (
                 <Link 
-                  to="/shop" 
+                  to="/shop/season/automne" 
                   className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
-                  aria-label="Découvrir tous les produits"
+                  aria-label="Découvrir la collection automne"
                 />
               ) : index === 1 ? (
                 <Link 

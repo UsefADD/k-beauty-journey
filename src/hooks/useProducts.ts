@@ -22,6 +22,7 @@ export interface Product {
   ingredients: string | null;
   volume: string | null;
   product_status: 'new' | 'coming_soon' | 'standard' | null;
+  seasons: string[] | null;
 }
 
 export const useProducts = () => {
