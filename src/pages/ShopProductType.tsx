@@ -40,7 +40,7 @@ const ShopProductType = () => {
       // Moisturizer -> Hydratant
       if (s === 'moisturizer' || s === 'moisturizers') return 'hydratant';
       // Sunscreen -> Protection solaire
-      if (s === 'sunscreen' || s === 'sun-screen' || s === 'spf') return 'protection-solaire';
+      if (s === 'sunscreen' || s === 'sun-screen' || s === 'spf' || s === 'protection' || s === 'solaire' || s === 'sun-care' || s === 'sun-protection') return 'protection-solaire';
       // Treatments -> Traitements
       if (s === 'treatments' || s === 'treatment') return 'traitements';
       // Subtype synonyms

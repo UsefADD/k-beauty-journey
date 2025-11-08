@@ -82,7 +82,7 @@ const Navbar = () => {
                                 <Droplets className="mr-2 h-4 w-4 text-black" />
                                 <span>{t('moisturizers')}</span>
                               </Link>
-                              <Link to="/shop/product-type/protection" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-gray-100">
+                              <Link to="/shop/product-type/protection-solaire" className="group flex items-center rounded-md bg-white p-2 text-sm font-medium transition-colors hover:bg-gray-100">
                                 <Sun className="mr-2 h-4 w-4 text-black" />
                                 <span>{t('sun.protection')}</span>
                               </Link>
