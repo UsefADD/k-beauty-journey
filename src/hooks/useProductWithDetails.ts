@@ -24,6 +24,7 @@ export interface ProductWithDetails {
   how_to_use?: string;
   ingredients?: string;
   volume?: string;
+  seasons?: string[];
   images: ProductImage[];
   variants: ProductVariant[];
 }
@@ -55,6 +56,7 @@ export const useProductWithDetails = () => {
           how_to_use: productData.how_to_use || '',
           ingredients: productData.ingredients || '',
           volume: productData.volume || '',
+          seasons: productData.seasons || [],
           image_url: mainImageUrl,
         }])
         .select()

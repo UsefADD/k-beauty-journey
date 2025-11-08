@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import {
   Dialog,
@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { useProductImages } from '@/hooks/useProductImages';
 import { Upload, X } from 'lucide-react';
@@ -44,6 +45,7 @@ interface ProductFormData {
   skin_type?: string;
   skin_concern?: string;
   key_ingredient?: string;
+  seasons: string[];
 }
 
 interface EditProductDialogProps {
@@ -54,9 +56,26 @@ interface EditProductDialogProps {
 
 const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogProps) => {
   const queryClient = useQueryClient();
-  const { register, handleSubmit, reset } = useForm<ProductFormData>();
+  const { register, handleSubmit, reset, watch, setValue } = useForm<ProductFormData>();
   const { data: productImages = [] } = useProductImages(product?.id || '');
   const { uploadImage, isUploading } = useImageUpload();
+  const [selectedSeasons, setSelectedSeasons] = React.useState<string[]>([]);
+
+  const { data: productSeasons } = useQuery({
+    queryKey: ['product-seasons', product?.id],
+    queryFn: async () => {
+      if (!product?.id) return [];
+      const { data, error } = await supabase
+        .from('products')
+        .select('seasons')
+        .eq('id', product.id)
+        .single();
+      
+      if (error) throw error;
+      return data?.seasons || [];
+    },
+    enabled: !!product?.id && open,
+  });
 
   React.useEffect(() => {
     if (product) {
@@ -72,9 +91,17 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
         skin_type: (product as any)['skin type'] || '',
         skin_concern: '',
         key_ingredient: '',
+        seasons: [],
       });
     }
   }, [product, reset]);
+
+  React.useEffect(() => {
+    if (productSeasons) {
+      setSelectedSeasons(productSeasons);
+      setValue('seasons', productSeasons);
+    }
+  }, [productSeasons, setValue]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -138,6 +165,7 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
           product_subtype: data.product_subtype || null,
           product_status: data.product_status || 'standard',
           ['skin type']: data.skin_type || null,
+          seasons: selectedSeasons,
         })
         .eq('id', product?.id);
 
@@ -254,6 +282,29 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
           <div>
             <Label htmlFor="key_ingredient">Ingrédient clé</Label>
             <Input id="key_ingredient" {...register('key_ingredient')} />
+          </div>
+
+          <div>
+            <Label>Saisons</Label>
+            <div className="grid grid-cols-2 gap-4 mt-2">
+              {['Printemps', 'Été', 'Automne', 'Hiver'].map((season) => (
+                <div key={season} className="flex flex-row items-center space-x-2">
+                  <Checkbox
+                    checked={selectedSeasons.includes(season)}
+                    onCheckedChange={(checked) => {
+                      const updated = checked
+                        ? [...selectedSeasons, season]
+                        : selectedSeasons.filter((s) => s !== season);
+                      setSelectedSeasons(updated);
+                      setValue('seasons', updated);
+                    }}
+                  />
+                  <Label className="font-normal cursor-pointer">
+                    {season}
+                  </Label>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div>

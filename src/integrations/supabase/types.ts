@@ -292,6 +292,7 @@ export type Database = {
           product_status: string | null
           product_subtype: string | null
           product_type: string | null
+          seasons: string[] | null
           "skin type": string | null
           skin_concern_category: string[] | null
           skin_concern_subcategory: string[] | null
@@ -311,6 +312,7 @@ export type Database = {
           product_status?: string | null
           product_subtype?: string | null
           product_type?: string | null
+          seasons?: string[] | null
           "skin type"?: string | null
           skin_concern_category?: string[] | null
           skin_concern_subcategory?: string[] | null
@@ -330,6 +332,7 @@ export type Database = {
           product_status?: string | null
           product_subtype?: string | null
           product_type?: string | null
+          seasons?: string[] | null
           "skin type"?: string | null
           skin_concern_category?: string[] | null
           skin_concern_subcategory?: string[] | null

@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus, Trash2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import ImageUploader from './ImageUploader';
 
 const formSchema = z.object({
@@ -29,6 +30,7 @@ const formSchema = z.object({
   how_to_use: z.string().optional(),
   ingredients: z.string().optional(),
   volume: z.string().optional(),
+  seasons: z.array(z.string()).default([]),
   images: z.array(z.object({
     image_url: z.string().min(1, { message: "Veuillez télécharger une image." }),
     display_order: z.coerce.number().int().nonnegative(),
@@ -58,6 +60,7 @@ const AddProductForm: React.FC = () => {
       how_to_use: '',
       ingredients: '',
       volume: '',
+      seasons: [],
       images: [],
       variants: [],
     },
@@ -85,6 +88,7 @@ const AddProductForm: React.FC = () => {
       how_to_use: values.how_to_use || '',
       ingredients: values.ingredients || '',
       volume: values.volume || '',
+      seasons: values.seasons || [],
       images: values.images,
       variants: values.variants,
     };
@@ -265,6 +269,45 @@ const AddProductForm: React.FC = () => {
                         {...field} 
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="seasons"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>Saisons</FormLabel>
+                    <div className="grid grid-cols-2 gap-4 mt-2">
+                      {['Printemps', 'Été', 'Automne', 'Hiver'].map((season) => (
+                        <FormField
+                          key={season}
+                          control={form.control}
+                          name="seasons"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-row items-center space-x-2 space-y-0">
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value?.includes(season)}
+                                  onCheckedChange={(checked) => {
+                                    const current = field.value || [];
+                                    const updated = checked
+                                      ? [...current, season]
+                                      : current.filter((s) => s !== season);
+                                    field.onChange(updated);
+                                  }}
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal cursor-pointer">
+                                {season}
+                              </FormLabel>
+                            </FormItem>
+                          )}
+                        />
+                      ))}
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
