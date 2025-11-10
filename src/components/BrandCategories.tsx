@@ -3,14 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const brands = [
-  { name: 'KLAIRS', path: '/shop/brand/klairs' },
-  { name: 'COSRX', path: '/shop/brand/cosrx' },
-  { name: 'ISNTREE', path: '/shop/brand/isntree' },
-  { name: 'BEAUTY OF JOSEON', path: '/shop/brand/beauty-of-joseon' },
-  { name: 'I\'M FROM', path: '/shop/brand/im-from' },
-  { name: 'PYUNKANG YUL', path: '/shop/brand/pyunkang-yul' },
-  { name: 'NEOGEN', path: '/shop/brand/neogen' },
-  { name: 'ROVECTIN', path: '/shop/brand/rovectin' },
+  { name: 'KLAIRS', path: '/shop/brand/KLAIRS' },
+  { name: 'COSRX', path: '/shop/brand/COSRX' },
+  { name: 'ISNTREE', path: '/shop/brand/ISNTREE' },
+  { name: 'BEAUTY OF JOSEON', path: '/shop/brand/BEAUTY OF JOSEON' },
+  { name: 'I\'M FROM', path: '/shop/brand/I\'M FROM' },
+  { name: 'PYUNKANG YUL', path: '/shop/brand/PYUNKANG YUL' },
+  { name: 'NEOGEN', path: '/shop/brand/NEOGEN' },
+  { name: 'ROVECTIN', path: '/shop/brand/ROVECTIN' },
 ];
 
 const BrandCategories = () => {

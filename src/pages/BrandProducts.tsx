@@ -12,9 +12,9 @@ const BrandProducts = () => {
 
   useEffect(() => {
     if (products && brandName) {
-      const target = decodeURIComponent(brandName).trim().toLowerCase();
+      const target = decodeURIComponent(brandName).trim();
       const filtered = products.filter(
-        product => (product.brand || '').trim().toLowerCase() === target
+        product => (product.brand || '').trim() === target
       );
       setBrandProducts(filtered);
     }
