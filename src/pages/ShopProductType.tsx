@@ -33,6 +33,8 @@ const ShopProductType = () => {
     // Map common synonyms to a canonical slug (FR-first)
     const canonicalize = (slug: string) => {
       const s = slug.replace(/-+/g, '-');
+      // Lotions tonifiantes
+      if (s === 'lotions-tonifiantes' || s === 'lotion-tonifiante' || s === 'lotions-tonifiant' || s === 'lotion-tonifiant' || s === 'toner' || s === 'toners') return 'lotions-tonifiant';
       // Hair & Body -> Cheveux & Corps
       if (s === 'hair-body' || s === 'hair-and-body' || /(^|-)hair(-.*)?-body($|-)/.test(s)) return 'cheveux-corps';
       // Maquillage & Outils -> Maquillage (unify)

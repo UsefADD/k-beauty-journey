@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 
 const productTypes = [
   {
+    name: 'Lotions tonifiantes',
+    path: '/shop/product-type/lotions-tonifiantes',
+    subtypes: []
+  },
+  {
     name: 'Traitements',
     path: '/shop/product-type/traitements',
     subtypes: [
