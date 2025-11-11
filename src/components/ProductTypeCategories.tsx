@@ -8,6 +8,11 @@ const productTypes = [
     subtypes: []
   },
   {
+    name: 'Soin des yeux',
+    path: '/shop/product-type/soin-yeux',
+    subtypes: []
+  },
+  {
     name: 'Traitements',
     path: '/shop/product-type/traitements',
     subtypes: [

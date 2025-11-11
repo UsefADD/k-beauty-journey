@@ -35,6 +35,8 @@ const ShopProductType = () => {
       const s = slug.replace(/-+/g, '-');
       // Lotions tonifiantes
       if (s === 'lotions-tonifiantes' || s === 'lotion-tonifiante' || s === 'lotions-tonifiant' || s === 'lotion-tonifiant' || s === 'toner' || s === 'toners') return 'lotions-tonifiant';
+      // Soin des yeux / Eye care
+      if (s === 'soin-yeux' || s === 'soin-des-yeux' || s === 'soins-yeux' || s === 'soins-des-yeux' || s === 'eye-care' || s === 'eye-cream' || s === 'contour-yeux') return 'soin-des-yeux';
       // Hair & Body -> Cheveux & Corps
       if (s === 'hair-body' || s === 'hair-and-body' || /(^|-)hair(-.*)?-body($|-)/.test(s)) return 'cheveux-corps';
       // Maquillage & Outils -> Maquillage (unify)
