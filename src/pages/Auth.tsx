@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { checkPasswordPwned } from '@/utils/passwordSecurity';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -40,7 +41,31 @@ const Auth = () => {
         
         navigate('/');
       } else {
-        // Handle signup
+        // Handle signup - check password against HIBP first
+        toast({
+          title: "Checking password security...",
+          description: "Verifying your password hasn't been compromised in data breaches.",
+        });
+
+        const pwnedCheck = await checkPasswordPwned(password);
+        
+        if (pwnedCheck.isCompromised) {
+          setLoading(false);
+          toast({
+            title: "Compromised Password Detected",
+            description: `This password has appeared in ${pwnedCheck.breachCount?.toLocaleString() || 'multiple'} data breaches. Please choose a different password for your security.`,
+            variant: "destructive",
+          });
+          return;
+        }
+
+        if (pwnedCheck.error) {
+          toast({
+            title: "Warning",
+            description: pwnedCheck.error,
+          });
+        }
+
         const { error } = await supabase.auth.signUp({
           email,
           password,
