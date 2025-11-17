@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ShippingFormValues {
   fullName: string;
@@ -50,9 +51,43 @@ const Payment = () => {
 
   const onSubmit = async (data: ShippingFormValues) => {
     try {
-      // Format order details for WhatsApp
+      // Prepare order items for database
+      const orderItems = items.map(item => ({
+        product_id: item.id,
+        product_name: item.name,
+        product_price: item.price,
+        quantity: item.quantity
+      }));
+
+      // Create order in database (this will reduce stock atomically)
+      const { data: orderData, error } = await supabase.rpc('create_order', {
+        p_customer_name: data.fullName,
+        p_customer_email: data.email,
+        p_customer_phone: data.phone,
+        p_shipping_address: data.address,
+        p_shipping_city: data.city,
+        p_shipping_zip_code: data.zipCode,
+        p_total_amount: totalPrice,
+        p_items: orderItems
+      });
+
+      if (error) {
+        // Check if it's a stock error
+        if (error.message.includes('Insufficient stock')) {
+          toast({
+            title: "Stock insuffisant",
+            description: "Désolé, certains produits ne sont plus disponibles en quantité suffisante.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw error;
+      }
+
+      // Order created successfully, now format WhatsApp message
+      const orderNumber = orderData?.[0]?.order_number || '';
       const orderDate = new Date().toLocaleString();
-      let message = `🛍️ *NEW ORDER*\n\n`;
+      let message = `🛍️ *NEW ORDER ${orderNumber}*\n\n`;
       message += `📅 Date: ${orderDate}\n\n`;
       message += `👤 *Customer Information:*\n`;
       message += `Name: ${data.fullName}\n`;
@@ -74,7 +109,7 @@ const Payment = () => {
       message += `💰 *Total Amount: ${totalPrice.toFixed(2)} MAD*\n`;
 
       // Create WhatsApp link
-      const whatsappNumber = "212705658181"; // Your WhatsApp number
+      const whatsappNumber = "212705658181";
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
@@ -82,8 +117,8 @@ const Payment = () => {
       window.open(whatsappUrl, '_blank');
 
       toast({
-        title: "Opening WhatsApp",
-        description: "Please send the message in WhatsApp to complete your order.",
+        title: "Commande créée",
+        description: `Votre commande ${orderNumber} a été enregistrée avec succès!`,
       });
 
       // Clear cart
@@ -97,8 +132,8 @@ const Payment = () => {
     } catch (error: any) {
       console.error("Error processing order:", error);
       toast({
-        title: "Order failed",
-        description: "There was an error preparing your order. Please try again.",
+        title: "Erreur",
+        description: "Une erreur s'est produite lors de la création de la commande. Veuillez réessayer.",
         variant: "destructive",
       });
     }
