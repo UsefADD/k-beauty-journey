@@ -89,9 +89,9 @@ const Payment = () => {
       // Clear cart
       clearCart();
       
-      // Navigate to home after a short delay
+      // Navigate to home with confirmation state
       setTimeout(() => {
-        navigate("/");
+        navigate("/", { state: { orderConfirmed: true } });
       }, 1500);
 
     } catch (error: any) {
