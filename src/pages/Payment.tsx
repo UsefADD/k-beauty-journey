@@ -4,9 +4,7 @@ import Footer from '../components/Footer';
 import { Package } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from "@/contexts/CartContext";
-import { useInventory } from "@/hooks/useInventory";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -25,7 +23,6 @@ interface ShippingFormValues {
 const Payment = () => {
   const { t } = useLanguage();
   const { items, totalPrice, clearCart } = useCart();
-  const { updateStock, checkStock } = useInventory();
   const { toast } = useToast();
   const navigate = useNavigate();
   
@@ -53,57 +50,55 @@ const Payment = () => {
 
   const onSubmit = async (data: ShippingFormValues) => {
     try {
-      // Prepare order items payload
-      const orderItems = items.map(item => ({
-        product_id: item.id,
-        product_name: item.name,
-        product_price: item.price,
-        quantity: item.quantity,
-      }));
-
-      // Optional client-side stock check for UX
-      for (const item of items) {
-        if (!checkStock(item.id, item.quantity)) {
-          toast({
-            title: "Insufficient stock",
-            description: `Sorry, ${item.name} is out of stock or has insufficient quantity.`,
-            variant: "destructive",
-          });
-          return;
-        }
-      }
-
-      // Create order transactionally via secure RPC
-      const { data: result, error: rpcError } = await supabase.rpc('create_order', {
-        p_customer_name: data.fullName,
-        p_customer_email: data.email,
-        p_customer_phone: data.phone,
-        p_shipping_address: data.address,
-        p_shipping_city: data.city,
-        p_shipping_zip_code: data.zipCode,
-        p_total_amount: totalPrice,
-        p_items: orderItems,
+      // Format order details for WhatsApp
+      const orderDate = new Date().toLocaleString();
+      let message = `🛍️ *NEW ORDER*\n\n`;
+      message += `📅 Date: ${orderDate}\n\n`;
+      message += `👤 *Customer Information:*\n`;
+      message += `Name: ${data.fullName}\n`;
+      message += `Email: ${data.email}\n`;
+      message += `Phone: ${data.phone}\n\n`;
+      message += `📍 *Shipping Address:*\n`;
+      message += `Address: ${data.address}\n`;
+      message += `City: ${data.city}\n`;
+      message += `Zip Code: ${data.zipCode}\n\n`;
+      message += `🛒 *Order Items:*\n`;
+      
+      items.forEach((item, index) => {
+        message += `${index + 1}. ${item.name}\n`;
+        message += `   Price: ${item.price} MAD\n`;
+        message += `   Quantity: ${item.quantity}\n`;
+        message += `   Subtotal: ${(item.price * item.quantity).toFixed(2)} MAD\n\n`;
       });
+      
+      message += `💰 *Total Amount: ${totalPrice.toFixed(2)} MAD*\n`;
 
-      if (rpcError) throw rpcError as any;
+      // Create WhatsApp link
+      const whatsappNumber = "212705658181"; // Your WhatsApp number
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-      const orderNumber = Array.isArray(result) ? (result[0] as any)?.order_number : (result as any)?.order_number;
+      // Open WhatsApp
+      window.open(whatsappUrl, '_blank');
 
       toast({
-        title: "Order placed successfully",
-        description: `Your order ${orderNumber ?? ''} has been placed and will be processed soon.`,
+        title: "Opening WhatsApp",
+        description: "Please send the message in WhatsApp to complete your order.",
       });
 
+      // Clear cart
       clearCart();
-      navigate("/");
+      
+      // Navigate to home after a short delay
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+
     } catch (error: any) {
       console.error("Error processing order:", error);
-      const description = error?.message?.includes("Insufficient stock")
-        ? error.message
-        : "There was an error processing your order. Please try again.";
       toast({
         title: "Order failed",
-        description,
+        description: "There was an error preparing your order. Please try again.",
         variant: "destructive",
       });
     }
