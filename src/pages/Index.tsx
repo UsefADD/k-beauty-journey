@@ -38,7 +38,7 @@ const Index = () => {
       <ErrorBoundary name="Navbar"><Navbar /></ErrorBoundary>
       
       {orderConfirmed && (
-        <div className="container mx-auto px-4 pt-6">
+        <div className="container mx-auto px-4 pt-6 animate-slide-in-top">
           <Alert className="bg-green-50 border-green-200">
             <CheckCircle2 className="h-5 w-5 text-green-600" />
             <AlertTitle className="text-green-800 font-semibold">Order Successfully Submitted!</AlertTitle>
