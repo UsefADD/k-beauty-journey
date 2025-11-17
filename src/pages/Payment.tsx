@@ -68,7 +68,7 @@ const Payment = () => {
         p_shipping_city: data.city,
         p_shipping_zip_code: data.zipCode,
         p_total_amount: totalPrice,
-        p_items: orderItems
+        p_items: JSON.stringify(orderItems)
       });
 
       if (error) {
