@@ -68,10 +68,11 @@ const Payment = () => {
         p_shipping_city: data.city,
         p_shipping_zip_code: data.zipCode,
         p_total_amount: totalPrice,
-        p_items: JSON.stringify(orderItems)
+        p_items: orderItems as any
       });
 
       if (error) {
+        console.error('Order creation error:', error);
         // Check if it's a stock error
         if (error.message.includes('Insufficient stock')) {
           toast({
@@ -131,9 +132,15 @@ const Payment = () => {
 
     } catch (error: any) {
       console.error("Error processing order:", error);
+      console.error("Error details:", {
+        message: error?.message,
+        details: error?.details,
+        hint: error?.hint,
+        code: error?.code
+      });
       toast({
         title: "Erreur",
-        description: "Une erreur s'est produite lors de la création de la commande. Veuillez réessayer.",
+        description: error?.message || "Une erreur s'est produite lors de la création de la commande. Veuillez réessayer.",
         variant: "destructive",
       });
     }
