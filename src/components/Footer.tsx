@@ -1,20 +1,12 @@
 import React from 'react';
 import { Mail, Instagram, Facebook, Twitter } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+import NewsletterSignup from './NewsletterSignup';
 const Footer = () => {
   console.info('Render: Footer');
   return <footer className="bg-white border-t border-gray-200">
-      <div className="bg-white py-6 text-center">
-        <div className="container mx-auto px-4">
-          
-          
-          
-          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <input type="email" placeholder="Your email address" className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 max-w-xs w-full" />
-            <Button>
-              Subscribe
-            </Button>
-          </div>
+      <div className="bg-white py-6">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <NewsletterSignup />
         </div>
       </div>
       
