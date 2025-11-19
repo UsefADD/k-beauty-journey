@@ -51,21 +51,34 @@ serve(async (req) => {
       }
 
       // Send welcome email
-      const welcomeEmailResult = await resend.emails.send({
-        from: 'Newsletter <onboarding@resend.dev>',
-        to: [email],
-        subject: 'Bienvenue dans notre newsletter !',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h1 style="color: #333;">Merci de vous être inscrit !</h1>
-            <p>Nous sommes ravis de vous compter parmi nos abonnés.</p>
-            <p>Vous recevrez bientôt nos dernières actualités et offres spéciales.</p>
-            <p style="color: #666; font-size: 14px;">Si vous ne souhaitez plus recevoir nos emails, vous pouvez vous désabonner à tout moment.</p>
-          </div>
-        `,
-      });
+      try {
+        const welcomeEmailResult = await resend.emails.send({
+          from: 'K-Beauty Newsletter <onboarding@resend.dev>',
+          to: [email],
+          subject: 'Bienvenue dans notre newsletter !',
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <h1 style="color: #333;">Merci de vous être inscrit !</h1>
+              <p>Nous sommes ravis de vous compter parmi nos abonnés.</p>
+              <p>Vous recevrez bientôt nos dernières actualités et offres spéciales.</p>
+              <p style="color: #666; font-size: 14px;">Si vous ne souhaitez plus recevoir nos emails, vous pouvez vous désabonner à tout moment.</p>
+            </div>
+          `,
+        });
 
-      console.log('Welcome email sent:', welcomeEmailResult);
+        console.log('Welcome email sent successfully:', welcomeEmailResult);
+      } catch (emailError) {
+        console.error('Failed to send welcome email:', emailError);
+        // Don't fail the subscription if email fails
+        return new Response(
+          JSON.stringify({ 
+            success: true, 
+            message: 'Inscription réussie ! (Email de bienvenue en cours d\'envoi)',
+            warning: 'L\'email de bienvenue pourrait prendre quelques minutes'
+          }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
 
       return new Response(
         JSON.stringify({ success: true, message: 'Inscription réussie ! Email de bienvenue envoyé.' }),
