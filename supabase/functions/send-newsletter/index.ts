@@ -75,6 +75,39 @@ serve(async (req) => {
 
     // Send newsletter to all subscribers
     if (action === 'send_newsletter') {
+      // Check authentication
+      const authHeader = req.headers.get('Authorization');
+      if (!authHeader) {
+        return new Response(
+          JSON.stringify({ error: 'Non authentifié' }),
+          { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Get user from JWT token
+      const token = authHeader.replace('Bearer ', '');
+      const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+
+      if (authError || !user) {
+        console.error('Auth error:', authError);
+        return new Response(
+          JSON.stringify({ error: 'Non authentifié' }),
+          { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Check if user is admin
+      const { data: isAdmin, error: roleError } = await supabase
+        .rpc('is_admin', { user_id: user.id });
+
+      if (roleError || !isAdmin) {
+        console.error('Role check error:', roleError);
+        return new Response(
+          JSON.stringify({ error: 'Accès refusé - droits administrateur requis' }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
       // Get all subscribed emails
       const { data: subscribers, error: fetchError } = await supabase
         .from('newsletter_subscribers')
@@ -124,7 +157,8 @@ serve(async (req) => {
             subject: subject,
             content: content,
             sent_at: new Date().toISOString(),
-            recipient_count: emailList.length
+            recipient_count: emailList.length,
+            sent_by: user.id
           }
         ]);
 
