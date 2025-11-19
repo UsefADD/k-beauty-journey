@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface ShippingFormValues {
   fullName: string;
@@ -26,6 +27,7 @@ const Payment = () => {
   const { items, totalPrice, clearCart } = useCart();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { user } = useAuth();
   
   // Check if there are any items in the cart
   useEffect(() => {
@@ -68,7 +70,8 @@ const Payment = () => {
         p_shipping_city: data.city,
         p_shipping_zip_code: data.zipCode,
         p_total_amount: totalPrice,
-        p_items: orderItems as any
+        p_items: orderItems as any,
+        p_user_id: user?.id || null
       });
 
       if (error) {
