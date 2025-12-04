@@ -189,11 +189,11 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="flex-grow py-12 bg-white">
+      <div className="flex-grow py-6 md:py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row gap-10">
-            <div className="md:w-1/2">
-              <Carousel className="w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
+            <div className="w-full">
+              <Carousel className="w-full max-w-[500px] mx-auto lg:max-w-none">
                 <CarouselContent>
                   {displayImages.map((image, index) => (
                     <CarouselItem key={index}>
@@ -210,12 +210,12 @@ const ProductDetail = () => {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="border-cream-300 text-cream-700 hover:bg-cream-200 hover:text-cream-900" />
-                <CarouselNext className="border-cream-300 text-cream-700 hover:bg-cream-200 hover:text-cream-900" />
+                <CarouselPrevious className="left-2 border-cream-300 text-cream-700 hover:bg-cream-200 hover:text-cream-900" />
+                <CarouselNext className="right-2 border-cream-300 text-cream-700 hover:bg-cream-200 hover:text-cream-900" />
               </Carousel>
             </div>
             
-            <div className="md:w-1/2">
+            <div className="w-full">
               <div className="mb-2">
                 <Link 
                   to={`/shop/brand/${encodeURIComponent(product.brand)}`}
