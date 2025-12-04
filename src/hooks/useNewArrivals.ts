@@ -9,6 +9,8 @@ export interface NewArrivalProduct {
   image: string;
   stock_quantity: number;
   description?: string;
+  sale_price?: number | null;
+  is_on_sale?: boolean;
 }
 
 export const useNewArrivals = (limit: number = 4) => {
@@ -21,7 +23,7 @@ export const useNewArrivals = (limit: number = 4) => {
         // Get products with stock > 0, ordered by id (assuming newer products have higher/newer IDs)
           const { data, error } = await supabase
             .from('products')
-            .select('id, Product_name, brand, price, image_url, stock_quantity, description')
+            .select('id, Product_name, brand, price, image_url, stock_quantity, description, sale_price, is_on_sale')
             .gt('stock_quantity', 0)
             .order('stock_quantity', { ascending: false, nullsFirst: false })
             .order('id', { ascending: false })
@@ -74,7 +76,9 @@ export const useNewArrivals = (limit: number = 4) => {
             price,
             image: imageUrl,
             stock_quantity: item.stock_quantity ? Number(item.stock_quantity) : 0,
-            description: item.description || ""
+            description: item.description || "",
+            sale_price: item.sale_price ? Number(item.sale_price) : null,
+            is_on_sale: item.is_on_sale || false
           };
         });
         

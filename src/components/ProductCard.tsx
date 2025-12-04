@@ -14,6 +14,8 @@ interface ProductCardProps {
   stock_quantity?: number;
   volume?: string | null;
   product_status?: 'new' | 'coming_soon' | 'standard' | null;
+  sale_price?: number | null;
+  is_on_sale?: boolean;
 }
 
 const ProductCard = ({
@@ -24,13 +26,17 @@ const ProductCard = ({
   image,
   stock_quantity,
   volume,
-  product_status
+  product_status,
+  sale_price,
+  is_on_sale
 }: ProductCardProps) => {
   const { addItem } = useCart();
   const qty = Number(stock_quantity ?? 0);
   const isOutOfStock = !Number.isFinite(qty) || qty <= 0;
   const isComingSoon = product_status === 'coming_soon';
   console.info(`[ProductCard] name="${name}" id=${id} stock=${stock_quantity} status=${product_status} isOut=${isOutOfStock}`);
+
+  const displayPrice = is_on_sale && sale_price ? sale_price : price;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -39,7 +45,7 @@ const ProductCard = ({
       addItem({
         id: id.toString(),
         name,
-        price,
+        price: displayPrice,
         image,
       });
     }
@@ -59,9 +65,14 @@ const ProductCard = ({
             <span className="text-sm font-semibold text-gray-900">Stock épuisé</span>
           </div>
         )}
-        {product_status === 'new' && !isOutOfStock && !isComingSoon && (
+        {product_status === 'new' && !isOutOfStock && !isComingSoon && !is_on_sale && (
           <div className="absolute top-2 left-2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
             NOUVEAU
+          </div>
+        )}
+        {is_on_sale && sale_price && !isOutOfStock && !isComingSoon && (
+          <div className="absolute top-2 left-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+            PROMO
           </div>
         )}
         {isComingSoon && (
@@ -84,7 +95,16 @@ const ProductCard = ({
           </h3>
         </div>
         {!isOutOfStock && !isComingSoon && (
-          <p className="text-sm font-medium text-zinc-950 whitespace-nowrap">{price.toFixed(2)} MAD</p>
+          <div className="text-right">
+            {is_on_sale && sale_price ? (
+              <div className="flex flex-col items-end">
+                <p className="text-xs text-gray-500 line-through">{price.toFixed(2)} MAD</p>
+                <p className="text-sm font-medium text-red-600">{sale_price.toFixed(2)} MAD</p>
+              </div>
+            ) : (
+              <p className="text-sm font-medium text-zinc-950 whitespace-nowrap">{price.toFixed(2)} MAD</p>
+            )}
+          </div>
         )}
       </div>
     </>

@@ -14,6 +14,8 @@ export interface Product {
   product_type?: string;
   product_subtype?: string;
   product_status?: 'new' | 'coming_soon' | 'standard';
+  sale_price?: number | null;
+  is_on_sale?: boolean;
 }
 
 export const useInventory = () => {
@@ -105,6 +107,8 @@ export const useInventory = () => {
           const product_type = item.product_type || "";
           const product_subtype = item.product_subtype || "";
           const product_status = (item.product_status || "standard") as 'new' | 'coming_soon' | 'standard';
+          const sale_price = item.sale_price ? Number(item.sale_price) : null;
+          const is_on_sale = item.is_on_sale || false;
           
           return {
             id,
@@ -116,7 +120,9 @@ export const useInventory = () => {
             description,
             product_type,
             product_subtype,
-            product_status
+            product_status,
+            sale_price,
+            is_on_sale
           };
         });
         

@@ -76,7 +76,8 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (product) {
-      const itemPrice = selectedVariant ? selectedVariant.price : product.price;
+      const basePrice = selectedVariant ? selectedVariant.price : product.price;
+      const itemPrice = product.is_on_sale && product.sale_price ? product.sale_price : basePrice;
       const itemName = selectedVariant 
         ? `${product.Product_name} - ${selectedVariant.volume}` 
         : product.Product_name;
@@ -183,6 +184,8 @@ const ProductDetail = () => {
   const displayImages = productImages.length > 0 ? productImages : ['/placeholder.svg'];
   
   const productPrice = selectedVariant ? selectedVariant.price : product.price;
+  const productSalePrice = product.is_on_sale && product.sale_price ? product.sale_price : null;
+  const displayPrice = productSalePrice || productPrice;
   const productStock = selectedVariant ? selectedVariant.stock_quantity : product.stock_quantity;
   const hasVariants = variants.length > 0;
 
@@ -237,9 +240,17 @@ const ProductDetail = () => {
                 onChange={handleRatingChange} 
               />
               
-              <div className="text-2xl font-bold text-black mb-6">
-                {productPrice.toFixed(2)} MAD
-              </div>
+              {productSalePrice ? (
+                <div className="mb-6">
+                  <span className="text-lg text-gray-500 line-through mr-3">{productPrice.toFixed(2)} MAD</span>
+                  <span className="text-2xl font-bold text-red-600">{productSalePrice.toFixed(2)} MAD</span>
+                  <span className="ml-2 bg-red-500 text-white px-2 py-1 rounded text-sm font-medium">PROMO</span>
+                </div>
+              ) : (
+                <div className="text-2xl font-bold text-black mb-6">
+                  {productPrice.toFixed(2)} MAD
+                </div>
+              )}
               
               {hasVariants && (
                 <div className="mb-6">

@@ -287,11 +287,13 @@ export type Database = {
           id: string
           image_url: string | null
           ingredients: string | null
+          is_on_sale: boolean | null
           price: string | null
           Product_name: string
           product_status: string | null
           product_subtype: string | null
           product_type: string | null
+          sale_price: number | null
           seasons: string[] | null
           "skin type": string | null
           skin_concern_category: string[] | null
@@ -307,11 +309,13 @@ export type Database = {
           id?: string
           image_url?: string | null
           ingredients?: string | null
+          is_on_sale?: boolean | null
           price?: string | null
           Product_name: string
           product_status?: string | null
           product_subtype?: string | null
           product_type?: string | null
+          sale_price?: number | null
           seasons?: string[] | null
           "skin type"?: string | null
           skin_concern_category?: string[] | null
@@ -327,11 +331,13 @@ export type Database = {
           id?: string
           image_url?: string | null
           ingredients?: string | null
+          is_on_sale?: boolean | null
           price?: string | null
           Product_name?: string
           product_status?: string | null
           product_subtype?: string | null
           product_type?: string | null
+          sale_price?: number | null
           seasons?: string[] | null
           "skin type"?: string | null
           skin_concern_category?: string[] | null
