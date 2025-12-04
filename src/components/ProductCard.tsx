@@ -71,7 +71,7 @@ const ProductCard = ({
           </div>
         )}
         {is_on_sale && sale_price && !isOutOfStock && !isComingSoon && (
-          <div className="absolute top-2 left-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+          <div className="absolute top-2 left-2 bg-secondary text-zinc-800 px-3 py-1 rounded-full text-xs font-bold">
             PROMO
           </div>
         )}

@@ -244,7 +244,7 @@ const ProductDetail = () => {
                 <div className="mb-6">
                   <span className="text-lg text-gray-500 line-through mr-3">{productPrice.toFixed(2)} MAD</span>
                   <span className="text-2xl font-bold text-zinc-950">{productSalePrice.toFixed(2)} MAD</span>
-                  <span className="ml-2 bg-red-500 text-white px-2 py-1 rounded text-sm font-medium">PROMO</span>
+                  <span className="ml-2 bg-secondary text-zinc-800 px-2 py-1 rounded text-sm font-medium">PROMO</span>
                 </div>
               ) : (
                 <div className="text-2xl font-bold text-black mb-6">
