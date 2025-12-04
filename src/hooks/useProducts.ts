@@ -23,6 +23,8 @@ export interface Product {
   volume: string | null;
   product_status: 'new' | 'coming_soon' | 'standard' | null;
   seasons: string[] | null;
+  sale_price: number | null;
+  is_on_sale: boolean;
 }
 
 export const useProducts = () => {
@@ -93,6 +95,8 @@ export const useProducts = () => {
             // Ensure stock_quantity is a number for reliable UI logic
             stock_quantity: product.stock_quantity !== null && product.stock_quantity !== undefined ? Number(product.stock_quantity) : 0,
             image_url: resolvedImage,
+            sale_price: product.sale_price ? Number(product.sale_price) : null,
+            is_on_sale: product.is_on_sale || false,
           };
         }) : [];
         
@@ -166,6 +170,8 @@ export const useProducts = () => {
         const transformedProduct = {
           ...data,
           price: data.price ? parseFloat(data.price.toString().replace(/[^\d.]/g, '')) || 0 : 0,
+          sale_price: data.sale_price ? Number(data.sale_price) : null,
+          is_on_sale: data.is_on_sale || false,
         };
         return transformedProduct as Product;
       }
