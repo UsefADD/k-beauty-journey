@@ -99,7 +99,7 @@ const ProductCard = ({
             {is_on_sale && sale_price ? (
               <div className="flex flex-col items-end">
                 <p className="text-xs text-gray-500 line-through">{price.toFixed(2)} MAD</p>
-                <p className="text-sm font-medium text-red-600">{sale_price.toFixed(2)} MAD</p>
+                <p className="text-sm font-medium text-zinc-950">{sale_price.toFixed(2)} MAD</p>
               </div>
             ) : (
               <p className="text-sm font-medium text-zinc-950 whitespace-nowrap">{price.toFixed(2)} MAD</p>
