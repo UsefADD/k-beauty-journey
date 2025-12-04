@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe, Settings, Package } from 'lucide-react';
+import { ShoppingBag, Heart, Search, Droplets, Brush, Beaker, Sparkles, Eye, Sun, Umbrella, Scissors, Globe, Settings, Package, Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
@@ -19,31 +19,44 @@ import { useAuth } from '../contexts/AuthContext';
 import { useUserRole } from '../hooks/useUserRole';
 import UserMenu from './UserMenu';
 import { Button } from "@/components/ui/button";
+import MobileMenu from './MobileMenu';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Navbar = () => {
   console.info('Render: Navbar');
   const { t } = useLanguage();
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totalItems } = useCart();
   const { user } = useAuth();
   const { isAdmin } = useUserRole();
+  const isMobile = useIsMobile();
 
   return <>
       <div className="text-black py-1 overflow-hidden whitespace-nowrap relative border-b border-gray-100" style={{background: 'var(--gradient-pastel)'}}>
         <div className="animate-marquee inline-block">
-          <span className="mx-4 font-medium">{t('shipping.banner')}</span>
-          <span className="mx-4 font-medium">{t('shipping.banner')}</span>
-          <span className="mx-4 font-medium">{t('shipping.banner')}</span>
+          <span className="mx-4 font-medium text-sm">{t('shipping.banner')}</span>
+          <span className="mx-4 font-medium text-sm">{t('shipping.banner')}</span>
+          <span className="mx-4 font-medium text-sm">{t('shipping.banner')}</span>
         </div>
       </div>
       
-      <nav className="bg-white py-4 shadow-sm sticky top-0 z-50">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
-          <Link to="/" className="text-2xl font-serif font-bold text-black mb-4 md:mb-0">
+      <nav className="bg-white py-3 md:py-4 shadow-sm sticky top-0 z-50">
+        <div className="container mx-auto flex justify-between items-center px-4">
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden p-2 -ml-2"
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu className="h-6 w-6" />
+          </button>
+          <Link to="/" className="text-xl md:text-2xl font-serif font-bold text-black">
             BLISSFUL.
           </Link>
           
-          <div className="space-x-4 md:space-x-6 text-black text-sm font-bold mb-4 md:mb-0 flex items-center">
+          {/* Desktop Navigation - Hidden on mobile */}
+          <div className="hidden md:flex space-x-4 md:space-x-6 text-black text-sm font-bold items-center">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
@@ -161,15 +174,12 @@ const Navbar = () => {
             <Link to="/brands" className="hover:text-gray-800 transition-colors zigzag-underline">
               {t('brands')}
             </Link>
-            {/* Admin Orders Link - Only for admins */}
             {isAdmin && (
               <Link to="/admin/orders" className="hover:text-gray-800 transition-colors zigzag-underline flex items-center gap-1">
                 <Settings className="w-4 h-4" />
                 Orders
               </Link>
             )}
-            
-            {/* My Orders Link - Only for regular customers */}
             {user && !isAdmin && (
               <Link to="/profile" className="hover:text-gray-800 transition-colors zigzag-underline flex items-center gap-1">
                 <Package className="w-4 h-4" />
@@ -178,16 +188,17 @@ const Navbar = () => {
             )}
           </div>
           
-          <div className="space-x-6 text-black flex items-center">
+          {/* Right Side Icons */}
+          <div className="flex items-center space-x-3 md:space-x-6 text-black">
             <Search 
               className="w-5 h-5 hover:text-gray-800 cursor-pointer transition-colors" 
               onClick={() => setSearchOpen(true)}
             />
-            <Button className="h-8 px-3 hidden sm:inline-flex" variant="default" onClick={() => setSearchOpen(true)}>
+            <Button className="h-8 px-3 hidden lg:inline-flex" variant="default" onClick={() => setSearchOpen(true)}>
               Rechercher
             </Button>
             <UserMenu />
-            <Heart className="w-5 h-5 hover:text-gray-800 cursor-pointer transition-colors" />
+            <Heart className="w-5 h-5 hover:text-gray-800 cursor-pointer transition-colors hidden sm:block" />
             <div className="relative inline-flex items-center">
               <Link to="/cart">
                 <ShoppingBag className="w-5 h-5 hover:text-gray-800 cursor-pointer transition-colors" />
@@ -198,10 +209,15 @@ const Navbar = () => {
                 )}
               </Link>
             </div>
-            <LanguageSwitcher />
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       </nav>
+      
+      {/* Mobile Menu */}
+      <MobileMenu open={mobileMenuOpen} onOpenChange={setMobileMenuOpen} />
       <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
       <style>{`
         @keyframes marquee {
