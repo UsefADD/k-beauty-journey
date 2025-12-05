@@ -323,7 +323,7 @@ const ProductDetail = () => {
               <div className="flex gap-3 mb-8">
                 <Button 
                   onClick={handleAddToCart} 
-                  className="flex-1 bg-white text-pink-600 border border-pink-600 hover:bg-pink-50"
+                  className="flex-1 bg-zinc-950 text-white border border-zinc-950 hover:bg-zinc-800"
                   disabled={!productStock || productStock <= 0}
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" />
