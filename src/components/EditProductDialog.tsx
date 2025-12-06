@@ -127,6 +127,16 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
 
       if (error) throw error;
 
+      // Si c'est la première image, mettre à jour aussi l'image_url du produit
+      if (productImages.length === 0) {
+        await supabase
+          .from('products')
+          .update({ image_url: imageUrl })
+          .eq('id', product.id);
+        
+        queryClient.invalidateQueries({ queryKey: ['products'] });
+      }
+
       queryClient.invalidateQueries({ queryKey: ['product-images', product.id] });
       toast.success('Image ajoutée avec succès');
     } catch (error) {
