@@ -72,7 +72,7 @@ const ProductCard = ({
         )}
         {is_on_sale && sale_price && !isOutOfStock && !isComingSoon && (
           <div className="absolute top-2 left-2 bg-secondary text-zinc-800 px-3 py-1 rounded-full text-xs font-bold">
-            PROMO
+            -{Math.round(((price - sale_price) / price) * 100)}%
           </div>
         )}
         {isComingSoon && (
