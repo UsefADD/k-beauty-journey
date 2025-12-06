@@ -187,7 +187,10 @@ const enTranslations: Record<string, string> = {
   'cart.checkout': 'Proceed to Checkout',
   'cart.remove': 'Remove',
   'cart.quantity': 'Quantity',
-  'cart.price': 'Price'
+  'cart.price': 'Price',
+  'cart.product.added': 'Product Added to Cart',
+  'cart.what.next': 'What would you like to do next?',
+  'cart.go.to.cart': 'Go to Cart'
 };
 
 // French translations
@@ -366,7 +369,10 @@ const frTranslations: Record<string, string> = {
   'cart.checkout': 'Passer à la Caisse',
   'cart.remove': 'Supprimer',
   'cart.quantity': 'Quantité',
-  'cart.price': 'Prix'
+  'cart.price': 'Prix',
+  'cart.product.added': 'Produit Ajouté au Panier',
+  'cart.what.next': 'Que souhaitez-vous faire ensuite ?',
+  'cart.go.to.cart': 'Aller au Panier'
 };
 
 // Arabic translations
@@ -545,7 +551,10 @@ const arTranslations: Record<string, string> = {
   'cart.checkout': 'إتمام الشراء',
   'cart.remove': 'إزالة',
   'cart.quantity': 'الكمية',
-  'cart.price': 'السعر'
+  'cart.price': 'السعر',
+  'cart.product.added': 'تمت إضافة المنتج إلى السلة',
+  'cart.what.next': 'ماذا تريد أن تفعل الآن؟',
+  'cart.go.to.cart': 'الذهاب إلى السلة'
 };
 
 interface LanguageProviderProps {

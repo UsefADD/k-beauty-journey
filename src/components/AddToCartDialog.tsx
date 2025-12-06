@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -9,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface AddToCartDialogProps {
   open: boolean;
@@ -17,15 +17,16 @@ interface AddToCartDialogProps {
 
 const AddToCartDialog: React.FC<AddToCartDialogProps> = ({ open, onOpenChange }) => {
   const navigate = useNavigate();
+  const { t, isRTL } = useLanguage();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className={isRTL ? 'rtl' : 'ltr'} dir={isRTL ? 'rtl' : 'ltr'}>
         <DialogHeader>
-          <DialogTitle>Product Added to Cart</DialogTitle>
+          <DialogTitle>{t('cart.product.added')}</DialogTitle>
         </DialogHeader>
         <div className="py-2 text-base">
-          What would you like to do next?
+          {t('cart.what.next')}
         </div>
         <DialogFooter className="gap-2">
           <Button
@@ -35,14 +36,14 @@ const AddToCartDialog: React.FC<AddToCartDialogProps> = ({ open, onOpenChange })
               navigate("/cart");
             }}
           >
-            Go to Cart
+            {t('cart.go.to.cart')}
           </Button>
           <Button
             variant="outline"
             className="flex-1"
             onClick={() => onOpenChange(false)}
           >
-            Continue Shopping
+            {t('cart.continue.shopping')}
           </Button>
         </DialogFooter>
       </DialogContent>
