@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Package, Truck } from 'lucide-react';
+import { Package, Truck, MapPin } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from "@/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
@@ -12,10 +12,9 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-// Shipping costs by city
-const SHIPPING_RATES: Record<string, number> = {
+// Grandes villes avec leurs tarifs de base
+const MAJOR_CITIES: Record<string, number> = {
   "Tanger": 20,
   "Tetouan": 20,
   "Casablanca": 40,
@@ -25,7 +24,56 @@ const SHIPPING_RATES: Record<string, number> = {
   "Bouzenika": 45,
 };
 
-const CITIES = Object.keys(SHIPPING_RATES);
+// Petites villes associées aux grandes villes (avec +5 DHS)
+const NEARBY_CITIES: Record<string, string> = {
+  // Région Tanger
+  "asilah": "Tanger",
+  "ksar el kebir": "Tanger",
+  "larache": "Tanger",
+  "chefchaouen": "Tanger",
+  "ouezzane": "Tanger",
+  "fahs anjra": "Tanger",
+  // Région Tetouan
+  "martil": "Tetouan",
+  "mdiq": "Tetouan",
+  "fnideq": "Tetouan",
+  "oued laou": "Tetouan",
+  // Région Casablanca
+  "mohammedia": "Casablanca",
+  "berrechid": "Casablanca",
+  "settat": "Casablanca",
+  "el jadida": "Casablanca",
+  "benslimane": "Casablanca",
+  "mediouna": "Casablanca",
+  "nouaceur": "Casablanca",
+  "bouskoura": "Casablanca",
+  "ain harrouda": "Casablanca",
+  // Région Rabat
+  "sale": "Rabat",
+  "salé": "Rabat",
+  "temara": "Rabat",
+  "kenitra": "Rabat",
+  "skhirat": "Rabat",
+  "harhoura": "Rabat",
+  "ain aouda": "Rabat",
+  // Région Agadir
+  "inezgane": "Agadir",
+  "ait melloul": "Agadir",
+  "tiznit": "Agadir",
+  "taroudant": "Agadir",
+  "biougra": "Agadir",
+  "dcheira": "Agadir",
+  // Région Al Hoceima
+  "imzouren": "Al Hoceima",
+  "targuist": "Al Hoceima",
+  "bni bouayach": "Al Hoceima",
+  "ajdir": "Al Hoceima",
+  // Région Bouzenika
+  "bouznika": "Bouzenika",
+  "cherrat": "Bouzenika",
+};
+
+const MAJOR_CITIES_LIST = Object.keys(MAJOR_CITIES);
 
 interface ShippingFormValues {
   fullName: string;
@@ -36,12 +84,37 @@ interface ShippingFormValues {
   phone: string;
 }
 
+// Fonction pour calculer le tarif de livraison
+const calculateShippingCost = (cityInput: string): { cost: number; nearestCity: string | null; isNearby: boolean } => {
+  if (!cityInput) return { cost: 0, nearestCity: null, isNearby: false };
+  
+  const normalizedCity = cityInput.trim().toLowerCase();
+  
+  // Vérifier si c'est une grande ville
+  for (const majorCity of MAJOR_CITIES_LIST) {
+    if (majorCity.toLowerCase() === normalizedCity) {
+      return { cost: MAJOR_CITIES[majorCity], nearestCity: majorCity, isNearby: false };
+    }
+  }
+  
+  // Vérifier si c'est une petite ville connue
+  if (NEARBY_CITIES[normalizedCity]) {
+    const nearestCity = NEARBY_CITIES[normalizedCity];
+    return { cost: MAJOR_CITIES[nearestCity] + 5, nearestCity, isNearby: true };
+  }
+  
+  // Ville non reconnue - retourner 0 pour demander une sélection manuelle
+  return { cost: 0, nearestCity: null, isNearby: false };
+};
+
 const Payment = () => {
   const { t } = useLanguage();
   const { items, totalPrice, clearCart } = useCart();
   const { toast } = useToast();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [showCitySelector, setShowCitySelector] = useState(false);
+  const [selectedNearestCity, setSelectedNearestCity] = useState<string | null>(null);
   
   const form = useForm<ShippingFormValues>({
     defaultValues: {
@@ -54,12 +127,20 @@ const Payment = () => {
     },
   });
 
-  const selectedCity = form.watch("city");
+  const cityInput = form.watch("city");
   
-  const shippingCost = useMemo(() => {
-    if (!selectedCity) return 0;
-    return SHIPPING_RATES[selectedCity] || 0;
-  }, [selectedCity]);
+  const shippingInfo = useMemo(() => {
+    if (selectedNearestCity) {
+      return { 
+        cost: MAJOR_CITIES[selectedNearestCity] + 5, 
+        nearestCity: selectedNearestCity, 
+        isNearby: true 
+      };
+    }
+    return calculateShippingCost(cityInput);
+  }, [cityInput, selectedNearestCity]);
+  
+  const shippingCost = shippingInfo.cost;
 
   const grandTotal = totalPrice + shippingCost;
   
@@ -201,9 +282,24 @@ const Payment = () => {
                 <div className="flex justify-between items-center">
                   <span className="flex items-center gap-2">
                     <Truck className="h-4 w-4" />
-                    Livraison {selectedCity && `(${selectedCity})`}
+                    Livraison {cityInput && `(${cityInput})`}
                   </span>
-                  <span>{selectedCity ? `${shippingCost} MAD` : "Sélectionnez une ville"}</span>
+                  <span>
+                    {shippingCost > 0 ? (
+                      <>
+                        {shippingCost} MAD
+                        {shippingInfo.isNearby && (
+                          <span className="text-xs text-muted-foreground ml-1">
+                            (proche de {shippingInfo.nearestCity})
+                          </span>
+                        )}
+                      </>
+                    ) : cityInput ? (
+                      <span className="text-amber-600 text-sm">Ville non reconnue - sélectionnez ci-dessous</span>
+                    ) : (
+                      "Entrez votre ville"
+                    )}
+                  </span>
                 </div>
                 <div className="border-t pt-2 mt-2 flex justify-between font-semibold text-base">
                   <span>Total</span>
@@ -269,20 +365,47 @@ const Payment = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{t('city')}</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Sélectionnez votre ville" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {CITIES.map((city) => (
-                                <SelectItem key={city} value={city}>
-                                  {city} - {SHIPPING_RATES[city]} MAD
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                          <FormControl>
+                            <Input 
+                              placeholder="Entrez votre ville" 
+                              {...field}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                setSelectedNearestCity(null);
+                                setShowCitySelector(false);
+                              }}
+                            />
+                          </FormControl>
+                          {/* Afficher les suggestions si ville non reconnue */}
+                          {cityInput && shippingCost === 0 && (
+                            <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-md">
+                              <p className="text-sm text-amber-800 mb-2 flex items-center gap-1">
+                                <MapPin className="h-4 w-4" />
+                                Ville non reconnue. Sélectionnez la grande ville la plus proche :
+                              </p>
+                              <div className="flex flex-wrap gap-2">
+                                {MAJOR_CITIES_LIST.map((city) => (
+                                  <Button
+                                    key={city}
+                                    type="button"
+                                    variant={selectedNearestCity === city ? "default" : "outline"}
+                                    size="sm"
+                                    onClick={() => setSelectedNearestCity(city)}
+                                    className="text-xs"
+                                  >
+                                    {city} ({MAJOR_CITIES[city] + 5} MAD)
+                                  </Button>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {/* Afficher le tarif calculé */}
+                          {shippingCost > 0 && (
+                            <p className="text-sm text-green-600 mt-1">
+                              ✓ Livraison : {shippingCost} MAD
+                              {shippingInfo.isNearby && ` (proche de ${shippingInfo.nearestCity})`}
+                            </p>
+                          )}
                           <FormMessage />
                         </FormItem>
                       )}
