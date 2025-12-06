@@ -332,26 +332,20 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
               </div>
               
               <div>
-                <Input
+                <input
                   type="file"
-                  accept="image/*"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
                   onChange={handleImageUpload}
                   disabled={isUploading}
                   className="hidden"
                   id="image-upload"
                 />
-                <Label htmlFor="image-upload">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    disabled={isUploading}
-                    className="w-full"
-                    onClick={() => document.getElementById('image-upload')?.click()}
-                  >
+                <label htmlFor="image-upload">
+                  <div className={`flex items-center justify-center w-full px-4 py-2 border border-input rounded-md cursor-pointer hover:bg-accent transition-colors ${isUploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
                     <Upload className="mr-2 h-4 w-4" />
                     {isUploading ? 'Téléchargement...' : 'Ajouter une image'}
-                  </Button>
-                </Label>
+                  </div>
+                </label>
               </div>
             </div>
           </div>
