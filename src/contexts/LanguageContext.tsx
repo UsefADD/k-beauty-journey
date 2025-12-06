@@ -99,7 +99,7 @@ const frTranslations: Record<string, string> = {
   'shop.all': 'TOUT VOIR',
   'best.sellers': 'MEILLEURES VENTES',
   'brands': 'MARQUES',
-  'shipping.banner': 'Livraison gratuite pour toute commande +500 dhs & cadeau offert',
+  'shipping.banner': 'Livraison gratuite pour toute commande +800 dhs & cadeau offert',
   // Product Types
   'product.type': 'TYPE DE PRODUIT',
   'double.cleansing': 'Double nettoyage',
