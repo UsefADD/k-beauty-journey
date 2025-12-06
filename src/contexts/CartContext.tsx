@@ -41,10 +41,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return [...currentItems, { ...newItem, quantity: 1 }];
     });
 
-    toast({
-      title: "Added to cart",
-      description: `${newItem.name} has been added to your cart.`,
-    });
+    // Toast is now handled by AddToCartDialog
   };
 
   const removeItem = (id: string) => {

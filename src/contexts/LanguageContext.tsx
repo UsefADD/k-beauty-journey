@@ -190,7 +190,62 @@ const enTranslations: Record<string, string> = {
   'cart.price': 'Price',
   'cart.product.added': 'Product Added to Cart',
   'cart.what.next': 'What would you like to do next?',
-  'cart.go.to.cart': 'Go to Cart'
+  'cart.go.to.cart': 'Go to Cart',
+  
+  // Auth Page
+  'auth.welcome.back': 'Welcome Back',
+  'auth.create.account': 'Create an Account',
+  'auth.email': 'Email',
+  'auth.password': 'Password',
+  'auth.sign.in': 'Sign In',
+  'auth.sign.up': 'Sign Up',
+  'auth.processing': 'Processing...',
+  'auth.no.account': "Don't have an account? Sign up",
+  'auth.have.account': 'Already have an account? Sign in',
+  'auth.success': 'Success',
+  'auth.login.success': 'You have been successfully logged in!',
+  'auth.signup.success': 'Registration successful! Please check your email for verification.',
+  'auth.check.spam': "Don't forget to check your spam folder.",
+  'auth.error': 'Error',
+  'auth.error.message': 'An error occurred during authentication',
+  'auth.checking.password': 'Checking password security...',
+  'auth.password.check.desc': "Verifying your password hasn't been compromised in data breaches.",
+  'auth.compromised.password': 'Compromised Password Detected',
+  'auth.compromised.message': 'This password has appeared in data breaches. Please choose a different password for your security.',
+  'auth.resend.question': "Didn't receive the confirmation email?",
+  'auth.resend.button': 'Resend Confirmation Email',
+  'auth.resend.sending': 'Sending...',
+  'auth.resend.success': 'Confirmation email sent! Please check your email and spam folder.',
+  'auth.enter.email.first': 'Please enter your email address first',
+  
+  // Profile Page
+  'profile.title': 'Your Profile',
+  'profile.email': 'Email',
+  'profile.email.cannot.change': 'Your email address cannot be changed',
+  'profile.password.settings': 'Password Settings',
+  'profile.update.password': 'Update Password',
+  'profile.loading': 'Loading...',
+  'profile.password.reset.sent': 'Password reset email sent',
+  'profile.password.reset.desc': 'Check your email for a password reset link',
+  'profile.password.reset.error': 'Failed to send reset password email',
+  
+  // My Orders Section
+  'profile.my.orders': 'My Orders',
+  'profile.no.orders': 'You have no orders yet.',
+  'profile.order.number': 'Order #',
+  'profile.order.date': 'Date',
+  'profile.order.status': 'Status',
+  'profile.order.total': 'Total',
+  'profile.order.details': 'View Details',
+  'profile.order.items': 'Items',
+  'profile.order.shipping': 'Shipping Address',
+  
+  // Order Status
+  'order.status.pending': 'Pending',
+  'order.status.confirmed': 'Confirmed',
+  'order.status.shipped': 'Shipped',
+  'order.status.delivered': 'Delivered',
+  'order.status.cancelled': 'Cancelled'
 };
 
 // French translations
@@ -372,7 +427,62 @@ const frTranslations: Record<string, string> = {
   'cart.price': 'Prix',
   'cart.product.added': 'Produit Ajouté au Panier',
   'cart.what.next': 'Que souhaitez-vous faire ensuite ?',
-  'cart.go.to.cart': 'Aller au Panier'
+  'cart.go.to.cart': 'Aller au Panier',
+  
+  // Auth Page
+  'auth.welcome.back': 'Bon Retour',
+  'auth.create.account': 'Créer un Compte',
+  'auth.email': 'Email',
+  'auth.password': 'Mot de Passe',
+  'auth.sign.in': 'Se Connecter',
+  'auth.sign.up': 'S\'inscrire',
+  'auth.processing': 'Traitement...',
+  'auth.no.account': 'Pas de compte ? Inscrivez-vous',
+  'auth.have.account': 'Déjà un compte ? Connectez-vous',
+  'auth.success': 'Succès',
+  'auth.login.success': 'Vous êtes connecté avec succès !',
+  'auth.signup.success': 'Inscription réussie ! Veuillez vérifier votre email.',
+  'auth.check.spam': 'N\'oubliez pas de vérifier vos spams.',
+  'auth.error': 'Erreur',
+  'auth.error.message': 'Une erreur s\'est produite lors de l\'authentification',
+  'auth.checking.password': 'Vérification de la sécurité du mot de passe...',
+  'auth.password.check.desc': 'Vérification que votre mot de passe n\'a pas été compromis.',
+  'auth.compromised.password': 'Mot de Passe Compromis Détecté',
+  'auth.compromised.message': 'Ce mot de passe a été compromis dans des violations de données. Veuillez en choisir un autre.',
+  'auth.resend.question': 'Vous n\'avez pas reçu l\'email de confirmation ?',
+  'auth.resend.button': 'Renvoyer l\'Email de Confirmation',
+  'auth.resend.sending': 'Envoi...',
+  'auth.resend.success': 'Email de confirmation envoyé ! Vérifiez votre email et vos spams.',
+  'auth.enter.email.first': 'Veuillez d\'abord entrer votre adresse email',
+  
+  // Profile Page
+  'profile.title': 'Votre Profil',
+  'profile.email': 'Email',
+  'profile.email.cannot.change': 'Votre adresse email ne peut pas être modifiée',
+  'profile.password.settings': 'Paramètres du Mot de Passe',
+  'profile.update.password': 'Modifier le Mot de Passe',
+  'profile.loading': 'Chargement...',
+  'profile.password.reset.sent': 'Email de réinitialisation envoyé',
+  'profile.password.reset.desc': 'Vérifiez votre email pour le lien de réinitialisation',
+  'profile.password.reset.error': 'Échec de l\'envoi de l\'email de réinitialisation',
+  
+  // My Orders Section
+  'profile.my.orders': 'Mes Commandes',
+  'profile.no.orders': 'Vous n\'avez pas encore de commandes.',
+  'profile.order.number': 'Commande #',
+  'profile.order.date': 'Date',
+  'profile.order.status': 'Statut',
+  'profile.order.total': 'Total',
+  'profile.order.details': 'Voir Détails',
+  'profile.order.items': 'Articles',
+  'profile.order.shipping': 'Adresse de Livraison',
+  
+  // Order Status
+  'order.status.pending': 'En Attente',
+  'order.status.confirmed': 'Confirmée',
+  'order.status.shipped': 'Expédiée',
+  'order.status.delivered': 'Livrée',
+  'order.status.cancelled': 'Annulée'
 };
 
 // Arabic translations
@@ -554,7 +664,62 @@ const arTranslations: Record<string, string> = {
   'cart.price': 'السعر',
   'cart.product.added': 'تمت إضافة المنتج إلى السلة',
   'cart.what.next': 'ماذا تريد أن تفعل الآن؟',
-  'cart.go.to.cart': 'الذهاب إلى السلة'
+  'cart.go.to.cart': 'الذهاب إلى السلة',
+  
+  // Auth Page
+  'auth.welcome.back': 'مرحباً بعودتك',
+  'auth.create.account': 'إنشاء حساب',
+  'auth.email': 'البريد الإلكتروني',
+  'auth.password': 'كلمة المرور',
+  'auth.sign.in': 'تسجيل الدخول',
+  'auth.sign.up': 'إنشاء حساب',
+  'auth.processing': 'جاري المعالجة...',
+  'auth.no.account': 'ليس لديك حساب؟ سجل الآن',
+  'auth.have.account': 'لديك حساب بالفعل؟ سجل دخولك',
+  'auth.success': 'نجاح',
+  'auth.login.success': 'تم تسجيل الدخول بنجاح!',
+  'auth.signup.success': 'تم التسجيل بنجاح! يرجى التحقق من بريدك الإلكتروني.',
+  'auth.check.spam': 'لا تنسَ التحقق من مجلد الرسائل غير المرغوب فيها.',
+  'auth.error': 'خطأ',
+  'auth.error.message': 'حدث خطأ أثناء المصادقة',
+  'auth.checking.password': 'جاري التحقق من أمان كلمة المرور...',
+  'auth.password.check.desc': 'التحقق من عدم اختراق كلمة المرور.',
+  'auth.compromised.password': 'تم اكتشاف كلمة مرور مخترقة',
+  'auth.compromised.message': 'تم اختراق كلمة المرور هذه. يرجى اختيار كلمة مرور أخرى.',
+  'auth.resend.question': 'لم تستلم بريد التأكيد؟',
+  'auth.resend.button': 'إعادة إرسال بريد التأكيد',
+  'auth.resend.sending': 'جاري الإرسال...',
+  'auth.resend.success': 'تم إرسال بريد التأكيد! تحقق من بريدك الإلكتروني.',
+  'auth.enter.email.first': 'يرجى إدخال عنوان بريدك الإلكتروني أولاً',
+  
+  // Profile Page
+  'profile.title': 'ملفك الشخصي',
+  'profile.email': 'البريد الإلكتروني',
+  'profile.email.cannot.change': 'لا يمكن تغيير عنوان بريدك الإلكتروني',
+  'profile.password.settings': 'إعدادات كلمة المرور',
+  'profile.update.password': 'تحديث كلمة المرور',
+  'profile.loading': 'جاري التحميل...',
+  'profile.password.reset.sent': 'تم إرسال بريد إعادة تعيين كلمة المرور',
+  'profile.password.reset.desc': 'تحقق من بريدك للحصول على رابط إعادة التعيين',
+  'profile.password.reset.error': 'فشل في إرسال بريد إعادة تعيين كلمة المرور',
+  
+  // My Orders Section
+  'profile.my.orders': 'طلباتي',
+  'profile.no.orders': 'ليس لديك طلبات بعد.',
+  'profile.order.number': 'رقم الطلب #',
+  'profile.order.date': 'التاريخ',
+  'profile.order.status': 'الحالة',
+  'profile.order.total': 'المجموع',
+  'profile.order.details': 'عرض التفاصيل',
+  'profile.order.items': 'المنتجات',
+  'profile.order.shipping': 'عنوان الشحن',
+  
+  // Order Status
+  'order.status.pending': 'قيد الانتظار',
+  'order.status.confirmed': 'مؤكد',
+  'order.status.shipped': 'تم الشحن',
+  'order.status.delivered': 'تم التسليم',
+  'order.status.cancelled': 'ملغى'
 };
 
 interface LanguageProviderProps {
