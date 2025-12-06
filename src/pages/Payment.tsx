@@ -250,7 +250,7 @@ const calculateShippingCost = (cityInput: string): { cost: number; nearestCity: 
 };
 
 const Payment = () => {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const { items, totalPrice, clearCart } = useCart();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -398,7 +398,7 @@ const Payment = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <Navbar />
       <div className="flex-grow py-12 bg-cream-50">
         <div className="container mx-auto px-4 max-w-3xl">
@@ -407,16 +407,16 @@ const Payment = () => {
           <div className="space-y-8">
             {/* Order Summary */}
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h2 className="font-semibold text-lg mb-4">Récapitulatif</h2>
+              <h2 className="font-semibold text-lg mb-4">{t('order.summary')}</h2>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>Sous-total</span>
+                  <span>{t('subtotal')}</span>
                   <span>{totalPrice.toFixed(2)} MAD</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="flex items-center gap-2">
                     <Truck className="h-4 w-4" />
-                    Livraison {cityInput && `(${cityInput})`}
+                    {t('shipping')} {cityInput && `(${cityInput})`}
                   </span>
                   <span>
                     {shippingCost > 0 ? (
@@ -424,19 +424,19 @@ const Payment = () => {
                         {shippingCost} MAD
                         {shippingInfo.isNearby && (
                           <span className="text-xs text-muted-foreground ml-1">
-                            (proche de {shippingInfo.nearestCity})
+                            ({t('near')} {shippingInfo.nearestCity})
                           </span>
                         )}
                       </>
                     ) : cityInput ? (
-                      <span className="text-amber-600 text-sm">Ville non reconnue - sélectionnez ci-dessous</span>
+                      <span className="text-amber-600 text-sm">{t('city.not.recognized')}</span>
                     ) : (
-                      "Entrez votre ville"
+                      t('enter.your.city')
                     )}
                   </span>
                 </div>
                 <div className="border-t pt-2 mt-2 flex justify-between font-semibold text-base">
-                  <span>Total</span>
+                  <span>{t('total')}</span>
                   <span>{grandTotal.toFixed(2)} MAD</span>
                 </div>
               </div>
@@ -455,7 +455,7 @@ const Payment = () => {
                     name="fullName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('full.name')}</FormLabel>
+                        <FormLabel>{t('full.name')} *</FormLabel>
                         <FormControl>
                           <Input placeholder={t('enter.full.name')} {...field} />
                         </FormControl>
@@ -469,9 +469,9 @@ const Payment = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>{t('email')}</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="Enter your email" {...field} />
+                          <Input type="email" placeholder={t('enter.email')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -483,7 +483,7 @@ const Payment = () => {
                     name="address"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('address')}</FormLabel>
+                        <FormLabel>{t('address')} *</FormLabel>
                         <FormControl>
                           <Input placeholder={t('enter.address')} {...field} />
                         </FormControl>
@@ -498,10 +498,10 @@ const Payment = () => {
                       name="city"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('city')}</FormLabel>
+                          <FormLabel>{t('city')} *</FormLabel>
                           <FormControl>
                             <Input 
-                              placeholder="Entrez votre ville" 
+                              placeholder={t('enter.city')} 
                               {...field}
                               onChange={(e) => {
                                 field.onChange(e);
@@ -515,7 +515,7 @@ const Payment = () => {
                             <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-md">
                               <p className="text-sm text-amber-800 mb-2 flex items-center gap-1">
                                 <MapPin className="h-4 w-4" />
-                                Ville non reconnue. Sélectionnez la grande ville la plus proche :
+                                {t('select.nearest.city')}
                               </p>
                               <div className="flex flex-wrap gap-2">
                                 {MAJOR_CITIES_LIST.map((city) => (
@@ -536,8 +536,8 @@ const Payment = () => {
                           {/* Afficher le tarif calculé */}
                           {shippingCost > 0 && (
                             <p className="text-sm text-green-600 mt-1">
-                              ✓ Livraison : {shippingCost} MAD
-                              {shippingInfo.isNearby && ` (proche de ${shippingInfo.nearestCity})`}
+                              ✓ {t('shipping.cost')} : {shippingCost} MAD
+                              {shippingInfo.isNearby && ` (${t('near')} ${shippingInfo.nearestCity})`}
                             </p>
                           )}
                           <FormMessage />
@@ -565,7 +565,7 @@ const Payment = () => {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('phone.number')}</FormLabel>
+                        <FormLabel>{t('phone.number')} *</FormLabel>
                         <FormControl>
                           <Input placeholder={t('enter.phone.number')} {...field} />
                         </FormControl>
