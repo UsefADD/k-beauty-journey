@@ -1,11 +1,10 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
 import BestSellers from '../components/BestSellers';
 import NewArrivals from '../components/NewArrivals';
-
+import PromoSection from '../components/PromoSection';
 
 import BlogSection from '../components/BlogSection';
 import NewsletterSignup from '../components/NewsletterSignup';
@@ -52,6 +51,7 @@ const Index = () => {
       
       <ErrorBoundary name="HeroSection"><HeroSection /></ErrorBoundary>
       <ErrorBoundary name="ServicesSection"><ServicesSection /></ErrorBoundary>
+      <ErrorBoundary name="PromoSection"><PromoSection /></ErrorBoundary>
       <ErrorBoundary name="BestSellers"><BestSellers /></ErrorBoundary>
       <ErrorBoundary name="NewArrivals"><NewArrivals /></ErrorBoundary>
       
