@@ -9,7 +9,7 @@ const ServicesSection = () => {
           <div className="flex items-center justify-center md:justify-start gap-4">
             <ShoppingBag className="w-8 h-8 text-black flex-shrink-0" />
             <span className="text-black font-medium text-center md:text-left">
-              Expédition le jour même
+              Expédition dans 24h
             </span>
           </div>
           
