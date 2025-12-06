@@ -26,7 +26,7 @@ const MAJOR_CITIES: Record<string, number> = {
   "Bouzenika": 45,
   "Marrakech": 45,
   "Meknès": 45,
-  "Oujda": 50,
+  "Oujda": 45,
   "Béni Mellal": 40,
   "Laâyoune": 60,
   "Dakhla": 60,
