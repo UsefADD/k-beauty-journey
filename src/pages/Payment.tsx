@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Package } from 'lucide-react';
+import { Package, Truck } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from "@/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,20 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+// Shipping costs by city
+const SHIPPING_RATES: Record<string, number> = {
+  "Tanger": 20,
+  "Tetouan": 20,
+  "Casablanca": 40,
+  "Rabat": 40,
+  "Agadir": 40,
+  "Al Hoceima": 40,
+  "Bouzenika": 45,
+};
+
+const CITIES = Object.keys(SHIPPING_RATES);
 
 interface ShippingFormValues {
   fullName: string;
@@ -29,17 +43,6 @@ const Payment = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   
-  // Check if there are any items in the cart
-  useEffect(() => {
-    if (items.length === 0) {
-      toast({
-        title: "Empty Cart",
-        description: "Your cart is empty. Please add items before proceeding to payment.",
-      });
-      navigate('/shop');
-    }
-  }, [items, navigate, toast]);
-  
   const form = useForm<ShippingFormValues>({
     defaultValues: {
       fullName: "",
@@ -51,7 +54,36 @@ const Payment = () => {
     },
   });
 
+  const selectedCity = form.watch("city");
+  
+  const shippingCost = useMemo(() => {
+    if (!selectedCity) return 0;
+    return SHIPPING_RATES[selectedCity] || 0;
+  }, [selectedCity]);
+
+  const grandTotal = totalPrice + shippingCost;
+  
+  // Check if there are any items in the cart
+  useEffect(() => {
+    if (items.length === 0) {
+      toast({
+        title: "Empty Cart",
+        description: "Your cart is empty. Please add items before proceeding to payment.",
+      });
+      navigate('/shop');
+    }
+  }, [items, navigate, toast]);
+
   const onSubmit = async (data: ShippingFormValues) => {
+    if (!data.city) {
+      toast({
+        title: "Ville requise",
+        description: "Veuillez sélectionner votre ville de livraison.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       // Prepare order items for database
       const orderItems = items.map(item => ({
@@ -69,7 +101,7 @@ const Payment = () => {
         p_shipping_address: data.address,
         p_shipping_city: data.city,
         p_shipping_zip_code: data.zipCode,
-        p_total_amount: totalPrice,
+        p_total_amount: grandTotal,
         p_items: orderItems as any,
         p_user_id: user?.id || null
       });
@@ -110,7 +142,8 @@ const Payment = () => {
         message += `   Subtotal: ${(item.price * item.quantity).toFixed(2)} MAD\n\n`;
       });
       
-      message += `💰 *Total Amount: ${totalPrice.toFixed(2)} MAD*\n`;
+      message += `📦 *Frais de livraison: ${shippingCost} MAD*\n`;
+      message += `💰 *Total Amount: ${grandTotal.toFixed(2)} MAD*\n`;
 
       // Create WhatsApp link
       const whatsappNumber = "212705658181";
@@ -157,6 +190,28 @@ const Payment = () => {
           <h1 className="text-3xl font-bold text-pink-800 mb-8">{t('payment.method')}</h1>
           
           <div className="space-y-8">
+            {/* Order Summary */}
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h2 className="font-semibold text-lg mb-4">Récapitulatif</h2>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span>Sous-total</span>
+                  <span>{totalPrice.toFixed(2)} MAD</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="flex items-center gap-2">
+                    <Truck className="h-4 w-4" />
+                    Livraison {selectedCity && `(${selectedCity})`}
+                  </span>
+                  <span>{selectedCity ? `${shippingCost} MAD` : "Sélectionnez une ville"}</span>
+                </div>
+                <div className="border-t pt-2 mt-2 flex justify-between font-semibold text-base">
+                  <span>Total</span>
+                  <span>{grandTotal.toFixed(2)} MAD</span>
+                </div>
+              </div>
+            </div>
+
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="flex items-center gap-3 text-pink-600 mb-6">
                 <Package className="h-6 w-6" />
@@ -214,9 +269,20 @@ const Payment = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{t('city')}</FormLabel>
-                          <FormControl>
-                            <Input placeholder={t('enter.city')} {...field} />
-                          </FormControl>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Sélectionnez votre ville" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {CITIES.map((city) => (
+                                <SelectItem key={city} value={city}>
+                                  {city} - {SHIPPING_RATES[city]} MAD
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}
