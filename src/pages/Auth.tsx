@@ -9,16 +9,18 @@ import { useToast } from "@/hooks/use-toast";
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { checkPasswordPwned } from '@/utils/passwordSecurity';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(true); // Toggle between login and signup
+  const [isLogin, setIsLogin] = useState(true);
   const [showResendConfirmation, setShowResendConfirmation] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t, isRTL } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +28,6 @@ const Auth = () => {
 
     try {
       if (isLogin) {
-        // Handle login
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -35,16 +36,15 @@ const Auth = () => {
         if (error) throw error;
         
         toast({
-          title: "Success",
-          description: "You have been successfully logged in!",
+          title: t('auth.success'),
+          description: t('auth.login.success'),
         });
         
         navigate('/');
       } else {
-        // Handle signup - check password against HIBP first
         toast({
-          title: "Checking password security...",
-          description: "Verifying your password hasn't been compromised in data breaches.",
+          title: t('auth.checking.password'),
+          description: t('auth.password.check.desc'),
         });
 
         const pwnedCheck = await checkPasswordPwned(password);
@@ -52,8 +52,8 @@ const Auth = () => {
         if (pwnedCheck.isCompromised) {
           setLoading(false);
           toast({
-            title: "Compromised Password Detected",
-            description: `This password has appeared in ${pwnedCheck.breachCount?.toLocaleString() || 'multiple'} data breaches. Please choose a different password for your security.`,
+            title: t('auth.compromised.password'),
+            description: t('auth.compromised.message'),
             variant: "destructive",
           });
           return;
@@ -78,14 +78,14 @@ const Auth = () => {
         
         setShowResendConfirmation(true);
         toast({
-          title: "Success",
-          description: "Registration successful! Please check your email for verification. Don't forget to check your spam folder.",
+          title: t('auth.success'),
+          description: `${t('auth.signup.success')} ${t('auth.check.spam')}`,
         });
       }
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "An error occurred during authentication",
+        title: t('auth.error'),
+        description: error.message || t('auth.error.message'),
         variant: "destructive",
       });
     } finally {
@@ -96,8 +96,8 @@ const Auth = () => {
   const handleResendConfirmation = async () => {
     if (!email) {
       toast({
-        title: "Error",
-        description: "Please enter your email address first",
+        title: t('auth.error'),
+        description: t('auth.enter.email.first'),
         variant: "destructive",
       });
       return;
@@ -116,13 +116,13 @@ const Auth = () => {
       if (error) throw error;
       
       toast({
-        title: "Success",
-        description: "Confirmation email sent! Please check your email and spam folder.",
+        title: t('auth.success'),
+        description: t('auth.resend.success'),
       });
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to resend confirmation email",
+        title: t('auth.error'),
+        description: error.message || t('auth.error.message'),
         variant: "destructive",
       });
     } finally {
@@ -131,17 +131,17 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <Navbar />
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md border border-pink-100">
           <h1 className="text-2xl font-serif font-bold text-black text-center mb-6">
-            {isLogin ? "Welcome Back" : "Create an Account"}
+            {isLogin ? t('auth.welcome.back') : t('auth.create.account')}
           </h1>
           
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('auth.email')}</Label>
               <Input
                 id="email"
                 type="email"
@@ -154,7 +154,7 @@ const Auth = () => {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('auth.password')}</Label>
               <Input
                 id="password"
                 type="password"
@@ -172,7 +172,7 @@ const Auth = () => {
               className="w-full"
               disabled={loading}
             >
-              {loading ? "Processing..." : isLogin ? "Sign In" : "Sign Up"}
+              {loading ? t('auth.processing') : isLogin ? t('auth.sign.in') : t('auth.sign.up')}
             </Button>
           </form>
           
@@ -184,14 +184,14 @@ const Auth = () => {
               }}
               className="text-black hover:underline text-sm"
             >
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+              {isLogin ? t('auth.no.account') : t('auth.have.account')}
             </button>
           </div>
           
           {showResendConfirmation && (
             <div className="mt-4 p-4 bg-pink-50 rounded-lg border border-pink-200">
               <p className="text-sm text-pink-700 mb-2">
-                Didn't receive the confirmation email?
+                {t('auth.resend.question')}
               </p>
               <Button
                 onClick={handleResendConfirmation}
@@ -200,7 +200,7 @@ const Auth = () => {
                 size="sm"
                 className="w-full border-pink-300 text-pink-700 hover:bg-pink-100"
               >
-                {resendLoading ? "Sending..." : "Resend Confirmation Email"}
+                {resendLoading ? t('auth.resend.sending') : t('auth.resend.button')}
               </Button>
             </div>
           )}

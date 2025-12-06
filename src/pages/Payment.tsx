@@ -291,12 +291,12 @@ const Payment = () => {
   useEffect(() => {
     if (items.length === 0) {
       toast({
-        title: "Empty Cart",
-        description: "Your cart is empty. Please add items before proceeding to payment.",
+        title: t('empty.cart'),
+        description: t('empty.cart.message'),
       });
       navigate('/shop');
     }
-  }, [items, navigate, toast]);
+  }, [items, navigate, toast, t]);
 
   const onSubmit = async (data: ShippingFormValues) => {
     try {
@@ -326,8 +326,8 @@ const Payment = () => {
         // Check if it's a stock error
         if (error.message.includes('Insufficient stock')) {
           toast({
-            title: "Stock insuffisant",
-            description: "Désolé, certains produits ne sont plus disponibles en quantité suffisante.",
+            title: t('insufficient.stock'),
+            description: t('insufficient.stock.message'),
             variant: "destructive",
           });
           return;
@@ -337,28 +337,27 @@ const Payment = () => {
 
       // Order created successfully, now format WhatsApp message
       const orderNumber = orderData?.[0]?.order_number || '';
-      const orderDate = new Date().toLocaleString();
-      let message = `🛍️ *NEW ORDER ${orderNumber}*\n\n`;
-      message += `📅 Date: ${orderDate}\n\n`;
-      message += `👤 *Customer Information:*\n`;
-      message += `Name: ${data.fullName}\n`;
-      message += `Email: ${data.email}\n`;
-      message += `Phone: ${data.phone}\n\n`;
-      message += `📍 *Shipping Address:*\n`;
-      message += `Address: ${data.address}\n`;
-      message += `City: ${data.city}\n`;
-      message += `Zip Code: ${data.zipCode}\n\n`;
-      message += `🛒 *Order Items:*\n`;
+      const orderDate = new Date().toLocaleString(isRTL ? 'ar-MA' : 'fr-FR');
+      let message = `🛍️ *${t('profile.order.number').replace(' #', '')} ${orderNumber}*\n\n`;
+      message += `📅 ${t('profile.order.date')}: ${orderDate}\n\n`;
+      message += `👤 *${t('full.name')}:*\n`;
+      message += `${data.fullName}\n`;
+      message += `${t('email')}: ${data.email}\n`;
+      message += `${t('phone.number')}: ${data.phone}\n\n`;
+      message += `📍 *${t('address')}:*\n`;
+      message += `${data.address}\n`;
+      message += `${data.city}, ${data.zipCode}\n\n`;
+      message += `🛒 *${t('profile.order.items')}:*\n`;
       
       items.forEach((item, index) => {
         message += `${index + 1}. ${item.name}\n`;
-        message += `   Price: ${item.price} MAD\n`;
-        message += `   Quantity: ${item.quantity}\n`;
-        message += `   Subtotal: ${(item.price * item.quantity).toFixed(2)} MAD\n\n`;
+        message += `   ${t('cart.price')}: ${item.price} MAD\n`;
+        message += `   ${t('cart.quantity')}: ${item.quantity}\n`;
+        message += `   ${t('subtotal')}: ${(item.price * item.quantity).toFixed(2)} MAD\n\n`;
       });
       
-      message += `📦 *Frais de livraison: ${shippingCost} MAD*\n`;
-      message += `💰 *Total Amount: ${grandTotal.toFixed(2)} MAD*\n`;
+      message += `📦 *${t('shipping')}: ${shippingCost} MAD*\n`;
+      message += `💰 *${t('total')}: ${grandTotal.toFixed(2)} MAD*\n`;
 
       // Create WhatsApp link
       const whatsappNumber = "212705658181";
@@ -369,8 +368,8 @@ const Payment = () => {
       window.open(whatsappUrl, '_blank');
 
       toast({
-        title: "Commande créée",
-        description: `Votre commande ${orderNumber} a été enregistrée avec succès!`,
+        title: t('order.created'),
+        description: `${t('order.created.message')} (${orderNumber})`,
       });
 
       // Clear cart
@@ -390,8 +389,8 @@ const Payment = () => {
         code: error?.code
       });
       toast({
-        title: "Erreur",
-        description: error?.message || "Une erreur s'est produite lors de la création de la commande. Veuillez réessayer.",
+        title: t('error'),
+        description: error?.message || t('error.order.message'),
         variant: "destructive",
       });
     }
