@@ -8,13 +8,13 @@ const HeroSection = () => {
   const [prevSlide, setPrevSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const slides = [{
-    src: "/autumn-collection.png",
-    alt: "Autumn K-Beauty Collection",
+    src: "/watercome-hero.png",
+    alt: "Watercome - Nouveaux produits pour le corps",
     title: "",
     subtitle: ""
   }, {
-    src: "/brightening-heroes.png",
-    alt: "Brightening Heroes - 10% OFF",
+    src: "/skin1004-hero.png",
+    alt: "SKIN1004 - Madagascar Centella",
     title: "",
     subtitle: ""
   }, {
@@ -80,17 +80,17 @@ const HeroSection = () => {
                 </div>
               ) : index === 0 ? (
                 <Link 
-                  to="/shop/season/automne" 
+                  to="/shop/brand/WATERCOME" 
                   className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
-                  aria-label="Découvrir la collection automne"
+                  aria-label="Découvrir Watercome"
                 />
               ) : index === 1 ? (
                 <Link 
-                  to="/shop" 
+                  to="/shop/brand/SKIN1004" 
                   className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
-                  aria-label="Découvrir"
+                  aria-label="Découvrir SKIN1004"
                 />
-) : index === 2 ? (
+              ) : index === 2 ? (
                 <Link 
                   to="/shop/brand/PURITO%20SEOUL" 
                   className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
