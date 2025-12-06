@@ -21,15 +21,15 @@ const MAJOR_CITIES: Record<string, number> = {
   "Rabat": 40,
   "Agadir": 40,
   "Al Hoceima": 40,
+  "Nador": 40,
+  "Fès": 40,
   "Bouzenika": 45,
   "Marrakech": 45,
-  "Fès": 45,
   "Meknès": 45,
   "Oujda": 50,
-  "Nador": 45,
   "Béni Mellal": 50,
   "Laâyoune": 60,
-  "Dakhla": 70,
+  "Dakhla": 60,
 };
 
 // Petites villes associées aux grandes villes (avec +5 DHS)
