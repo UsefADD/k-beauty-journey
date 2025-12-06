@@ -17,7 +17,7 @@ const enTranslations: Record<string, string> = {
   'shop.all': 'SHOP ALL',
   'best.sellers': 'BEST SELLERS',
   'brands': 'BRANDS',
-  'shipping.banner': 'Free shipping for all orders over $50 & gift included',
+  'shipping.banner': 'Free shipping for all orders over 800 DHS & gift included',
   // Product Types
   'product.type': 'PRODUCT TYPE',
   'double.cleansing': 'Double cleansing',
@@ -127,7 +127,67 @@ const enTranslations: Record<string, string> = {
   
   // Search
   'search.products': 'Search products...',
-  'no.results': 'No results found'
+  'no.results': 'No results found',
+  
+  // Services Section
+  'services.shipping.24h': 'Shipping within 24h',
+  'services.free.mask': 'Free mask from 400 DHS',
+  'services.free.shipping': 'Free shipping from 800 DHS',
+  
+  // Newsletter
+  'newsletter.title': 'Subscribe to our newsletter',
+  'newsletter.description': 'Receive our latest news and special offers directly in your inbox.',
+  'newsletter.placeholder': 'Your email address',
+  'newsletter.subscribe': 'Subscribe',
+  'newsletter.subscribing': 'Subscribing...',
+  'newsletter.success': 'Successfully subscribed! Check your email.',
+  'newsletter.error': 'Error during subscription',
+  'newsletter.email.required': 'Please enter your email address',
+  
+  // Footer
+  'footer.shop': 'SHOP',
+  'footer.best.sellers': 'Best Sellers',
+  'footer.new.arrivals': 'New Arrivals',
+  'footer.kbeauty.sets': 'K-Beauty Sets',
+  'footer.special.offers': 'Special Offers',
+  'footer.about': 'ABOUT',
+  'footer.our.story': 'Our Story',
+  'footer.contact.us': 'Contact Us',
+  'footer.faq': 'FAQ',
+  'footer.shipping.returns': 'Shipping & Returns',
+  'footer.connect': 'CONNECT',
+  'footer.community': 'Join our community for exclusive offers, skincare tips, and inspiration.',
+  'footer.rights': 'K-Beauty Journey. All rights reserved.',
+  'footer.privacy': 'Privacy Policy',
+  'footer.terms': 'Terms of Service',
+  'footer.accessibility': 'Accessibility',
+  
+  // Blog Section
+  'blog.title': 'THE BLOG',
+  'blog.about.title': 'ABOUT US',
+  'blog.about.description': 'Discover who we are and learn more about the values that drive our founder and team!',
+  'blog.about.cta': 'LEARN MORE',
+  'blog.kbeauty.title': 'KOREAN SKINCARE, WHY?',
+  'blog.kbeauty.description': 'Read our detailed article to understand why Korean skincare is so effective and popular!',
+  'blog.kbeauty.cta': 'READ THE BLOG',
+  'blog.spf.title': 'SPF: ESSENTIAL ALL YEAR',
+  'blog.spf.description': 'Discover why sun protection is essential even in autumn and winter for young and radiant skin!',
+  'blog.spf.cta': 'READ THE ARTICLE',
+  
+  // Order Confirmation
+  'order.submitted': 'Order Submitted!',
+  'order.submitted.message': 'Thank you for your order! Please complete the WhatsApp message to finalize your purchase.',
+  'order.success.title': 'Order Successfully Submitted!',
+  'order.success.message': 'Your order details have been sent to WhatsApp. Please complete the message to finalize your purchase. We\'ll contact you shortly to confirm your order.',
+  
+  // Cart
+  'cart.title': 'Your Cart',
+  'cart.empty': 'Your cart is empty',
+  'cart.continue.shopping': 'Continue Shopping',
+  'cart.checkout': 'Proceed to Checkout',
+  'cart.remove': 'Remove',
+  'cart.quantity': 'Quantity',
+  'cart.price': 'Price'
 };
 
 // French translations
@@ -246,7 +306,67 @@ const frTranslations: Record<string, string> = {
   
   // Search
   'search.products': 'Rechercher des produits...',
-  'no.results': 'Aucun résultat trouvé'
+  'no.results': 'Aucun résultat trouvé',
+  
+  // Services Section
+  'services.shipping.24h': 'Expédition dans 24h',
+  'services.free.mask': 'Masque gratuit à partir de 400 dhs',
+  'services.free.shipping': 'Livraison gratuite à partir de 800 dhs',
+  
+  // Newsletter
+  'newsletter.title': 'Inscrivez-vous à notre newsletter',
+  'newsletter.description': 'Recevez nos dernières actualités et offres spéciales directement dans votre boîte email.',
+  'newsletter.placeholder': 'Votre adresse email',
+  'newsletter.subscribe': 'S\'inscrire',
+  'newsletter.subscribing': 'Inscription...',
+  'newsletter.success': 'Inscription réussie ! Vérifiez votre email.',
+  'newsletter.error': 'Erreur lors de l\'inscription',
+  'newsletter.email.required': 'Veuillez entrer votre adresse email',
+  
+  // Footer
+  'footer.shop': 'BOUTIQUE',
+  'footer.best.sellers': 'Meilleures Ventes',
+  'footer.new.arrivals': 'Nouveautés',
+  'footer.kbeauty.sets': 'Sets K-Beauty',
+  'footer.special.offers': 'Offres Spéciales',
+  'footer.about': 'À PROPOS',
+  'footer.our.story': 'Notre Histoire',
+  'footer.contact.us': 'Nous Contacter',
+  'footer.faq': 'FAQ',
+  'footer.shipping.returns': 'Livraison & Retours',
+  'footer.connect': 'NOUS SUIVRE',
+  'footer.community': 'Rejoignez notre communauté pour des offres exclusives, des conseils soins et de l\'inspiration.',
+  'footer.rights': 'K-Beauty Journey. Tous droits réservés.',
+  'footer.privacy': 'Politique de Confidentialité',
+  'footer.terms': 'Conditions d\'Utilisation',
+  'footer.accessibility': 'Accessibilité',
+  
+  // Blog Section
+  'blog.title': 'LE BLOG',
+  'blog.about.title': 'À PROPOS',
+  'blog.about.description': 'Pour découvrir qui nous sommes et en apprendre plus sur les valeurs qui animent notre fondatrice et notre équipe, c\'est par ici !',
+  'blog.about.cta': 'EN SAVOIR PLUS',
+  'blog.kbeauty.title': 'LA SKINCARE CORÉENNE, POURQUOI ?',
+  'blog.kbeauty.description': 'Lis notre article détaillé pour comprendre pourquoi la skincare coréenne est si efficace et populaire !',
+  'blog.kbeauty.cta': 'LIRE LE BLOG',
+  'blog.spf.title': 'SPF : INDISPENSABLE TOUTE L\'ANNÉE',
+  'blog.spf.description': 'Découvrez pourquoi la protection solaire est essentielle même en automne et en hiver pour une peau jeune et éclatante !',
+  'blog.spf.cta': 'LIRE L\'ARTICLE',
+  
+  // Order Confirmation
+  'order.submitted': 'Commande Envoyée !',
+  'order.submitted.message': 'Merci pour votre commande ! Veuillez compléter le message WhatsApp pour finaliser votre achat.',
+  'order.success.title': 'Commande Envoyée avec Succès !',
+  'order.success.message': 'Les détails de votre commande ont été envoyés sur WhatsApp. Veuillez compléter le message pour finaliser votre achat. Nous vous contacterons bientôt pour confirmer votre commande.',
+  
+  // Cart
+  'cart.title': 'Votre Panier',
+  'cart.empty': 'Votre panier est vide',
+  'cart.continue.shopping': 'Continuer les Achats',
+  'cart.checkout': 'Passer à la Caisse',
+  'cart.remove': 'Supprimer',
+  'cart.quantity': 'Quantité',
+  'cart.price': 'Prix'
 };
 
 // Arabic translations
@@ -365,7 +485,67 @@ const arTranslations: Record<string, string> = {
   
   // Search
   'search.products': 'البحث عن منتجات...',
-  'no.results': 'لم يتم العثور على نتائج'
+  'no.results': 'لم يتم العثور على نتائج',
+  
+  // Services Section
+  'services.shipping.24h': 'الشحن خلال 24 ساعة',
+  'services.free.mask': 'قناع مجاني من 400 درهم',
+  'services.free.shipping': 'شحن مجاني من 800 درهم',
+  
+  // Newsletter
+  'newsletter.title': 'اشترك في نشرتنا الإخبارية',
+  'newsletter.description': 'احصل على آخر الأخبار والعروض الخاصة مباشرة في بريدك الإلكتروني.',
+  'newsletter.placeholder': 'بريدك الإلكتروني',
+  'newsletter.subscribe': 'اشترك',
+  'newsletter.subscribing': 'جاري الاشتراك...',
+  'newsletter.success': 'تم الاشتراك بنجاح! تحقق من بريدك الإلكتروني.',
+  'newsletter.error': 'خطأ أثناء الاشتراك',
+  'newsletter.email.required': 'يرجى إدخال بريدك الإلكتروني',
+  
+  // Footer
+  'footer.shop': 'المتجر',
+  'footer.best.sellers': 'الأكثر مبيعاً',
+  'footer.new.arrivals': 'الجديد',
+  'footer.kbeauty.sets': 'مجموعات K-Beauty',
+  'footer.special.offers': 'عروض خاصة',
+  'footer.about': 'عن المتجر',
+  'footer.our.story': 'قصتنا',
+  'footer.contact.us': 'اتصل بنا',
+  'footer.faq': 'الأسئلة الشائعة',
+  'footer.shipping.returns': 'الشحن والإرجاع',
+  'footer.connect': 'تواصل معنا',
+  'footer.community': 'انضم إلى مجتمعنا للحصول على عروض حصرية ونصائح للعناية بالبشرة.',
+  'footer.rights': 'K-Beauty Journey. جميع الحقوق محفوظة.',
+  'footer.privacy': 'سياسة الخصوصية',
+  'footer.terms': 'شروط الخدمة',
+  'footer.accessibility': 'إمكانية الوصول',
+  
+  // Blog Section
+  'blog.title': 'المدونة',
+  'blog.about.title': 'من نحن',
+  'blog.about.description': 'اكتشف من نحن وتعرف على القيم التي تحرك مؤسستنا وفريقنا!',
+  'blog.about.cta': 'اعرف المزيد',
+  'blog.kbeauty.title': 'العناية الكورية، لماذا؟',
+  'blog.kbeauty.description': 'اقرأ مقالنا المفصل لفهم لماذا العناية الكورية بالبشرة فعالة وشعبية جداً!',
+  'blog.kbeauty.cta': 'اقرأ المدونة',
+  'blog.spf.title': 'SPF: ضروري طوال السنة',
+  'blog.spf.description': 'اكتشف لماذا الحماية من الشمس ضرورية حتى في الخريف والشتاء للحصول على بشرة شابة ومشرقة!',
+  'blog.spf.cta': 'اقرأ المقال',
+  
+  // Order Confirmation
+  'order.submitted': 'تم إرسال الطلب!',
+  'order.submitted.message': 'شكراً لطلبك! يرجى إكمال رسالة الواتساب لإتمام عملية الشراء.',
+  'order.success.title': 'تم إرسال الطلب بنجاح!',
+  'order.success.message': 'تم إرسال تفاصيل طلبك إلى الواتساب. يرجى إكمال الرسالة لإتمام عملية الشراء. سنتواصل معك قريباً لتأكيد طلبك.',
+  
+  // Cart
+  'cart.title': 'سلة التسوق',
+  'cart.empty': 'سلتك فارغة',
+  'cart.continue.shopping': 'متابعة التسوق',
+  'cart.checkout': 'إتمام الشراء',
+  'cart.remove': 'إزالة',
+  'cart.quantity': 'الكمية',
+  'cart.price': 'السعر'
 };
 
 interface LanguageProviderProps {
