@@ -33,6 +33,12 @@ const LanguageSwitcher = () => {
         >
           {t('french')}
         </DropdownMenuItem>
+        <DropdownMenuItem 
+          onClick={() => setLanguage('ar')}
+          className={language === 'ar' ? 'bg-pink-50 text-pink-600 font-medium' : ''}
+        >
+          {t('arabic')}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
