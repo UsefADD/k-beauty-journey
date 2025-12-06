@@ -6,12 +6,23 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from "@/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+
+const shippingFormSchema = z.object({
+  fullName: z.string().min(1, "Le nom complet est requis").max(100, "Le nom ne doit pas dépasser 100 caractères"),
+  email: z.string().email("Email invalide").optional().or(z.literal("")),
+  address: z.string().min(1, "L'adresse est requise").max(200, "L'adresse ne doit pas dépasser 200 caractères"),
+  city: z.string().min(1, "La ville est requise"),
+  zipCode: z.string().optional(),
+  phone: z.string().min(1, "Le numéro de téléphone est requis").regex(/^[0-9+\s-]{8,15}$/, "Numéro de téléphone invalide"),
+});
 
 // Grandes villes avec leurs tarifs de base
 const MAJOR_CITIES: Record<string, number> = {
@@ -213,14 +224,7 @@ const NEARBY_CITIES: Record<string, string> = {
 
 const MAJOR_CITIES_LIST = Object.keys(MAJOR_CITIES);
 
-interface ShippingFormValues {
-  fullName: string;
-  email: string;
-  address: string;
-  city: string;
-  zipCode: string;
-  phone: string;
-}
+type ShippingFormValues = z.infer<typeof shippingFormSchema>;
 
 // Fonction pour calculer le tarif de livraison
 const calculateShippingCost = (cityInput: string): { cost: number; nearestCity: string | null; isNearby: boolean } => {
@@ -255,6 +259,7 @@ const Payment = () => {
   const [selectedNearestCity, setSelectedNearestCity] = useState<string | null>(null);
   
   const form = useForm<ShippingFormValues>({
+    resolver: zodResolver(shippingFormSchema),
     defaultValues: {
       fullName: "",
       email: "",
@@ -294,15 +299,6 @@ const Payment = () => {
   }, [items, navigate, toast]);
 
   const onSubmit = async (data: ShippingFormValues) => {
-    if (!data.city) {
-      toast({
-        title: "Ville requise",
-        description: "Veuillez sélectionner votre ville de livraison.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     try {
       // Prepare order items for database
       const orderItems = items.map(item => ({
