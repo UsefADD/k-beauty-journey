@@ -96,6 +96,12 @@ const HeroSection = () => {
                   className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
                   aria-label="Découvrir Purito Seoul"
                 />
+              ) : index === 3 ? (
+                <Link 
+                  to="/shop/brand/K-Secret" 
+                  className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
+                  aria-label="Découvrir K-Secret Seoul 1988"
+                />
               ) : null}
             </div>
           </div>
