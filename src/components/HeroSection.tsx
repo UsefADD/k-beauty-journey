@@ -80,7 +80,7 @@ const HeroSection = () => {
                 </div>
               ) : index === 0 ? (
                 <Link 
-                  to="/shop/brand/WATERCOME" 
+                  to="/shop/brand/WATERCOME%20" 
                   className="absolute inset-0 w-full h-full pointer-events-auto z-20 cursor-pointer"
                   aria-label="Découvrir Watercome"
                 />
