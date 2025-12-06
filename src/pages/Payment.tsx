@@ -241,8 +241,8 @@ const calculateShippingCost = (cityInput: string): { cost: number; nearestCity: 
     return { cost: MAJOR_CITIES[nearestCity] + 5, nearestCity, isNearby: true };
   }
   
-  // Ville non reconnue - retourner 0 pour demander une sélection manuelle
-  return { cost: 0, nearestCity: null, isNearby: false };
+  // Ville non reconnue - tarif par défaut de 45 DHS
+  return { cost: 45, nearestCity: null, isNearby: false };
 };
 
 const Payment = () => {
