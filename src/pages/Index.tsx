@@ -5,7 +5,6 @@ import ServicesSection from '../components/ServicesSection';
 import BestSellers from '../components/BestSellers';
 import NewArrivals from '../components/NewArrivals';
 import PromoSection from '../components/PromoSection';
-
 import BlogSection from '../components/BlogSection';
 import NewsletterSignup from '../components/NewsletterSignup';
 import Footer from '../components/Footer';
@@ -14,36 +13,37 @@ import { useLocation } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Index = () => {
   const location = useLocation();
   const { toast } = useToast();
+  const { t, isRTL } = useLanguage();
   const orderConfirmed = location.state?.orderConfirmed;
 
   useEffect(() => {
     if (orderConfirmed) {
       toast({
-        title: "Order Submitted! 🎉",
-        description: "Thank you for your order! Please complete the WhatsApp message to finalize your purchase.",
+        title: t('order.submitted'),
+        description: t('order.submitted.message'),
         duration: 6000,
       });
       // Clear the state
       window.history.replaceState({}, document.title);
     }
-  }, [orderConfirmed, toast]);
+  }, [orderConfirmed, toast, t]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <ErrorBoundary name="Navbar"><Navbar /></ErrorBoundary>
       
       {orderConfirmed && (
         <div className="container mx-auto px-4 pt-6 animate-slide-in-top">
           <Alert className="bg-green-50 border-green-200">
             <CheckCircle2 className="h-5 w-5 text-green-600" />
-            <AlertTitle className="text-green-800 font-semibold">Order Successfully Submitted!</AlertTitle>
+            <AlertTitle className="text-green-800 font-semibold">{t('order.success.title')}</AlertTitle>
             <AlertDescription className="text-green-700">
-              Your order details have been sent to WhatsApp. Please complete the message to finalize your purchase. 
-              We'll contact you shortly to confirm your order.
+              {t('order.success.message')}
             </AlertDescription>
           </Alert>
         </div>
