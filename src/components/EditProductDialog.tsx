@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -60,6 +60,7 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
   const { data: productImages = [] } = useProductImages(product?.id || '');
   const { uploadImage, isUploading } = useImageUpload();
   const [selectedSeasons, setSelectedSeasons] = React.useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { data: productSeasons } = useQuery({
     queryKey: ['product-seasons', product?.id],
@@ -333,19 +334,23 @@ const EditProductDialog = ({ product, open, onOpenChange }: EditProductDialogPro
               
               <div>
                 <input
+                  ref={fileInputRef}
                   type="file"
                   accept="image/jpeg,image/jpg,image/png,image/webp"
                   onChange={handleImageUpload}
                   disabled={isUploading}
                   className="hidden"
-                  id="image-upload"
                 />
-                <label htmlFor="image-upload">
-                  <div className={`flex items-center justify-center w-full px-4 py-2 border border-input rounded-md cursor-pointer hover:bg-accent transition-colors ${isUploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                    <Upload className="mr-2 h-4 w-4" />
-                    {isUploading ? 'Téléchargement...' : 'Ajouter une image'}
-                  </div>
-                </label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={isUploading}
+                  className="w-full"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <Upload className="mr-2 h-4 w-4" />
+                  {isUploading ? 'Téléchargement...' : 'Ajouter une image'}
+                </Button>
               </div>
             </div>
           </div>
