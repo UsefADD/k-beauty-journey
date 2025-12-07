@@ -303,90 +303,39 @@ const Payment = () => {
   }, [items, navigate, toast, t]);
 
   const onSubmit = async (data: ShippingFormValues) => {
-    try {
-      // Prepare order items for database
-      const orderItems = items.map(item => ({
-        product_id: item.id,
-        product_name: item.name,
-        product_price: item.price,
-        quantity: item.quantity
-      }));
+    // Generate a simple order reference (date + random)
+    const orderRef = `CMD-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
+    const orderDate = new Date().toLocaleString(isRTL ? 'ar-MA' : 'fr-FR');
+    
+    // Format WhatsApp message
+    let message = `🛍️ *Nouvelle Commande ${orderRef}*\n\n`;
+    message += `📅 Date: ${orderDate}\n\n`;
+    message += `👤 *Client:*\n`;
+    message += `Nom: ${data.fullName}\n`;
+    message += `Tél: ${data.phone}\n`;
+    if (data.email) message += `Email: ${data.email}\n`;
+    message += `\n📍 *Livraison:*\n`;
+    message += `${data.address}\n`;
+    message += `${data.city}${data.zipCode ? `, ${data.zipCode}` : ''}\n\n`;
+    message += `🛒 *Produits:*\n`;
+    
+    items.forEach((item, index) => {
+      message += `${index + 1}. ${item.name} x${item.quantity} = ${(item.price * item.quantity).toFixed(2)} MAD\n`;
+    });
+    
+    message += `\n📦 Livraison: ${shippingCost} MAD\n`;
+    message += `💰 *TOTAL: ${grandTotal.toFixed(2)} MAD*\n`;
+    message += `\n💳 Paiement: À la livraison`;
 
-      // Create order in database (this will reduce stock atomically)
-      const { data: orderData, error } = await supabase.rpc('create_order', {
-        p_customer_name: data.fullName,
-        p_customer_email: data.email,
-        p_customer_phone: data.phone,
-        p_shipping_address: data.address,
-        p_shipping_city: data.city,
-        p_shipping_zip_code: data.zipCode,
-        p_total_amount: grandTotal,
-        p_items: orderItems as any,
-        p_user_id: user?.id || null
-      });
+    // Create WhatsApp link
+    const whatsappNumber = "212705658181";
+    const encodedMessage = encodeURIComponent(message);
+    const generatedWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-      if (error) {
-        console.error('Order creation error:', error);
-        // Check if it's a stock error
-        if (error.message.includes('Insufficient stock')) {
-          toast({
-            title: t('insufficient.stock'),
-            description: t('insufficient.stock.message'),
-            variant: "destructive",
-          });
-          return;
-        }
-        throw error;
-      }
-
-      // Order created successfully, now format WhatsApp message
-      const orderNumber = orderData?.[0]?.order_number || '';
-      const orderDate = new Date().toLocaleString(isRTL ? 'ar-MA' : 'fr-FR');
-      let message = `🛍️ *${t('profile.order.number').replace(' #', '')} ${orderNumber}*\n\n`;
-      message += `📅 ${t('profile.order.date')}: ${orderDate}\n\n`;
-      message += `👤 *${t('full.name')}:*\n`;
-      message += `${data.fullName}\n`;
-      message += `${t('email')}: ${data.email}\n`;
-      message += `${t('phone.number')}: ${data.phone}\n\n`;
-      message += `📍 *${t('address')}:*\n`;
-      message += `${data.address}\n`;
-      message += `${data.city}, ${data.zipCode}\n\n`;
-      message += `🛒 *${t('profile.order.items')}:*\n`;
-      
-      items.forEach((item, index) => {
-        message += `${index + 1}. ${item.name}\n`;
-        message += `   ${t('cart.price')}: ${item.price} MAD\n`;
-        message += `   ${t('cart.quantity')}: ${item.quantity}\n`;
-        message += `   ${t('subtotal')}: ${(item.price * item.quantity).toFixed(2)} MAD\n\n`;
-      });
-      
-      message += `📦 *${t('shipping')}: ${shippingCost} MAD*\n`;
-      message += `💰 *${t('total')}: ${grandTotal.toFixed(2)} MAD*\n`;
-
-      // Create WhatsApp link
-      const whatsappNumber = "212705658181";
-      const encodedMessage = encodeURIComponent(message);
-      const generatedWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-      // Store WhatsApp URL and order number for dialog
-      setWhatsappUrl(generatedWhatsappUrl);
-      setCurrentOrderNumber(orderNumber);
-      setWhatsappDialogOpen(true);
-
-    } catch (error: any) {
-      console.error("Error processing order:", error);
-      console.error("Error details:", {
-        message: error?.message,
-        details: error?.details,
-        hint: error?.hint,
-        code: error?.code
-      });
-      toast({
-        title: t('error'),
-        description: error?.message || t('error.order.message'),
-        variant: "destructive",
-      });
-    }
+    // Store WhatsApp URL and order number for dialog
+    setWhatsappUrl(generatedWhatsappUrl);
+    setCurrentOrderNumber(orderRef);
+    setWhatsappDialogOpen(true);
   };
 
   const handleWhatsAppDialogClose = () => {
