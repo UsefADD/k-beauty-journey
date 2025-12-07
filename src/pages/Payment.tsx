@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import WhatsAppOrderDialog from "@/components/WhatsAppOrderDialog";
 
 const shippingFormSchema = z.object({
   fullName: z.string().min(1, "Le nom complet est requis").max(100, "Le nom ne doit pas dépasser 100 caractères"),
@@ -257,6 +258,9 @@ const Payment = () => {
   const { user } = useAuth();
   const [showCitySelector, setShowCitySelector] = useState(false);
   const [selectedNearestCity, setSelectedNearestCity] = useState<string | null>(null);
+  const [whatsappDialogOpen, setWhatsappDialogOpen] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState('');
+  const [currentOrderNumber, setCurrentOrderNumber] = useState('');
   
   const form = useForm<ShippingFormValues>({
     resolver: zodResolver(shippingFormSchema),
@@ -362,23 +366,12 @@ const Payment = () => {
       // Create WhatsApp link
       const whatsappNumber = "212705658181";
       const encodedMessage = encodeURIComponent(message);
-      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+      const generatedWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-      // Open WhatsApp
-      window.open(whatsappUrl, '_blank');
-
-      toast({
-        title: t('order.created'),
-        description: `${t('order.created.message')} (${orderNumber})`,
-      });
-
-      // Clear cart
-      clearCart();
-      
-      // Navigate to home with confirmation state
-      setTimeout(() => {
-        navigate("/", { state: { orderConfirmed: true } });
-      }, 1500);
+      // Store WhatsApp URL and order number for dialog
+      setWhatsappUrl(generatedWhatsappUrl);
+      setCurrentOrderNumber(orderNumber);
+      setWhatsappDialogOpen(true);
 
     } catch (error: any) {
       console.error("Error processing order:", error);
@@ -394,6 +387,14 @@ const Payment = () => {
         variant: "destructive",
       });
     }
+  };
+
+  const handleWhatsAppDialogClose = () => {
+    setWhatsappDialogOpen(false);
+    // Clear cart after dialog closes
+    clearCart();
+    // Navigate to home with confirmation state
+    navigate("/", { state: { orderConfirmed: true } });
   };
 
   return (
@@ -591,6 +592,14 @@ const Payment = () => {
         </div>
       </div>
       <Footer />
+      
+      {/* WhatsApp Order Dialog */}
+      <WhatsAppOrderDialog
+        isOpen={whatsappDialogOpen}
+        onClose={handleWhatsAppDialogClose}
+        whatsappUrl={whatsappUrl}
+        orderNumber={currentOrderNumber}
+      />
     </div>
   );
 };

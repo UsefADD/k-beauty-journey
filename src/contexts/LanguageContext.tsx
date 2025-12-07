@@ -245,7 +245,20 @@ const enTranslations: Record<string, string> = {
   'order.status.confirmed': 'Confirmed',
   'order.status.shipped': 'Shipped',
   'order.status.delivered': 'Delivered',
-  'order.status.cancelled': 'Cancelled'
+  'order.status.cancelled': 'Cancelled',
+  
+  // WhatsApp Order Dialog
+  'whatsapp.dialog.title': 'Order Registered Successfully!',
+  'whatsapp.dialog.order.number': 'Order Number',
+  'whatsapp.step1.title': 'Click "Open WhatsApp"',
+  'whatsapp.step1.desc': 'WhatsApp will open with your order details pre-filled.',
+  'whatsapp.step2.title': 'Send the Message',
+  'whatsapp.step2.desc': 'Simply tap the send button in WhatsApp to confirm your order.',
+  'whatsapp.step3.title': 'Wait for Confirmation',
+  'whatsapp.step3.desc': 'We will contact you shortly to confirm your order and delivery.',
+  'whatsapp.important.notice': 'Important: Your order is only confirmed after sending the WhatsApp message!',
+  'whatsapp.open.button': 'Open WhatsApp',
+  'whatsapp.close.button': 'Close'
 };
 
 // French translations
@@ -482,7 +495,20 @@ const frTranslations: Record<string, string> = {
   'order.status.confirmed': 'Confirmée',
   'order.status.shipped': 'Expédiée',
   'order.status.delivered': 'Livrée',
-  'order.status.cancelled': 'Annulée'
+  'order.status.cancelled': 'Annulée',
+  
+  // WhatsApp Order Dialog
+  'whatsapp.dialog.title': 'Commande Enregistrée avec Succès !',
+  'whatsapp.dialog.order.number': 'Numéro de Commande',
+  'whatsapp.step1.title': 'Cliquez sur "Ouvrir WhatsApp"',
+  'whatsapp.step1.desc': 'WhatsApp s\'ouvrira avec les détails de votre commande pré-remplis.',
+  'whatsapp.step2.title': 'Envoyez le Message',
+  'whatsapp.step2.desc': 'Appuyez simplement sur le bouton envoyer dans WhatsApp pour confirmer votre commande.',
+  'whatsapp.step3.title': 'Attendez la Confirmation',
+  'whatsapp.step3.desc': 'Nous vous contacterons rapidement pour confirmer votre commande et la livraison.',
+  'whatsapp.important.notice': 'Important : Votre commande n\'est confirmée qu\'après l\'envoi du message WhatsApp !',
+  'whatsapp.open.button': 'Ouvrir WhatsApp',
+  'whatsapp.close.button': 'Fermer'
 };
 
 // Arabic translations
@@ -719,7 +745,20 @@ const arTranslations: Record<string, string> = {
   'order.status.confirmed': 'مؤكد',
   'order.status.shipped': 'تم الشحن',
   'order.status.delivered': 'تم التسليم',
-  'order.status.cancelled': 'ملغى'
+  'order.status.cancelled': 'ملغى',
+  
+  // WhatsApp Order Dialog
+  'whatsapp.dialog.title': 'تم تسجيل الطلب بنجاح!',
+  'whatsapp.dialog.order.number': 'رقم الطلب',
+  'whatsapp.step1.title': 'انقر على "فتح واتساب"',
+  'whatsapp.step1.desc': 'سيفتح واتساب مع تفاصيل طلبك مُعبأة مسبقاً.',
+  'whatsapp.step2.title': 'أرسل الرسالة',
+  'whatsapp.step2.desc': 'اضغط ببساطة على زر الإرسال في واتساب لتأكيد طلبك.',
+  'whatsapp.step3.title': 'انتظر التأكيد',
+  'whatsapp.step3.desc': 'سنتواصل معك قريباً لتأكيد طلبك والتوصيل.',
+  'whatsapp.important.notice': 'هام: لا يتم تأكيد طلبك إلا بعد إرسال رسالة الواتساب!',
+  'whatsapp.open.button': 'فتح واتساب',
+  'whatsapp.close.button': 'إغلاق'
 };
 
 interface LanguageProviderProps {
