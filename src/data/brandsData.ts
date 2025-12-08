@@ -27,15 +27,16 @@ export const fetchBrandsFromProducts = async (): Promise<Brand[]> => {
 
     if (error) throw error;
 
-    // Group products by brand
+    // Group products by brand (normalize brand names to avoid duplicates)
     const brandGroups = products?.reduce((acc, product) => {
       const brandNameRaw = (product.brand ?? '').toString();
-      const brandName = brandNameRaw.trim();
+      const brandName = brandNameRaw.trim().toUpperCase(); // Normalize to uppercase for grouping
+      const displayName = brandNameRaw.trim(); // Keep original for display
       if (!brandName) return acc; // skip products without a brand
       if (!acc[brandName]) {
-        acc[brandName] = [];
+        acc[brandName] = { displayName, products: [] };
       }
-      acc[brandName].push({
+      acc[brandName].products.push({
         id: product.id,
         name: product.Product_name,
         price: product.price,
@@ -46,16 +47,16 @@ export const fetchBrandsFromProducts = async (): Promise<Brand[]> => {
         volume: product.volume
       });
       return acc;
-    }, {} as Record<string, any[]>) || {};
+    }, {} as Record<string, { displayName: string; products: any[] }>) || {};
 
-    // Convert to Brand objects
-    const brands: Brand[] = Object.entries(brandGroups).map(([brandName, products]) => ({
-      id: brandName.toLowerCase().replace(/\s+/g, '-'),
-      name: brandName,
-      description: `Premium K-beauty products from ${brandName}`,
-      image: products[0]?.image_url || '/placeholder.svg',
-      productCount: products.length,
-      products
+    // Convert to Brand objects with unique IDs
+    const brands: Brand[] = Object.entries(brandGroups).map(([normalizedName, data], index) => ({
+      id: `brand-${index}-${normalizedName.toLowerCase().replace(/\s+/g, '-')}`,
+      name: data.displayName,
+      description: `Premium K-beauty products from ${data.displayName}`,
+      image: data.products[0]?.image_url || '/placeholder.svg',
+      productCount: data.products.length,
+      products: data.products
     }));
 
     return brands.sort((a, b) => a.name.localeCompare(b.name));
