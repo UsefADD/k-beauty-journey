@@ -53,7 +53,7 @@ const HeroSection = () => {
     if (currentSlide === slides.length - 1 && prevSlide === 0) return 'slide-right';
     return currentSlide > prevSlide ? 'slide-left' : 'slide-right';
   };
-  return <div className="relative w-full h-screen overflow-hidden bg-white -mt-20">
+  return <div className="relative w-full h-[100svh] overflow-hidden bg-white -mt-20">
       <div className="w-full h-full">
         {slides.map((slide, index) => (
           <div
@@ -62,11 +62,11 @@ const HeroSection = () => {
               index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
           >
-            <div className="relative w-full h-full flex items-center justify-center">
+            <div className="relative w-full h-full flex items-center justify-center p-4 md:p-0">
               <img
                 src={slide.src}
                 alt={slide.alt}
-                className="max-w-full max-h-full object-contain"
+                className="w-full h-auto md:max-w-full md:max-h-full object-contain md:object-contain"
                 loading={index === 0 ? "eager" : "lazy"}
               />
               {slide.title ? (
