@@ -14,6 +14,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [showResendConfirmation, setShowResendConfirmation] = useState(false);
@@ -71,6 +73,11 @@ const Auth = () => {
           password,
           options: {
             emailRedirectTo: window.location.origin,
+            data: {
+              first_name: firstName,
+              last_name: lastName,
+              full_name: `${firstName} ${lastName}`.trim(),
+            }
           }
         });
 
@@ -140,6 +147,35 @@ const Auth = () => {
           </h1>
           
           <form onSubmit={handleSubmit} className="space-y-4">
+            {!isLogin && (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="firstName">{t('auth.first.name')}</Label>
+                  <Input
+                    id="firstName"
+                    type="text"
+                    placeholder={t('auth.first.name.placeholder')}
+                    required={!isLogin}
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="border-black focus:border-gray-800"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="lastName">{t('auth.last.name')}</Label>
+                  <Input
+                    id="lastName"
+                    type="text"
+                    placeholder={t('auth.last.name.placeholder')}
+                    required={!isLogin}
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="border-black focus:border-gray-800"
+                  />
+                </div>
+              </div>
+            )}
+            
             <div className="space-y-2">
               <Label htmlFor="email">{t('auth.email')}</Label>
               <Input

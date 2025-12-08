@@ -217,6 +217,10 @@ const enTranslations: Record<string, string> = {
   'auth.resend.sending': 'Sending...',
   'auth.resend.success': 'Confirmation email sent! Please check your email and spam folder.',
   'auth.enter.email.first': 'Please enter your email address first',
+  'auth.first.name': 'First Name',
+  'auth.last.name': 'Last Name',
+  'auth.first.name.placeholder': 'John',
+  'auth.last.name.placeholder': 'Doe',
   
   // Profile Page
   'profile.title': 'Your Profile',
@@ -467,6 +471,10 @@ const frTranslations: Record<string, string> = {
   'auth.resend.sending': 'Envoi...',
   'auth.resend.success': 'Email de confirmation envoyé ! Vérifiez votre email et vos spams.',
   'auth.enter.email.first': 'Veuillez d\'abord entrer votre adresse email',
+  'auth.first.name': 'Prénom',
+  'auth.last.name': 'Nom',
+  'auth.first.name.placeholder': 'Jean',
+  'auth.last.name.placeholder': 'Dupont',
   
   // Profile Page
   'profile.title': 'Votre Profil',
@@ -717,6 +725,10 @@ const arTranslations: Record<string, string> = {
   'auth.resend.sending': 'جاري الإرسال...',
   'auth.resend.success': 'تم إرسال بريد التأكيد! تحقق من بريدك الإلكتروني.',
   'auth.enter.email.first': 'يرجى إدخال عنوان بريدك الإلكتروني أولاً',
+  'auth.first.name': 'الاسم الأول',
+  'auth.last.name': 'اسم العائلة',
+  'auth.first.name.placeholder': 'أحمد',
+  'auth.last.name.placeholder': 'محمد',
   
   // Profile Page
   'profile.title': 'ملفك الشخصي',
