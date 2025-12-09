@@ -391,7 +391,6 @@ export type Database = {
               p_shipping_city: string
               p_shipping_zip_code: string
               p_total_amount: number
-              p_user_id?: string
             }
             Returns: {
               order_id: string
@@ -408,6 +407,7 @@ export type Database = {
               p_shipping_city: string
               p_shipping_zip_code: string
               p_total_amount: number
+              p_user_id?: string
             }
             Returns: {
               order_id: string
